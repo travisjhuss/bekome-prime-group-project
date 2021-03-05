@@ -6,8 +6,8 @@
 
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
 CREATE TYPE "category_options" AS ENUM 
-('challenges', 'languages', 'qualities', 'format', 'age_range', 'gender', 
-'ethnicity', 'sexual_orientation', 'religion', 'location');
+('challenges', 'languages', 'qualities', 'format', 'age_range', 
+'gender', 'ethnicity', 'sexual_orientation', 'religion', 'treatments');
 
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
@@ -37,6 +37,7 @@ CREATE TABLE "providers" (
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
   "video" VARCHAR(255),
+  "location" VARCHAR(255),
   "date_of_birth" DATE,
   "pronouns" VARCHAR(100),
   "background" TEXT,
@@ -79,3 +80,11 @@ CREATE TABLE "providers_questions" (
   "questions_id" INT REFERENCES "questions",
   "answer" TEXT
 );
+
+INSERT INTO "questions" ("content")
+VALUES ('I became a therapist because...'),
+('My favorite hobbies are...'),
+('Something that differentiates me from other therapists is...'),
+('I can relate to childhoods/experiences/personal history including...'),
+('I am NOT a therapist who...'),
+('I have specialized training including...');
