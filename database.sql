@@ -1,4 +1,4 @@
--- Create database named 'bekome'
+-- Create a database named 'bekome'
 
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
 CREATE TYPE "category_options" AS ENUM 
@@ -38,7 +38,9 @@ CREATE TABLE "providers" (
   "pronouns" VARCHAR(100),
   "background" TEXT,
   "strengths" TEXT,
-  "approach" TEXT
+  "approach" TEXT,
+  "insurance" BOOLEAN,
+  "sliding_scale" BOOLEAN
 );
 
 CREATE TABLE "clients_providers_favs" (
