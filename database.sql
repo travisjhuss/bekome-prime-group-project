@@ -112,9 +112,9 @@ INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Woman', 'genders'),
 ('Man', 'genders'),
-('Transgenders', 'genders'),
+('Transgender', 'genders'),
 ('Non-binary', 'genders'),
-('Genders non-conforming', 'genders'),
+('Gender non-conforming', 'genders'),
 ('Intersex', 'genders'),
 ('Two Spirit', 'genders'),
 ('Prefer not to respond', 'genders');
