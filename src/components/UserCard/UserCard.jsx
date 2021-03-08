@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         maxWidth: 345,
     },
     media: {
-        height: 140,
+        height: 300,
     },
     button: {
         justifyContent: 'center'
@@ -51,17 +51,15 @@ function UserCard({provider, questions}) {
                 </Typography>
 
                 {provider.answers.map(answer => {
+                    // find method finds the question that the provider has an answer to
                     const questionObj = questions.find(element => element.id === answer.questions_id)
                     return (
-                        <Typography>
-                            {/* <b>{questions[0].content} </b> */}
-                            {/* <b>{questions.find(q => q.id === answer.questions_id)}</b> */}
+                        <Typography key={answer.questions_id}>
                             <b>{questionObj.content} </b>
                             {answer.answer}
                         </Typography>
                     )
                 })}
-
             </CardContent>
             <CardActions className={classes.button}>
                 <Button size="small" color="primary">
