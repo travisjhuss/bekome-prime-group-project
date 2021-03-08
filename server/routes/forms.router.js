@@ -97,4 +97,75 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+// POST route for adding new client data to DB
+router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
+    // Open the connection to our database
+    // connection replaces pool
+    const connection = await pool.connect();
+    // 
+    try {
+      // Start transaction
+      await connection.query('BEGIN;');
+      // Work for first query
+      // First sql query to insert new client into clients
+      const firstSqlText = `
+          INSERT INTO "providers" (
+              "providers_users_id", 
+              "first_name", 
+              "last_name", 
+              "pic", 
+              "video",
+              "location",
+              "date_of_birth", 
+              "pronouns", 
+              "background",
+              "strengths",
+              "approach",
+              "insurance",
+              "sliding_scale")
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      `;
+      await connection.query(firstSqlText, [
+        req.user.id,
+        req.body.first_name,
+        req.body.last_name,
+        req.body.pic,
+        req.body.video,
+        req.body.location,
+        req.body.date_of_birth,
+        req.body.pronouns, 
+        req.body.background,
+        req.body.strengths,
+        req.body.approach,
+        req.body.insurance,
+        req.body.sliding_scale
+      ]);
+      // Work for second query
+      // Take the preferences array and generate values for query
+      const preferenceValues = req.body.preferences
+          .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
+          .slice(0, -1); // Takes off last comma   
+      // Second sql query to insert preferences into clients_preferences 
+      const secondSqlText = `
+          INSERT INTO "providers_preferences" ("providers_users_id", "preferences_id")
+          VALUES ${preferenceValues};
+      `;
+      await connection.query(secondSqlText, [req.user.id, ...req.body.preferences])
+      // Work for third query
+      // Take the questions array and generate values for query
+      const questionValues = req.body.questions
+      // last action
+      await connection.query('COMMIT;') 
+      // send success status
+      res.sendStatus(201);
+    } catch (err) {
+      console.log('error in post /add_client:', err);
+      await connection.query('ROLLBACK;');
+      res.sendStatus(500);
+    } finally {
+      // hang up the phone
+      connection.release();
+    }
+  });
+
 module.exports = router;

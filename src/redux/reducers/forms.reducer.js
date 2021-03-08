@@ -73,8 +73,9 @@ const providerAnswers = (
           preferences: state.preferences.filter((index) => index !== id),
         };
       };
+    // will this work?? I dunno
     case 'SET_PROVIDER_QUESTIONS':
-        
+        return {...state, questions: [...state.questions, {question_id: action.payload.question_id, answer: action.payload.answer}]};
     default:
       return state;
   }
