@@ -22,11 +22,11 @@ function* fetchProviderQuestions() {
     try {
       // GET all preferences from DB to populate forms
       const response = yield axios.get('/api/forms/provider_questions');
-      console.log('fetchPreferences response.data', response.data);
+      console.log('fetchProviderQuestions response.data', response.data);
       // save in preferences reducer
-      yield put({ type: 'SET_PREFERENCES', payload: response.data });
+      yield put({ type: 'SET_PROVIDER_QUESTIONS', payload: response.data });
     } catch (err) {
-      console.log('error in fetchPreferences:', err);
+      console.log('error in fetchProviderQuestions:', err);
     }
   }
 
