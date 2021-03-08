@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   Box,
@@ -34,15 +35,22 @@ const useStyles = makeStyles((theme) => ({
     width: '12ch',
     margin: theme.spacing(0.5),
   },
+  preferencesChips: {
+    width: '24ch',
+    margin: theme.spacing(0.5),
+  },
 }));
 
 // Outer container that holds all form components
 function NewProfileContainer() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
   const user = useSelector((store) => store.user);
   const currentPage = Number(id);
+
+  useEffect(() => dispatch({ type: 'FETCH_PREFERENCES' }), []);
 
   return (
     <>

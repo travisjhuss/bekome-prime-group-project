@@ -17,21 +17,23 @@ const clientAnswers = (
   action
 ) => {
   switch (action.type) {
-    case 'SET_PERSONAL_DETAILS':
+    case 'SET_CLIENT_PERSONAL_DETAILS':
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_CLIENT_PREFERENCES':
-        const preferenceId = action.payload;
-        if (state.preferences.indexOf(preferenceId) === -1) {
-            return {
-                ...state,
-                preferences: [...state.preferences, id]
-            };
-        } else {
-            return {
-                ...state,
-                preferences: state.preferences.filter((index) => index !== id)
-            };
-        }
+      const preferenceId = action.payload;
+      if (state.preferences.indexOf(preferenceId) === -1) {
+        return {
+          ...state,
+          preferences: [...state.preferences, preferenceId],
+        };
+      } else {
+        return {
+          ...state,
+          preferences: state.preferences.filter(
+            (index) => index !== preferenceId
+          ),
+        };
+      }
     default:
       return state;
   }
