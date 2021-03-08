@@ -8,18 +8,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(4),
-  },
-  inputs: {
-    margin: theme.spacing(2),
-  },
-}));
-
-function ClientInfoForm() {
+function ClientInfoForm({ classes }) {
   const { id } = useParams();
-  const classes = useStyles();
   const currentPage = Number(id);
   const history = useHistory();
   const dispatch = useDispatch();

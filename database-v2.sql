@@ -1,20 +1,18 @@
--- Create a database named 'bekome'
-
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
 CREATE TYPE "category_options" AS ENUM 
 ('challenges', 'languages', 'qualities', 'formats', 'age_ranges', 
 'genders', 'ethnicities', 'sexual_orientations', 'religions', 'treatments');
 
 CREATE TABLE "users" (
-    "id" SERIAL PRIMARY KEY,
-    "email" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL,
-    "user_type" types
+  "id" SERIAL PRIMARY KEY,
+  "email" VARCHAR (80) UNIQUE NOT NULL,
+  "password" VARCHAR (1000) NOT NULL,
+  "user_type" types
 );
 
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
-  "users_id" INT REFERENCES "users",
+  "clients_users_id" INT REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
@@ -28,7 +26,7 @@ CREATE TABLE "clients" (
 
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
-  "users_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
@@ -45,8 +43,8 @@ CREATE TABLE "providers" (
 
 CREATE TABLE "clients_providers_favs" (
   "id" SERIAL PRIMARY KEY,
-  "clients_id" INT REFERENCES "users",
-  "providers_id" INT REFERENCES "users"
+  "clients_users_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users"
 );
 
 CREATE TABLE "preferences" (
@@ -57,13 +55,13 @@ CREATE TABLE "preferences" (
 
 CREATE TABLE "clients_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "clients_id" INT REFERENCES "users",
+  "clients_users_id" INT REFERENCES "users",
   "preferences_id" INT REFERENCES "preferences"
 );
 
 CREATE TABLE "providers_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "providers_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "preferences_id" INT REFERENCES "preferences"
 );
 
@@ -74,7 +72,7 @@ CREATE TABLE "questions" (
 
 CREATE TABLE "providers_questions" (
   "id" SERIAL PRIMARY KEY,
-  "providers_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "questions_id" INT REFERENCES "questions",
   "answer" TEXT
 );
@@ -228,3 +226,24 @@ VALUES
 ('Couples', 'formats'),
 ('In-Person', 'formats'),
 ('Remote', 'formats');
+
+INSERT INTO "providers" ("providers_users_id", "first_name", "last_name", "pic", "video", "location", "date_of_birth", 
+"pronouns", "background", "strengths", "approach", "insurance", "sliding_scale")
+VALUES
+(1, 'Shania', 'Lewis', 'https://i1.wp.com/360degrees.blog/wp-content/uploads/2018/09/iStock-843530298-1.jpg?fit=665%2C444&ssl=1', NULL, 'Minneapolis, MN', '1987-02-03', 'she/her', 'Licensed LMFT with four years experience.', 'Listening, problem solving, new ideas', 'I am assertive with my clients, but also validating and empathetic.', TRUE, FALSE),
+(2, 'Ben', 'Smith', 'https://www.bestcounselingdegrees.net/app/uploads/2020/07/GettyImages-1171809650.jpg', NULL, 'St. Paul, MN', '1964-02-12', 'he/him', 'Licensed grief and crisis counselor with a knack for finding personalized ways to help my clients.', 'Listening, empathy, mindfulness', 'I want to be there for my clients.', TRUE, TRUE);
+
+INSERT INTO "clients" ("clients_users_id", "first_name", "last_name", "pic", "date_of_birth", "pronouns",
+ "location", "primary_reason", "previous_therapy", "previous_experience")
+VALUES
+(3,'Tim', 'Miller', 'https://st4.depositphotos.com/12982378/22072/i/600/depositphotos_220729084-stock-photo-smiling-adult-man-crossed-arms.jpg', '1970-05-03', 'he/him', 'Minnetonka, MN', 'Finding inner peace.', TRUE, 'Group therapy.'),
+(4, 'Sarah', 'McMellan', 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80', '1986-12-02', 'she/her', 'St. Paul, MN', 'Help with dissociation and anxiety.', FALSE, NULL);
+
+CREATE TABLE "messaging" (
+"id" SERIAL PRIMARY KEY,
+"sender_id" INT REFERENCES "users",
+"recipient_id" INT REFERENCES "users",
+"author" VARCHAR(255),
+"message" TEXT
+);
+
