@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -58,13 +58,12 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/new-profile/:id"
           >
-            <InfoPage />
+            <NewProfileContainer />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
@@ -80,7 +79,6 @@ function App() {
           >
             <LoginPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/user"
