@@ -2,17 +2,23 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Stepper, Step, StepLabel } from '@material-ui/core';
 
+// Component imports
 import ClientInfoForm from '../ClientInfoForm/ClientInfoForm';
+import ProviderPreferencesForm from '../ProviderPreferencesForm/ProviderPreferencesForm';
+import TherapyPreferencesForm from '../TherapyPreferencesForm/TherapyPreferencesForm';
 
-const steps = [
+// Strings that display on the stepper
+const clientSteps = [
   'Client Information',
   'Therapy Preferences',
   'Provider Preferences',
 ];
 
+// Outer container that holds all form components
 function NewProfileContainer() {
-  const { page } = useParams();
+  const { id } = useParams();
   const user = useSelector((store) => store.user);
+  const currentPage = Number(id);
 
   return (
     <>
@@ -22,8 +28,15 @@ function NewProfileContainer() {
           Profile for {user.email}
         </Typography>
       </Box>
-      <Stepper activeStep={Number(page)}>
-        {steps.map((item, i) => (
+      {currentPage === 0 ? (
+        <ClientInfoForm />
+      ) : currentPage === 1 ? (
+        <TherapyPreferencesForm />
+      ) : (
+        <ProviderPreferencesForm />
+      )}
+      <Stepper activeStep={currentPage}>
+        {clientSteps.map((item, i) => (
           <Step key={i}>
             <StepLabel>{item}</StepLabel>
           </Step>
