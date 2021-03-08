@@ -59,7 +59,7 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/new-profile/:page"
+            path="/new-profile/:id"
           >
             <NewProfileContainer />
           </ProtectedRoute>
