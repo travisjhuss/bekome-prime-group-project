@@ -68,7 +68,7 @@ const providerAnswers = (state = {}, action) => {
 };
 
 // these will be on the redux state at:
-// state.forms.preferences & state.forms.clientAnswers & state.forms.providerAnswers
+// state.forms.preferences & state.forms.providerQuestions & state.forms.clientAnswers & state.forms.providerAnswers
 export default combineReducers({
   preferences,
   providerQuestions,
