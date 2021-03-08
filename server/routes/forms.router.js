@@ -88,7 +88,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     // send success status
     res.sendStatus(201);
   } catch (err) {
-    console.log('error in post /add_client:', error);
+    console.log('error in post /add_client:', err);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
