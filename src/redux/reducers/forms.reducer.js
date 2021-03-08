@@ -1,25 +1,5 @@
 import { combineReducers } from 'redux';
 
-// Holds preference options for populating form
-const preferences = (state = [], action) => {
-  switch (action.type) {
-    case 'SET_PREFERENCES':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-//  Holds provider questions for populating form
-const providerQuestions = (state = [], action) => {
-  switch (action.type) {
-    case 'SET_PROVIDER_QUESTIONS':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
 // Holds clients answers as they step through form
 const clientAnswers = (
   state = {
@@ -68,10 +48,8 @@ const providerAnswers = (state = {}, action) => {
 };
 
 // these will be on the redux state at:
-// state.forms.preferences & state.forms.providerQuestions & state.forms.clientAnswers & state.forms.providerAnswers
+// state.forms.clientAnswers & state.forms.providerAnswers
 export default combineReducers({
-  preferences,
-  providerQuestions,
   clientAnswers,
   providerAnswers,
 });
