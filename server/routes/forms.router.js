@@ -49,16 +49,16 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     // First sql query to insert new client into clients
     const firstSqlText = `
         INSERT INTO "clients" (
-            'users_id', 
-            'first_name', 
-            'last_name', 
-            'pic', 
-            'date_of_birth', 
-            'pronouns', 
-            'location', 
-            'primary_reason', 
-            'previous_therapy', 
-            'previous_experience')
+            "clients_users_id", 
+            "first_name", 
+            "last_name", 
+            "pic", 
+            "date_of_birth", 
+            "pronouns", 
+            "location", 
+            "primary_reason", 
+            "previous_therapy", 
+            "previous_experience")
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     `;
     await connection.query(firstSqlText, [
@@ -79,7 +79,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
         .slice(0, -1); // Takes off last comma   
     // Second sql query to insert preferences into clients_preferences 
     const secondSqlText = `
-        INSERT INTO "clients_preferences" ("clients_id", "providers_id")
+        INSERT INTO "clients_preferences" ("clients_users_id", "preferences_id")
         VALUES ${preferenceValues};
     `;
     await connection.query(secondSqlText, [req.user.id, ...req.body.preferences])
