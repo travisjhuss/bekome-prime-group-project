@@ -22,43 +22,46 @@ const useStyles = makeStyles({
     }
   });
 
-function UserCard() {
+function UserCard({provider, questions}) {
     const classes = useStyles()
 
     return (
         <Card className={classes.root}>
             <CardMedia
             className={classes.media}
-            image="https://i0.wp.com/post.healthline.com/wp-content/uploads/2019/10/Female_Therapist_1296x728-header-1-1296x728.jpg?w=1155&h=1528"
+            image={provider.pic}
             />
             <CardContent>
                 <Typography
                 variant="h5"
                 >
-                    Janet Olveira
+                    {provider.first_name + ' ' + provider.last_name}
                 </Typography>
 
                 <Typography>
-                    She / Her
+                    {provider.pronouns}
                 </Typography>
 
                 <Typography>
-                    St Paul, MN
+                    {provider.location}
                 </Typography>
 
                 <Typography>
-                    English, Spanish
+                    {provider.languages}
                 </Typography>
 
-                <Typography>
-                <b>Three words my clients would use to describe me: </b>Action. Empathetic. Friend.
-                </Typography>
-                <Typography>
-                <b>I resonate with and can help clients who: </b>grew up in small towns with big families, struggle with self-esteem and identiy
-                </Typography>
-                <Typography>
-                <b>A quote that encompasses my approach as a therapist is: </b>‘Mental health is not a destination, but a process; it’s about how you drive, not where you’re going.”
-                </Typography>
+                {provider.answers.map(answer => {
+                    const questionObj = questions.find(element => element.id === answer.questions_id)
+                    return (
+                        <Typography>
+                            {/* <b>{questions[0].content} </b> */}
+                            {/* <b>{questions.find(q => q.id === answer.questions_id)}</b> */}
+                            <b>{questionObj.content} </b>
+                            {answer.answer}
+                        </Typography>
+                    )
+                })}
+
             </CardContent>
             <CardActions className={classes.button}>
                 <Button size="small" color="primary">
