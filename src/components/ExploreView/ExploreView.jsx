@@ -1,6 +1,17 @@
+import UserCard from '../UserCard/UserCard'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
 function ExploreView () {
     return (
-        <p>You made it to Explore View</p>
+        <div>
+            <Grid>
+                <UserCard />
+                <UserCard />
+            </Grid>
+            <p>You made it to Explore View</p>
+        </div>
     )
 }
 
