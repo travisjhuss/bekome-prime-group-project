@@ -11,13 +11,13 @@ const preferences = (state = [], action) => {
 };
 
 const providerQuestions = (state = [], action) => {
-    switch (action.type) {
-      case 'SET_PROVIDER_QUESTIONS':
-        return action.payload;
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case 'SET_PROVIDER_QUESTIONS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
 // registrationMessage holds the string that will display
 // on the registration screen if there's an error
@@ -31,13 +31,13 @@ const clientAnswers = (state = {}, action) => {
 };
 
 const providerAnswers = (state = {}, action) => {
-    switch (action.type) {
-      case '':
-        return '';
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case '':
+      return '';
+    default:
+      return state;
+  }
+};
 
 // these will be on the redux state at:
 // state.forms.preferences & state.forms.clientAnswers & state.forms.providerAnswers
@@ -45,5 +45,5 @@ export default combineReducers({
   preferences,
   providerQuestions,
   clientAnswers,
-  providerAnswers
+  providerAnswers,
 });
