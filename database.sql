@@ -12,6 +12,7 @@ CREATE TABLE "users" (
   "user_type" types
 );
 
+-- add 'UNIQUE' to clients_users_id!
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
   "clients_users_id" INT REFERENCES "users",
@@ -26,6 +27,7 @@ CREATE TABLE "clients" (
   "previous_experience" TEXT
 );
 
+-- add 'UNIQUE' to providers_users_id!
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
   "providers_users_id" INT REFERENCES "users",

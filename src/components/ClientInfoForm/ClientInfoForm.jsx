@@ -1,17 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
 import {
   Paper,
   Typography,
   TextField,
-  Button,
-  makeStyles,
 } from '@material-ui/core';
 
 function ClientInfoForm({ classes }) {
-  const { id } = useParams();
-  const currentPage = Number(id);
-  const history = useHistory();
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
@@ -66,13 +60,6 @@ function ClientInfoForm({ classes }) {
         value={clientAnswers.location || ''}
         onChange={handleInputChange('location')}
       />
-      <Button
-        onClick={() => history.push(`/new-profile/${currentPage + 1}`)}
-        variant="contained"
-        color="primary"
-      >
-        Next
-      </Button>
     </Paper>
   );
 }

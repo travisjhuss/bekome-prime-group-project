@@ -1,6 +1,14 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { Box, Typography, Stepper, Step, StepLabel, makeStyles } from '@material-ui/core';
+import { useParams, useHistory } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  Stepper,
+  Step,
+  StepLabel,
+  makeStyles,
+  Button,
+} from '@material-ui/core';
 
 // Component imports
 import ClientInfoForm from '../ClientInfoForm/ClientInfoForm';
@@ -22,10 +30,15 @@ const useStyles = makeStyles((theme) => ({
   inputs: {
     margin: theme.spacing(2),
   },
+  chips: {
+    width: '12ch',
+    margin: theme.spacing(0.5),
+  },
 }));
 
 // Outer container that holds all form components
 function NewProfileContainer() {
+  const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
   const user = useSelector((store) => store.user);
@@ -46,6 +59,13 @@ function NewProfileContainer() {
       ) : (
         <ProviderPreferencesForm classes={classes} />
       )}
+      <Button
+        onClick={() => history.push(`/new_profile/${currentPage + 1}`)}
+        variant="contained"
+        color="primary"
+      >
+        Next
+      </Button>
       <Stepper activeStep={currentPage}>
         {clientSteps.map((item, i) => (
           <Step key={i}>
