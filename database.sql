@@ -6,15 +6,15 @@ CREATE TYPE "category_options" AS ENUM
 'genders', 'ethnicities', 'sexual_orientations', 'religions', 'treatments');
 
 CREATE TABLE "users" (
-    "id" SERIAL PRIMARY KEY,
-    "email" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL,
-    "user_type" types
+  "id" SERIAL PRIMARY KEY,
+  "email" VARCHAR (80) UNIQUE NOT NULL,
+  "password" VARCHAR (1000) NOT NULL,
+  "user_type" types
 );
 
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
-  "users_id" INT REFERENCES "users",
+  "clients_users_id" INT REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
@@ -28,7 +28,7 @@ CREATE TABLE "clients" (
 
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
-  "users_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
@@ -45,8 +45,8 @@ CREATE TABLE "providers" (
 
 CREATE TABLE "clients_providers_favs" (
   "id" SERIAL PRIMARY KEY,
-  "clients_id" INT REFERENCES "users",
-  "providers_id" INT REFERENCES "users"
+  "clients_users_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users"
 );
 
 CREATE TABLE "preferences" (
@@ -57,13 +57,13 @@ CREATE TABLE "preferences" (
 
 CREATE TABLE "clients_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "clients_id" INT REFERENCES "users",
+  "clients_users_id" INT REFERENCES "users",
   "preferences_id" INT REFERENCES "preferences"
 );
 
 CREATE TABLE "providers_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "providers_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "preferences_id" INT REFERENCES "preferences"
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE "questions" (
 
 CREATE TABLE "providers_questions" (
   "id" SERIAL PRIMARY KEY,
-  "providers_id" INT REFERENCES "users",
+  "providers_users_id" INT REFERENCES "users",
   "questions_id" INT REFERENCES "questions",
   "answer" TEXT
 );
