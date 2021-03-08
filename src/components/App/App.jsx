@@ -19,6 +19,8 @@ import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ExploreView from '../ExploreView/ExploreView';
+
 import './App.css';
 
 function App() {
@@ -97,6 +99,17 @@ function App() {
             authRedirect="/user"
           >
             <LandingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows ExploreView at "/explore"
+            exact
+            path="/explore"
+            // authRedirect="/user"
+          >
+            <ExploreView />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
