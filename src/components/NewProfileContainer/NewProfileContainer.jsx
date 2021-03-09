@@ -13,13 +13,17 @@ import {
 
 // Component imports
 import ClientInfoForm from '../ClientInfoForm/ClientInfoForm';
-import ProviderPreferencesForm from '../ProviderPreferencesForm/ProviderPreferencesForm';
+import ProviderQualitiesForm from '../ProviderQualitiesForm/ProviderQualitiesForm';
+import ReasonsForm from '../ReasonsForm/ReasonsForm';
 import TherapyPreferencesForm from '../TherapyPreferencesForm/TherapyPreferencesForm';
+import ProviderPreferencesForm from '../ProviderPreferencesForm/ProviderPreferencesForm';
 
 // Strings that display on the stepper
 const clientSteps = [
   'Client Information',
+  'Reasons for Seeking Therapy',
   'Therapy Preferences',
+  'Provider Qualities',
   'Provider Preferences',
 ];
 
@@ -63,7 +67,11 @@ function NewProfileContainer() {
       {currentPage === 0 ? (
         <ClientInfoForm classes={classes} />
       ) : currentPage === 1 ? (
+        <ReasonsForm classes={classes} />
+      ) : currentPage === 2 ? (
         <TherapyPreferencesForm classes={classes} />
+      ) : currentPage === 3 ? (
+        <ProviderQualitiesForm classes={classes} />
       ) : (
         <ProviderPreferencesForm classes={classes} />
       )}

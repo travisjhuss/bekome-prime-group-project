@@ -42,7 +42,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
   // connection replaces pool
   const connection = await pool.connect();
-  // 
+  //
   try {
     // Start transaction
     await connection.query('BEGIN;');
@@ -54,7 +54,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
             "last_name", 
             "pic", 
             "date_of_birth", 
-            "pronouns", 
+            "write_in_pronouns", 
             "location", 
             "primary_reason", 
             "previous_therapy", 
@@ -67,7 +67,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.last_name,
       req.body.pic,
       req.body.date_of_birth,
-      req.body.pronouns,
+      req.body.write_in_pronouns,
       req.body.location,
       req.body.primary_reason,
       req.body.previous_therapy,
@@ -75,16 +75,19 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     ]);
     // Take the preferences array and generate values for query
     const preferenceValues = req.body.preferences
-        .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
-        .slice(0, -1); // Takes off last comma   
-    // Second sql query to insert preferences into clients_preferences 
+      .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
+      .slice(0, -1); // Takes off last comma
+    // Second sql query to insert preferences into clients_preferences
     const secondSqlText = `
         INSERT INTO "clients_preferences" ("clients_users_id", "preferences_id")
         VALUES ${preferenceValues};
     `;
-    await connection.query(secondSqlText, [req.user.id, ...req.body.preferences])
+    await connection.query(secondSqlText, [
+      req.user.id,
+      ...req.body.preferences,
+    ]);
     // last action
-    await connection.query('COMMIT;') 
+    await connection.query('COMMIT;');
     // send success status
     res.sendStatus(201);
   } catch (err) {

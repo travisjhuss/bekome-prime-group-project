@@ -1,9 +1,7 @@
--- Create a database named 'bekome'
-
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
 CREATE TYPE "category_options" AS ENUM 
 ('challenges', 'languages', 'qualities', 'formats', 'age_ranges', 
-'genders', 'ethnicities', 'sexual_orientations', 'religions', 'treatments');
+'genders', 'ethnicities', 'sexual_orientations', 'religions', 'treatments', 'pronouns');
 
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
@@ -12,32 +10,30 @@ CREATE TABLE "users" (
   "user_type" types
 );
 
--- add 'UNIQUE' to clients_users_id!
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
-  "clients_users_id" INT REFERENCES "users",
+  "clients_users_id" INT UNIQUE REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
   "date_of_birth" DATE,
-  "pronouns" VARCHAR(100),
+  "write_in_pronouns" VARCHAR(100),
   "location" VARCHAR(255),
   "primary_reason" TEXT,
   "previous_therapy" BOOLEAN,
   "previous_experience" TEXT
 );
 
--- add 'UNIQUE' to providers_users_id!
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
-  "providers_users_id" INT REFERENCES "users",
+  "providers_users_id" INT UNIQUE REFERENCES "users",
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "pic" VARCHAR(255),
   "video" VARCHAR(255),
   "location" VARCHAR(255),
   "date_of_birth" DATE,
-  "pronouns" VARCHAR(100),
+  "write_in_pronouns" VARCHAR(100),
   "background" TEXT,
   "strengths" TEXT,
   "approach" TEXT,
@@ -206,12 +202,22 @@ VALUES
 
 INSERT INTO "preferences" ("name", "category")
 VALUES
-('Under 25', 'age_ranges'),
-('25-34', 'age_ranges'),
-('35-44', 'age_ranges'),
-('45-54', 'age_ranges'),
-('55-64', 'age_ranges'),
-('Over 65', 'age_ranges');
+('24-30', 'age_ranges'),
+('31-40', 'age_ranges'),
+('41-50', 'age_ranges'),
+('51-60', 'age_ranges'),
+('Over 60', 'age_ranges');
+
+INSERT INTO "preferences" ("name", "category")
+VALUES
+('Empathy', 'qualities'),
+('Warmth', 'qualities'),
+('Critical thinking', 'qualities'),
+('Experience', 'qualities'),
+('Intuition', 'qualities'),
+('Elite/specialized training', 'qualities'),
+('Cultural competence', 'qualities'),
+('Challenges patients', 'qualities');
 
 INSERT INTO "preferences" ("name", "category")
 VALUES
@@ -219,3 +225,9 @@ VALUES
 ('Couples', 'formats'),
 ('In-Person', 'formats'),
 ('Remote', 'formats');
+
+INSERT INTO "preferences" ("name", "category")
+VALUES
+('she/her', 'pronouns'),
+('he/him', 'pronouns'),
+('they/them', 'pronouns');

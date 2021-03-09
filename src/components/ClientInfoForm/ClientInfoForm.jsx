@@ -1,24 +1,15 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
   Typography,
   TextField,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
 } from '@material-ui/core';
 
-// Component imports
-import FormPreferencesChips from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 
 function ClientInfoForm({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-  const sexualOrientations = useSelector((store) => store.preferences).filter(
-    (item) => item.category === 'sexual_orientations'
-  );
 
   const handleInputs = (key) => (event) => {
     dispatch({
@@ -43,12 +34,14 @@ function ClientInfoForm({ classes }) {
         value={clientAnswers.last_name || ''}
         onChange={handleInputs('last_name')}
       />
+      <Typography>What pronouns do you use? (select all that apply)</Typography>
+      <FormPreferencesChecks category={'pronouns'} />
       <TextField
         variant="outlined"
-        label="Pronouns"
+        label="Other"
         className={classes.inputs}
-        value={clientAnswers.pronouns || ''}
-        onChange={handleInputs('pronouns')}
+        value={clientAnswers.write_in_pronouns || ''}
+        onChange={handleInputs('write_in_pronouns')}
       />
       <TextField
         variant="outlined"
@@ -57,26 +50,6 @@ function ClientInfoForm({ classes }) {
         value={clientAnswers.pic || ''}
         onChange={handleInputs('pic')}
       />
-      <Typography>Gender: (select all that apply)</Typography>
-      <FormPreferencesChips category={'genders'} />
-      <Typography>Sexual Orientation:</Typography>
-      <FormControl>
-        <RadioGroup
-          value={clientAnswers.sexual_orientation}
-          onChange={handleInputs('sexual_orientation')}
-        >
-          {sexualOrientations.map((item) => (
-            <FormControlLabel
-              key={item.id}
-              value={item.id}
-              control={
-                <Radio checked={clientAnswers.sexual_orientation == item.id} />
-              }
-              label={item.name}
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
       <TextField
         variant="outlined"
         label="Date of Birth"

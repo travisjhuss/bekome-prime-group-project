@@ -7,12 +7,13 @@ const clientAnswers = (
     last_name: '',
     pic: '',
     date_of_birth: '',
-    pronouns: '',
-    sexual_orientation: '',
+    write_in_pronouns: '',
     location: '',
     primary_reason: '',
     previous_therapy: false,
     previous_experience: '',
+    insurance: false,
+    sliding_scale: false,
     preferences: [],
   },
   action
@@ -35,6 +36,8 @@ const clientAnswers = (
           ),
         };
       }
+    case 'SET_INSURANCE_SLIDING_SCALE':
+      return { ...state, [action.payload]: !state[action.payload] };
     default:
       return state;
   }
