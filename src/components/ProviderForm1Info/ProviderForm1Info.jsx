@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography } from '@material-ui/core';
 
 // Component imports
-import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormPreferencesChecks from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
 
 function ProviderForm1Info({ classes, handleInputs }) {

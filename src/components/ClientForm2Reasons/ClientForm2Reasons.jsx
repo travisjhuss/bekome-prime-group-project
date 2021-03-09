@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Paper, Typography, TextField } from '@material-ui/core';
 
 // Component imports
-import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 
 function ClientForm2Reasons({ classes, handleInputs }) {
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
@@ -20,7 +20,7 @@ function ClientForm2Reasons({ classes, handleInputs }) {
         onChange={handleInputs('primary_reason')}
       />
       <Typography>What are you struggling with?</Typography>
-      <FormPreferencesChecks category={'challenges'} />
+      <FormCheckboxes category={'challenges'} />
     </Paper>
   );
 }

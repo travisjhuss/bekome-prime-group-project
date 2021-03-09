@@ -1,7 +1,8 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Paper, Typography, TextField } from '@material-ui/core';
 
-import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+// Component imports
+import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 
 function ClientForm1Info({ classes, handleInputs }) {
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
@@ -23,7 +24,7 @@ function ClientForm1Info({ classes, handleInputs }) {
         onChange={handleInputs('last_name')}
       />
       <Typography>What pronouns do you use? (select all that apply)</Typography>
-      <FormPreferencesChecks category={'pronouns'} />
+      <FormCheckboxes category={'pronouns'} />
       <TextField
         variant="outlined"
         label="Other"

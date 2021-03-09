@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Chip, TextField, Paper } from '@material-ui/core';
 
-import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 
 function ClientForm3TherapyPreferences({ classes, handleInputs }) {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function ClientForm3TherapyPreferences({ classes, handleInputs }) {
         onChange={handleInputs('previous_experience')}
       />
       <Typography>What kind of treatments are you interested in?</Typography>
-      <FormPreferencesChecks category={'treatments'} limit={3} />
+      <FormCheckboxes category={'treatments'} limit={3} />
     </Paper>
   );
 }
