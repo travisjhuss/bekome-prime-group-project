@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Paper, Switch, FormControlLabel } from '@material-ui/core';
 
-import FormsPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
-import FormsMenuChips from '../FormsMenuChips/FormsMenuChips';
+import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormMenuChips from '../FormMenuChips/FormMenuChips';
 
 function ClientForm5ProviderPreferences({ classes }) {
   const dispatch = useDispatch();
@@ -40,13 +40,13 @@ function ClientForm5ProviderPreferences({ classes }) {
         label="Has sliding scale payments"
       />
       <Typography>My ideal therapist would be:</Typography>
-      <FormsPreferencesChecks category={'genders'} />
-      <FormsPreferencesChecks category={'sexual_orientations'} />
-      <FormsPreferencesChecks category={'ethnicities'} />
+      <FormPreferencesChecks category={'genders'} />
+      <FormPreferencesChecks category={'sexual_orientations'} />
+      <FormPreferencesChecks category={'ethnicities'} />
       <Typography>My therapist should speak:</Typography>
-      <FormsMenuChips category={'languages'} string={'Languages'} />
+      <FormMenuChips category={'languages'} string={'Languages'} />
       <Typography>My therapist's ideal religion would be:</Typography>
-      <FormsMenuChips category={'religions'} string={'Religions'} />
+      <FormMenuChips category={'religions'} string={'Religions'} />
     </Paper>
   );
 }

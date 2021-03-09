@@ -3,16 +3,9 @@ import { Typography, Chip, TextField, Paper } from '@material-ui/core';
 
 import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 
-function ClientForm3TherapyPreferences({ classes }) {
+function ClientForm3TherapyPreferences({ classes, handleInputs }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-
-  const handleTextInputs = (key) => (event) => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key, value: event.target.value },
-    });
-  };
 
   const handleBoolean = (boolean) => {
     dispatch({
@@ -44,7 +37,7 @@ function ClientForm3TherapyPreferences({ classes }) {
         multiline
         rows={8}
         value={clientAnswers.previous_experience || ''}
-        onChange={handleTextInputs('previous_experience')}
+        onChange={handleInputs('previous_experience')}
       />
       <Typography>What kind of treatments are you interested in?</Typography>
       <FormPreferencesChecks category={'treatments'} limit={3} />
