@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box, Chip, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  chips: {
+    width: '18ch',
+    margin: theme.spacing(0.5),
+  },
+}));
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
+  const classes = useStyles();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [type, setType] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-
     dispatch({
       type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-      },
+      payload: { username: email, password, user_type: type },
     });
-  }; // end registerUser
+  };
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
@@ -29,13 +35,13 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Email Address:
           <input
             type="text"
             name="username"
-            value={username}
+            value={email}
             required
-            onChange={(event) => setUsername(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </label>
       </div>
@@ -51,6 +57,20 @@ function RegisterForm() {
           />
         </label>
       </div>
+      <Box>
+        <Chip
+          className={classes.chips}
+          onClick={() => setType('client')}
+          label="I am a client."
+          color={type === 'client' ? 'primary' : 'default'}
+        />
+        <Chip
+          className={classes.chips}
+          onClick={() => setType('provider')}
+          label="I am a provider."
+          color={type === 'provider' ? 'primary' : 'default'}
+        />
+      </Box>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>
