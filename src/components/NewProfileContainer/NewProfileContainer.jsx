@@ -68,6 +68,14 @@ function NewProfileContainer() {
         <ProviderPreferencesForm classes={classes} />
       )}
       <Button
+        disabled={currentPage === 0}
+        onClick={() => history.push(`/new_profile/${currentPage - 1}`)}
+        variant="contained"
+        color="default"
+      >
+        Back
+      </Button>
+      <Button
         onClick={() => history.push(`/new_profile/${currentPage + 1}`)}
         variant="contained"
         color="primary"

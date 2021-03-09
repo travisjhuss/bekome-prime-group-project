@@ -3,11 +3,13 @@ import {
   Paper,
   Typography,
   TextField,
-  Button,
   Chip,
   Grid,
   Box,
 } from '@material-ui/core';
+
+// Component imports
+import FormPreferencesChips from '../FormPreferencesChecks/FormPreferencesChecks';
 
 function TherapyPreferences({ classes }) {
   const dispatch = useDispatch();
@@ -28,13 +30,25 @@ function TherapyPreferences({ classes }) {
     });
   };
 
-  const handlePreferences = (id) => {
-    dispatch({ type: 'SET_CLIENT_PREFERENCES', payload: id });
-  };
-
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <Typography>
+            What is your primary reason for seeking therapy?
+          </Typography>
+          <TextField
+            variant="outlined"
+            label="Answer here"
+            multiline
+            rows={8}
+            className={classes.inputs}
+            value={clientAnswers.primary_reason || ''}
+            onChange={handleTextInputs('primary_reason')}
+          />
+          <Typography>What are you struggling with?</Typography>
+          <FormPreferencesChips category={'challenges'} />
+        </Grid>
         <Grid item xs={6}>
           <Typography>Have you seen a therapist before?</Typography>
           <Chip
@@ -58,28 +72,13 @@ function TherapyPreferences({ classes }) {
             variant="outlined"
             multiline
             rows={8}
-            value={clientAnswers.previous_experience}
-            onChange={handleTextInputs}
+            value={clientAnswers.previous_experience || ''}
+            onChange={handleTextInputs('previous_experience')}
           />
-        </Grid>
-        <Grid item xs={6}>
           <Typography>
             What kind of treatments are you interested in?
           </Typography>
-          <Box>
-            {preferences.map((item) => {
-              if (item.category === 'treatments') {
-                return (
-                  <Chip
-                    key={item.id}
-                    className={classes.preferencesChips}
-                    label={item.name}
-                    onClick={() => handlePreferences(item.id)}
-                  />
-                );
-              }
-            })}
-          </Box>
+          <FormPreferencesChips category={'treatments'} />
         </Grid>
       </Grid>
     </Paper>

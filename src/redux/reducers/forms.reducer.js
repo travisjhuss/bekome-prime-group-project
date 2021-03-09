@@ -8,6 +8,7 @@ const clientAnswers = (
     pic: '',
     date_of_birth: '',
     pronouns: '',
+    sexual_orientation: '',
     location: '',
     primary_reason: '',
     previous_therapy: false,
