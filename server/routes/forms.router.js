@@ -41,8 +41,8 @@ router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
   // connection replaces pool
+
   const connection = await pool.connect();
-  //
   try {
     // Start transaction
     await connection.query('BEGIN;');
@@ -77,6 +77,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.insurance,
       req.body.sliding_scale,
     ]);
+    
     // Take the preferences array and generate values for query
     const preferenceValues = req.body.preferences
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')

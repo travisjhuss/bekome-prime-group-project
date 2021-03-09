@@ -39,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
     width: '12ch',
     margin: theme.spacing(0.5),
   },
-  preferencesChips: {
-    width: '24ch',
-    margin: theme.spacing(0.5),
-  },
 }));
 
 // Outer container that holds all form components

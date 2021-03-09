@@ -22,7 +22,7 @@ function FormPreferencesChecks({ category, limit }) {
 
   const showError =
     filteredPreferences.filter(
-      (item) => answers.preferences.indexOf(item.id) > -1
+      (item) => answers.preferences?.indexOf(item.id) > -1
     ).length > limit;
 
   return (

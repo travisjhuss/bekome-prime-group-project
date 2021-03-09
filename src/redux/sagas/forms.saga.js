@@ -33,8 +33,8 @@ function* fetchProviderQuestions() {
 
 function* addNewClient(action) {
   try {
-      console.log('in addNewClient with payload:', action.payload);
-      yield axios.post('/api/forms/add_client', action.payload);
+    console.log('in addNewClient with payload:', action.payload);
+    yield axios.post('/api/forms/add_client', action.payload);
   } catch (err) {
     console.log('error in addNewClient:', err);
   }

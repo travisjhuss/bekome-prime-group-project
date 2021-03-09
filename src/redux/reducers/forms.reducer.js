@@ -38,6 +38,8 @@ const clientAnswers = (
       }
     case 'SET_INSURANCE_SLIDING_SCALE':
       return { ...state, [action.payload]: !state[action.payload] };
+    case 'CLEAR_CLIENT_ANSWERS':
+      return {};
     default:
       return state;
   }
