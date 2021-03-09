@@ -58,8 +58,10 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
             "location", 
             "primary_reason", 
             "previous_therapy", 
-            "previous_experience")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            "previous_experience",
+            "insurance",
+            "sliding_scale"
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     `;
     await connection.query(firstSqlText, [
       req.user.id,
@@ -72,6 +74,8 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.primary_reason,
       req.body.previous_therapy,
       req.body.previous_experience,
+      req.body.insurance,
+      req.body.sliding_scale,
     ]);
     // Take the preferences array and generate values for query
     const preferenceValues = req.body.preferences

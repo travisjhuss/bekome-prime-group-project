@@ -52,15 +52,29 @@ function NewProfileContainer() {
   const classes = useStyles();
   const { id } = useParams();
   const user = useSelector((store) => store.user);
+  const forms = useSelector((store) => store.forms);
   const currentPage = Number(id);
 
   useEffect(() => dispatch({ type: 'FETCH_PREFERENCES' }), []);
+
+  const handleNextButton = () => {
+    currentPage === 4
+      ? handleSubmit()
+      : history.push(`/new_profile/${currentPage + 1}`);
+  };
+
+  const handleSubmit = () => {
+    user.user_type === 'client'
+      ? dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers })
+      : dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
+    history.push('/explore');
+  };
 
   return (
     <>
       <Box p={3}>
         <Typography>
-          Create new {user.user_type == 'client' ? 'Client' : 'Provider'}{' '}
+          Create new {user.user_type == 'client' ? 'Client' : 'Provider'}
           Profile for {user.email}
         </Typography>
       </Box>
@@ -83,12 +97,8 @@ function NewProfileContainer() {
       >
         Back
       </Button>
-      <Button
-        onClick={() => history.push(`/new_profile/${currentPage + 1}`)}
-        variant="contained"
-        color="primary"
-      >
-        Next
+      <Button onClick={handleNextButton} variant="contained" color="primary">
+        {currentPage === 4 ? 'Submit' : 'Next'}
       </Button>
       <Stepper activeStep={currentPage}>
         {clientSteps.map((item, i) => (
