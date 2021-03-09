@@ -1,9 +1,11 @@
 import UserCard from '../UserCard/UserCard'
-
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-// test comment
+
+
 
 const providers =
 [
@@ -51,6 +53,14 @@ const questions =
 
 
 function ExploreView () {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: "GET_PROVIDERS" });
+      }, []);
+
+
     return (
         <div>
             <Grid>
