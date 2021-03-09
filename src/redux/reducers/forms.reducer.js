@@ -77,41 +77,28 @@ export const providerAnswers = (
           ),
         };
       }
-    // will this work?? I dunno
     case 'SET_PROVIDER_QUESTIONS':
       if (state.questions.length !== 0) {
         for (let i = 0; i < state.questions.length; i++) {
           if (
-            Number(state.questions[i].question_id) ===
-            Number(action.payload.question_id)
+            state.questions[i].question_id ===
+            action.payload.question_id
           ) {
-            console.log('matching ids');
             state.questions[i].answer = action.payload.answer;
             return state;
           }
         }
-        return {
-          ...state,
-          questions: [
-            ...state.questions,
-            {
-              question_id: action.payload.question_id,
-              answer: action.payload.answer,
-            },
-          ],
-        };
-      } else {
-        return {
-          ...state,
-          questions: [
-            ...state.questions,
-            {
-              question_id: action.payload.question_id,
-              answer: action.payload.answer,
-            },
-          ],
-        };
       }
+      return {
+        ...state,
+        questions: [
+          ...state.questions,
+          {
+            question_id: action.payload.question_id,
+            answer: action.payload.answer,
+          },
+        ],
+      };
     default:
       return state;
   }

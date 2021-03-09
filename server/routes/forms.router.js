@@ -54,7 +54,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
             "last_name", 
             "pic", 
             "date_of_birth", 
-            "pronouns", 
+            "write_in_pronouns", 
             "location", 
             "primary_reason", 
             "previous_therapy", 
@@ -67,7 +67,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.last_name,
       req.body.pic,
       req.body.date_of_birth,
-      req.body.pronouns,
+      req.body.write_in_pronouns,
       req.body.location,
       req.body.primary_reason,
       req.body.previous_therapy,
@@ -117,7 +117,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
               "video",
               "location",
               "date_of_birth", 
-              "pronouns", 
+              "write_in_pronouns", 
               "background",
               "strengths",
               "approach",
@@ -133,7 +133,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
         req.body.video,
         req.body.location,
         req.body.date_of_birth,
-        req.body.pronouns, 
+        req.body.write_in_pronouns, 
         req.body.background,
         req.body.strengths,
         req.body.approach,
@@ -153,7 +153,10 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       await connection.query(secondSqlText, [req.user.id, ...req.body.preferences])
       // Work for third query
       // Take the questions array and generate values for query
-      const questionValues = req.body.questions
+      const questionValues = req.body.questions;
+      const providerQuestionsQuery = `
+        INSERT INTO "providers_questions" ("providers_users_id", "questions_id", "answer")
+      `
       // last action
       await connection.query('COMMIT;') 
       // send success status
