@@ -5,6 +5,7 @@ function* formsSaga() {
   yield takeEvery('FETCH_PREFERENCES', fetchPreferences);
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
+  yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
 }
 
 function* fetchPreferences() {
@@ -39,5 +40,14 @@ function* addNewClient(action) {
     console.log('error in addNewClient:', err);
   }
 }
+
+function* addNewProvider(action) {
+    try {
+        console.log('in addNewProvider with payload:', action.payload);
+        yield axios.post('/api/forms/add_provider', action.payload);
+    } catch (err) {
+      console.log('error in addNewProvider:', err);
+    }
+  }
 
 export default formsSaga;
