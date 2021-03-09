@@ -83,7 +83,7 @@ export const providerAnswers = (
           ),
         };
       }
-    case 'SET_PROVIDER_QUESTIONS':
+    case 'SET_PROVIDER_RESPONSES':
       if (state.questions.length !== 0) {
         for (let i = 0; i < state.questions.length; i++) {
           if (

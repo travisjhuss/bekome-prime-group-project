@@ -28,7 +28,6 @@ function FormPreferencesChecks({ category, limit }) {
       user_type === 'client'
         ? 'SET_CLIENT_PREFERENCES'
         : 'SET_PROVIDER_PREFERENCES';
-
     dispatch({
       type: whichType,
       payload: id,

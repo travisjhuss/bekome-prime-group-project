@@ -12,15 +12,10 @@ import {
 } from '@material-ui/core';
 
 // Component imports
-import ClientForm1Info from '../ClientForm1Info/ClientForm1Info';
-import ClientForm2Reasons from '../ClientForm2Reasons/ClientForm2Reasons';
-import ClientForm3TherapyPreferences from '../ClientForm3TherapyPreferences/ClientForm3TherapyPreferences';
-import ClientForm4ProviderQualities from '../ClientForm4ProviderQualities/ClientForm4ProviderQualities';
-import ClientForm5ProviderPreferences from '../ClientForm5ProviderPreferences/ClientForm5ProviderPreferences';
-import ProviderForm1Info from '../ProviderForm1Info/ProviderForm1Info';
-import ProviderForm2TherapyQualities from '../ProviderForm2TherapyQualities/ProviderForm2TherapyQualities';
+import ClientFormRoot from '../ClientFormRoot/ClientFormRoot';
+import ProviderFormRoot from '../ProviderFormRoot/ProviderFormRoot';
 
-// Strings that display on the stepper
+// Strings that display on stepper for Client
 const clientSteps = [
   'Information',
   'Reasons',
@@ -29,7 +24,14 @@ const clientSteps = [
   'Provider Preferences',
 ];
 
-const providerSteps = ['Information', 'Qualities'];
+// Strings that display on stepper for Provider
+const providerSteps = [
+  'Information',
+  'Qualities',
+  'Treatments',
+  'Questions',
+  'Offerings',
+];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,48 +46,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0.5),
   },
 }));
-
-const ClientPages = ({ currentPage, classes, handleInputs }) => {
-  return (
-    <>
-      {currentPage === 0 ? (
-        <ClientForm1Info classes={classes} handleInputs={handleInputs} />
-      ) : currentPage === 1 ? (
-        <ClientForm2Reasons classes={classes} handleInputs={handleInputs} />
-      ) : currentPage === 2 ? (
-        <ClientForm3TherapyPreferences
-          classes={classes}
-          handleInputs={handleInputs}
-        />
-      ) : currentPage === 3 ? (
-        <ClientForm4ProviderQualities
-          classes={classes}
-          handleInputs={handleInputs}
-        />
-      ) : (
-        <ClientForm5ProviderPreferences
-          classes={classes}
-          handleInputs={handleInputs}
-        />
-      )}
-    </>
-  );
-};
-
-const ProviderPages = ({ currentPage, classes, handleInputs }) => {
-  return (
-    <>
-      {currentPage === 0 ? (
-        <ProviderForm1Info classes={classes} handleInputs={handleInputs} />
-      ) : (
-        <ProviderForm2TherapyQualities
-          classes={classes}
-          handleInputs={handleInputs}
-        />
-      )}
-    </>
-  );
-};
 
 // Outer container that holds all form components
 function NewProfileContainer() {
@@ -113,7 +73,7 @@ function NewProfileContainer() {
   };
 
   const handleNextButton = () => {
-    currentPage === 4
+    currentPage === 5
       ? handleSubmit()
       : history.push(`/new_profile/${currentPage + 1}`);
   };
@@ -134,20 +94,20 @@ function NewProfileContainer() {
         </Typography>
       </Box>
       {user_type === 'client' ? (
-        <ClientPages
+        <ClientFormRoot
           currentPage={currentPage}
           classes={classes}
           handleInputs={handleInputs}
         />
       ) : (
-        <ProviderPages
+        <ProviderFormRoot
           currentPage={currentPage}
           classes={classes}
           handleInputs={handleInputs}
         />
       )}
       <Button
-        disabled={currentPage === 0}
+        disabled={currentPage === 1}
         onClick={() => history.push(`/new_profile/${currentPage - 1}`)}
         variant="contained"
         color="default"
@@ -155,9 +115,9 @@ function NewProfileContainer() {
         Back
       </Button>
       <Button onClick={handleNextButton} variant="contained" color="primary">
-        {currentPage === 4 ? 'Submit' : 'Next'}
+        {currentPage === 5 ? 'Submit' : 'Next'}
       </Button>
-      <Stepper activeStep={currentPage}>
+      <Stepper activeStep={currentPage - 1}>
         {stepArrayToDisplay.map((item, i) => (
           <Step key={i}>
             <StepLabel>{item}</StepLabel>

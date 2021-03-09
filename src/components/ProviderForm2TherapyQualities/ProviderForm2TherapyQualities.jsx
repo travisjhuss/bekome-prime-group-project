@@ -15,10 +15,22 @@ function ProviderForm2TherapyQualities({ classes, handleInputs }) {
           <FormCheckboxes category={'qualities'} limit={5} />
         </Grid>
         <Grid item xs={6}>
+          <Typography>I would describe my approach as:</Typography>
+          <TextField
+            className={classes.inputs}
+            variant="outlined"
+            multiline
+            rows={6}
+            label="Answer here"
+            onChange={handleInputs('approach')}
+            value={providerAnswers.approach}
+          />
           <Typography>My clients would describe me as:</Typography>
           <TextField
             className={classes.inputs}
             variant="outlined"
+            multiline
+            rows={6}
             label="Answer here"
             onChange={handleInputs('strengths')}
             value={providerAnswers.strengths}
