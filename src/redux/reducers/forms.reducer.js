@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
 // Holds clients answers as they step through form
-const clientAnswers = (
+export const clientAnswers = (
   state = {
     first_name: '',
     last_name: '',
     pic: '',
     date_of_birth: '',
-    pronouns: '',
+    write_in_pronouns: '',
     location: '',
     primary_reason: '',
     previous_therapy: false,
@@ -24,12 +24,14 @@ const clientAnswers = (
       if (state.preferences.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, id],
+          preferences: [...state.preferences, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter((index) => index !== id),
+          preferences: state.preferences.filter(
+            (index) => index !== preferenceId
+          ),
         };
       }
     default:
@@ -38,7 +40,7 @@ const clientAnswers = (
 };
 
 // Holds providers answers as they step through form
-const providerAnswers = (
+export const providerAnswers = (
   state = {
     first_name: '',
     last_name: '',
@@ -46,7 +48,7 @@ const providerAnswers = (
     video: '',
     location: '',
     date_of_birth: '',
-    pronouns: '',
+    write_in_pronouns: '',
     background: '',
     strengths: '',
     approach: '',
@@ -65,17 +67,51 @@ const providerAnswers = (
       if (state.preferences.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, id],
+          preferences: [...state.preferences, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter((index) => index !== id),
+          preferences: state.preferences.filter(
+            (index) => index !== preferenceId
+          ),
         };
-      };
+      }
     // will this work?? I dunno
     case 'SET_PROVIDER_QUESTIONS':
-        return {...state, questions: [...state.questions, {question_id: action.payload.question_id, answer: action.payload.answer}]};
+      if (state.questions.length !== 0) {
+        for (let i = 0; i < state.questions.length; i++) {
+          if (
+            Number(state.questions[i].question_id) ===
+            Number(action.payload.question_id)
+          ) {
+            console.log('matching ids');
+            state.questions[i].answer = action.payload.answer;
+            return state;
+          }
+        }
+        return {
+          ...state,
+          questions: [
+            ...state.questions,
+            {
+              question_id: action.payload.question_id,
+              answer: action.payload.answer,
+            },
+          ],
+        };
+      } else {
+        return {
+          ...state,
+          questions: [
+            ...state.questions,
+            {
+              question_id: action.payload.question_id,
+              answer: action.payload.answer,
+            },
+          ],
+        };
+      }
     default:
       return state;
   }
