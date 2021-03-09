@@ -41,27 +41,28 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
       OR "preferences".category = 'pronouns');
     `;
 
+    // fullProviderArray will become data that is sent back to client
     const fullProviderArray = [];
 
+    // second and third queries are looped for each provider gathered from first query
     for (let i = 0; i < providersArray.rows.length; i++) {
+      // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
       const fullProviderObject = {...providersArray.rows[i]};
 
-      // console.log('Provider Data:', providersArray.rows[i])
-
+      // second query as described above
       const answers = await connection.query(answersSQL, [providersArray.rows[i].providers_users_id])
-      // console.log('Answers to questions:', answers.rows)
 
+      // storing result of second query in fullProviderObject as a property
       fullProviderObject.answers = answers.rows
 
+      // third query
       const preferences = await connection.query(preferencesSQL, [providersArray.rows[i].providers_users_id])
-      // console.log('Languages and pronouns:', preferences.rows)
 
+      // storing result of third query in fullProviderObject as a property
       fullProviderObject.preferences = preferences.rows
-      // console.log(fullProviderObject)
 
+      // pushing each fullProvider object into the array that will be sent to the client
       fullProviderArray.push(fullProviderObject);
-
-      // preferences.rows.forEach(parsePreferences)
     }
     console.log(fullProviderArray);
 
