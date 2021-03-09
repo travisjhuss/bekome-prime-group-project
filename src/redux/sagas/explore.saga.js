@@ -7,7 +7,7 @@ function* exploreSaga() {
 
     yield takeEvery('GET_PROVIDERS', getProviders);
 
-} 
+}
 
 function* getProviders() {
 
