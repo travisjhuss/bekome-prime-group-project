@@ -7,7 +7,7 @@ import {
 // Component imports
 import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 
-function ProviderPreferencesForm({ classes }) {
+function ClientForm4ProviderQualities({ classes }) {
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -20,4 +20,4 @@ function ProviderPreferencesForm({ classes }) {
   );
 }
 
-export default ProviderPreferencesForm;
+export default ClientForm4ProviderQualities;

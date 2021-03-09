@@ -1,13 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Paper,
-  Typography,
-  TextField,
-} from '@material-ui/core';
+import { Paper, Typography, TextField } from '@material-ui/core';
 
 import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 
-function ClientInfoForm({ classes }) {
+function ClientForm1Info({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
@@ -68,4 +64,4 @@ function ClientInfoForm({ classes }) {
   );
 }
 
-export default ClientInfoForm;
+export default ClientForm1Info;

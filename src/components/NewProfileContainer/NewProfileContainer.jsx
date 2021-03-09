@@ -12,11 +12,11 @@ import {
 } from '@material-ui/core';
 
 // Component imports
-import ClientInfoForm from '../ClientInfoForm/ClientInfoForm';
-import ProviderQualitiesForm from '../ProviderQualitiesForm/ProviderQualitiesForm';
-import ReasonsForm from '../ReasonsForm/ReasonsForm';
-import TherapyPreferencesForm from '../TherapyPreferencesForm/TherapyPreferencesForm';
-import ProviderPreferencesForm from '../ProviderPreferencesForm/ProviderPreferencesForm';
+import ClientForm1Info from '../ClientForm1Info/ClientForm1Info';
+import ClientForm2Reasons from '../ClientForm2Reasons/ClientForm2Reasons';
+import ClientForm3TherapyPreferences from '../ClientForm3TherapyPreferences/ClientForm3TherapyPreferences';
+import ClientForm4ProviderQualities from '../ClientForm4ProviderQualities/ClientForm4ProviderQualities';
+import ClientForm5ProviderPreferences from '../ClientForm5ProviderPreferences/ClientForm5ProviderPreferences';
 
 // Strings that display on the stepper
 const clientSteps = [
@@ -75,15 +75,15 @@ function NewProfileContainer() {
         </Typography>
       </Box>
       {currentPage === 0 ? (
-        <ClientInfoForm classes={classes} />
+        <ClientForm1Info classes={classes} />
       ) : currentPage === 1 ? (
-        <ReasonsForm classes={classes} />
+        <ClientForm2Reasons classes={classes} />
       ) : currentPage === 2 ? (
-        <TherapyPreferencesForm classes={classes} />
+        <ClientForm3TherapyPreferences classes={classes} />
       ) : currentPage === 3 ? (
-        <ProviderQualitiesForm classes={classes} />
+        <ClientForm4ProviderQualities classes={classes} />
       ) : (
-        <ProviderPreferencesForm classes={classes} />
+        <ClientForm5ProviderPreferences classes={classes} />
       )}
       <Button
         disabled={currentPage === 0}

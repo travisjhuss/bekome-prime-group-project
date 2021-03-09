@@ -3,7 +3,7 @@ import { Typography, Chip, TextField, Paper } from '@material-ui/core';
 
 import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 
-function TherapyPreferencesForm({ classes }) {
+function ClientForm3TherapyPreferences({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
@@ -52,4 +52,4 @@ function TherapyPreferencesForm({ classes }) {
   );
 }
 
-export default TherapyPreferencesForm;
+export default ClientForm3TherapyPreferences;

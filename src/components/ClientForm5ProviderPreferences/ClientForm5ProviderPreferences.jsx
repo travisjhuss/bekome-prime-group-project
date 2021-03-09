@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Paper, Switch, FormControlLabel, Button } from '@material-ui/core';
+import { Typography, Paper, Switch, FormControlLabel } from '@material-ui/core';
 
 import FormsPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
 import FormsMenuChips from '../FormsMenuChips/FormsMenuChips';
 
-function ProviderPreferencesForm({ classes }) {
+function ClientForm5ProviderPreferences({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
@@ -51,4 +51,4 @@ function ProviderPreferencesForm({ classes }) {
   );
 }
 
-export default ProviderPreferencesForm;
+export default ClientForm5ProviderPreferences;
