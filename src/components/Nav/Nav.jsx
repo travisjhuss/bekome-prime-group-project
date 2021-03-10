@@ -1,13 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import { SearchIcon, StarOutlineIcon, AccountCircleIcon, ExitToAppIcon, EditIcon, } from '@material-ui/icons';
-import { Typography, Button, Menu, MenuItem, AppBar} from '@material-ui/core'
+// MUI
+import SearchIcon from '@material-ui/icons/Search';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import EditIcon from '@material-ui/icons/Edit';
+import {
+  Typography,
+  IconButton,
+  Button,
+  Menu,
+  MenuItem,
+  AppBar,
+} from '@material-ui/core';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const history = useHistory();
 
   let loginLinkData = {
     path: '/login',
@@ -22,18 +35,28 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <Typography variant="h3" color="primary">bekome.</Typography>
+        <Typography variant="h3" color="primary">
+          bekome.
+        </Typography>
       </Link>
       <div>
         {user.id ? (
           <>
-            <Link className="navLink" to="/info">
-              Explore Providers
-            </Link>
-            <Link className="navLink" to="/info">
-              Saved Providers
-            </Link>
-            {/* profile avatar */}
+            <Button
+              startIcon={<SearchIcon />}
+              onClick={() => history.push('/explore')}
+            >
+              <Typography color="primary">Explore Providers</Typography>
+            </Button>
+            <Button
+              startIcon={<StarOutlineIcon />}
+              onClick={() => history.push('/about')}
+            >
+              <Typography color="primary">Saved Providers</Typography>
+            </Button>
+            <IconButton color="primary">
+              <AccountCircleIcon />
+            </IconButton>
           </>
         ) : (
           <>
