@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const formsRouter = require('./routes/forms.router');
 const exploreRouter = require('./routes/explore.router');
 const providerDetailsRouter = require('./routes/providerDetails.router');
+const favoriteRouter = require('./routes/favorite.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +29,7 @@ app.use('/api/user', userRouter);
 app.use('/api/forms', formsRouter);
 app.use('/api/explore', exploreRouter);
 app.use('/api/provider-details', providerDetailsRouter);
+app.use('/api/favorite', favoriteRouter);
 
 // Serve static files
 app.use(express.static('build'));

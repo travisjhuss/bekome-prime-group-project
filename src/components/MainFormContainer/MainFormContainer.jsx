@@ -52,10 +52,10 @@ function MainFormContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
-  const { id } = useParams();
+  const { page } = useParams();
   const { email, user_type } = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
-  const currentPage = Number(id);
+  const currentPage = Number(page);
   const stepArrayToDisplay =
     user_type === 'client' ? clientSteps : providerSteps;
 
