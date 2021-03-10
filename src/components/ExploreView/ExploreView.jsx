@@ -20,7 +20,7 @@ function ExploreView () {
     useEffect(() => {
         dispatch({ type: "GET_PROVIDERS" });
         dispatch({ type: "FETCH_PROVIDER_QUESTIONS"})
-      }, []);
+    }, []);
 
 
     // Runs when either providersReducer or questionsReducer change
