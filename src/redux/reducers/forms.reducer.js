@@ -88,7 +88,7 @@ export const providerAnswers = (
       const foundIndex = state.questions.findIndex(
         (item) => item.question_id === id
       );
-      if (foundIndex !== -1) {
+      if (foundIndex > -1) {
         const newQuestionsArray = [...state.questions];
         newQuestionsArray[foundIndex] = {
           ...newQuestionsArray[foundIndex],
