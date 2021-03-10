@@ -27,6 +27,7 @@ function* favoriteProvider(action) {
     const payload = {providerID: action.payload}
     try {
         const response = yield axios.post('/api/favorite', payload);
+        console.log('response from favoriting provider', response)
     } catch (err) {
         console.log('error in favoriteProvider', err)
     }
