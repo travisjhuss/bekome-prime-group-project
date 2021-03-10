@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 // MUI
@@ -25,16 +24,6 @@ function Nav() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  let loginLinkData = {
-    path: '/login',
-    text: 'Login / Sign-up',
-  };
-
-  if (user.id != null) {
-    loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
-  }
-
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = (event) => {
@@ -48,6 +37,11 @@ function Nav() {
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
+  }
+
+  const openEdit = () => {
+    setAnchorEl(null);
+    history.push('/edit_profile');
   }
 
   return (
@@ -83,7 +77,9 @@ function Nav() {
               onClose={closeMenu}
               style={{ marginTop: '10px' }}
             >
-              <MenuItem onClick={closeMenu}>
+              <MenuItem 
+                onClick={openEdit}
+              >
                 <ListItemIcon>
                   <EditIcon fontSize="small" />
                 </ListItemIcon>
@@ -101,12 +97,16 @@ function Nav() {
           </>
         ) : (
           <>
-            <Link className="navLink" to="/about">
-              How it Works
-            </Link>
-            <Link className="navLink" to={loginLinkData.path}>
-              {loginLinkData.text}
-            </Link>
+            <Button
+              onClick={() => history.push('/how-it-works')}
+            >
+              <Typography color="primary">How it Works</Typography>
+            </Button>
+            <Button
+              onClick={() => history.push('/login')}
+            >
+              <Typography color="primary">Login / Sign-up</Typography>
+            </Button>
           </>
         )}
       </div>
