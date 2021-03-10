@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import {useDispatch} from 'react-redux';
 import {
     Card,
     CardActionArea,
@@ -20,9 +21,20 @@ const useStyles = makeStyles({
     button: {
         justifyContent: 'center'
     }
-  });
+});
+
 
 function UserCard({provider, questions}) {
+
+    const dispatch = useDispatch();
+
+    const clickFavorite = (id) => {
+        dispatch({
+            type: 'FAVORITE_PROVIDER',
+            payload: id
+        })
+    }
+
     const classes = useStyles()
 
     return (
@@ -37,6 +49,14 @@ function UserCard({provider, questions}) {
                 >
                     {provider.first_name + ' ' + provider.last_name}
                 </Typography>
+
+                {/* this button will be replaced with a styled icon */}
+                <Button
+                variant="outlined"
+                onClick={() => clickFavorite(provider.providers_users_id)}
+                >
+                    Fav
+                </Button>
 
                 <Typography>
                     {provider.pronouns}
