@@ -15,10 +15,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
+import MainFormContainer from '../MainFormContainer/MainFormContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ExploreView from '../ExploreView/ExploreView';
+
 import './App.css';
 
 function App() {
@@ -59,9 +61,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/new-profile/:id"
+            path="/new_profile/:id"
           >
-            <NewProfileContainer />
+            <MainFormContainer />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
@@ -97,6 +99,17 @@ function App() {
             authRedirect="/user"
           >
             <LandingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows ExploreView at "/explore"
+            exact
+            path="/explore"
+            // authRedirect="/user"
+          >
+            <ExploreView />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
