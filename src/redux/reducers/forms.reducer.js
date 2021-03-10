@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
 // Holds clients answers as they step through form
-const clientAnswers = (
+export const clientAnswers = (
   state = {
     first_name: '',
     last_name: '',
     pic: '',
     date_of_birth: '',
-    pronouns: '',
+    write_in_pronouns: '',
     location: '',
     primary_reason: '',
     previous_therapy: false,
@@ -17,31 +17,88 @@ const clientAnswers = (
   action
 ) => {
   switch (action.type) {
-    case 'SET_PERSONAL_DETAILS':
+    case 'SET_CLIENT_PERSONAL_DETAILS':
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_CLIENT_PREFERENCES':
-        const preferenceId = action.payload;
-        if (state.preferences.indexOf(preferenceId) === -1) {
-            return {
-                ...state,
-                preferences: [...state.preferences, id]
-            };
-        } else {
-            return {
-                ...state,
-                preferences: state.preferences.filter((index) => index !== id)
-            };
-        }
+      const preferenceId = action.payload;
+      if (state.preferences.indexOf(preferenceId) === -1) {
+        return {
+          ...state,
+          preferences: [...state.preferences, preferenceId],
+        };
+      } else {
+        return {
+          ...state,
+          preferences: state.preferences.filter(
+            (index) => index !== preferenceId
+          ),
+        };
+      }
     default:
       return state;
   }
 };
 
 // Holds providers answers as they step through form
-const providerAnswers = (state = {}, action) => {
+export const providerAnswers = (
+  state = {
+    first_name: '',
+    last_name: '',
+    pic: '',
+    video: '',
+    location: '',
+    date_of_birth: '',
+    write_in_pronouns: '',
+    background: '',
+    strengths: '',
+    approach: '',
+    insurance: false,
+    sliding_scale: false,
+    preferences: [],
+    questions: [],
+  },
+  action
+) => {
   switch (action.type) {
-    case '':
-      return '';
+    case 'SET_PROVIDER_PERSONAL_DETAILS':
+      return { ...state, [action.payload.key]: action.payload.value };
+    case 'SET_PROVIDER_PREFERENCES':
+      const preferenceId = action.payload;
+      if (state.preferences.indexOf(preferenceId) === -1) {
+        return {
+          ...state,
+          preferences: [...state.preferences, preferenceId],
+        };
+      } else {
+        return {
+          ...state,
+          preferences: state.preferences.filter(
+            (index) => index !== preferenceId
+          ),
+        };
+      }
+    case 'SET_PROVIDER_QUESTIONS':
+      if (state.questions.length !== 0) {
+        for (let i = 0; i < state.questions.length; i++) {
+          if (
+            state.questions[i].question_id ===
+            action.payload.question_id
+          ) {
+            state.questions[i].answer = action.payload.answer;
+            return state;
+          }
+        }
+      }
+      return {
+        ...state,
+        questions: [
+          ...state.questions,
+          {
+            question_id: action.payload.question_id,
+            answer: action.payload.answer,
+          },
+        ],
+      };
     default:
       return state;
   }
