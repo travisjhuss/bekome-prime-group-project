@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Outer container that holds all form components
-function NewProfileContainer() {
+function MainFormContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -128,4 +128,4 @@ function NewProfileContainer() {
   );
 }
 
-export default NewProfileContainer;
+export default MainFormContainer;

@@ -8,6 +8,13 @@ function ClientForm5ProviderPreferences({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
+  const handleBooleans = (key) => {
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key, value: !clientAnswers[key] },
+    });
+  };
+
   return (
     <Paper className={classes.paper} elevation={4}>
       <Typography>I want a therapist that:</Typography>
@@ -15,12 +22,7 @@ function ClientForm5ProviderPreferences({ classes }) {
         control={
           <Switch
             checked={clientAnswers.insurance}
-            onChange={() =>
-              dispatch({
-                type: 'SET_INSURANCE_SLIDING_SCALE',
-                payload: 'insurance',
-              })
-            }
+            onChange={() => handleBooleans('insurance')}
           />
         }
         label="Accepts insurance"
@@ -29,12 +31,7 @@ function ClientForm5ProviderPreferences({ classes }) {
         control={
           <Switch
             checked={clientAnswers.sliding_scale}
-            onChange={() =>
-              dispatch({
-                type: 'SET_INSURANCE_SLIDING_SCALE',
-                payload: 'sliding_scale',
-              })
-            }
+            onChange={() => handleBooleans('sliding_scale')}
           />
         }
         label="Has sliding scale payments"

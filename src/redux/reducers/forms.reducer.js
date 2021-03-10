@@ -36,8 +36,6 @@ export const clientAnswers = (
           ),
         };
       }
-    case 'SET_INSURANCE_SLIDING_SCALE':
-      return { ...state, [action.payload]: !state[action.payload] };
     case 'CLEAR_CLIENT_ANSWERS':
       return {};
     default:
@@ -61,7 +59,7 @@ export const providerAnswers = (
     insurance: false,
     sliding_scale: false,
     preferences: [],
-    questions: [],
+    questions: {},
   },
   action
 ) => {
@@ -84,27 +82,8 @@ export const providerAnswers = (
         };
       }
     case 'SET_PROVIDER_RESPONSES':
-      if (state.questions.length !== 0) {
-        for (let i = 0; i < state.questions.length; i++) {
-          if (
-            state.questions[i].question_id ===
-            action.payload.question_id
-          ) {
-            state.questions[i].answer = action.payload.answer;
-            return state;
-          }
-        }
-      }
-      return {
-        ...state,
-        questions: [
-          ...state.questions,
-          {
-            question_id: action.payload.question_id,
-            answer: action.payload.answer,
-          },
-        ],
-      };
+      const { id, answer } = action.payload;
+      return { ...state, questions: { ...state.questions, [id]: answer } };
     default:
       return state;
   }
@@ -116,3 +95,22 @@ export default combineReducers({
   clientAnswers,
   providerAnswers,
 });
+
+// if (state.questions.length !== 0) {
+//   for (let i = 0; i < state.questions.length; i++) {
+//     if (state.questions[i].question_id === action.payload.question_id) {
+//       state.questions[i].answer = action.payload.answer;
+//       return state;
+//     }
+//   }
+// }
+// return {
+//   ...state,
+//   questions: [
+//     ...state.questions,
+//     {
+//       question_id: action.payload.question_id,
+//       answer: action.payload.answer,
+//     },
+//   ],
+// };

@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
+import MainFormContainer from '../MainFormContainer/MainFormContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -63,7 +63,7 @@ function App() {
             exact
             path="/new_profile/:id"
           >
-            <NewProfileContainer />
+            <MainFormContainer />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will

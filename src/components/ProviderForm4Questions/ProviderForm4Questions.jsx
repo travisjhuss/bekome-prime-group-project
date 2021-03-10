@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Typography, TextField, Grid, Box } from '@material-ui/core';
+import { Paper, Typography, TextField, Box } from '@material-ui/core';
 
-function ProviderForm4Questions({ classes, handleInputs }) {
+function ProviderForm4Questions({ classes }) {
   const dispatch = useDispatch();
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
@@ -11,7 +11,7 @@ function ProviderForm4Questions({ classes, handleInputs }) {
   const handleAnswer = (id) => (event) => {
     dispatch({
       type: 'SET_PROVIDER_RESPONSES',
-      payload: { question_id: id, answer: event.target.value },
+      payload: { id, answer: event.target.value },
     });
   };
 
@@ -25,11 +25,7 @@ function ProviderForm4Questions({ classes, handleInputs }) {
             variant="outlined"
             multiline
             rows={3}
-            value={
-              providerAnswers.questions.find(
-                (answer) => item.id === answer.question_id
-              )?.answer || ''
-            }
+            value={providerAnswers.questions[item.id] || ''}
             onChange={handleAnswer(item.id)}
           />
         </Box>
