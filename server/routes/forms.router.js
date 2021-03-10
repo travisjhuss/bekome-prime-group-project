@@ -170,14 +170,14 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
 
     // Take the questions object and use Object.entries() to turn into array
     // of arrays containing the key/value pairs: [[questions_id, answer], ...]
-    const questionsArray = Object.entries(req.body.questions);
+    // const questionsArray = Object.entries(req.body.questions);
 
-    questionsArray.forEach(async (question) => {
+    req.body.questions.forEach(async (question) => {
       try {
         await connection.query(providerQuestionsQuery, [
           req.user.id,
-          question[0],
-          question[1],
+          question.question_id,
+          question.answer,
         ]);
       } catch (err) {
         console.log('error in post to providers_preferences:', err);

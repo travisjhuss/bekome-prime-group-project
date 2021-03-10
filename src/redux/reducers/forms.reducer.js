@@ -59,7 +59,7 @@ export const providerAnswers = (
     insurance: false,
     sliding_scale: false,
     preferences: [],
-    questions: {},
+    questions: [],
   },
   action
 ) => {
@@ -83,7 +83,24 @@ export const providerAnswers = (
       }
     case 'SET_PROVIDER_RESPONSES':
       const { id, answer } = action.payload;
-      return { ...state, questions: { ...state.questions, [id]: answer } };
+      // Assigns the question id and answer as a key/value pair
+      // return { ...state, questions: { ...state.questions, [id]: answer } };
+      const foundIndex = state.questions.findIndex(
+        (item) => item.question_id === id
+      );
+      if (foundIndex !== -1) {
+        const newQuestionsArray = [...state.questions];
+        newQuestionsArray[foundIndex] = {
+          ...newQuestionsArray[foundIndex],
+          answer,
+        };
+        return { ...state, questions: newQuestionsArray };
+      } else {
+        return {
+          ...state,
+          questions: [...state.questions, { question_id: id, answer }],
+        };
+      }
     default:
       return state;
   }
@@ -95,22 +112,3 @@ export default combineReducers({
   clientAnswers,
   providerAnswers,
 });
-
-// if (state.questions.length !== 0) {
-//   for (let i = 0; i < state.questions.length; i++) {
-//     if (state.questions[i].question_id === action.payload.question_id) {
-//       state.questions[i].answer = action.payload.answer;
-//       return state;
-//     }
-//   }
-// }
-// return {
-//   ...state,
-//   questions: [
-//     ...state.questions,
-//     {
-//       question_id: action.payload.question_id,
-//       answer: action.payload.answer,
-//     },
-//   ],
-// };

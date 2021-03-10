@@ -15,6 +15,13 @@ function ProviderForm4Questions({ classes }) {
     });
   };
 
+  const findValue = (id) => {
+    const foundIndex = providerAnswers.questions.findIndex(
+      (item) => item.id === id
+    );
+    return providerAnswers.questions[foundIndex]?.answer;
+  };
+
   return (
     <Paper className={classes.paper} elevation={4}>
       <Typography>Please answer the following questions:</Typography>
@@ -25,7 +32,7 @@ function ProviderForm4Questions({ classes }) {
             variant="outlined"
             multiline
             rows={3}
-            value={providerAnswers.questions[item.id] || ''}
+            value={findValue(item.id)}
             onChange={handleAnswer(item.id)}
           />
         </Box>
