@@ -46,7 +46,7 @@ function ExploreView () {
                 {providers.map(provider => {
                     return (
                         <UserCard
-                        key = {provider.id}
+                        key = {provider.providers_users_id}
                         provider = {provider}
                         questions = {questions}
                         />
