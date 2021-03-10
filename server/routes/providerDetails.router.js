@@ -1,9 +1,13 @@
 const express = require('express');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
+
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// GET route for oen provider, transaction
-router.get('/:id', async (req, res) => {
+// GET route for one provider, transaction
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
 
   try {
