@@ -163,13 +163,13 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       ...req.body.preferences,
     ]);
     // Work for third query
-    // Take the questions object and use Object.entries() to turn into array
-    // of arrays containing the key/value pairs: [[id, answer], [id, answer]]
     const providerQuestionsQuery = `
         INSERT INTO "providers_questions" ("providers_users_id", "questions_id", "answer")
         VALUES ($1, $2, $3);
       `;
 
+    // Take the questions object and use Object.entries() to turn into array
+    // of arrays containing the key/value pairs: [[questions_id, answer], ...]
     const questionsArray = Object.entries(req.body.questions);
 
     questionsArray.forEach(async (question) => {
