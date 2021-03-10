@@ -12,6 +12,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -32,6 +34,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -47,6 +51,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -67,6 +73,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -82,6 +90,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -102,6 +112,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -117,6 +129,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -134,6 +148,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [16],
     });
   });
@@ -149,6 +165,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [16],
     };
     const action = {
@@ -166,6 +184,44 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
+      preferences: [16, 24],
+    });
+  });
+
+  test('SET_INSURANCE_SLIDING_SCALE', () => {
+    const initialState = {
+      first_name: 'Travis',
+      last_name: '',
+      pic: '',
+      date_of_birth: '',
+      write_in_pronouns: '',
+      location: 'Minneapolis',
+      primary_reason: '',
+      previous_therapy: true,
+      previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
+      preferences: [16, 24],
+    };
+    const action = {
+      type: 'SET_INSURANCE_SLIDING_SCALE',
+      payload: 'insurance',
+    };
+
+    expect(clientAnswers(initialState, action)).toEqual({
+      first_name: 'Travis',
+      last_name: '',
+      pic: '',
+      date_of_birth: '',
+      write_in_pronouns: '',
+      location: 'Minneapolis',
+      primary_reason: '',
+      previous_therapy: true,
+      previous_experience: '',
+      insurance: true,
+      sliding_scale: false,
       preferences: [16, 24],
     });
   });
