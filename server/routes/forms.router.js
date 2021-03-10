@@ -170,11 +170,17 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       `;
 
     req.body.questions.forEach(async (question) => {
-      await connection.query(providerQuestionsQuery, [
-        req.user.id,
-        question.question_id,
-        question.answer,
-      ]);
+      try {
+        await connection.query(providerQuestionsQuery, [
+          req.user.id,
+          question.question_id,
+          question.answer,
+        ]);
+      } catch (err) {
+        console.log('error in post to providers_preferences:', err);
+        await connection.query('ROLLBACK;');
+        res.sendStatus(500);
+      }
     });
     // last action
     await connection.query('COMMIT;');

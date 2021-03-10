@@ -12,19 +12,25 @@ import {
 } from '@material-ui/core';
 
 // Component imports
-import ClientInfoForm from '../ClientInfoForm/ClientInfoForm';
-import ProviderQualitiesForm from '../ProviderQualitiesForm/ProviderQualitiesForm';
-import ReasonsForm from '../ReasonsForm/ReasonsForm';
-import TherapyPreferencesForm from '../TherapyPreferencesForm/TherapyPreferencesForm';
-import ProviderPreferencesForm from '../ProviderPreferencesForm/ProviderPreferencesForm';
+import ClientFormRoot from '../ClientFormRoot/ClientFormRoot';
+import ProviderFormRoot from '../ProviderFormRoot/ProviderFormRoot';
 
-// Strings that display on the stepper
+// Strings that display on stepper for Client
 const clientSteps = [
-  'Client Information',
-  'Reasons for Seeking Therapy',
-  'Therapy Preferences',
+  'Information',
+  'Reasons',
+  'Therapy',
   'Provider Qualities',
   'Provider Preferences',
+];
+
+// Strings that display on stepper for Provider
+const providerSteps = [
+  'Information',
+  'Qualities',
+  'Treatments',
+  'Questions',
+  'Offerings',
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -42,25 +48,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Outer container that holds all form components
-function NewProfileContainer() {
+function MainFormContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
-  const user = useSelector((store) => store.user);
+  const { email, user_type } = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
   const currentPage = Number(id);
+  const stepArrayToDisplay =
+    user_type === 'client' ? clientSteps : providerSteps;
 
   useEffect(() => dispatch({ type: 'FETCH_PREFERENCES' }), []);
 
+  const handleInputs = (key) => (event) => {
+    const whichType =
+      user_type === 'client'
+        ? 'SET_CLIENT_PERSONAL_DETAILS'
+        : 'SET_PROVIDER_PERSONAL_DETAILS';
+    dispatch({
+      type: whichType,
+      payload: { key, value: event.target.value },
+    });
+  };
+
   const handleNextButton = () => {
-    currentPage === 4
+    currentPage === 5
       ? handleSubmit()
       : history.push(`/new_profile/${currentPage + 1}`);
   };
 
   const handleSubmit = () => {
-    user.user_type === 'client'
+    user_type === 'client'
       ? dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers })
       : dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
     history.push('/explore');
@@ -70,23 +89,25 @@ function NewProfileContainer() {
     <>
       <Box p={3}>
         <Typography>
-          Create new {user.user_type == 'client' ? 'Client' : 'Provider'}
-          Profile for {user.email}
+          Create new {user_type == 'client' ? 'Client' : 'Provider'}
+          Profile for {email}
         </Typography>
       </Box>
-      {currentPage === 0 ? (
-        <ClientInfoForm classes={classes} />
-      ) : currentPage === 1 ? (
-        <ReasonsForm classes={classes} />
-      ) : currentPage === 2 ? (
-        <TherapyPreferencesForm classes={classes} />
-      ) : currentPage === 3 ? (
-        <ProviderQualitiesForm classes={classes} />
+      {user_type === 'client' ? (
+        <ClientFormRoot
+          currentPage={currentPage}
+          classes={classes}
+          handleInputs={handleInputs}
+        />
       ) : (
-        <ProviderPreferencesForm classes={classes} />
+        <ProviderFormRoot
+          currentPage={currentPage}
+          classes={classes}
+          handleInputs={handleInputs}
+        />
       )}
       <Button
-        disabled={currentPage === 0}
+        disabled={currentPage === 1}
         onClick={() => history.push(`/new_profile/${currentPage - 1}`)}
         variant="contained"
         color="default"
@@ -94,10 +115,10 @@ function NewProfileContainer() {
         Back
       </Button>
       <Button onClick={handleNextButton} variant="contained" color="primary">
-        {currentPage === 4 ? 'Submit' : 'Next'}
+        {currentPage === 5 ? 'Submit' : 'Next'}
       </Button>
-      <Stepper activeStep={currentPage}>
-        {clientSteps.map((item, i) => (
+      <Stepper activeStep={currentPage - 1}>
+        {stepArrayToDisplay.map((item, i) => (
           <Step key={i}>
             <StepLabel>{item}</StepLabel>
           </Step>
@@ -107,4 +128,4 @@ function NewProfileContainer() {
   );
 }
 
-export default NewProfileContainer;
+export default MainFormContainer;

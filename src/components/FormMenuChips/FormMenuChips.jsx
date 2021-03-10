@@ -2,19 +2,26 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Menu, MenuItem, Chip } from '@material-ui/core';
 
-function FormsMenuChips({ category, string }) {
+function FormMenuChips({ category, string }) {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  const preferences = useSelector((store) => store.preferences);
+  const { user_type } = useSelector((store) => store.user);
+  const filteredPreferences = useSelector((store) => store.preferences).filter(
+    (item) => item.category === category
+  );
   const answers =
-    user.user_type === 'client'
+    user_type === 'client'
       ? useSelector((store) => store.forms.clientAnswers)
       : useSelector((store) => store.forms.providerAnswers);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const filteredPreferences = preferences.filter(
-    (item) => item.category === category
-  );
+  const handleChange = (id) => {
+    const whichType =
+      user_type === 'client'
+        ? 'SET_CLIENT_PREFERENCES'
+        : 'SET_PROVIDER_PREFERENCES';
+    dispatch({ type: whichType, payload: id });
+    setAnchorEl(null);
+  };
 
   return (
     <>
@@ -33,13 +40,7 @@ function FormsMenuChips({ category, string }) {
         {filteredPreferences.map((item) => (
           <MenuItem
             key={item.id}
-            onClick={
-              () =>
-                dispatch({
-                  type: 'SET_CLIENT_PREFERENCES',
-                  payload: item.id,
-                }) // needs to be changed for providers
-            }
+            onClick={() => handleChange(item.id)}
             selected={answers.preferences.indexOf(item.id) > -1}
           >
             {item.name}
@@ -52,9 +53,7 @@ function FormsMenuChips({ category, string }) {
             <Chip
               key={item.id}
               label={item.name}
-              onDelete={() =>
-                dispatch({ type: 'SET_CLIENT_PREFERENCES', payload: item.id })
-              } // needs to be changed for providers
+              onDelete={() => handleChange(item.id)}
               color="primary"
             />
           );
@@ -64,4 +63,4 @@ function FormsMenuChips({ category, string }) {
   );
 }
 
-export default FormsMenuChips;
+export default FormMenuChips;

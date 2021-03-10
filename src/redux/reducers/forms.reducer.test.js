@@ -392,7 +392,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -410,9 +410,9 @@ describe('testing clientAnswers reducer', () => {
       questions: [],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 5,
+        id: 5,
         answer: 'This is my answer.',
       },
     };
@@ -440,7 +440,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -463,9 +463,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 4,
+        id: 4,
         answer: 'This is my answer for 4.',
       },
     };
@@ -497,7 +497,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -528,9 +528,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 4,
+        id: 4,
         answer: 'This is my answer for 4 again.',
       },
     };
@@ -566,7 +566,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -597,9 +597,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 5,
+        id: 5,
         answer: 'This is my new answer for 5.',
       },
     };
@@ -635,7 +635,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -666,9 +666,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 2,
+        id: 2,
         answer: 'This is my answer for 2.',
       },
     };

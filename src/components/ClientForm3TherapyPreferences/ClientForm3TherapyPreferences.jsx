@@ -1,18 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Chip, TextField, Paper } from '@material-ui/core';
 
-import FormPreferencesChecks from '../FormPreferencesChecks/FormPreferencesChecks';
+import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 
-function TherapyPreferencesForm({ classes }) {
+function ClientForm3TherapyPreferences({ classes, handleInputs }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-
-  const handleTextInputs = (key) => (event) => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key, value: event.target.value },
-    });
-  };
 
   const handleBoolean = (boolean) => {
     dispatch({
@@ -44,12 +37,12 @@ function TherapyPreferencesForm({ classes }) {
         multiline
         rows={8}
         value={clientAnswers.previous_experience || ''}
-        onChange={handleTextInputs('previous_experience')}
+        onChange={handleInputs('previous_experience')}
       />
       <Typography>What kind of treatments are you interested in?</Typography>
-      <FormPreferencesChecks category={'treatments'} limit={3} />
+      <FormCheckboxes category={'treatments'} limit={3} />
     </Paper>
   );
 }
 
-export default TherapyPreferencesForm;
+export default ClientForm3TherapyPreferences;
