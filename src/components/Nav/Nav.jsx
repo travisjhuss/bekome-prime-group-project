@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // MUI
 import SearchIcon from '@material-ui/icons/Search';
 import StarOutlineIcon from '@material-ui/icons/StarOutline';
@@ -16,11 +16,14 @@ import {
   Menu,
   MenuItem,
   AppBar,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core';
 
 function Nav() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   let loginLinkData = {
     path: '/login',
@@ -30,6 +33,21 @@ function Nav() {
   if (user.id != null) {
     loginLinkData.path = '/user';
     loginLinkData.text = 'Home';
+  }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const logout = () => {
+    setAnchorEl(null);
+    dispatch({ type: 'LOGOUT' });
   }
 
   return (
@@ -54,9 +72,32 @@ function Nav() {
             >
               <Typography color="primary">Saved Providers</Typography>
             </Button>
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={openMenu}>
               <AccountCircleIcon />
             </IconButton>
+            <Menu
+              id="profile-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={closeMenu}
+              style={{ marginTop: '10px' }}
+            >
+              <MenuItem onClick={closeMenu}>
+                <ListItemIcon>
+                  <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Edit Profile" />
+              </MenuItem>
+              <MenuItem
+                onClick={logout}
+              >
+                <ListItemIcon>
+                  <ExitToAppIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Logout"/>
+              </MenuItem>
+            </Menu>
           </>
         ) : (
           <>
