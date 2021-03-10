@@ -2,14 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import { SearchIcon, StarOutlineIcon, AccountCircleIcon, ExitToAppIcon, EditIcon, } from '@material-ui/icons';
+import { Typography, Button, Menu, MenuItem, AppBar} from '@material-ui/core'
 
 function Nav() {
   const user = useSelector((store) => store.user);
 
   let loginLinkData = {
     path: '/login',
-    text: 'Login / Register',
+    text: 'Login / Sign-up',
   };
 
   if (user.id != null) {
@@ -20,25 +22,29 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <Typography variant="h3" color="primary">bekome.</Typography>
       </Link>
       <div>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
-
-        {user.id && (
+        {user.id ? (
           <>
             <Link className="navLink" to="/info">
-              Info Page
+              Explore Providers
             </Link>
-            <LogOutButton className="navLink" />
+            <Link className="navLink" to="/info">
+              Saved Providers
+            </Link>
+            {/* profile avatar */}
+          </>
+        ) : (
+          <>
+            <Link className="navLink" to="/about">
+              How it Works
+            </Link>
+            <Link className="navLink" to={loginLinkData.path}>
+              {loginLinkData.text}
+            </Link>
           </>
         )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );
