@@ -12,6 +12,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -32,6 +34,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -47,6 +51,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -67,6 +73,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -82,6 +90,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: false,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -102,6 +112,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     });
   });
@@ -117,6 +129,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [],
     };
     const action = {
@@ -134,6 +148,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [16],
     });
   });
@@ -149,6 +165,8 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
       preferences: [16],
     };
     const action = {
@@ -166,6 +184,44 @@ describe('testing clientAnswers reducer', () => {
       primary_reason: '',
       previous_therapy: true,
       previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
+      preferences: [16, 24],
+    });
+  });
+
+  test('SET_INSURANCE_SLIDING_SCALE', () => {
+    const initialState = {
+      first_name: 'Travis',
+      last_name: '',
+      pic: '',
+      date_of_birth: '',
+      write_in_pronouns: '',
+      location: 'Minneapolis',
+      primary_reason: '',
+      previous_therapy: true,
+      previous_experience: '',
+      insurance: false,
+      sliding_scale: false,
+      preferences: [16, 24],
+    };
+    const action = {
+      type: 'SET_INSURANCE_SLIDING_SCALE',
+      payload: 'insurance',
+    };
+
+    expect(clientAnswers(initialState, action)).toEqual({
+      first_name: 'Travis',
+      last_name: '',
+      pic: '',
+      date_of_birth: '',
+      write_in_pronouns: '',
+      location: 'Minneapolis',
+      primary_reason: '',
+      previous_therapy: true,
+      previous_experience: '',
+      insurance: true,
+      sliding_scale: false,
       preferences: [16, 24],
     });
   });
@@ -336,7 +392,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -354,9 +410,9 @@ describe('testing clientAnswers reducer', () => {
       questions: [],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 5,
+        id: 5,
         answer: 'This is my answer.',
       },
     };
@@ -384,7 +440,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -407,9 +463,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 4,
+        id: 4,
         answer: 'This is my answer for 4.',
       },
     };
@@ -441,7 +497,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -472,9 +528,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 4,
+        id: 4,
         answer: 'This is my answer for 4 again.',
       },
     };
@@ -510,7 +566,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -541,9 +597,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 5,
+        id: 5,
         answer: 'This is my new answer for 5.',
       },
     };
@@ -579,7 +635,7 @@ describe('testing clientAnswers reducer', () => {
     });
   });
 
-  test('SET_PROVIDER_QUESTIONS', () => {
+  test('SET_PROVIDER_RESPONSES', () => {
     const initialState = {
       first_name: 'Travis',
       last_name: '',
@@ -610,9 +666,9 @@ describe('testing clientAnswers reducer', () => {
       ],
     };
     const action = {
-      type: 'SET_PROVIDER_QUESTIONS',
+      type: 'SET_PROVIDER_RESPONSES',
       payload: {
-        question_id: 2,
+        id: 2,
         answer: 'This is my answer for 2.',
       },
     };

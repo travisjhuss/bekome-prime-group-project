@@ -12,6 +12,8 @@ export const clientAnswers = (
     primary_reason: '',
     previous_therapy: false,
     previous_experience: '',
+    insurance: false,
+    sliding_scale: false,
     preferences: [],
   },
   action
@@ -34,6 +36,8 @@ export const clientAnswers = (
           ),
         };
       }
+    case 'CLEAR_CLIENT_ANSWERS':
+      return {};
     default:
       return state;
   }
@@ -77,28 +81,26 @@ export const providerAnswers = (
           ),
         };
       }
-    case 'SET_PROVIDER_QUESTIONS':
-      if (state.questions.length !== 0) {
-        for (let i = 0; i < state.questions.length; i++) {
-          if (
-            state.questions[i].question_id ===
-            action.payload.question_id
-          ) {
-            state.questions[i].answer = action.payload.answer;
-            return state;
-          }
-        }
+    case 'SET_PROVIDER_RESPONSES':
+      const { id, answer } = action.payload;
+      // Assigns the question id and answer as a key/value pair
+      // return { ...state, questions: { ...state.questions, [id]: answer } };
+      const foundIndex = state.questions.findIndex(
+        (item) => item.question_id === id
+      );
+      if (foundIndex > -1) {
+        const newQuestionsArray = [...state.questions];
+        newQuestionsArray[foundIndex] = {
+          ...newQuestionsArray[foundIndex],
+          answer,
+        };
+        return { ...state, questions: newQuestionsArray };
+      } else {
+        return {
+          ...state,
+          questions: [...state.questions, { question_id: id, answer }],
+        };
       }
-      return {
-        ...state,
-        questions: [
-          ...state.questions,
-          {
-            question_id: action.payload.question_id,
-            answer: action.payload.answer,
-          },
-        ],
-      };
     default:
       return state;
   }
