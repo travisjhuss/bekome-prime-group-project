@@ -1,82 +1,49 @@
 import UserCard from '../UserCard/UserCard'
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-// const providers =
-// [
-//     {
-//         id: 1,
-//         first_name: 'Po',
-//         last_name: 'Stanley',
-//         pic: 'https://avatars.githubusercontent.com/u/70991031?s=400&u=f0374a68a807fdb079acde41e0a56fd44faa6691&v=4',
-//         video: 'sampledata',
-//         location: 'Wichita, KS',
-//         pronouns: 'He / Him',
-//         languages: 'English, Italian',
-//         answers: [
-//             {
-//                 questions_id: 1,
-//                 answer: 'I wanna help my fellow human.'
-//             },
-//             {
-//                 questions_id: 2,
-//                 answer: 'Pickle Ball',
-//             },
-//             {
-//                 questions_id: 6,
-//                 answer: 'Certified pickle ball instructor'
-//             }
-//         ]
-//     }
-// ]
-
-const questions =
-[
-    {
-        id: 1,
-        content: 'I became a therapist because...'
-    },
-    {
-        id: 2,
-        content: 'My favorite hobbies are...'
-    },
-    {
-        id: 6,
-        content: 'I have specialized training including...'
-    }
-]
 
 
 function ExploreView () {
 
     const dispatch = useDispatch();
 
-    const providers = useSelector((store) => store.exploreReducer)
-    // console.log(providers)
+    const providersReducer = useSelector((store) => store.exploreReducer)
+    const questionsReducer = useSelector((store) => store.providerQuestions)
+    let [providers, setProviders] = useState([])
+    let [questions, setQuestions] = useState([])
 
+
+    // Runs only on page load
     useEffect(() => {
         dispatch({ type: "GET_PROVIDERS" });
+        dispatch({ type: "FETCH_PROVIDER_QUESTIONS"})
       }, []);
 
+
+    // Runs when either providersReducer or questionsReducer change
     useEffect(() => {
 
+        // this function sets the local state of providers and questions to allow cards to be rendered
         function setProviderState() {
-            console.log(providers)
+            setProviders(providersReducer)
+            setQuestions(questionsReducer)
         }
 
-        if (providers[0]?.preferences[0]?.name !== undefined) {
+        // conditional that only runs function when data is properly recieved from BOTH reducers
+        if (providersReducer[0]?.answers[0]?.providers_users_id !== undefined && questionsReducer[0]?.id !== undefined) {
             setProviderState();
         }
 
-    }, [providers])
+    }, [providersReducer, questionsReducer])
 
 
     return (
         <div>
             <Grid>
-                {/* {providers.map(provider => {
+                {providers.map(provider => {
                     return (
                         <UserCard
                         key = {provider.id}
@@ -84,7 +51,7 @@ function ExploreView () {
                         questions = {questions}
                         />
                     )
-                })} */}
+                })}
             </Grid>
             <p>You made it to Explore View</p>
         </div>

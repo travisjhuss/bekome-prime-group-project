@@ -46,40 +46,53 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
     // second and third queries are looped for each provider gathered from first query
     for (let i = 0; i < providersArray.rows.length; i++) {
-      // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
-      const fullProviderObject = {...providersArray.rows[i]};
 
-      // second query as described above
-      const answers = await connection.query(answersSQL, [providersArray.rows[i].providers_users_id])
+      // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
+      const fullProviderObject = {...providersArray.rows[i], pronouns: '', languages: ''};
 
       // storing result of second query in fullProviderObject as a property
+      const answers = await connection.query(answersSQL, [providersArray.rows[i].providers_users_id])
       fullProviderObject.answers = answers.rows
 
-      // third query
-      const preferences = await connection.query(preferencesSQL, [providersArray.rows[i].providers_users_id])
-
       // storing result of third query in fullProviderObject as a property
-      fullProviderObject.preferences = preferences.rows
+      const preferences = await connection.query(preferencesSQL, [providersArray.rows[i].providers_users_id])
+      // console.log(preferences.rows)
+
+      let languageCount = 0;
+      let pronounsCount = 0;
+      // this for-loop parses the array of preferences into a string depending on it's category
+      // then inserts those strings into the fullProviderObject as properties
+      // the ternary operators concatenate lists of 2 or more languages / pronoun sets and seperate them with a comma
+      for (let i = 0; i < preferences.rows.length; i++) {
+        const pref = preferences.rows[i];
+        if (pref.category === 'languages') {
+
+          languageCount++;
+
+          (languageCount > 1)
+          ? fullProviderObject.languages += ', ' + pref.name
+          : fullProviderObject.languages +=  pref.name
+
+        } else if (pref.category === 'pronouns') {
+
+          pronounsCount++;
+
+          (pronounsCount > 1)
+          ? fullProviderObject.pronouns += '; ' + pref.name
+          : fullProviderObject.pronouns +=  pref.name
+
+        }
+      }
+      // console.log(fullProviderObject)
 
       // pushing each fullProvider object into the array that will be sent to the client
       fullProviderArray.push(fullProviderObject);
     }
-    console.log(fullProviderArray);
+    // console.log(fullProviderArray);
 
     await connection.query('COMMIT;');
     res.send(fullProviderArray)
-    // function parsePreferences(item) {
-    //   let languages = '';
-    //   let pronouns = '';
-    //   // console.log(item)
-    //   if (item.category === 'languages') {
-    //     languages += item.name;
-    //     console.log('Languages:', languages)
-    //   } else if (item.category === 'pronouns') {
-    //     pronouns += item.name;
-    //     console.log('Pronouns:', pronouns)
-    //   }
-    // }
+
 
   } catch (error) {
     console.log('ERROR getting providers in explore.router', error)
