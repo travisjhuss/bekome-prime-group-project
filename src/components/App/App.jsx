@@ -13,10 +13,11 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
+import MainFormContainer from '../MainFormContainer/MainFormContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ExploreView from '../ExploreView/ExploreView';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../MuiTheme/MuiTheme';
@@ -51,20 +52,20 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/user"
-            >
-              <UserPage />
-            </ProtectedRoute>
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/new-profile/:id"
-            >
-              <NewProfileContainer />
-            </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/user"
+          >
+            <UserPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/new_profile/:id"
+          >
+            <MainFormContainer />
+          </ProtectedRoute>
 
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
@@ -101,14 +102,25 @@ function App() {
               <LandingPage />
             </ProtectedRoute>
 
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route>
-              <h1>404</h1>
-            </Route>
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows ExploreView at "/explore"
+            exact
+            path="/explore"
+            // authRedirect="/user"
+          >
+            <ExploreView />
+          </ProtectedRoute>
+
+          {/* If none of the other routes matched, we will show a 404. */}
+          <Route>
+            <h1>404</h1>
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
     </ThemeProvider>
   );
 }
