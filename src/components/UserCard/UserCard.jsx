@@ -55,7 +55,7 @@ function UserCard({provider, questions}) {
                     const questionObj = questions.find(element => element.id === answer.questions_id)
                     return (
                         <Typography key={answer.questions_id}>
-                            <b>{questionObj.content} </b>
+                            <b>{questionObj?.content} </b>
                             {answer.answer}
                         </Typography>
                     )
