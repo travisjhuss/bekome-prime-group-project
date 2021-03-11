@@ -18,7 +18,13 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ExploreView from '../ExploreView/ExploreView';
+import SavedProviders from '../SavedProviders/SavedProviders';
+import InterestedClients from '../InterestedClients/InterestedClients';
+import EditProfile from '../EditProfile/EditProfile';
+import HowItWorks from '../HowItWorks/HowItWorks';
+import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
+
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../MuiTheme/MuiTheme';
@@ -47,6 +53,14 @@ function App() {
               path="/about"
             >
               <AboutPage />
+            </Route>
+
+            <Route
+              // shows HowItWorks at all times (logged in or not)
+              exact
+              path="/how_it_works"
+            >
+              <HowItWorks />
             </Route>
 
             {/* For protected routes, the view could show one of several things on the same route.
@@ -119,6 +133,50 @@ function App() {
               // authRedirect="/user"
             >
               <ExploreView />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows SavedProviders at "/saved_providers"
+              exact
+              path="/saved_providers"
+              // authRedirect="/user"
+            >
+              <SavedProviders />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows InterestedClients at "/interested_clients"
+              exact
+              path="/interested_clients"
+              // authRedirect="/user"
+            >
+              <InterestedClients />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows EditProfile at "/edit_profile"
+              exact
+              path="/edit_profile"
+              // authRedirect="/user"
+            >
+              <EditProfile />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows AdminPanel at "/admin"
+              exact
+              path="/admin"
+              // authRedirect="/user"
+            >
+              <AdminPanel />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}
