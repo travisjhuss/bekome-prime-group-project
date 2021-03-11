@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   pic: {
     width: 200,
     height: 200,
-    objectFit: "cover",
+    objectFit: 'cover',
     padding: theme.spacing(3),
   },
 }));
@@ -39,15 +39,15 @@ function ProviderDetails() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_PROVIDER_DETAILS", payload: id });
-    dispatch({ type: "FETCH_PREFERENCES" });
+    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
   const providersPreferences = preferences.filter(
     (item) => preferences_array?.indexOf(item.id) > -1
   );
 
-  const parseString = (category) => {
+  const parsePreferences = (category) => {
     return preferences
       .filter(
         (item) =>
@@ -59,7 +59,7 @@ function ProviderDetails() {
 
   const age = DateTime.now()
     .diff(DateTime.fromISO(date_of_birth))
-    .toFormat("y");
+    .toFormat('y');
 
   console.log(providersPreferences);
 
@@ -79,38 +79,38 @@ function ProviderDetails() {
             </Paper>
             <Box>
               <Typography>Age: {age}</Typography>
-              <Typography>Languages: {parseString('languages')}</Typography>
-              
-              
+              <Typography>
+                Languages: {parsePreferences('languages')}
+              </Typography>
+
               <Typography>Pronouns:</Typography>
               {providersPreferences.map((item) => {
-                if (item.category === "pronouns") {
+                if (item.category === 'pronouns') {
                   return <Typography key={item.id}>{item.name}</Typography>;
                 }
               })}
               <Typography>Languages:</Typography>
               {providersPreferences.map((item) => {
-                if (item.category === "languages") {
+                if (item.category === 'languages') {
                   return <Typography key={item.id}>{item.name}</Typography>;
                 }
               })}
 
-<Typography>Religious Affiliations:</Typography>
+              <Typography>Religious Affiliations:</Typography>
               {providersPreferences.map((item) => {
-                if (item.category === "religions") {
+                if (item.category === 'religions') {
                   return <Typography key={item.id}>{item.name}</Typography>;
                 }
               })}
-              
             </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
           <QuestionAccordion />
-          <StrengthsAccordion parseString={parseString} />
+          <StrengthsAccordion parsePreferences={parsePreferences} />
           <BackgroundAccordion />
-          <SpecialtiesAccordion parseString={parseString} />
-          <FormatsAccordion parseString={parseString} />
+          <SpecialtiesAccordion parsePreferences={parsePreferences} />
+          <FormatsAccordion parsePreferences={parsePreferences} />
         </Grid>
       </Grid>
     </Box>

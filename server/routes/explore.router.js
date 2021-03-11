@@ -117,7 +117,6 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
 router.get('/filter', rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
-
   try {
     connection.query('BEGIN;');
 
@@ -173,10 +172,11 @@ router.get('/filter', rejectUnauthenticated, async (req, res) => {
     res.send(dataToSend);
   } catch (err) {
     console.log('Error in GET transaction in explore.router, rollback:', err);
+    await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
     // End connection to db
-    await connection.release();
+    connection.release();
   }
 });
 
