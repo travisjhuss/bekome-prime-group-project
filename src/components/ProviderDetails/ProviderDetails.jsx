@@ -9,10 +9,11 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
-import DateTime from 'luxon';
+import { DateTime } from 'luxon';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
+import QuestionAccordion from '../QuestionAccordion/QuestionAccordion';
 
 const useStyles = makeStyles((theme) => ({
   pic: {
@@ -40,7 +41,6 @@ function ProviderDetails() {
     date_of_birth,
     preferences_array,
   } = useSelector((store) => store.providerDetails);
-  const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
 
@@ -52,6 +52,10 @@ function ProviderDetails() {
   const providersPreferences = preferences.filter(
     (item) => preferences_array?.indexOf(item.id) > -1
   );
+
+  const age = DateTime.now()
+    .diff(DateTime.fromISO(date_of_birth))
+    .toFormat('y');
 
   console.log(providersPreferences);
 
@@ -70,14 +74,18 @@ function ProviderDetails() {
               <img src={pic} className={classes.pic} />
             </Paper>
             <Box>
+              <Typography>Age: {age}</Typography>
               <Typography>Languages:</Typography>
               {providersPreferences.map((item) => {
                 if (item.category === 'languages') {
-                  return <Typography>{item.name}</Typography>;
+                  return <Typography key={item.id}>{item.name}</Typography>;
                 }
               })}
             </Box>
           </Box>
+        </Grid>
+        <Grid item xs={8}>
+          <QuestionAccordion />
         </Grid>
       </Grid>
     </Box>
