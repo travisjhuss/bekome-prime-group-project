@@ -19,7 +19,7 @@ function NavClient() {
       <Button
         startIcon={<StarOutlineIcon />}
         color="secondary"
-        onClick={() => history.push('/about')}
+        onClick={() => history.push('/saved_providers')}
       >
         <Typography variant="subtitle1" color="primary">
           Saved Providers

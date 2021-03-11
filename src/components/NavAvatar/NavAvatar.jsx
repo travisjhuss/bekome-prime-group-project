@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -10,8 +10,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  ListItemIcon,
-  ListItemText,
+  ListItemIcon
 } from '@material-ui/core';
 
 const StyledMenu = withStyles({
@@ -31,6 +30,7 @@ const StyledMenu = withStyles({
 ));
 
 function NavAvatar() {
+  const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
