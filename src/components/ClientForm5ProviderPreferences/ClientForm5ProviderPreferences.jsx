@@ -25,7 +25,7 @@ function ClientForm5ProviderPreferences({ classes }) {
             onChange={() => handleBooleans('insurance')}
           />
         }
-        label="Accepts insurance"
+        label="I'm open to see someone who doesn't accept my insurance."
       />
       <FormControlLabel
         control={
@@ -34,7 +34,7 @@ function ClientForm5ProviderPreferences({ classes }) {
             onChange={() => handleBooleans('sliding_scale')}
           />
         }
-        label="Has sliding scale payments"
+        label="I would like to see someone with sliding scale payments"
       />
       <Typography>My ideal therapist would be:</Typography>
       <FormCheckboxes category={'genders'} />
