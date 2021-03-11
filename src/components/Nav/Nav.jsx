@@ -25,21 +25,27 @@ function Nav() {
         )}
       </Link>
       <div>
+        {/* check if user is logged in by if there is a user id present */}
         {user.id ? (
+          // check if user has already filled out a form or not
           user.filled_out_form &&
+          // check what user type is present
           (user.user_type === 'client' ? (
             <>
+            {/*  what client users see */}
               <NavClient />
               <NavAvatar />
             </>
           ) : (
             <>
+            {/* what provider users see */}
               <NavProvider />
               <NavAvatar />
             </>
           ))
         ) : (
           <>
+          {/* what a user sees before logging in */}
             <Button onClick={() => history.push('/how-it-works')}>
               <Typography variant="subtitle1" color="primary">
                 How it Works

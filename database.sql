@@ -7,7 +7,8 @@ CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "email" VARCHAR (80) UNIQUE NOT NULL,
   "password" VARCHAR (1000) NOT NULL,
-  "user_type" types
+  "user_type" types,
+  "filled_out_form" BOOLEAN default false
 );
 
 CREATE TABLE "clients" (

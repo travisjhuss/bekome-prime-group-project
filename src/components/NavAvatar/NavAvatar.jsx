@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -13,6 +13,7 @@ import {
   ListItemIcon
 } from '@material-ui/core';
 
+// creates and styles a custom Menu
 const StyledMenu = withStyles({
   paper: {
     backgroundColor: '#e0fbfc',
@@ -30,12 +31,13 @@ const StyledMenu = withStyles({
 ));
 
 function NavAvatar() {
-//   const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
+  //  anchorEl will determine what the menu attaches itself to
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // openMEnu will set anchorEl to the Nav bar when avatar is clicked
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -44,6 +46,7 @@ function NavAvatar() {
     setAnchorEl(null);
   };
 
+  // on logout, set anchorEl back to null so it disappears, send dispatch, and go to home page
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
