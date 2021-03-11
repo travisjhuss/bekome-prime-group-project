@@ -17,12 +17,24 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     await connection.query('BEGIN;')
 
     // first query gets array of all providers and relevant data
+    // const providersSQL = `
+    //   SELECT
+    //   "providers_users_id", "first_name", "last_name", "pic", "video", "location"
+    //   FROM "providers";
+    // `;
+
+    // first query gets array of all providers and relevant data
+    // subquery excludes providers that current user has added to favorites list
     const providersSQL = `
-      SELECT
-      "providers_users_id", "first_name", "last_name", "pic", "video", "location"
-      FROM "providers";
+    SELECT
+    "providers_users_id", "first_name", "last_name", "pic", "video", "location" FROM "providers"
+    WHERE
+	    NOT EXISTS (
+		    SELECT "clients_users_id", "providers_users_id" FROM "clients_providers_favs"
+		    WHERE "clients_users_id" = $1 AND "providers_users_id" = "providers".providers_users_id
+	    );
     `;
-    const providersArray = await connection.query(providersSQL)
+    const providersArray = await connection.query(providersSQL, [req.user.id])
 
     // console.log(providersArray.rows);
 

@@ -19,6 +19,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('providerID:', providerID)
     console.log('clientID', clientID)
 
+    // this is the old version of the query. if the new version has any issues, return to this one
+
     // const favQuery = `
     // INSERT INTO "clients_providers_favs" ("clients_users_id", "providers_users_id")
     // VALUES ($1, $2);
