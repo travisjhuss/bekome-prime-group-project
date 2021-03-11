@@ -19,9 +19,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('providerID:', providerID)
     console.log('clientID', clientID)
 
+    // const favQuery = `
+    // INSERT INTO "clients_providers_favs" ("clients_users_id", "providers_users_id")
+    // VALUES ($1, $2);
+    // `;
+
+    // this query checks to see if the data already exists in a row. if it does, it will not POST a duplicate row
     const favQuery = `
     INSERT INTO "clients_providers_favs" ("clients_users_id", "providers_users_id")
-    VALUES ($1, $2);
+    SELECT $1, $2
+    WHERE
+        NOT EXISTS (
+            SELECT "clients_users_id", "providers_users_id" FROM "clients_providers_favs"
+            WHERE "clients_users_id" = $1 AND "providers_users_id" = $2);
     `;
 
     pool.query(favQuery, [clientID, providerID])
