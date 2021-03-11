@@ -30,7 +30,7 @@ const StyledMenu = withStyles({
 ));
 
 function NavAvatar() {
-  const user = useSelector((store) => store.user);
+//   const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -47,6 +47,7 @@ function NavAvatar() {
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
+    history.push('/about');
   };
 
   const openEdit = () => {

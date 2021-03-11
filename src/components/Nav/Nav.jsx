@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 // MUI
@@ -11,9 +11,7 @@ import NavProvider from '../NavProvider/NavProvider';
 function Nav() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
-  const location = useLocation();
 
-  console.log('location:', location.pathname);
   return (
     <div className="nav">
       <Link to="/home">
