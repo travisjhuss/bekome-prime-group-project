@@ -52,8 +52,17 @@ router.delete('/', rejectUnauthenticated, (req, res) => {
     console.log('clientID', clientID)
 
     const deleteFavQuery = `
-    
+    DELETE FROM "clients_providers_favs"
+    WHERE "clients_users_id" = $1 AND "providers_users_id" = $2;
     `
+
+    pool.query(deleteFavQuery, [clientID, providerID])
+    .then(result => {
+        console.log(result)
+    })
+    .catch(err => {
+        console.log('error in favorite.router DELETE', err)
+    })
 });
 
 module.exports = router;
