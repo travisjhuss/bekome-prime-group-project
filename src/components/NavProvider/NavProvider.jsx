@@ -9,10 +9,10 @@ function NavProvider() {
       <Button
         startIcon={<StarOutlineIcon />}
         color="secondary"
-        onClick={() => history.push('/about')}
+        onClick={() => history.push('/interested_clients')}
       >
         <Typography variant="subtitle1" color="primary">
-          Client Matches
+          Interested Clients
         </Typography>
       </Button>
     </>
