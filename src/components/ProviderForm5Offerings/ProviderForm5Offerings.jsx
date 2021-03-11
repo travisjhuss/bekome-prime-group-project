@@ -21,6 +21,10 @@ function ProviderForm5Offerings({ classes, handleInputs }) {
     });
   };
 
+  
+  // Client asked for inputs for licensure state and license number
+  
+
   return (
     <Paper className={classes.paper} elevation={4}>
       <Typography>I offer therapy in these formats:</Typography>

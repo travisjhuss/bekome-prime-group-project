@@ -23,6 +23,8 @@ import InterestedClients from '../InterestedClients/InterestedClients';
 import EditProfile from '../EditProfile/EditProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
+import ProviderDetails from '../ProviderDetails/ProviderDetails';
+
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../MuiTheme/MuiTheme';
@@ -73,9 +75,16 @@ function App() {
               <UserPage />
             </ProtectedRoute>
             <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/provider-details/:id"
+            >
+              <ProviderDetails />
+            </ProtectedRoute>
+            <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
-              path="/new_profile/:id"
+              path="/new-profile/:page"
             >
               <MainFormContainer />
             </ProtectedRoute>

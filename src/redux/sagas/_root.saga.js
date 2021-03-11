@@ -3,7 +3,8 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import formsSaga from './forms.saga';
-import exploreSaga from './explore.saga'
+import exploreSaga from './explore.saga';
+import providerDetailsSaga from './providerDetails.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -19,5 +20,6 @@ export default function* rootSaga() {
     userSaga(),
     formsSaga(), // handles all dispatches regarding forms
     exploreSaga(), // GETS provider data for ExploreView
+    providerDetailsSaga(), // Handles all dispatches regarding individual providers
   ]);
 }
