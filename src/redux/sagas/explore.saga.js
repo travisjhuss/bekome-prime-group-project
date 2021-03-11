@@ -7,6 +7,7 @@ function* exploreSaga() {
 
     yield takeEvery('GET_PROVIDERS', getProviders);
     yield takeEvery('FAVORITE_PROVIDER', favoriteProvider)
+    yield takeEvery('UNFAVORITE_PROVIDER', unfavoriteProvider)
 
 }
 
@@ -30,6 +31,15 @@ function* favoriteProvider(action) {
         console.log('response from favoriting provider', response)
     } catch (err) {
         console.log('error in favoriteProvider', err)
+    }
+}
+
+function* unfavoriteProvider(action) {
+    const payload = action.payload
+    try {
+        yield axios.delete('/api/favorite', {data: {id: payload}});
+    } catch (err) {
+        console.log('error in unfavoriteProvider', err)
     }
 }
 

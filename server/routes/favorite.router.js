@@ -45,4 +45,15 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
+router.delete('/', rejectUnauthenticated, (req, res) => {
+    const providerID = req.body.id;
+    const clientID = req.user.id;
+    console.log('providerID:', providerID)
+    console.log('clientID', clientID)
+
+    const deleteFavQuery = `
+    
+    `
+});
+
 module.exports = router;
