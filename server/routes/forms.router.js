@@ -22,7 +22,7 @@ router.get('/preferences', rejectUnauthenticated, (req, res) => {
 });
 
 // GET route for retrieving data from "questions" table
-router.get('/provider-questions', rejectUnauthenticated, (req, res) => {
+router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
   const sqlText = `
           SELECT * FROM "questions"
           `;
@@ -38,7 +38,7 @@ router.get('/provider-questions', rejectUnauthenticated, (req, res) => {
 });
 
 // POST route for adding new client data to DB
-router.post('/add-client', rejectUnauthenticated, async (req, res) => {
+router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
   // connection replaces pool
 
@@ -106,7 +106,7 @@ router.post('/add-client', rejectUnauthenticated, async (req, res) => {
 });
 
 // POST route for adding new client data to DB
-router.post('/add-provider', rejectUnauthenticated, async (req, res) => {
+router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
   // connection replaces pool
   const connection = await pool.connect();
@@ -187,7 +187,7 @@ router.post('/add-provider', rejectUnauthenticated, async (req, res) => {
     // send success status
     res.sendStatus(201);
   } catch (err) {
-    console.log('error in post /add-provider:', err);
+    console.log('error in post /add_provider:', err);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
