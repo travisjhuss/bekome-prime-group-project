@@ -84,9 +84,9 @@ function ProviderDetails() {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <QuestionAccordion parseString={parseString} />
+          <QuestionAccordion />
           <StrengthsAccordion parseString={parseString} />
-          <BackgroundAccordion parseString={parseString} />
+          <BackgroundAccordion />
           <SpecialtiesAccordion parseString={parseString} />
           <FormatsAccordion parseString={parseString} />
         </Grid>

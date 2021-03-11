@@ -9,10 +9,7 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 
 function StrengthsAccordion({ parseString }) {
-  const { strengths } = useSelector(
-    (store) => store.providerDetails
-  );
-  const qualitiesString = parseString('qualities');
+  const { strengths } = useSelector((store) => store.providerDetails);
 
   return (
     <Accordion>
@@ -23,7 +20,7 @@ function StrengthsAccordion({ parseString }) {
         <Box>
           <Typography>My clients would say I am... {strengths}</Typography>
           <Typography>
-            I consider my top qualities to be... {qualitiesString}
+            I consider my top qualities to be... {parseString('qualities')}
           </Typography>
         </Box>
       </AccordionDetails>
