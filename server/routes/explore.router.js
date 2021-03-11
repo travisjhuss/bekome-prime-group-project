@@ -9,12 +9,11 @@ const router = express.Router();
  * GET route for providers
  */
 router.get('/', rejectUnauthenticated, async (req, res) => {
-
   const connection = await pool.connect();
 
   try {
     // Begin transaction
-    await connection.query('BEGIN;')
+    await connection.query('BEGIN;');
 
     // first query gets array of all providers and relevant data
     const providersSQL = `
@@ -22,7 +21,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
       "providers_users_id", "first_name", "last_name", "pic", "video", "location"
       FROM "providers";
     `;
-    const providersArray = await connection.query(providersSQL)
+    const providersArray = await connection.query(providersSQL);
 
     // console.log(providersArray.rows);
 
@@ -46,16 +45,23 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
     // second and third queries are looped for each provider gathered from first query
     for (let i = 0; i < providersArray.rows.length; i++) {
-
       // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
-      const fullProviderObject = {...providersArray.rows[i], pronouns: '', languages: ''};
+      const fullProviderObject = {
+        ...providersArray.rows[i],
+        pronouns: '',
+        languages: '',
+      };
 
       // storing result of second query in fullProviderObject as a property
-      const answers = await connection.query(answersSQL, [providersArray.rows[i].providers_users_id])
-      fullProviderObject.answers = answers.rows
+      const answers = await connection.query(answersSQL, [
+        providersArray.rows[i].providers_users_id,
+      ]);
+      fullProviderObject.answers = answers.rows;
 
       // storing result of third query in fullProviderObject as a property
-      const preferences = await connection.query(preferencesSQL, [providersArray.rows[i].providers_users_id])
+      const preferences = await connection.query(preferencesSQL, [
+        providersArray.rows[i].providers_users_id,
+      ]);
       // console.log(preferences.rows)
 
       let languageCount = 0;
@@ -66,21 +72,17 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
       for (let i = 0; i < preferences.rows.length; i++) {
         const pref = preferences.rows[i];
         if (pref.category === 'languages') {
-
           languageCount++;
 
-          (languageCount > 1)
-          ? fullProviderObject.languages += ', ' + pref.name
-          : fullProviderObject.languages +=  pref.name
-
+          languageCount > 1
+            ? (fullProviderObject.languages += ', ' + pref.name)
+            : (fullProviderObject.languages += pref.name);
         } else if (pref.category === 'pronouns') {
-
           pronounsCount++;
 
-          (pronounsCount > 1)
-          ? fullProviderObject.pronouns += '; ' + pref.name
-          : fullProviderObject.pronouns +=  pref.name
-
+          pronounsCount > 1
+            ? (fullProviderObject.pronouns += '; ' + pref.name)
+            : (fullProviderObject.pronouns += pref.name);
         }
       }
       // console.log(fullProviderObject)
@@ -91,17 +93,67 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     // console.log(fullProviderArray);
 
     await connection.query('COMMIT;');
-    res.send(fullProviderArray)
-
-
+    res.send(fullProviderArray);
   } catch (error) {
-    console.log('ERROR getting providers in explore.router', error)
+    console.log('ERROR getting providers in explore.router', error);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
     connection.release();
   }
+});
 
+router.get('/filter', rejectUnauthenticated, async (req, res) => {
+  const connection = await pool.connect();
+
+  try {
+    connection.query('BEGIN;');
+
+    const sqlTextProviders = `
+      SELECT "providers".id,
+      "providers".providers_users_id, 
+      "providers".first_name, 
+      "providers".last_name, "providers".pic, 
+      "providers".video, 
+      "providers".location, 
+      "providers".insurance, 
+      "providers".date_of_birth, 
+      "providers".write_in_pronouns, 
+      "providers".sliding_scale,
+      ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
+      FROM "providers" JOIN "providers_preferences" ON 
+      "providers".providers_users_id = 
+      "providers_preferences".providers_users_id
+      GROUP BY "providers".id;
+    `;
+
+    const providers = await connection.query(sqlTextProviders);
+
+    const sqlTextQuestions = `
+      SELECT "providers_users_id", "questions_id", "answer" 
+      FROM "providers_questions";
+    `;
+
+    const questions = await connection.query(sqlTextQuestions);
+
+    const dataToSend = providers.rows.map((provider) => {
+      delete provider.id;
+      return {
+        ...provider,
+        questions: questions.rows.filter(
+          (answer) => answer.providers_users_id === provider.providers_users_id
+        ),
+      };
+    });
+
+    connection.query('COMMIT;');
+    res.send(dataToSend);
+  } catch (err) {
+    console.log('Error in GET in explore.router, rollback:', err);
+    res.sendStatus(500);
+  } finally {
+    await connection.release();
+  }
 });
 
 /**
