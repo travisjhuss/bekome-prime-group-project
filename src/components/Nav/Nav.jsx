@@ -17,7 +17,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <Typography variant="h3" color="primary" display="inline" >
+        <Typography variant="h3" color="primary" display="inline">
           bekome.
         </Typography>{' '}
         {!user.id && (
@@ -48,7 +48,7 @@ function Nav() {
               </Typography>
             </Button>
             <Button onClick={() => history.push('/login')}>
-              <Typography variant="subtitle1" color="primary">
+              <Typography variant="subtitle1" color="secondary">
                 Login / Sign-up
               </Typography>
             </Button>

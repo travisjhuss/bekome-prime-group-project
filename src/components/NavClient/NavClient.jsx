@@ -9,17 +9,21 @@ function NavClient() {
     <>
       <Button
         startIcon={<SearchIcon />}
-        color="primary"
+        color="secondary"
         onClick={() => history.push('/explore')}
       >
-        <Typography color="primary">Explore Providers</Typography>
+        <Typography variant="subtitle1" color="primary">
+          Explore Providers
+        </Typography>
       </Button>
       <Button
         startIcon={<StarOutlineIcon />}
-        color="primary"
+        color="secondary"
         onClick={() => history.push('/about')}
       >
-        <Typography color="primary">Saved Providers</Typography>
+        <Typography variant="subtitle1" color="primary">
+          Saved Providers
+        </Typography>
       </Button>
     </>
   );

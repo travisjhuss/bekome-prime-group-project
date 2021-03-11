@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EditIcon from '@material-ui/icons/Edit';
+import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
   IconButton,
@@ -12,6 +13,22 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+
+const StyledMenu = withStyles({
+  paper: {
+    backgroundColor: '#e0fbfc',
+    color: '#3D5A80',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+    }}
+    {...props}
+  />
+));
 
 function NavAvatar() {
   const history = useHistory();
@@ -30,39 +47,42 @@ function NavAvatar() {
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
-  }
+  };
 
   const openEdit = () => {
     setAnchorEl(null);
     history.push('/edit_profile');
-  }
+  };
 
   return (
     <>
       <IconButton color="primary" onClick={openMenu}>
         <AccountCircleIcon />
       </IconButton>
-      <Menu
+      <StyledMenu
         id="profile-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={closeMenu}
-        style={{ marginTop: '10px' }}
       >
         <MenuItem onClick={openEdit}>
           <ListItemIcon>
-            <EditIcon fontSize="small" />
+            <EditIcon fontSize="small" color="secondary" />
           </ListItemIcon>
-          <ListItemText primary="Edit Profile" />
+          <Typography variant="subtitle1" color="primary">
+            Edit Profile
+          </Typography>
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>
-            <ExitToAppIcon fontSize="small" />
+            <ExitToAppIcon fontSize="small" color="secondary" />
           </ListItemIcon>
-          <ListItemText primary="Logout" />
+          <Typography variant="subtitle1" color="primary">
+            Logout
+          </Typography>
         </MenuItem>
-      </Menu>
+      </StyledMenu>
     </>
   );
 }
