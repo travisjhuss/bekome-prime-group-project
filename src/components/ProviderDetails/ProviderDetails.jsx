@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   pic: {
     width: 200,
     height: 200,
-    objectFit: 'cover',
+    objectFit: "cover",
     padding: theme.spacing(3),
   },
 }));
@@ -39,8 +39,8 @@ function ProviderDetails() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
-    dispatch({ type: 'FETCH_PREFERENCES' });
+    dispatch({ type: "FETCH_PROVIDER_DETAILS", payload: id });
+    dispatch({ type: "FETCH_PREFERENCES" });
   }, []);
 
   const providersPreferences = preferences.filter(
@@ -59,7 +59,7 @@ function ProviderDetails() {
 
   const age = DateTime.now()
     .diff(DateTime.fromISO(date_of_birth))
-    .toFormat('y');
+    .toFormat("y");
 
   console.log(providersPreferences);
 
@@ -80,6 +80,28 @@ function ProviderDetails() {
             <Box>
               <Typography>Age: {age}</Typography>
               <Typography>Languages: {parseString('languages')}</Typography>
+              
+              
+              <Typography>Pronouns:</Typography>
+              {providersPreferences.map((item) => {
+                if (item.category === "pronouns") {
+                  return <Typography key={item.id}>{item.name}</Typography>;
+                }
+              })}
+              <Typography>Languages:</Typography>
+              {providersPreferences.map((item) => {
+                if (item.category === "languages") {
+                  return <Typography key={item.id}>{item.name}</Typography>;
+                }
+              })}
+
+<Typography>Religious Affiliations:</Typography>
+              {providersPreferences.map((item) => {
+                if (item.category === "religions") {
+                  return <Typography key={item.id}>{item.name}</Typography>;
+                }
+              })}
+              
             </Box>
           </Box>
         </Grid>
