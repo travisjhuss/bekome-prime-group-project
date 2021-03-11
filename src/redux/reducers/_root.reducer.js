@@ -4,7 +4,8 @@ import user from './user.reducer';
 import forms from './forms.reducer';
 import providerQuestions from './providerQuestions.reducer';
 import preferences from './preferences.reducer';
-import exploreReducer from './explore.reducer'
+import exploreReducer from './explore.reducer';
+import providerDetails from './providerDetails.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   forms, // contains reducers for holding answers while filling out forms
   providerQuestions, // reducer for getting the questions from the db
   preferences, // reducer for getting all preferences options from db
-  exploreReducer, // reducer that contains all explore provider data 
+  exploreReducer, // reducer that contains all explore provider data
+  providerDetails, // Returns info for one provider for ProviderDetails
 });
 
 export default rootReducer;

@@ -52,10 +52,10 @@ function MainFormContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
-  const { id } = useParams();
+  const { page } = useParams();
   const { email, user_type } = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
-  const currentPage = Number(id);
+  const currentPage = Number(page);
   const stepArrayToDisplay =
     user_type === 'client' ? clientSteps : providerSteps;
 
@@ -73,9 +73,9 @@ function MainFormContainer() {
   };
 
   const handleNextButton = () => {
-    currentPage === 5
+    currentPage === stepArrayToDisplay.length
       ? handleSubmit()
-      : history.push(`/new_profile/${currentPage + 1}`);
+      : history.push(`/new-profile/${currentPage + 1}`);
   };
 
   const handleSubmit = () => {
@@ -108,14 +108,14 @@ function MainFormContainer() {
       )}
       <Button
         disabled={currentPage === 1}
-        onClick={() => history.push(`/new_profile/${currentPage - 1}`)}
+        onClick={() => history.push(`/new-profile/${currentPage - 1}`)}
         variant="contained"
         color="default"
       >
         Back
       </Button>
       <Button onClick={handleNextButton} variant="contained" color="primary">
-        {currentPage === 5 ? 'Submit' : 'Next'}
+        {currentPage === stepArrayToDisplay.length ? 'Submit' : 'Next'}
       </Button>
       <Stepper activeStep={currentPage - 1}>
         {stepArrayToDisplay.map((item, i) => (
