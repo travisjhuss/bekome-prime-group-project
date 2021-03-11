@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 
-function UserCard({provider, questions}) {
+function UserCard({provider, questions, favorited}) {
 
     const dispatch = useDispatch();
 
@@ -46,6 +46,7 @@ function UserCard({provider, questions}) {
 
                 <FavoriteProviderButton
                 providerID = {provider.providers_users_id}
+                favorited = {favorited}
                 />
 
                 <Typography>
