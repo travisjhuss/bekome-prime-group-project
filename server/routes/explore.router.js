@@ -109,11 +109,14 @@ router.get('/filter', rejectUnauthenticated, async (req, res) => {
   try {
     connection.query('BEGIN;');
 
+    // Obtains all needed info from "providers" table, along with array of ID's
+    // of all preferences each provider has
     const sqlTextProviders = `
       SELECT "providers".id,
       "providers".providers_users_id, 
       "providers".first_name, 
-      "providers".last_name, "providers".pic, 
+      "providers".last_name, 
+      "providers".pic, 
       "providers".video, 
       "providers".location, 
       "providers".insurance, 
@@ -127,17 +130,24 @@ router.get('/filter', rejectUnauthenticated, async (req, res) => {
       GROUP BY "providers".id;
     `;
 
+    // Sends the query to db, saves data to 'providers' var
     const providers = await connection.query(sqlTextProviders);
 
+    // Gets all needed information from "providers_questions" junction table
     const sqlTextQuestions = `
       SELECT "providers_users_id", "questions_id", "answer" 
       FROM "providers_questions";
     `;
 
+    // Sends the query to db, saves data to 'questions' var
     const questions = await connection.query(sqlTextQuestions);
 
+    // Packages the data to send to client
     const dataToSend = providers.rows.map((provider) => {
+      // Since we're only using 'providers_users_id', deleting the 'id' here
+      // so there's no confusion on the client side
       delete provider.id;
+      // Add the answers to each provider object as its own array of objects
       return {
         ...provider,
         questions: questions.rows.filter(
@@ -145,13 +155,15 @@ router.get('/filter', rejectUnauthenticated, async (req, res) => {
         ),
       };
     });
-
+    // End sql transaction
     connection.query('COMMIT;');
+    // Send data to client
     res.send(dataToSend);
   } catch (err) {
-    console.log('Error in GET in explore.router, rollback:', err);
+    console.log('Error in GET transaction in explore.router, rollback:', err);
     res.sendStatus(500);
   } finally {
+    // End connection to db
     await connection.release();
   }
 });
