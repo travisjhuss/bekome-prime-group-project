@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Box, Chip, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 function RegisterForm() {
   const classes = useStyles();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [type, setType] = useState('');
@@ -23,6 +25,7 @@ function RegisterForm() {
       type: 'REGISTER',
       payload: { username: email, password, user_type: type },
     });
+    history.push('/new-profile/1');
   };
 
   return (

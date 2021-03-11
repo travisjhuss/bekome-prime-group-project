@@ -96,7 +96,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     // send success status
     res.sendStatus(201);
   } catch (err) {
-    console.log('error in post /add_client:', err);
+    console.log('error in post /add-client:', err);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
@@ -155,9 +155,9 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
     const secondSqlText = `
-          INSERT INTO "providers_preferences" ("providers_users_id", "preferences_id")
-          VALUES ${preferenceValues};
-      `;
+      INSERT INTO "providers_preferences" ("providers_users_id", "preferences_id")
+      VALUES ${preferenceValues};
+    `;
     await connection.query(secondSqlText, [
       req.user.id,
       ...req.body.preferences,
@@ -165,9 +165,9 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     // Work for third query
     // Take the questions array and use the same SQL query for each
     const providerQuestionsQuery = `
-        INSERT INTO "providers_questions" ("providers_users_id", "questions_id", "answer")
-        VALUES ($1, $2, $3);
-      `;
+      INSERT INTO "providers_questions" ("providers_users_id", "questions_id", "answer")
+      VALUES ($1, $2, $3);
+    `;
 
     req.body.questions.forEach(async (question) => {
       try {
@@ -177,7 +177,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
           question.answer,
         ]);
       } catch (err) {
-        console.log('error in post to providers_preferences:', err);
+        console.log('error in post to providers_questions:', err);
         await connection.query('ROLLBACK;');
         res.sendStatus(500);
       }
@@ -187,7 +187,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     // send success status
     res.sendStatus(201);
   } catch (err) {
-    console.log('error in post /add_client:', err);
+    console.log('error in post /add_provider:', err);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
