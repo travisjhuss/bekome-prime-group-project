@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import {
-  Paper,
-  Box,
-  Accordion,
-  Typography,
-  makeStyles,
-  Grid,
-} from '@material-ui/core';
+import { Paper, Box, Typography, makeStyles, Grid } from '@material-ui/core';
 import { DateTime } from 'luxon';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
 import QuestionAccordion from '../QuestionAccordion/QuestionAccordion';
+import StrengthsAccordion from '../StrengthsAccordion/StrengthsAccordion';
+import BackgroundAccordion from '../BackgroundAccordion/BackgroundAccordion';
+import SpecialtiesAccordion from '../SpecialtiesAccordion/SpecialtiesAccordion';
+import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
 
 const useStyles = makeStyles((theme) => ({
   pic: {
@@ -33,9 +30,6 @@ function ProviderDetails() {
     pic,
     video,
     location,
-    background,
-    strengths,
-    approach,
     insurance,
     sliding_scale,
     date_of_birth,
@@ -53,6 +47,16 @@ function ProviderDetails() {
     (item) => preferences_array?.indexOf(item.id) > -1
   );
 
+  const parseString = (category) => {
+    return preferences
+      .filter(
+        (item) =>
+          item.category === category && preferences_array?.indexOf(item.id) > -1
+      )
+      .reduce((string, item) => (string += `${item.name}, `), '')
+      .slice(0, -2);
+  };
+
   const age = DateTime.now()
     .diff(DateTime.fromISO(date_of_birth))
     .toFormat('y');
@@ -68,24 +72,23 @@ function ProviderDetails() {
         <FavoriteProviderButton providers_users_id={id} />
       </Box>
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Box display="flex">
             <Paper elevation={4}>
               <img src={pic} className={classes.pic} />
             </Paper>
             <Box>
               <Typography>Age: {age}</Typography>
-              <Typography>Languages:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === 'languages') {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
+              <Typography>Languages: {parseString('languages')}</Typography>
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={8}>
-          <QuestionAccordion />
+        <Grid item xs={6}>
+          <QuestionAccordion parseString={parseString} />
+          <StrengthsAccordion parseString={parseString} />
+          <BackgroundAccordion parseString={parseString} />
+          <SpecialtiesAccordion parseString={parseString} />
+          <FormatsAccordion parseString={parseString} />
         </Grid>
       </Grid>
     </Box>

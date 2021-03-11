@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Box, Accordion } from '@material-ui/core';
+import {
+  Typography,
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 function QuestionAccordion() {
   const dispatch = useDispatch();
@@ -10,7 +17,28 @@ function QuestionAccordion() {
 
   useEffect(() => dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' }), []);
 
-  return <p>Question Accordion</p>;
+  return (
+    <Accordion expanded={open} onChange={() => setOpen(!open)}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Typography variant="h6">Questions</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Box>
+          {providerQuestions.map((item) => (
+            <>
+              <Typography>
+                {item.content + ' '}
+                {
+                  questions?.find((answer) => item.id === answer.questions_id)
+                    .answer
+                }
+              </Typography>
+            </>
+          ))}
+        </Box>
+      </AccordionDetails>
+    </Accordion>
+  );
 }
 
 export default QuestionAccordion;
