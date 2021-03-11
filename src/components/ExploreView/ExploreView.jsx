@@ -29,6 +29,7 @@ function ExploreView () {
                         key = {provider.providers_users_id}
                         provider = {provider}
                         questions = {questionsReducer}
+                        favorited = {false}
                         />
                     )
                 })}
