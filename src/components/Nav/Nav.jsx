@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 // MUI
@@ -11,17 +11,25 @@ import NavProvider from '../NavProvider/NavProvider';
 function Nav() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
+  const location = useLocation();
 
+  console.log('location:', location.pathname);
   return (
     <div className="nav">
       <Link to="/home">
-        <Typography variant="h3" color="primary">
+        <Typography variant="h3" color="primary" display="inline" >
           bekome.
-        </Typography>
+        </Typography>{' '}
+        {!user.id && (
+          <Typography variant="subtitle1" color="primary" display="inline">
+            find your <i>right</i> care. bekome your <i>best</i> self
+          </Typography>
+        )}
       </Link>
       <div>
         {user.id ? (
-          user.user_type === 'client' ? (
+          user.filled_out_form &&
+          (user.user_type === 'client' ? (
             <>
               <NavClient />
               <NavAvatar />
@@ -31,14 +39,18 @@ function Nav() {
               <NavProvider />
               <NavAvatar />
             </>
-          )
+          ))
         ) : (
           <>
             <Button onClick={() => history.push('/how-it-works')}>
-              <Typography color="primary">How it Works</Typography>
+              <Typography variant="subtitle1" color="primary">
+                How it Works
+              </Typography>
             </Button>
             <Button onClick={() => history.push('/login')}>
-              <Typography color="primary">Login / Sign-up</Typography>
+              <Typography variant="subtitle1" color="primary">
+                Login / Sign-up
+              </Typography>
             </Button>
           </>
         )}
