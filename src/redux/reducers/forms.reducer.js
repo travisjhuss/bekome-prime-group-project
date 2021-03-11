@@ -83,8 +83,6 @@ export const providerAnswers = (
       }
     case 'SET_PROVIDER_RESPONSES':
       const { id, answer } = action.payload;
-      // Assigns the question id and answer as a key/value pair
-      // return { ...state, questions: { ...state.questions, [id]: answer } };
       const foundIndex = state.questions.findIndex(
         (item) => item.question_id === id
       );

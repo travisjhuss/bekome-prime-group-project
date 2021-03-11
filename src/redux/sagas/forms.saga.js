@@ -23,7 +23,7 @@ function* fetchPreferences() {
 function* fetchProviderQuestions() {
   try {
     // GET all preferences from DB to populate forms
-    const response = yield axios.get('/api/forms/provider_questions');
+    const response = yield axios.get('/api/forms/provider-questions');
     console.log('fetchProviderQuestions response.data', response.data);
     // save in preferences reducer
     yield put({ type: 'SET_PROVIDER_QUESTIONS', payload: response.data });
@@ -35,7 +35,7 @@ function* fetchProviderQuestions() {
 function* addNewClient(action) {
   try {
     console.log('in addNewClient with payload:', action.payload);
-    yield axios.post('/api/forms/add_client', action.payload);
+    yield axios.post('/api/forms/add-client', action.payload);
   } catch (err) {
     console.log('error in addNewClient:', err);
   }
@@ -44,7 +44,7 @@ function* addNewClient(action) {
 function* addNewProvider(action) {
     try {
         console.log('in addNewProvider with payload:', action.payload);
-        yield axios.post('/api/forms/add_provider', action.payload);
+        yield axios.post('/api/forms/add-provider', action.payload);
     } catch (err) {
       console.log('error in addNewProvider:', err);
     }

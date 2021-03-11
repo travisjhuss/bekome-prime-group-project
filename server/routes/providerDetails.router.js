@@ -58,10 +58,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     res.send(infoToSend);
   } catch (err) {
     await connection.query('ROLLBACK;');
-    console.log(
-      'Error in transaction in providerDetails.router, rollback:',
-      err
-    );
+    console.log('Error in GET in providerDetails.router, rollback:', err);
     res.sendStatus(500);
   } finally {
     connection.release();
