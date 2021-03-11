@@ -38,17 +38,22 @@ function ProviderDetails() {
     insurance,
     sliding_scale,
     date_of_birth,
+    preferences_array,
   } = useSelector((store) => store.providerDetails);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
 
-  useEffect(
-    () => dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id }),
-    []
+  useEffect(() => {
+    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'FETCH_PREFERENCES' });
+  }, []);
+
+  const providersPreferences = preferences.filter(
+    (item) => preferences_array?.indexOf(item.id) > -1
   );
 
-  console.log(date_of_birth);
+  console.log(providersPreferences);
 
   return (
     <Box p={2}>
@@ -64,7 +69,14 @@ function ProviderDetails() {
             <Paper elevation={4}>
               <img src={pic} className={classes.pic} />
             </Paper>
-            <Box></Box>
+            <Box>
+              <Typography>Languages:</Typography>
+              {providersPreferences.map((item) => {
+                if (item.category === 'languages') {
+                  return <Typography>{item.name}</Typography>;
+                }
+              })}
+            </Box>
           </Box>
         </Grid>
       </Grid>
