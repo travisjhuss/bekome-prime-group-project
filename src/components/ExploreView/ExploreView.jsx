@@ -1,42 +1,39 @@
-import UserCard from '../UserCard/UserCard'
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
+import UserCard from '../UserCard/UserCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+function ExploreView() {
+  const dispatch = useDispatch();
 
+  const providersReducer = useSelector((store) => store.exploreReducer);
+  const questionsReducer = useSelector((store) => store.providerQuestions);
 
-function ExploreView () {
+  // Runs only on page load
+  useEffect(() => {
+    dispatch({ type: 'GET_PROVIDERS' });
+    dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' });
+  }, []);
 
-    const dispatch = useDispatch();
-
-    const providersReducer = useSelector((store) => store.exploreReducer)
-    const questionsReducer = useSelector((store) => store.providerQuestions)
-
-
-    // Runs only on page load
-    useEffect(() => {
-        dispatch({ type: "GET_PROVIDERS" });
-        dispatch({ type: "FETCH_PROVIDER_QUESTIONS"})
-    }, []);
-
-    return (
-        <div>
-            <Grid>
-                {providersReducer.map(provider => {
-                    return (
-                        <UserCard
-                        key = {provider.providers_users_id}
-                        provider = {provider}
-                        questions = {questionsReducer}
-                        favorited = {false}
-                        />
-                    )
-                })}
+  return (
+    <center>
+      <Grid container spacing={2}>
+        {providersReducer.map((provider) => {
+          return (
+            <Grid item xs={4}>
+              <UserCard
+                key={provider.providers_users_id}
+                provider={provider}
+                questions={questionsReducer}
+                favorited={false}
+              />
             </Grid>
-            <p>You made it to Explore View</p>
-        </div>
-    )
+          );
+        })}
+      </Grid>
+    </center>
+  );
 }
 
 export default ExploreView;

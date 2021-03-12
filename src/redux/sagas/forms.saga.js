@@ -36,6 +36,8 @@ function* addNewClient(action) {
   try {
     console.log('in addNewClient with payload:', action.payload);
     yield axios.post('/api/forms/add_client', action.payload);
+    // fetch user so nav bar updates
+    yield put({type: 'FETCH_USER'});
   } catch (err) {
     console.log('error in addNewClient:', err);
   }
@@ -45,6 +47,8 @@ function* addNewProvider(action) {
     try {
         console.log('in addNewProvider with payload:', action.payload);
         yield axios.post('/api/forms/add_provider', action.payload);
+        // fetch user so nav bar updates
+        yield put({type: 'FETCH_USER'});
     } catch (err) {
       console.log('error in addNewProvider:', err);
     }
