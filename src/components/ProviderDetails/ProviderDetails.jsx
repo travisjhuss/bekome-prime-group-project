@@ -86,7 +86,7 @@ function ProviderDetails() {
               {providersPreferences.map((item) => {
                 if (item.category === "pronouns") {
                   return <Typography key={item.id}>{item.name}</Typography>;
-                }
+                } 
               })}
               <Typography>Languages:</Typography>
               {providersPreferences.map((item) => {
