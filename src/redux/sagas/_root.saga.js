@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import formsSaga from './forms.saga';
 import exploreSaga from './explore.saga';
 import providerDetailsSaga from './providerDetails.saga';
+import interestedClientsSaga from './interestedClients.saga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     formsSaga(), // handles all dispatches regarding forms
     exploreSaga(), // GETS provider data for ExploreView
     providerDetailsSaga(), // Handles all dispatches regarding individual providers
+    interestedClientsSaga(), // saga that calls api router to GET interested client using provider's user id
   ]);
 }
