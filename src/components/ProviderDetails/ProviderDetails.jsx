@@ -14,9 +14,10 @@ import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
 
 const useStyles = makeStyles((theme) => ({
   pic: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     objectFit: 'cover',
+    borderRadius: '50%',
     padding: theme.spacing(3),
   },
 }));
@@ -33,6 +34,7 @@ function ProviderDetails() {
     insurance,
     sliding_scale,
     date_of_birth,
+    write_in_pronouns,
     preferences_array,
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
@@ -43,16 +45,13 @@ function ProviderDetails() {
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
-  const providersPreferences = preferences.filter(
-    (item) => preferences_array?.indexOf(item.id) > -1
-  );
-
   const parsePreferences = (category) => {
     return preferences
-      .filter(
-        (item) =>
-          item.category === category && preferences_array?.indexOf(item.id) > -1
-      )
+      .filter((item) => {
+        return (
+          item.category === category && preferences_array?.includes(item.id)
+        );
+      })
       .reduce((string, item) => (string += `${item.name}, `), '')
       .slice(0, -2);
   };
@@ -60,8 +59,6 @@ function ProviderDetails() {
   const age = DateTime.now()
     .diff(DateTime.fromISO(date_of_birth))
     .toFormat('y');
-
-  console.log(providersPreferences);
 
   return (
     <Box p={2}>
@@ -74,34 +71,20 @@ function ProviderDetails() {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Box display="flex">
-            <Paper elevation={4}>
-              <img src={pic} className={classes.pic} />
-            </Paper>
+            <img src={pic} className={classes.pic} />
             <Box>
               <Typography>Age: {age}</Typography>
               <Typography>
+                Pronouns: {parsePreferences('pronouns')}
+                {write_in_pronouns && `, ${write_in_pronouns}`}
+              </Typography>
+              <Typography>Location: {location}</Typography>
+              <Typography>
                 Languages: {parsePreferences('languages')}
               </Typography>
-
-              <Typography>Pronouns:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === 'pronouns') {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
-              <Typography>Languages:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === 'languages') {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
-
-              <Typography>Religious Affiliations:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === 'religions') {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
+              <Typography>
+                Religious Affiliations: {parsePreferences('religions')}
+              </Typography>
             </Box>
           </Box>
         </Grid>

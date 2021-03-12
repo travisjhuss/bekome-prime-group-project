@@ -10,7 +10,7 @@ function FavoriteProviderButton({providerID, favorited}) {
 
     const dispatch = useDispatch();
 
-    let [favState, setFavState] = useState(favorited);
+    let [favState, setFavState] = useState(false);
 
     const clickFavorite = (id) => {
         setFavState(true);

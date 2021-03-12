@@ -41,14 +41,14 @@ function FormMenuChips({ category, string }) {
           <MenuItem
             key={item.id}
             onClick={() => handleChange(item.id)}
-            selected={answers.preferences.indexOf(item.id) > -1}
+            selected={answers.preferences.includes(item.id)}
           >
             {item.name}
           </MenuItem>
         ))}
       </Menu>
       {filteredPreferences.map((item) => {
-        if (answers.preferences.indexOf(item.id) > -1) {
+        if (answers.preferences.includes(item.id)) {
           return (
             <Chip
               key={item.id}
