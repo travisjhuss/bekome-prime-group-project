@@ -1,4 +1,4 @@
-import UserCard from '../UserCard/UserCard'
+import UserCardSaved from '../UserCardSaved/UserCardSaved'
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +10,7 @@ function SavedProviders () {
 
     const dispatch = useDispatch();
 
-    const savedProvidersReducer = useSelector((store) => store.savedProvidersReducer)
+    const savedProvidersReducer = useSelector((store) => store.savedProviders)
     const questionsReducer = useSelector((store) => store.providerQuestions)
 
     // Runs only on page load
@@ -22,17 +22,18 @@ function SavedProviders () {
     return (
         <div>
             <Grid>
-                {/* {savedProvidersReducer.map(provider => {
+                {savedProvidersReducer.map(provider => {
                     return (
-                        <UserCard
+                        <UserCardSaved
                         key = {provider.providers_users_id}
                         provider = {provider}
                         questions = {questionsReducer}
                         favorited = {true}
                         />
                     )
-                })} */}
+                })}
             </Grid>
+            {/* <button onClick={() => console.log(savedProvidersReducer)}>test</button> */}
         </div>
     )
 }
