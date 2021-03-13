@@ -16,6 +16,8 @@ import {
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    margin: '0px 20px',
+    display: 'inline-block'
   },
   media: {
     height: 300,
