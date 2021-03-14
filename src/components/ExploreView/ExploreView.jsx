@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import ScrollMenu from 'react-horizontal-scrolling-menu';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
+// Import Swiper styles
+import 'swiper/swiper-bundle.css';
 
 function ExploreView() {
   const dispatch = useDispatch();
@@ -18,35 +23,33 @@ function ExploreView() {
     dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' });
   }, []);
 
-  const scroll = (scrollOffset) => {
-    ref.current.scrollLeft += scrollOffset;
-  };
+  // install Swiper modules
+  SwiperCore.use([Navigation, Pagination, A11y]);
 
-  console.log(ref);
+  //   const scroll = (scrollOffset) => {
+  //     ref.current.scrollLeft += scrollOffset;
+  //   };
+
   return (
-
-      <Grid container spacing={2}>
-        <Grid item xs={1}>
-          <button onClick={() => scroll(-600)}>LEFT</button>
-        </Grid>
-        <Grid item xs={10}>
-          <div ref={ref} className="menu-wrapper">
-            {providersReducer.map((provider) => {
-              return (
-                <UserCard
-                  key={provider.providers_users_id}
-                  provider={provider}
-                  questions={questionsReducer}
-                  favorited={false}
-                />
-              );
-            })}
-          </div>
-        </Grid>
-        <Grid item xs={1}>
-          <button onClick={() => scroll(600)}>Right</button>
-        </Grid>
-      </Grid>
+    <Swiper
+      spaceBetween={0}
+      slidesPerView={3}
+      navigation
+      pagination={{ clickable: true }}
+    >
+      {providersReducer.map((provider) => {
+        return (
+          <SwiperSlide>
+            <UserCard
+              key={provider.providers_users_id}
+              provider={provider}
+              questions={questionsReducer}
+              favorited={false}
+            />
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
   );
 }
 
