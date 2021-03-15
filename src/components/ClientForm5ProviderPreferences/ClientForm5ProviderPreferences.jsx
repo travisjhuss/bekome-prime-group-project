@@ -14,10 +14,10 @@ function ClientForm5ProviderPreferences({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
   const insurance = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'insurance'
+    (item) => item.name === 'Insurance'
   );
   const slidingScale = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'sliding scale'
+    (item) => item.name === 'Sliding Scale'
   );
 
   return (

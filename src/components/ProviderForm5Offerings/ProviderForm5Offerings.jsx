@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
-  TextField,
   Typography,
   FormControlLabel,
   Switch,
@@ -13,16 +12,15 @@ import {
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../S3Uploader/S3Uploader';
 
-function ProviderForm5Offerings({ classes, handleInputs }) {
+function ProviderForm5Offerings({ classes }) {
   const dispatch = useDispatch();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-
-  const handleBooleans = (key) => {
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key, value: !providerAnswers[key] },
-    });
-  };
+  const insurance = useSelector((store) => store.preferences).find(
+    (item) => item.name === 'Insurance'
+  );
+  const slidingScale = useSelector((store) => store.preferences).find(
+    (item) => item.name === 'Sliding Scale'
+  );
 
   // Client asked for inputs for licensure state and license number
 
@@ -36,8 +34,13 @@ function ProviderForm5Offerings({ classes, handleInputs }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={providerAnswers.insurance}
-                  onChange={() => handleBooleans('insurance')}
+                  checked={providerAnswers.preferences.includes(insurance?.id)}
+                  onChange={() =>
+                    dispatch({
+                      type: 'SET_PROVIDER_PREFERENCES',
+                      payload: insurance.id,
+                    })
+                  }
                 />
               }
               label="I accept insurance"
@@ -45,8 +48,15 @@ function ProviderForm5Offerings({ classes, handleInputs }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={providerAnswers.sliding_scale}
-                  onChange={() => handleBooleans('sliding_scale')}
+                  checked={providerAnswers.preferences.includes(
+                    slidingScale?.id
+                  )}
+                  onChange={() =>
+                    dispatch({
+                      type: 'SET_PROVIDER_PREFERENCES',
+                      payload: slidingScale.id,
+                    })
+                  }
                 />
               }
               label="I offer sliding scale payments"
