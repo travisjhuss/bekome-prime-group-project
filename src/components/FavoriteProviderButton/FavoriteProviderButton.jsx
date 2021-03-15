@@ -1,10 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-
-import { Button, Typography } from '@material-ui/core';
+import useStyles from '../../hooks/useStyles';
+import { IconButton, Typography } from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
 
 function FavoriteProviderButton({ providerID }) {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   let [favState, setFavState] = useState(false);
 
@@ -29,13 +32,23 @@ function FavoriteProviderButton({ providerID }) {
   return (
     <>
       {favState ? (
-        <Button variant="contained" onClick={() => clickUnfavorite(providerID)}>
-          Fav
-        </Button>
+        <IconButton
+          className={classes.saveButton}
+          variant="contained"
+          color="primary"
+          onClick={() => clickUnfavorite(providerID)}
+        >
+          <StarIcon />
+        </IconButton>
       ) : (
-        <Button variant="outlined" onClick={() => clickFavorite(providerID)}>
-          Fav
-        </Button>
+        <IconButton
+          className={classes.saveButton}
+          variant="outlined"
+          color="primary"
+          onClick={() => clickFavorite(providerID)}
+        >
+          <StarOutlineIcon />
+        </IconButton>
       )}
     </>
   );

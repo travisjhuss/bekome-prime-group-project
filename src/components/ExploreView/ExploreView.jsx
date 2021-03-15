@@ -90,7 +90,6 @@ function ExploreView() {
       <Swiper
         spaceBetween={0}
         navigation
-        centeredSlidesBounds={true}
         breakpoints={breakpoints}
         pagination={{ clickable: true }}
       >

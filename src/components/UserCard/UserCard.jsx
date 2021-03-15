@@ -3,15 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
-  CardActionArea,
-  CardHeader,
   CardActions,
   CardContent,
   CardMedia,
   Button,
   Typography,
-  Box,
 } from '@material-ui/core';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import LanguageIcon from '@material-ui/icons/Language';
 import useStyles from '../../hooks/useStyles';
 
 function UserCard({ provider }) {
@@ -29,7 +28,7 @@ function UserCard({ provider }) {
     write_in_pronouns,
     video,
     questions,
-    location
+    location,
   } = provider;
 
   const parsePreferences = (category) => {
@@ -49,37 +48,30 @@ function UserCard({ provider }) {
 
   return (
     <Card className={classes.cardRoot}>
-      <CardHeader
-        className={classes.cardHeader}
-        title={
-          <Typography variant="h5">
-            {first_name} {last_name}
-          </Typography>
-        }
-        subheader={
-          <>
-          <Typography>
-            {parsePreferences('pronouns')}
-            {write_in_pronouns && `, ${write_in_pronouns}`}
-          </Typography>
-          {' '}
-          <Typography>
-            {location}
-          </Typography>
-          </>
-        }
-      />
-      <CardMedia className={classes.cardMedia} image={pic} />
-      <CardContent>
-        {/* <Typography>
+      <CardContent className={classes.cardHeader}>
+        <Typography variant="h6" display="inline">
+          {first_name} {last_name}
+        </Typography>{' '}
+        <FavoriteProviderButton providerID={providers_users_id} />
+        <br/>
+        <Typography variant="caption">
           {parsePreferences('pronouns')}
           {write_in_pronouns && `, ${write_in_pronouns}`}
-        </Typography> */}
-        <FavoriteProviderButton providerID={providers_users_id} />
+        </Typography>
+      </CardContent>
+      <CardMedia className={classes.cardMedia} image={pic} />
+      <CardContent className={classes.cardContent}>
+        <Typography variant="body1">
+          <LocationOnIcon color="primary"/>{' '}{location}
+        </Typography>
+        <Typography variant="body1">
+          <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
+        </Typography>
+        <br/>
         {providerQuestions.map((question) => (
           // find method finds the question that the provider has an answer to
-          <Typography key={question.id}>
-            {question.content}{' '}
+          <Typography key={question.id} variant="body2">
+            <b>{question.content}</b>{' '}
             {
               questions?.find((answer) => question.id === answer.questions_id)
                 ?.answer
@@ -88,7 +80,7 @@ function UserCard({ provider }) {
         ))}
       </CardContent>
       <CardActions className={classes.cardButton}>
-        <Button size="small" color="primary" onClick={sendToDetails}>
+        <Button variant="contained" size="small" color="primary" onClick={sendToDetails}>
           Full Profile
         </Button>
       </CardActions>
