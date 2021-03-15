@@ -38,64 +38,41 @@ const router = express.Router();
   
       // console.log(providersArray.rows);
   
-      // second query will get answers to questions for specific provider $1
-      const answersSQL = `
-        SELECT "providers_users_id", "questions_id", "answer" FROM "providers_questions"
-        WHERE "providers_questions".providers_users_id = $1;
-      `;
-  
-      // third query will get pronouns and languages for specific provider $1
+      // second query will get pronouns for specific provider $1
       const preferencesSQL = `
         SELECT "preferences".name, "preferences".category FROM "providers_preferences"
         JOIN "preferences" ON "providers_preferences".preferences_id = "preferences".id
         WHERE "providers_preferences".providers_users_id = $1
-        AND ("preferences".category = 'languages'
-        OR "preferences".category = 'pronouns');
+        AND "preferences".category = 'pronouns';
       `;
   
       // fullProviderArray will become data that is sent back to client
       const fullProviderArray = [];
   
-      // second and third queries are looped for each provider gathered from first query
+      // second query is looped for each provider gathered from first query
       for (let i = 0; i < providersArray.rows.length; i++) {
   
         // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
-        const fullProviderObject = {...providersArray.rows[i], pronouns: '', languages: ''};
+        const fullProviderObject = {...providersArray.rows[i], pronouns: ''};
+  
   
         // storing result of second query in fullProviderObject as a property
-        const answers = await connection.query(answersSQL, [providersArray.rows[i].providers_users_id])
-        fullProviderObject.answers = answers.rows
-  
-        // storing result of third query in fullProviderObject as a property
         const preferences = await connection.query(preferencesSQL, [providersArray.rows[i].providers_users_id])
-        // console.log(preferences.rows)
-  
-        let languageCount = 0;
+        // console.log('preferences:', preferences.rows)
+
         let pronounsCount = 0;
-        // this for-loop parses the array of preferences into a string depending on it's category
-        // then inserts those strings into the fullProviderObject as properties
-        // the ternary operators concatenate lists of 2 or more languages / pronoun sets and seperate them with a comma
+
+        // this for-loop takes pronouns from preferences and concatenates two or more of them into a single string
+        // then adds them to fullProviderObject
         for (let i = 0; i < preferences.rows.length; i++) {
-          const pref = preferences.rows[i];
-          if (pref.category === 'languages') {
-  
-            languageCount++;
-  
-            (languageCount > 1)
-            ? fullProviderObject.languages += ', ' + pref.name
-            : fullProviderObject.languages +=  pref.name
-  
-          } else if (pref.category === 'pronouns') {
-  
+            const pref = preferences.rows[i]
             pronounsCount++;
   
             (pronounsCount > 1)
             ? fullProviderObject.pronouns += '; ' + pref.name
             : fullProviderObject.pronouns +=  pref.name
-  
-          }
         }
-        // console.log(fullProviderObject)
+        console.log(fullProviderObject)
   
         // pushing each fullProvider object into the array that will be sent to the client
         fullProviderArray.push(fullProviderObject);

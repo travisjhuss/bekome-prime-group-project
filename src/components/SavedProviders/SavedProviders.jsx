@@ -11,12 +11,10 @@ function SavedProviders () {
     const dispatch = useDispatch();
 
     const savedProvidersReducer = useSelector((store) => store.savedProviders)
-    const questionsReducer = useSelector((store) => store.providerQuestions)
 
     // Runs only on page load
     useEffect(() => {
         dispatch({ type: "GET_SAVED_PROVIDERS" });
-        dispatch({ type: "FETCH_PROVIDER_QUESTIONS"})
     }, []);
 
     return (
@@ -27,13 +25,11 @@ function SavedProviders () {
                         <UserCardSaved
                         key = {provider.providers_users_id}
                         provider = {provider}
-                        questions = {questionsReducer}
                         favorited = {true}
                         />
                     )
                 })}
             </Grid>
-            {/* <button onClick={() => console.log(savedProvidersReducer)}>test</button> */}
         </div>
     )
 }

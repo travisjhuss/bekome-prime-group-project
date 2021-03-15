@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function UserCardSaved({ provider, questions, favorited }) {
+function UserCardSaved({ provider, favorited }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -42,12 +42,16 @@ function UserCardSaved({ provider, questions, favorited }) {
           {provider.first_name + ' ' + provider.last_name}
         </Typography>
 
+        <Typography>
+            {provider.location}
+        </Typography>
+
         <Typography>{provider.pronouns}</Typography>
 
                 <FavoriteProviderButton
                 providerID = {provider.providers_users_id}
                 favorited = {favorited}
-                />
+        />
 
       </CardContent>
       <CardActions className={classes.button}>
