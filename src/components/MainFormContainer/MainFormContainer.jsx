@@ -14,14 +14,15 @@ import {
 // Component imports
 import ClientFormRoot from '../ClientFormRoot/ClientFormRoot';
 import ProviderFormRoot from '../ProviderFormRoot/ProviderFormRoot';
+import useStyles from '../../hooks/useStyles';
 
 // Strings that display on stepper for Client
 const clientSteps = [
   'Information',
   'Reasons',
   'Therapy',
-  'Provider Qualities',
-  'Provider Preferences',
+  'Qualities',
+  'Preferences',
 ];
 
 // Strings that display on stepper for Provider
@@ -33,27 +34,13 @@ const providerSteps = [
   'Offerings',
 ];
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(3),
-  },
-  inputs: {
-    margin: theme.spacing(2),
-  },
-  chips: {
-    width: '12ch',
-    margin: theme.spacing(0.5),
-  },
-}));
-
 // Outer container that holds all form components
 function MainFormContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
   const { page } = useParams();
-  const { email, user_type } = useSelector((store) => store.user);
+  const { user_type } = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
   const currentPage = Number(page);
   const stepArrayToDisplay =
@@ -87,11 +74,23 @@ function MainFormContainer() {
 
   return (
     <>
-      <Box p={3}>
-        <Typography>
-          Create new {user_type == 'client' ? 'Client' : 'Provider'}
-          Profile for {email}
+      <Box px={3} display="flex" alignItems="center">
+        <Typography variant="h5" className={classes.formTitle} color="primary">
+          Create new {user_type == 'client' ? 'Client' : 'Provider'} Profile
         </Typography>
+        <Box flexGrow={1}>
+          <Stepper activeStep={currentPage - 1}>
+            {stepArrayToDisplay.map((item, i) => (
+              <Step key={i}>
+                <StepLabel>
+                  <Typography className={classes.stepperText}>
+                    {item}
+                  </Typography>
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Box>
       </Box>
       {user_type === 'client' ? (
         <ClientFormRoot
@@ -106,24 +105,25 @@ function MainFormContainer() {
           handleInputs={handleInputs}
         />
       )}
-      <Button
-        disabled={currentPage === 1}
-        onClick={() => history.push(`/new-profile/${currentPage - 1}`)}
-        variant="contained"
-        color="default"
-      >
-        Back
-      </Button>
-      <Button onClick={handleNextButton} variant="contained" color="primary">
-        {currentPage === stepArrayToDisplay.length ? 'Submit' : 'Next'}
-      </Button>
-      <Stepper activeStep={currentPage - 1}>
-        {stepArrayToDisplay.map((item, i) => (
-          <Step key={i}>
-            <StepLabel>{item}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+      <Box display="flex" justifyContent="center">
+        <Button
+          className={classes.formButton}
+          disabled={currentPage === 1}
+          onClick={() => history.push(`/new-profile/${currentPage - 1}`)}
+          variant="contained"
+          color="default"
+        >
+          Back
+        </Button>
+        <Button
+          className={classes.formButton}
+          onClick={handleNextButton}
+          variant="contained"
+          color="primary"
+        >
+          {currentPage === stepArrayToDisplay.length ? 'Submit' : 'Next'}
+        </Button>
+      </Box>
     </>
   );
 }

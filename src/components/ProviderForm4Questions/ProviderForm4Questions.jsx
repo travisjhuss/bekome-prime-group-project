@@ -1,6 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Typography, TextField, Box } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  TextField,
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 function ProviderForm4Questions({ classes }) {
   const dispatch = useDispatch();
@@ -26,16 +35,21 @@ function ProviderForm4Questions({ classes }) {
     <Paper className={classes.paper} elevation={4}>
       <Typography>Please answer the following questions:</Typography>
       {providerQuestions.map((item) => (
-        <Box key={item.id}>
-          <Typography>{item.content}</Typography>
-          <TextField
-            variant="outlined"
-            multiline
-            rows={3}
-            value={findValue(item.id)}
-            onChange={handleAnswer(item.id)}
-          />
-        </Box>
+        <Accordion key={item.id}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Typography>{item.content}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <TextField
+              variant="outlined"
+              multiline
+              fullWidth
+              rows={3}
+              value={findValue(item.id)}
+              onChange={handleAnswer(item.id)}
+            />
+          </AccordionDetails>
+        </Accordion>
       ))}
     </Paper>
   );

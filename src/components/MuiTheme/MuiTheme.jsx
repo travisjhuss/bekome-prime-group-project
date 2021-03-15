@@ -5,10 +5,7 @@ const font = "'Libre Baskerville', serif;";
 const theme = createMuiTheme({
   typography: {
     fontFamily: font,
-    body1: {
-      fontFamily: 'Arial',
-    },
-    body2: {
+    subtitle2: {
       fontFamily: 'Arial',
     },
     button: {
@@ -21,6 +18,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#EE6C4D',
+    },
+    background: {
+      default: '#fff',
     },
   },
 });
