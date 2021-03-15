@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import NestedMenuItem from 'material-ui-nested-menu-item';
-// Local components
+import FilterListIcon from '@material-ui/icons/FilterList';
 import useStyles from '../../hooks/useStyles';
 
 // creates and styles a custom Menu
@@ -35,6 +35,7 @@ function FilterMenu({ handleFilterURL, filterArray }) {
   const classes = useStyles();
   const preferences = useSelector((store) => store.preferences);
   const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
 
   const categories = [];
   preferences.forEach((item) => {
@@ -53,10 +54,12 @@ function FilterMenu({ handleFilterURL, filterArray }) {
   return (
     <>
       <Button
-        variant="outlined"
+        startIcon={<FilterListIcon/>}
+        color="primary"
+        className={classes.filterButton}
         onClick={(event) => setAnchorEl(event.currentTarget)}
       >
-        Filters
+        <Typography variant="subtitle1">Filters</Typography>
       </Button>
       {preferences.map((item) => {
         if (filterArray?.includes(item.id)) {
@@ -101,6 +104,7 @@ function FilterMenu({ handleFilterURL, filterArray }) {
                   >
                     <ListItemIcon>
                       <Checkbox
+                        color="primary"
                         disableRipple
                         size="small"
                         checked={filterArray?.includes(item.id)}
