@@ -91,6 +91,13 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.user.id,
       ...req.body.preferences,
     ]);
+    // 3rd query to mark filled_out_form as true
+    const thirdSqlText = `
+    UPDATE "users"
+    SET "filled_out_form" = true
+    WHERE "id" = $1;
+    `;
+    await connection.query(thirdSqlText, [req.user.id]);
     // last action
     await connection.query('COMMIT;');
     // send success status
@@ -182,6 +189,13 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
         res.sendStatus(500);
       }
     });
+    // 4th query to mark filled_out_form as true
+    const fourthSqlText = `
+    UPDATE "users"
+    SET "filled_out_form" = true
+    WHERE "id" = $1;
+    `;
+    await connection.query(fourthSqlText, [req.user.id]);
     // last action
     await connection.query('COMMIT;');
     // send success status

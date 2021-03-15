@@ -1,13 +1,15 @@
 import {
   Checkbox,
-  FormGroup,
+  Box,
   FormControlLabel,
   FormControl,
   FormHelperText,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
+import useStyles from '../../hooks/useStyles';
 
 function FormPreferencesChecks({ category, limit }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
   const filteredPreferences = useSelector((store) => store.preferences).filter(
@@ -19,9 +21,8 @@ function FormPreferencesChecks({ category, limit }) {
       : useSelector((store) => store.forms.providerAnswers);
 
   const showError =
-    filteredPreferences.filter(
-      (item) => answers.preferences?.indexOf(item.id) > -1
-    ).length > limit;
+    filteredPreferences.filter((item) => answers.preferences?.includes(item.id))
+      .length > limit;
 
   const handleCheck = (id) => {
     const whichType =
@@ -37,20 +38,20 @@ function FormPreferencesChecks({ category, limit }) {
   return (
     <FormControl error={showError}>
       {limit && <FormHelperText>Please choose up to {limit}.</FormHelperText>}
-      <FormGroup>
+      <Box className={classes.checkboxBox}>
         {filteredPreferences.map((item) => (
           <FormControlLabel
             key={item.id}
             control={
               <Checkbox
-                checked={answers.preferences.indexOf(item.id) > -1}
+                checked={answers.preferences.includes(item.id)}
                 onChange={() => handleCheck(item.id)}
               />
             }
             label={item.name}
           />
         ))}
-      </FormGroup>
+      </Box>
     </FormControl>
   );
 }

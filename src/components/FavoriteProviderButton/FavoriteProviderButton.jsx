@@ -38,14 +38,14 @@ function FavoriteProviderButton({providerID, favorited}) {
             variant="contained"
             onClick={() => clickUnfavorite(providerID)}
             >
-                Fav
+                UnFavorite
             </Button>
                 :
             <Button
             variant="outlined"
             onClick={() => clickFavorite(providerID)}
             >
-                Fav
+                Favorite
             </Button>
             }
         </>

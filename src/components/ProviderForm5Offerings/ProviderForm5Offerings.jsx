@@ -5,10 +5,13 @@ import {
   Typography,
   FormControlLabel,
   Switch,
+  Grid,
+  Box,
 } from '@material-ui/core';
 
 // Component imports
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
+import S3Uploader from '../S3Uploader/S3Uploader';
 
 function ProviderForm5Offerings({ classes, handleInputs }) {
   const dispatch = useDispatch();
@@ -21,42 +24,42 @@ function ProviderForm5Offerings({ classes, handleInputs }) {
     });
   };
 
-  
   // Client asked for inputs for licensure state and license number
-  
 
   return (
     <Paper className={classes.paper} elevation={4}>
-      <Typography>I offer therapy in these formats:</Typography>
-      <FormCheckboxes category={'formats'} />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={providerAnswers.insurance}
-            onChange={() => handleBooleans('insurance')}
-          />
-        }
-        label="I accept insurance"
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={providerAnswers.sliding_scale}
-            onChange={() => handleBooleans('sliding_scale')}
-          />
-        }
-        label="I offer sliding scale payments"
-      />
-      <Typography>
-        Please upload a short video to introduce yourself!
-      </Typography>
-      <TextField
-        className={classes.inputs}
-        variant="outlined"
-        label="Video URL"
-        value={providerAnswers.video}
-        onChange={handleInputs('video')}
-      />
+      <Grid container spacing={5}>
+        <Grid item xs={6}>
+          <Typography>I offer therapy in these formats:</Typography>
+          <FormCheckboxes category={'formats'} />
+          <Box>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={providerAnswers.insurance}
+                  onChange={() => handleBooleans('insurance')}
+                />
+              }
+              label="I accept insurance"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={providerAnswers.sliding_scale}
+                  onChange={() => handleBooleans('sliding_scale')}
+                />
+              }
+              label="I offer sliding scale payments"
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography>
+            Please upload a short video to introduce yourself!
+          </Typography>
+          <S3Uploader />
+        </Grid>
+      </Grid>
     </Paper>
   );
 }

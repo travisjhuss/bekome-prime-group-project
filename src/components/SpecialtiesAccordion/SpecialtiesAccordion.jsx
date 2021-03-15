@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
-function SpecialtiesAccordion({ parseString }) {
+function SpecialtiesAccordion({ parsePreferences }) {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
@@ -16,11 +16,10 @@ function SpecialtiesAccordion({ parseString }) {
       <AccordionDetails>
         <Box>
           <Typography>
-            I am trained in... {parseString('treatments')}
+            I am trained in... {parsePreferences('treatments')}
           </Typography>
           <Typography>
-            I excel at treating clients struggling with...{' '}
-            {parseString('challenges')}
+            I excel at treating clients with... {parsePreferences('challenges')}
           </Typography>
         </Box>
       </AccordionDetails>

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
-function StrengthsAccordion({ parseString }) {
+function StrengthsAccordion({ parsePreferences }) {
   const { strengths } = useSelector((store) => store.providerDetails);
 
   return (
@@ -20,7 +20,7 @@ function StrengthsAccordion({ parseString }) {
         <Box>
           <Typography>My clients would say I am... {strengths}</Typography>
           <Typography>
-            I consider my top qualities to be... {parseString('qualities')}
+            I consider my top qualities to be... {parsePreferences('qualities')}
           </Typography>
         </Box>
       </AccordionDetails>
