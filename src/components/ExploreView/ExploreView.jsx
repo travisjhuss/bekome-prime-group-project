@@ -28,6 +28,25 @@ function ExploreView() {
   // install Swiper modules
   SwiperCore.use([Navigation, Pagination, A11y]);
 
+  const breakpoints = {
+    // when window width is >= 320px
+    '@0.85': {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      slidesPerGroup: 1
+    },
+    '@1.00': {
+      slidesPerView: 2,
+      spaceBetween: 0,
+      slidesPerGroup: 2
+    },
+    '@1.50': {
+      slidesPerView: 3,
+      spaceBetween: 0,
+      slidesPerGroup: 3
+    },
+  };
+
   const filterArray = queryString.parse(location.search, {
     arrayFormat: 'bracket',
     parseNumbers: true,
@@ -69,25 +88,25 @@ function ExploreView() {
     <div>
       <FilterMenu handleFilterURL={handleFilterURL} filterArray={filterArray} />
       <Swiper
-      spaceBetween={0}
-      slidesPerView={3}
-      slidesPerGroup={3}
-      navigation
-      centeredSlidesBounds={true}
-      pagination={{ clickable: true }}
+        spaceBetween={0}
+        navigation
+        centeredSlidesBounds={true}
+        breakpoints={breakpoints}
+        pagination={{ clickable: true }}
       >
-      {filteredProvidersList.map((provider) => {
-        return (
-          <SwiperSlide>
-            <center>
-            <UserCard
-              key={provider.providers_users_id} provider={provider}
-            />
-            </center>
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
+        {filteredProvidersList.map((provider) => {
+          return (
+            <SwiperSlide>
+              <center>
+                <UserCard
+                  key={provider.providers_users_id}
+                  provider={provider}
+                />
+              </center>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
   );
 }
