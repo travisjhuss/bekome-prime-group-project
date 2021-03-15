@@ -1,33 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
-  CardActionArea,
-  CardHeader,
   CardActions,
   CardContent,
   CardMedia,
   Button,
   Typography,
-  Box,
 } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-    margin: '0px 0px',
-    height: 650,
-    width: 350
-  },
-  media: {
-    height: 200,
-  },
-  button: {
-    justifyContent: 'center',
-  },
-});
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import LanguageIcon from '@material-ui/icons/Language';
+import useStyles from '../../hooks/useStyles';
 
 function UserCard({ provider }) {
   const classes = useStyles();
@@ -44,6 +28,7 @@ function UserCard({ provider }) {
     write_in_pronouns,
     video,
     questions,
+    location,
   } = provider;
 
   const parsePreferences = (category) => {
@@ -62,21 +47,31 @@ function UserCard({ provider }) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.media} image={pic} />
-      <CardContent>
-        <Typography variant="h5">
+    <Card className={classes.cardRoot}>
+      <CardContent className={classes.cardHeader}>
+        <Typography variant="h6" display="inline">
           {first_name} {last_name}
-        </Typography>
-        <Typography>
+        </Typography>{' '}
+        <FavoriteProviderButton providerID={providers_users_id} />
+        <br/>
+        <Typography variant="caption">
           {parsePreferences('pronouns')}
           {write_in_pronouns && `, ${write_in_pronouns}`}
         </Typography>
-        <FavoriteProviderButton providerID={providers_users_id} />
+      </CardContent>
+      <CardMedia className={classes.cardMedia} image={pic} />
+      <CardContent className={classes.cardContent}>
+        <Typography variant="body1">
+          <LocationOnIcon color="primary"/>{' '}{location}
+        </Typography>
+        <Typography variant="body1">
+          <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
+        </Typography>
+        <br/>
         {providerQuestions.map((question) => (
           // find method finds the question that the provider has an answer to
-          <Typography key={question.id}>
-            {question.content}{' '}
+          <Typography key={question.id} variant="body2">
+            <b>{question.content}</b>{' '}
             {
               questions?.find((answer) => question.id === answer.questions_id)
                 ?.answer
@@ -84,8 +79,8 @@ function UserCard({ provider }) {
           </Typography>
         ))}
       </CardContent>
-      <CardActions className={classes.button}>
-        <Button size="small" color="primary" onClick={sendToDetails}>
+      <CardActions className={classes.cardButton}>
+        <Button variant="contained" size="small" color="primary" onClick={sendToDetails}>
           Full Profile
         </Button>
       </CardActions>
