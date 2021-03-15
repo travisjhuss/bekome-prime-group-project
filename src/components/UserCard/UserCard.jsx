@@ -9,14 +9,12 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import LanguageIcon from '@material-ui/icons/Language';
+import { LocationOn, Language } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
 function UserCard({ provider }) {
   const classes = useStyles();
   const history = useHistory();
-  const dispatch = useDispatch();
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
   const {
@@ -67,10 +65,10 @@ function UserCard({ provider }) {
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
         <Typography variant="body2">
-          <LocationOnIcon color="primary"/>{' '}{location}
+          <LocationOn color="primary" /> {location}
         </Typography>
         <Typography variant="body2">
-          <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
+          <Language color="primary" /> {parsePreferences('languages')}
         </Typography>
         <br />
         {providerQuestions.map((question) => (

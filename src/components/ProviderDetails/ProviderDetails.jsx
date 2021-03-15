@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { Paper, Box, Typography, makeStyles, Grid } from '@material-ui/core';
+import { Box, Typography, makeStyles, Grid } from '@material-ui/core';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
@@ -10,16 +10,7 @@ import StrengthsAccordion from '../StrengthsAccordion/StrengthsAccordion';
 import BackgroundAccordion from '../BackgroundAccordion/BackgroundAccordion';
 import SpecialtiesAccordion from '../SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
-
-const useStyles = makeStyles((theme) => ({
-  pic: {
-    width: 250,
-    height: 250,
-    objectFit: 'cover',
-    borderRadius: '50%',
-    padding: theme.spacing(3),
-  },
-}));
+import useStyles from '../../hooks/useStyles';
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -82,16 +73,13 @@ function ProviderDetails() {
               <Typography>
                 Languages: {parsePreferences('languages')}
               </Typography>
-              <Typography>
-                Religious Affiliations: {parsePreferences('religions')}
-              </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
           <QuestionAccordion />
           <StrengthsAccordion parsePreferences={parsePreferences} />
-          <BackgroundAccordion />
+          <BackgroundAccordion parsePreferences={parsePreferences} />
           <SpecialtiesAccordion parsePreferences={parsePreferences} />
           <FormatsAccordion parsePreferences={parsePreferences} />
         </Grid>

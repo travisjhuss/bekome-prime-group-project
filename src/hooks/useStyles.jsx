@@ -41,16 +41,16 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   filterButton: {
-    padding: '5px 20px'
+    padding: '5px 20px',
   },
   filterMenu: {
     backgroundColor: '#e0fbfc',
-    color: '#3D5A80'
+    color: '#3D5A80',
   },
   cardRoot: {
     margin: '0px 0px',
     height: 650,
-    width: 325
+    width: 325,
   },
   savedProviderCard: {
     margin: '10px 0px',
@@ -59,21 +59,28 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     height: 200,
-    width: '85%'
+    width: '85%',
   },
   cardButton: {
     justifyContent: 'center',
   },
   cardHeader: {
-    padding: 0
+    padding: 0,
   },
   cardContent: {
-    textAlign: 'left'
+    textAlign: 'left',
   },
   saveButton: {
     position: 'absolute',
     marginLeft: '15px',
-    padding: 0
+    padding: 0,
+  },
+  pic: {
+    width: 250,
+    height: 250,
+    objectFit: 'cover',
+    borderRadius: '50%',
+    padding: theme.spacing(3),
   },
 }));
 
