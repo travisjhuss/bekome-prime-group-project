@@ -1,5 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Paper, Switch, FormControlLabel, Grid } from '@material-ui/core';
+import {
+  Typography,
+  Paper,
+  Switch,
+  FormControlLabel,
+  Grid,
+} from '@material-ui/core';
 
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
@@ -7,13 +13,12 @@ import FormMenuChips from '../FormMenuChips/FormMenuChips';
 function ClientForm5ProviderPreferences({ classes }) {
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-
-  const handleBooleans = (key) => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key, value: !clientAnswers[key] },
-    });
-  };
+  const insurance = useSelector((store) => store.preferences).find(
+    (item) => item.name === 'insurance'
+  );
+  const slidingScale = useSelector((store) => store.preferences).find(
+    (item) => item.name === 'sliding scale'
+  );
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -35,8 +40,13 @@ function ClientForm5ProviderPreferences({ classes }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={clientAnswers.insurance}
-                  onChange={() => handleBooleans('insurance')}
+                  checked={clientAnswers.preferences.includes(insurance?.id)}
+                  onChange={() =>
+                    dispatch({
+                      type: 'SET_CLIENT_PREFERENCES',
+                      payload: insurance.id,
+                    })
+                  }
                 />
               }
               label="I'm open to see someone who doesn't accept my insurance."
@@ -44,8 +54,13 @@ function ClientForm5ProviderPreferences({ classes }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={clientAnswers.sliding_scale}
-                  onChange={() => handleBooleans('sliding_scale')}
+                  checked={clientAnswers.preferences.includes(slidingScale?.id)}
+                  onChange={() =>
+                    dispatch({
+                      type: 'SET_CLIENT_PREFERENCES',
+                      payload: slidingScale.id,
+                    })
+                  }
                 />
               }
               label="I would like to see someone with sliding scale payments"
