@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
-import Grid from '@material-ui/core/Grid';
-
 // Component imports
 import FilterMenu from '../FilterMenu/FilterMenu';
 import UserCard from '../UserCard/UserCard';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
+// Import Swiper styles
+import 'swiper/swiper-bundle.css';
 
 function ExploreView() {
   const history = useHistory();
@@ -20,6 +24,9 @@ function ExploreView() {
     dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' });
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
+
+  // install Swiper modules
+  SwiperCore.use([Navigation, Pagination, A11y]);
 
   const filterArray = queryString.parse(location.search, {
     arrayFormat: 'bracket',
@@ -61,12 +68,26 @@ function ExploreView() {
   return (
     <div>
       <FilterMenu handleFilterURL={handleFilterURL} filterArray={filterArray} />
-      <Grid>
-        {filteredProvidersList.map((provider) => (
-          <UserCard key={provider.providers_users_id} provider={provider} />
-        ))}
-      </Grid>
-      <p>You made it to Explore View</p>
+      <Swiper
+      spaceBetween={0}
+      slidesPerView={3}
+      slidesPerGroup={3}
+      navigation
+      centeredSlidesBounds={true}
+      pagination={{ clickable: true }}
+      >
+      {filteredProvidersList.map((provider) => {
+        return (
+          <SwiperSlide>
+            <center>
+            <UserCard
+              key={provider.providers_users_id} provider={provider}
+            />
+            </center>
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
     </div>
   );
 }

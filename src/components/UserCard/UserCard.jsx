@@ -5,6 +5,7 @@ import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderBu
 import {
   Card,
   CardActionArea,
+  CardHeader,
   CardActions,
   CardContent,
   CardMedia,
@@ -16,9 +17,12 @@ import {
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    margin: '0px 0px',
+    height: 650,
+    width: 350
   },
   media: {
-    height: 300,
+    height: 200,
   },
   button: {
     justifyContent: 'center',
