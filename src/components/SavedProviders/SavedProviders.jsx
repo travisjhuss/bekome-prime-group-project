@@ -28,7 +28,7 @@ function SavedProviders () {
             <Grid container className={classes.gridContainer} spacing={3}>
                 {savedProvidersReducer.map(provider => {
                     return (
-                        <Grid item xs={12} sm={6} md={4} xl={4} lg={4}>
+                        <Grid item xs={12} sm={6} md={4} xl={3} lg={4}>
                             <UserCardSaved
                             key = {provider.providers_users_id}
                             provider = {provider}
