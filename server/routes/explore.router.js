@@ -59,6 +59,14 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
       }
     );
 
+    // Gets any saved providers the current user has
+    const sqlTextSavedProvider = `
+      SELECT * FROM "clients_providers_favs" WHERE "clients_users_id" = $1;
+    `;
+    const savedProviders = (
+      await connection.query(sqlTextSavedProvider, [req.user.id])
+    ).rows;
+
     // Packages the data to send to client
     const dataToSend = providers.map((provider) => {
       // Since we're only using 'providers_users_id', deleting the 'id' here
@@ -75,6 +83,12 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
         }
       });
 
+      // Sees if this provider is saved by the current user
+      const saved =
+        savedProviders.findIndex(
+          (item) => item.providers_users_id === provider.providers_users_id
+        ) > -1;
+
       // Find this provider's answers to the provider questions
       const answers = providerAnswers.filter(
         (answer) => answer.providers_users_id === provider.providers_users_id
@@ -82,7 +96,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
       // Add answers to each provider object as its own array of objects
       // with key of 'questions'
-      return { ...provider, questions: answers };
+      return { ...provider, questions: answers, saved };
     });
 
     // End transaction

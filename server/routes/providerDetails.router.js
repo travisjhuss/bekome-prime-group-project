@@ -42,6 +42,15 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
       await connection.query(sqlTextQuestionsAnswers, [id])
     ).rows;
 
+    // Checks if this provider is favorited by the user
+    const sqlTextSavedProvider = `
+      SELECT EXISTS (SELECT "id" FROM "clients_providers_favs" 
+      WHERE "clients_users_id" = $1 AND "providers_users_id" = $2);
+    `;
+    const isSaved = (
+      await connection.query(sqlTextSavedProvider, [req.user.id, id])
+    ).rows[0].exists;
+
     // This deletes the 'id' on the providers entry, needed for GROUP BY in SQL
     // Since we only use 'providers_users_id' in app, wanted to delete this to
     // hopefully avoid some confusion on the client side between the id's
@@ -52,6 +61,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const infoToSend = {
       ...infoPreferences,
       questions: questionsAnswers,
+      saved: isSaved,
     };
 
     // Finish transaction

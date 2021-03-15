@@ -35,7 +35,6 @@ function FilterMenu({ handleFilterURL, filterArray }) {
   const classes = useStyles();
   const preferences = useSelector((store) => store.preferences);
   const [anchorEl, setAnchorEl] = useState(null);
-  const classes = useStyles();
 
   const categories = [];
   preferences.forEach((item) => {

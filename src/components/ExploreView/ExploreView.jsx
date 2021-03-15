@@ -33,17 +33,17 @@ function ExploreView() {
     '@0.85': {
       slidesPerView: 1,
       spaceBetween: 0,
-      slidesPerGroup: 1
+      slidesPerGroup: 1,
     },
     '@1.00': {
       slidesPerView: 2,
       spaceBetween: 0,
-      slidesPerGroup: 2
+      slidesPerGroup: 2,
     },
     '@1.50': {
       slidesPerView: 3,
       spaceBetween: 0,
-      slidesPerGroup: 3
+      slidesPerGroup: 3,
     },
   };
 
@@ -69,8 +69,6 @@ function ExploreView() {
     history.push(`/explore/?${newFilterString}`);
   };
 
-  console.log(filterArray);
-
   const filteredProvidersList = providers.filter((item) => {
     if (filterArray) {
       console.log(item.preferences_array);
@@ -95,12 +93,9 @@ function ExploreView() {
       >
         {filteredProvidersList.map((provider) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={provider.providers_users_id}>
               <center>
-                <UserCard
-                  key={provider.providers_users_id}
-                  provider={provider}
-                />
+                <UserCard provider={provider} />
               </center>
             </SwiperSlide>
           );

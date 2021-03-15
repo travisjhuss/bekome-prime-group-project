@@ -29,6 +29,7 @@ function UserCard({ provider }) {
     video,
     questions,
     location,
+    saved,
   } = provider;
 
   const parsePreferences = (category) => {
@@ -52,8 +53,12 @@ function UserCard({ provider }) {
         <Typography variant="h6" display="inline">
           {first_name} {last_name}
         </Typography>{' '}
-        <FavoriteProviderButton providerID={providers_users_id} />
-        <br/>
+        <FavoriteProviderButton
+          id={providers_users_id}
+          saved={saved}
+          type={'GET_PROVIDERS'}
+        />
+        <br />
         <Typography variant="caption">
           {parsePreferences('pronouns')}
           {write_in_pronouns && `, ${write_in_pronouns}`}
@@ -62,12 +67,12 @@ function UserCard({ provider }) {
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
         <Typography variant="body1">
-          <LocationOnIcon color="primary"/>{' '}{location}
+          <LocationOnIcon color="primary" /> {location}
         </Typography>
         <Typography variant="body1">
-          <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
+          <LanguageIcon color="primary" /> {parsePreferences('languages')}
         </Typography>
-        <br/>
+        <br />
         {providerQuestions.map((question) => (
           // find method finds the question that the provider has an answer to
           <Typography key={question.id} variant="body2">
@@ -80,7 +85,12 @@ function UserCard({ provider }) {
         ))}
       </CardContent>
       <CardActions className={classes.cardButton}>
-        <Button variant="contained" size="small" color="primary" onClick={sendToDetails}>
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={sendToDetails}
+        >
           Full Profile
         </Button>
       </CardActions>

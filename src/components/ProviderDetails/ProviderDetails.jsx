@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Paper, Box, Typography, makeStyles, Grid } from '@material-ui/core';
-import { DateTime } from 'luxon';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
@@ -26,17 +25,20 @@ function ProviderDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {
+    providers_users_id,
     first_name,
     last_name,
     pic,
     video,
     location,
     age,
+    saved,
     write_in_pronouns,
     preferences_array,
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
@@ -60,7 +62,11 @@ function ProviderDetails() {
         <Typography>
           {first_name} {last_name}
         </Typography>
-        <FavoriteProviderButton providers_users_id={id} />
+        <FavoriteProviderButton
+          id={providers_users_id}
+          saved={saved}
+          type={'FETCH_PROVIDER_DETAILS'}
+        />
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={6}>
