@@ -13,17 +13,8 @@ import {
   Box,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 300,
-  },
-  button: {
-    justifyContent: 'center',
-  },
-});
+import useStyles from '../../hooks/useStyles';
+
 
 function UserCardSaved({ provider, favorited }) {
   const history = useHistory();
@@ -35,31 +26,36 @@ function UserCardSaved({ provider, favorited }) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.media} image={provider.pic} />
-      <CardContent>
-        <Typography variant="h5">
-          {provider.first_name + ' ' + provider.last_name}
-        </Typography>
+    <center>
+      <Card className={classes.savedProviderCard}>
+        <CardMedia className={classes.cardMedia} image={provider.pic}/>
+        <CardContent className={classes.cardHeader}>
+          <Typography variant="h6" display="inline">
+            {provider.first_name + ' ' + provider.last_name}
+          </Typography>{' '}
+          <FavoriteProviderButton
 
-        <Typography>
-            {provider.location}
-        </Typography>
+            providerID = {provider.providers_users_id}
+            favorited = {favorited}
+          />
+          <br/>
 
-        <Typography>{provider.pronouns}</Typography>
 
-                <FavoriteProviderButton
-                providerID = {provider.providers_users_id}
-                favorited = {favorited}
-        />
+          <Typography variant="body2">
+              {provider.location}
+          </Typography>
 
-      </CardContent>
-      <CardActions className={classes.button}>
-        <Button size="small" color="primary" onClick={sendToDetails}>
-          Full Profile
-        </Button>
-      </CardActions>
-    </Card>
+          <Typography variant="body2">{provider.pronouns}</Typography>
+
+
+        </CardContent>
+        <CardActions className={classes.cardButton}>
+          <Button variant="contained" size="small" color="primary" onClick={sendToDetails}>
+            Full Profile
+          </Button>
+        </CardActions>
+      </Card>
+    </center>
   );
 }
 

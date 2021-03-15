@@ -52,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
     height: 650,
     width: 325
   },
+  savedProviderCard: {
+    margin: '10px 0px',
+    paddingTop: '20px',
+    width: 325,
+  },
   cardMedia: {
     height: 200,
     width: '85%'
