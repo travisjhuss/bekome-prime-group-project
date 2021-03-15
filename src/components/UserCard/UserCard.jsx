@@ -61,10 +61,10 @@ function UserCard({ provider }) {
       </CardContent>
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
-        <Typography variant="body1">
+        <Typography variant="body2">
           <LocationOnIcon color="primary"/>{' '}{location}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body2">
           <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
         </Typography>
         <br/>
