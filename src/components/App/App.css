@@ -116,9 +116,22 @@ input {
 /* --------------------------------------------------------------------------------
 Carousel Menu
 -------------------------------------------------------------------------------- */
-.swiper-button-prev:after, .swiper-button-next:after {
-  color: #3D5A80;
+.swiper-button-prev, .swiper-button-next {
+  background-color: #3D5A80;
+  color: #fff;
   position: absolute;
+  font-weight: 900;
+  border: 1px solid #3D5A80;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover {
+  background-color: #3D5A80;
+  color: #fff;
+  transform: scale(1.1);
 }
 
 .swiper-pagination-bullet-active {
@@ -127,4 +140,5 @@ Carousel Menu
 
 .swiper-container {
   width: 90%;
+  height: 675px;
 }

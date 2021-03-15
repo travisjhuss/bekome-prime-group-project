@@ -34,18 +34,22 @@ function ExploreView() {
     <Swiper
       spaceBetween={0}
       slidesPerView={3}
+      slidesPerGroup={3}
       navigation
+      centeredSlidesBounds={true}
       pagination={{ clickable: true }}
     >
       {providersReducer.map((provider) => {
         return (
           <SwiperSlide>
+              <center>
             <UserCard
               key={provider.providers_users_id}
               provider={provider}
               questions={questionsReducer}
               favorited={false}
             />
+            </center>
           </SwiperSlide>
         );
       })}
