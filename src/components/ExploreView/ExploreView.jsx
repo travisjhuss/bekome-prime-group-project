@@ -29,7 +29,6 @@ function ExploreView() {
   SwiperCore.use([Navigation, Pagination, A11y]);
 
   const breakpoints = {
-    // when window width is >= 320px
     '@0.85': {
       slidesPerView: 1,
       spaceBetween: 0,

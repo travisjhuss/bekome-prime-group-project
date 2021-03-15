@@ -66,11 +66,11 @@ function UserCard({ provider }) {
       </CardContent>
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
-        <Typography variant="body1">
-          <LocationOnIcon color="primary" /> {location}
+        <Typography variant="body2">
+          <LocationOnIcon color="primary"/>{' '}{location}
         </Typography>
-        <Typography variant="body1">
-          <LanguageIcon color="primary" /> {parsePreferences('languages')}
+        <Typography variant="body2">
+          <LanguageIcon color="primary"/>{' '}{parsePreferences('languages')}
         </Typography>
         <br />
         {providerQuestions.map((question) => (
