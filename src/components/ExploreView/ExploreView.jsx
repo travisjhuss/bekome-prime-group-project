@@ -76,15 +76,12 @@ function ExploreView() {
       centeredSlidesBounds={true}
       pagination={{ clickable: true }}
       >
-      {providersReducer.map((provider) => {
+      {filteredProvidersList.map((provider) => {
         return (
           <SwiperSlide>
-              <center>
+            <center>
             <UserCard
-              key={provider.providers_users_id}
-              provider={provider}
-              questions={questionsReducer}
-              favorited={false}
+              key={provider.providers_users_id} provider={provider}
             />
             </center>
           </SwiperSlide>
