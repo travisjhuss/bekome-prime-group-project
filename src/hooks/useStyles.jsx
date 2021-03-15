@@ -75,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '15px',
     padding: 0
   },
+  adminPanelButton: {
+    position: 'absolute',
+    marginLeft: '15px',
+    padding: 0
+  },
 }));
 
 export default useStyles;
