@@ -18,7 +18,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     // Query #1 - obtains all data from 'providers' and an array of
     // the preference ID's for the specific provider
     const sqlTextInfoPreferences = `
-      SELECT "providers".*, 
+      SELECT "providers".*,
       ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
       FROM "providers" JOIN "providers_preferences" ON 
       "providers".providers_users_id = 
