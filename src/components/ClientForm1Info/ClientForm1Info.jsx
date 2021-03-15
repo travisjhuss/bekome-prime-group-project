@@ -1,58 +1,81 @@
 import { useSelector } from 'react-redux';
-import { Paper, Typography, TextField } from '@material-ui/core';
+import { Paper, Typography, TextField, Grid, Box } from '@material-ui/core';
 
 // Component imports
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
+import useStyles from '../../hooks/useStyles';
+import S3Uploader from '../S3Uploader/S3Uploader';
 
-function ClientForm1Info({ classes, handleInputs }) {
+function ClientForm1Info({ handleInputs }) {
+  const classes = useStyles();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
   return (
     <Paper className={classes.paper} elevation={4}>
-      <TextField
-        variant="outlined"
-        label="First Name"
-        className={classes.inputs}
-        value={clientAnswers.first_name || ''}
-        onChange={handleInputs('first_name')}
-      />
-      <TextField
-        variant="outlined"
-        label="Last Name"
-        className={classes.inputs}
-        value={clientAnswers.last_name || ''}
-        onChange={handleInputs('last_name')}
-      />
-      <Typography>What pronouns do you use? (select all that apply)</Typography>
-      <FormCheckboxes category={'pronouns'} />
-      <TextField
-        variant="outlined"
-        label="Other"
-        className={classes.inputs}
-        value={clientAnswers.write_in_pronouns || ''}
-        onChange={handleInputs('write_in_pronouns')}
-      />
-      <TextField
-        variant="outlined"
-        label="Picture URL"
-        className={classes.inputs}
-        value={clientAnswers.pic || ''}
-        onChange={handleInputs('pic')}
-      />
-      <TextField
-        variant="outlined"
-        label="Date of Birth"
-        className={classes.inputs}
-        value={clientAnswers.date_of_birth || ''}
-        onChange={handleInputs('date_of_birth')}
-      />
-      <TextField
-        variant="outlined"
-        label="Location"
-        className={classes.inputs}
-        value={clientAnswers.location || ''}
-        onChange={handleInputs('location')}
-      />
+      <Grid container spacing={5}>
+        <Grid container item xs={8}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="First Name"
+            className={classes.inputs}
+            value={clientAnswers.first_name || ''}
+            onChange={handleInputs('first_name')}
+          />
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="Last Name"
+            className={classes.inputs}
+            value={clientAnswers.last_name || ''}
+            onChange={handleInputs('last_name')}
+          />
+          <Grid item xs={6}>
+            <Typography gutterBottom>What pronouns do you use?</Typography>
+            <Typography variant="body2" gutterBottom>
+              <i>select all that apply</i>
+            </Typography>
+            <FormCheckboxes category={'pronouns'} />
+            <Box>
+              <TextField
+                variant="outlined"
+                label="Other"
+                size="small"
+                className={classes.inputs}
+                value={clientAnswers.write_in_pronouns || ''}
+                onChange={handleInputs('write_in_pronouns')}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              type="date"
+              variant="outlined"
+              label="Date of Birth"
+              className={classes.inputs}
+              value={clientAnswers.date_of_birth}
+              onChange={handleInputs('date_of_birth') || ''}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Location"
+              className={classes.inputs}
+              value={clientAnswers.location || ''}
+              onChange={handleInputs('location')}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography gutterBottom>Add a profile photo:</Typography>
+          <Typography variant="body2" gutterBottom>
+            <i>not required</i>
+          </Typography>
+          <S3Uploader />
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
