@@ -1,6 +1,8 @@
+import AdminPanelForm from '../AdminPanelForm/AdminPanelForm'
+
 function AdminPanel() {
     return (
-        <h3>In the Admin Panel</h3>
+        <AdminPanelForm />
     )
 }
 
