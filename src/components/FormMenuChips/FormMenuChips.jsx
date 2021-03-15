@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Menu, MenuItem, Chip } from '@material-ui/core';
 
+import useStyles from '../../hooks/useStyles';
+
 function FormMenuChips({ category, string }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
   const filteredPreferences = useSelector((store) => store.preferences).filter(
@@ -51,6 +54,7 @@ function FormMenuChips({ category, string }) {
         if (answers.preferences.includes(item.id)) {
           return (
             <Chip
+              className={classes.chips}
               key={item.id}
               label={item.name}
               onDelete={() => handleChange(item.id)}

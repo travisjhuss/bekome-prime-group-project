@@ -10,7 +10,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  ListItemIcon
+  ListItemIcon,
 } from '@material-ui/core';
 
 // creates and styles a custom Menu
@@ -25,6 +25,7 @@ const StyledMenu = withStyles({
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: 'bottom',
+      horizontal: 'right',
     }}
     {...props}
   />

@@ -71,15 +71,13 @@ function UserCard({ provider }) {
         <FavoriteProviderButton providerID={providers_users_id} />
         {providerQuestions.map((question) => (
           // find method finds the question that the provider has an answer to
-          <>
-            <Typography>{item.content}</Typography>
-            <Typography>
-              {
-                questions?.find((answer) => question.id === answer.questions_id)
-                  ?.answer
-              }
-            </Typography>
-          </>
+          <Typography key={question.id}>
+            {question.content}{' '}
+            {
+              questions?.find((answer) => question.id === answer.questions_id)
+                ?.answer
+            }
+          </Typography>
         ))}
       </CardContent>
       <CardActions className={classes.button}>
