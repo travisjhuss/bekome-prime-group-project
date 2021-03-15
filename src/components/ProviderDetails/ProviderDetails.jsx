@@ -31,9 +31,7 @@ function ProviderDetails() {
     pic,
     video,
     location,
-    insurance,
-    sliding_scale,
-    date_of_birth,
+    age,
     write_in_pronouns,
     preferences_array,
   } = useSelector((store) => store.providerDetails);
@@ -55,10 +53,6 @@ function ProviderDetails() {
       .reduce((string, item) => (string += `${item.name}, `), '')
       .slice(0, -2);
   };
-
-  const age = DateTime.now()
-    .diff(DateTime.fromISO(date_of_birth))
-    .toFormat('y');
 
   return (
     <Box p={2}>

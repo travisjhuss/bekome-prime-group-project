@@ -5,116 +5,6 @@ const {
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route for providers
- */
-// router.get('/', rejectUnauthenticated, async (req, res) => {
-//   const connection = await pool.connect();
-
-//   try {
-//     // Begin transaction
-//     await connection.query('BEGIN;');
-
-//     // first query gets array of all providers and relevant data
-//     // const providersSQL = `
-//     //   SELECT
-//     //   "providers_users_id", "first_name", "last_name", "pic", "video", "location"
-//     //   FROM "providers";
-//     // `;
-
-//     // first query gets array of all providers and relevant data
-//     // subquery excludes providers that current user has added to favorites list
-//     const providersSQL = `
-//     SELECT
-//     "providers_users_id", "first_name", "last_name", "pic", "video", "location" FROM "providers"
-//     WHERE
-// 	    NOT EXISTS (
-// 		    SELECT "clients_users_id", "providers_users_id" FROM "clients_providers_favs"
-// 		    WHERE "clients_users_id" = $1 AND "providers_users_id" = "providers".providers_users_id
-// 	    );
-//     `;
-//     const providersArray = await connection.query(providersSQL, [req.user.id]);
-
-//     // console.log(providersArray.rows);
-
-//     // second query will get answers to questions for specific provider $1
-//     const answersSQL = `
-//       SELECT "providers_users_id", "questions_id", "answer" FROM "providers_questions"
-//       WHERE "providers_questions".providers_users_id = $1;
-//     `;
-
-//     // third query will get pronouns and languages for specific provider $1
-//     const preferencesSQL = `
-//       SELECT "preferences".name, "preferences".category FROM "providers_preferences"
-//       JOIN "preferences" ON "providers_preferences".preferences_id = "preferences".id
-//       WHERE "providers_preferences".providers_users_id = $1
-//       AND ("preferences".category = 'languages'
-//       OR "preferences".category = 'pronouns');
-//     `;
-
-//     // fullProviderArray will become data that is sent back to client
-//     const fullProviderArray = [];
-
-//     // second and third queries are looped for each provider gathered from first query
-//     for (let i = 0; i < providersArray.rows.length; i++) {
-//       // fullProviderObject will become the packaged object with all data for each provider's card in ExploreView
-//       const fullProviderObject = {
-//         ...providersArray.rows[i],
-//         pronouns: '',
-//         languages: '',
-//       };
-
-//       // storing result of second query in fullProviderObject as a property
-//       const answers = await connection.query(answersSQL, [
-//         providersArray.rows[i].providers_users_id,
-//       ]);
-//       fullProviderObject.answers = answers.rows;
-
-//       // storing result of third query in fullProviderObject as a property
-//       const preferences = await connection.query(preferencesSQL, [
-//         providersArray.rows[i].providers_users_id,
-//       ]);
-//       // console.log(preferences.rows)
-
-//       let languageCount = 0;
-//       let pronounsCount = 0;
-//       // this for-loop parses the array of preferences into a string depending on it's category
-//       // then inserts those strings into the fullProviderObject as properties
-//       // the ternary operators concatenate lists of 2 or more languages / pronoun sets and seperate them with a comma
-//       for (let i = 0; i < preferences.rows.length; i++) {
-//         const pref = preferences.rows[i];
-//         if (pref.category === 'languages') {
-//           languageCount++;
-
-//           languageCount > 1
-//             ? (fullProviderObject.languages += ', ' + pref.name)
-//             : (fullProviderObject.languages += pref.name);
-//         } else if (pref.category === 'pronouns') {
-//           pronounsCount++;
-
-//           pronounsCount > 1
-//             ? (fullProviderObject.pronouns += '; ' + pref.name)
-//             : (fullProviderObject.pronouns += pref.name);
-//         }
-//       }
-//       // console.log(fullProviderObject)
-
-//       // pushing each fullProvider object into the array that will be sent to the client
-//       fullProviderArray.push(fullProviderObject);
-//     }
-//     // console.log(fullProviderArray);
-
-//     await connection.query('COMMIT;');
-//     res.send(fullProviderArray);
-//   } catch (error) {
-//     console.log('ERROR getting providers in explore.router', error);
-//     await connection.query('ROLLBACK;');
-//     res.sendStatus(500);
-//   } finally {
-//     connection.release();
-//   }
-// });
-
 router.get('/', rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
   try {
@@ -124,49 +14,77 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     // of all preferences each provider has
     const sqlTextProviders = `
       SELECT "providers".id,
-      "providers".providers_users_id, 
-      "providers".first_name, 
-      "providers".last_name, 
-      "providers".pic, 
-      "providers".video, 
-      "providers".location, 
-      "providers".insurance, 
-      "providers".date_of_birth, 
-      "providers".write_in_pronouns, 
-      "providers".sliding_scale,
-      ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
-      FROM "providers" JOIN "providers_preferences" ON 
-      "providers".providers_users_id = 
-      "providers_preferences".providers_users_id
+        "providers".providers_users_id, 
+        "providers".first_name, 
+        "providers".last_name, 
+        "providers".pic, 
+        "providers".video, 
+        "providers".location, 
+        "providers".insurance, 
+        EXTRACT(YEAR FROM AGE("providers".date_of_birth)) AS "age",
+        "providers".write_in_pronouns, 
+        "providers".sliding_scale,
+        ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
+      FROM "providers" 
+      JOIN "providers_preferences" ON "providers".providers_users_id = 
+        "providers_preferences".providers_users_id
       GROUP BY "providers".id;
     `;
-
     // Sends the query to db, saves data to 'providers' var
-    const providers = await connection.query(sqlTextProviders);
+    const providers = (await connection.query(sqlTextProviders)).rows;
 
     // Gets all needed information from "providers_questions" junction table
     const sqlTextQuestions = `
       SELECT "providers_users_id", "questions_id", "answer" 
       FROM "providers_questions";
     `;
-
     // Sends the query to db, saves data to 'questions' var
-    const questions = await connection.query(sqlTextQuestions);
+    const providerAnswers = (await connection.query(sqlTextQuestions)).rows;
+
+    // Gets all the age ranges from 'preferences' table to assign to providers
+    const sqlTextAgeRanges = `
+      SELECT * FROM "preferences" WHERE "category" = 'age_ranges';
+    `;
+    // Sends query to db, saves data to 'ageRanges' var, then .map()
+    const ageRanges = (await connection.query(sqlTextAgeRanges)).rows.map(
+      (item) => {
+        // Split the name of each entry in ageRanges to array of two numbers,
+        // These numbers are the min and max age of each range
+        const range = item.name.replace('+', '').split('-');
+        return {
+          id: item.id, // id of age range
+          ageMin: Number(range[0]), // number of age min
+          ageMax: Number(range[1]) || null, // number of age max or null if none
+        };
+      }
+    );
 
     // Packages the data to send to client
-    const dataToSend = providers.rows.map((provider) => {
+    const dataToSend = providers.map((provider) => {
       // Since we're only using 'providers_users_id', deleting the 'id' here
       // so there's no confusion on the client side
       delete provider.id;
-      // Add the answers to each provider object as its own array of objects
+
+      // Assign category of age range to each provider
+      ageRanges.forEach((item) => {
+        if (
+          provider.age >= item.ageMin &&
+          (provider.age <= item.ageMax || item.ageMax === null)
+        ) {
+          return provider.preferences_array.push(item.id);
+        }
+      });
+
+      // Find this provider's answers to the provider questions
+      const answers = providerAnswers.filter(
+        (answer) => answer.providers_users_id === provider.providers_users_id
+      );
+
+      // Add answers to each provider object as its own array of objects
       // with key of 'questions'
-      return {
-        ...provider,
-        questions: questions.rows.filter((answer) => {
-          return answer.providers_users_id === provider.providers_users_id;
-        }),
-      };
+      return { ...provider, questions: answers };
     });
+
     // End transaction
     connection.query('COMMIT;');
     // Send data to client
