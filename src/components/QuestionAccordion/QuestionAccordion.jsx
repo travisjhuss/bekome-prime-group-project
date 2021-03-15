@@ -30,7 +30,7 @@ function QuestionAccordion() {
                 {item.content + ' '}
                 {
                   questions?.find((answer) => item.id === answer.questions_id)
-                    .answer
+                    ?.answer
                 }
               </Typography>
             </>

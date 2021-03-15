@@ -19,6 +19,7 @@ function ProviderForm2TherapyQualities({ classes, handleInputs }) {
           <TextField
             className={classes.inputs}
             variant="outlined"
+            fullWidth
             multiline
             rows={6}
             label="Answer here"
@@ -30,6 +31,7 @@ function ProviderForm2TherapyQualities({ classes, handleInputs }) {
             className={classes.inputs}
             variant="outlined"
             multiline
+            fullWidth
             rows={6}
             label="Answer here"
             onChange={handleInputs('strengths')}

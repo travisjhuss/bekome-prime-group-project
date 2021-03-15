@@ -8,11 +8,11 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
-function FormatsAccordion({ parseString }) {
+function FormatsAccordion({ parsePreferences }) {
   const { insurance, sliding_scale } = useSelector(
     (store) => store.providerDetails
   );
-  const formatsString = parseString('formats');
+  const formatsString = parsePreferences('formats');
 
   return (
     <Accordion>

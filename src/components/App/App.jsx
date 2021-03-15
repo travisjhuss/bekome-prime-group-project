@@ -25,8 +25,7 @@ import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
 
-
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';
 import './App.css';
 
@@ -39,6 +38,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <div>
           <Nav />
