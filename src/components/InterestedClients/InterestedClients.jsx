@@ -1,3 +1,4 @@
+import ClientCard from "../ClientCard/ClientCard";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -8,13 +9,11 @@ function InterestedClients() {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
-  const interestedClientsReducer = useSelector((store) => store.interestedClientsReducer);
-
-  const { first_name, last_name, pic, primary_reason } = useSelector(
+  const interestedClientsReducer = useSelector(
     (store) => store.interestedClientsReducer
   );
 
-  // Runs only on page load
+  // Runs on page load
   useEffect(() => {
     dispatch({ type: "FETCH_INTERESTED_CLIENTS", payload: { user: user.id } });
   }, []);
@@ -25,19 +24,9 @@ function InterestedClients() {
   );
   console.log(interestedClientsReducer);
 
-  return (
-    <>
-     <Box>
-        <Typography>Interested</Typography>
-        <Typography>{first_name}</Typography>
-        <Typography>{last_name}</Typography>
-        <Typography>{pic}</Typography>
-        <Typography>{primary_reason}</Typography>
-      </Box>
-    </>
-
-    //  <button onClick={() => console.log(interestedClientsReducer)}>Test</button>
-  );
+  return interestedClientsReducer.map((client) => {
+    return <ClientCard key={client.clients_users_id} client={client} />;
+  });
 }
 
 export default InterestedClients;

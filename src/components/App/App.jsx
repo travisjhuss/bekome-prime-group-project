@@ -24,6 +24,7 @@ import EditProfile from '../EditProfile/EditProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
+import ClientCard from '../ClientCard/ClientCard'
 
 
 import { ThemeProvider } from '@material-ui/core/styles';
