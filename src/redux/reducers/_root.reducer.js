@@ -6,6 +6,7 @@ import providerQuestions from './providerQuestions.reducer';
 import preferences from './preferences.reducer';
 import exploreReducer from './explore.reducer';
 import providerDetails from './providerDetails.reducer';
+import savedProviders from './savedProviders.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   preferences, // reducer for getting all preferences options from db
   exploreReducer, // reducer that contains all explore provider data
   providerDetails, // Returns info for one provider for ProviderDetails
+  savedProviders, // contains provider data for SavedProviders view
 });
 
 export default rootReducer;
