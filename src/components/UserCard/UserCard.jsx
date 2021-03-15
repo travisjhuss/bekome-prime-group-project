@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
@@ -13,21 +12,7 @@ import {
   Typography,
   Box,
 } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-    margin: '0px 0px',
-    height: 650,
-    width: 350
-  },
-  media: {
-    height: 200,
-  },
-  button: {
-    justifyContent: 'center',
-  },
-});
+import useStyles from '../../hooks/useStyles';
 
 function UserCard({ provider }) {
   const classes = useStyles();
@@ -44,6 +29,7 @@ function UserCard({ provider }) {
     write_in_pronouns,
     video,
     questions,
+    location
   } = provider;
 
   const parsePreferences = (category) => {
@@ -62,16 +48,33 @@ function UserCard({ provider }) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.media} image={pic} />
+    <Card className={classes.cardRoot}>
+      <CardHeader
+        className={classes.cardHeader}
+        title={
+          <Typography variant="h5">
+            {first_name} {last_name}
+          </Typography>
+        }
+        subheader={
+          <>
+          <Typography>
+            {parsePreferences('pronouns')}
+            {write_in_pronouns && `, ${write_in_pronouns}`}
+          </Typography>
+          {' '}
+          <Typography>
+            {location}
+          </Typography>
+          </>
+        }
+      />
+      <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent>
-        <Typography variant="h5">
-          {first_name} {last_name}
-        </Typography>
-        <Typography>
+        {/* <Typography>
           {parsePreferences('pronouns')}
           {write_in_pronouns && `, ${write_in_pronouns}`}
-        </Typography>
+        </Typography> */}
         <FavoriteProviderButton providerID={providers_users_id} />
         {providerQuestions.map((question) => (
           // find method finds the question that the provider has an answer to
@@ -84,7 +87,7 @@ function UserCard({ provider }) {
           </Typography>
         ))}
       </CardContent>
-      <CardActions className={classes.button}>
+      <CardActions className={classes.cardButton}>
         <Button size="small" color="primary" onClick={sendToDetails}>
           Full Profile
         </Button>

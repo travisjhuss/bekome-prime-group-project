@@ -40,6 +40,28 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
+  filterButton: {
+    padding: '5px 20px'
+  },
+  filterMenu: {
+    backgroundColor: '#e0fbfc',
+    color: '#3D5A80'
+  },
+  cardRoot: {
+    maxWidth: 345,
+    margin: '0px 0px',
+    height: 650,
+    width: 350
+  },
+  cardMedia: {
+    height: 200,
+  },
+  cardButton: {
+    justifyContent: 'center',
+  },
+  cardHeader: {
+    padding: 0
+  }
 }));
 
 export default useStyles;
