@@ -20,7 +20,7 @@ import useStyles from '../../hooks/useStyles';
 // different dispatches for different categories?
 
 
-function AdminPanelForm({category}) {
+function AdminPanelForm({category, filteredPreferences}) {
     const classes = useStyles()
     return (
         <Paper className={classes.paper}>
@@ -29,14 +29,18 @@ function AdminPanelForm({category}) {
             </Typography>
 
             <List>
-                <ListItem>
-                    jhsdjf
-                    <ListItemSecondaryAction>
-                        <IconButton>
-                           <Delete />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
+                {filteredPreferences.map((preference) => {
+                    return (
+                        <ListItem key={preference.id}>
+                            {preference.name}
+                            <ListItemSecondaryAction>
+                                <IconButton>
+                                <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    )
+                })}
             </List>
 
             <TextField

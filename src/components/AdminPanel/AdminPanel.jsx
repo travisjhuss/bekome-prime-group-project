@@ -32,6 +32,7 @@ function AdminPanel() {
         <div>
             <AdminPanelForm
             category="gender"
+            filteredPreferences={genders}
             />
             <button onClick={() => console.log(genders)}>test</button>
         </div>
