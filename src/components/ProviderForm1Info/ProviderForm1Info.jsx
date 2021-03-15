@@ -4,8 +4,10 @@ import { Paper, TextField, Typography } from '@material-ui/core';
 // Component imports
 import FormPreferencesChecks from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
+import S3Uploader from '../S3Uploader/S3Uploader';
 
 // This form needs a lot more work! Also, need a gender checkbox!!
+// And S3Uploader!
 function ProviderForm1Info({ classes, handleInputs }) {
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
 
