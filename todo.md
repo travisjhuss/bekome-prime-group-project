@@ -1,4 +1,3 @@
-[x] - when user fills out form, nav bar not changing til refresh, dispatch user after post?
 
 ThemeProvider - new component
 [x] - typography

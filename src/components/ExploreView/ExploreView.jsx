@@ -1,8 +1,6 @@
 import UserCard from '../UserCard/UserCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { useEffect } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
@@ -12,7 +10,6 @@ import 'swiper/swiper-bundle.css';
 
 function ExploreView() {
   const dispatch = useDispatch();
-  const ref = useRef(null);
 
   const providersReducer = useSelector((store) => store.exploreReducer);
   const questionsReducer = useSelector((store) => store.providerQuestions);
@@ -25,10 +22,6 @@ function ExploreView() {
 
   // install Swiper modules
   SwiperCore.use([Navigation, Pagination, A11y]);
-
-  //   const scroll = (scrollOffset) => {
-  //     ref.current.scrollLeft += scrollOffset;
-  //   };
 
   return (
     <Swiper
