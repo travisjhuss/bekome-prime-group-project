@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     height: 200,
+    width: '85%'
   },
   cardButton: {
     justifyContent: 'center',
@@ -65,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left'
   },
   saveButton: {
-    margin: '0 0 8px 0' ,
-    padding: '0 8px 0 8px'
+    position: 'absolute',
+    marginLeft: '15px',
+    padding: 0
   },
 }));
 
