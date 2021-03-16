@@ -35,8 +35,9 @@ function UserCardSaved({ provider, favorited }) {
           </Typography>{' '}
           <FavoriteProviderButton
 
-            providerID = {provider.providers_users_id}
-            favorited = {favorited}
+            ID = {provider.providers_users_id}
+            saved = {true}
+            type={'GET_SAVED_PROVIDERS'}
           />
           <br/>
 
