@@ -6,7 +6,6 @@ import {
   ListItemIcon,
   MenuItem,
   withStyles,
-  makeStyles,
   Checkbox,
   Chip,
   Typography,
@@ -33,11 +32,11 @@ const StyledBaseMenu = withStyles({
 ));
 
 function FilterMenu({ handleFilterURL, filterArray }) {
+  const classes = useStyles();
   const preferences = useSelector((store) => store.preferences);
   const [anchorEl, setAnchorEl] = useState(null);
-  const classes = useStyles();
 
-  const categories = ['payments'];
+  const categories = [];
   preferences.forEach((item) => {
     if (!categories.includes(item.category) && item.category !== 'pronouns') {
       categories.push(item.category);
@@ -66,6 +65,7 @@ function FilterMenu({ handleFilterURL, filterArray }) {
           return (
             <Chip
               key={item.id}
+              className={classes.chips}
               label={item.name}
               color="primary"
               onDelete={() => handleFilterURL(item.id)}
@@ -91,7 +91,10 @@ function FilterMenu({ handleFilterURL, filterArray }) {
             }
           >
             {preferences.map((item) => {
-              if (item.category === category) {
+              if (
+                item.category === category &&
+                item.name !== 'Prefer not to respond'
+              ) {
                 return (
                   <MenuItem
                     key={item.id}

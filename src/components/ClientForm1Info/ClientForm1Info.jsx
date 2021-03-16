@@ -1,5 +1,15 @@
 import { useSelector } from 'react-redux';
-import { Paper, Typography, TextField, Grid, Box } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  TextField,
+  Grid,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 
 // Component imports
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
@@ -8,7 +18,17 @@ import S3Uploader from '../S3Uploader/S3Uploader';
 
 function ClientForm1Info({ handleInputs }) {
   const classes = useStyles();
-  const clientAnswers = useSelector((store) => store.forms.clientAnswers);
+  const {
+    first_name,
+    last_name,
+    write_in_pronouns,
+    date_of_birth,
+    city,
+    state,
+  } = useSelector((store) => store.forms.clientAnswers);
+  const states = useSelector((store) => store.preferences).filter(
+    (item) => item.category === 'states'
+  );
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -19,7 +39,7 @@ function ClientForm1Info({ handleInputs }) {
             variant="outlined"
             label="First Name"
             className={classes.inputs}
-            value={clientAnswers.first_name || ''}
+            value={first_name || ''}
             onChange={handleInputs('first_name')}
           />
           <TextField
@@ -27,7 +47,7 @@ function ClientForm1Info({ handleInputs }) {
             variant="outlined"
             label="Last Name"
             className={classes.inputs}
-            value={clientAnswers.last_name || ''}
+            value={last_name || ''}
             onChange={handleInputs('last_name')}
           />
           <Grid item xs={6}>
@@ -42,7 +62,7 @@ function ClientForm1Info({ handleInputs }) {
                 label="Other"
                 size="small"
                 className={classes.inputs}
-                value={clientAnswers.write_in_pronouns || ''}
+                value={write_in_pronouns || ''}
                 onChange={handleInputs('write_in_pronouns')}
               />
             </Box>
@@ -54,18 +74,35 @@ function ClientForm1Info({ handleInputs }) {
               variant="outlined"
               label="Date of Birth"
               className={classes.inputs}
-              value={clientAnswers.date_of_birth}
+              value={date_of_birth}
               onChange={handleInputs('date_of_birth') || ''}
               InputLabelProps={{ shrink: true }}
             />
             <TextField
               fullWidth
               variant="outlined"
-              label="Location"
+              label="City"
               className={classes.inputs}
-              value={clientAnswers.location || ''}
-              onChange={handleInputs('location')}
+              value={city || ''}
+              onChange={handleInputs('city')}
             />
+            <FormControl variant="outlined">
+              <InputLabel id="state-picker">State</InputLabel>
+              <Select
+                className={classes.stateSelect}
+                label="State"
+                value={state || ''}
+                onChange={handleInputs('state')}
+              >
+                {states.map((state, i) => (
+                  <MenuItem key={i} value={state.name}>
+                    {state.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Typography>What kind of insurance do you have?</Typography>
+            <FormCheckboxes category={'insurance'} />
           </Grid>
         </Grid>
         <Grid item xs={4}>

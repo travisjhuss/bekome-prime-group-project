@@ -1,15 +1,33 @@
 import { useSelector } from 'react-redux';
-import { Paper, TextField, Typography } from '@material-ui/core';
+import {
+  Paper,
+  TextField,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 
 // Component imports
 import FormPreferencesChecks from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
 import S3Uploader from '../S3Uploader/S3Uploader';
+import useStyles from '../../hooks/useStyles';
 
-// This form needs a lot more work! Also, need a gender checkbox!!
-// And S3Uploader!
-function ProviderForm1Info({ classes, handleInputs }) {
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+function ProviderForm1Info({ handleInputs }) {
+  const classes = useStyles();
+  const {
+    first_name,
+    last_name,
+    write_in_pronouns,
+    date_of_birth,
+    city,
+    state,
+  } = useSelector((store) => store.forms.providerAnswers);
+  const states = useSelector((store) => store.preferences).filter(
+    (item) => item.category === 'states'
+  );
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -17,46 +35,64 @@ function ProviderForm1Info({ classes, handleInputs }) {
         variant="outlined"
         label="First Name"
         className={classes.inputs}
-        value={providerAnswers.first_name || ''}
+        value={first_name || ''}
         onChange={handleInputs('first_name')}
       />
       <TextField
         variant="outlined"
         label="Last Name"
         className={classes.inputs}
-        value={providerAnswers.last_name || ''}
+        value={last_name || ''}
         onChange={handleInputs('last_name')}
       />
       <Typography>What pronouns do you use? (select all that apply)</Typography>
       <FormPreferencesChecks category={'pronouns'} />
+      <Typography>
+        What best describes your gender? (select all that apply)
+      </Typography>
+      <FormPreferencesChecks category={'genders'} />
       <TextField
         variant="outlined"
         label="Other"
         className={classes.inputs}
-        value={providerAnswers.write_in_pronouns || ''}
+        value={write_in_pronouns || ''}
         onChange={handleInputs('write_in_pronouns')}
       />
+      <Typography>Upload a Photo:</Typography>
+      <S3Uploader />
       <TextField
-        variant="outlined"
-        label="Picture URL"
-        className={classes.inputs}
-        value={providerAnswers.pic || ''}
-        onChange={handleInputs('pic')}
-      />
-      <TextField
+        type="date"
         variant="outlined"
         label="Date of Birth"
         className={classes.inputs}
-        value={providerAnswers.date_of_birth || ''}
-        onChange={handleInputs('date_of_birth')}
+        value={date_of_birth}
+        onChange={handleInputs('date_of_birth') || ''}
+        InputLabelProps={{ shrink: true }}
       />
+      <Typography>Where is your practice located?</Typography>
       <TextField
         variant="outlined"
-        label="Location"
+        label="City"
         className={classes.inputs}
-        value={providerAnswers.location || ''}
-        onChange={handleInputs('location')}
+        value={city || ''}
+        onChange={handleInputs('city')}
       />
+      <FormControl variant="outlined">
+        <InputLabel id="state-picker">State</InputLabel>
+        <Select
+          labelId="state-picker"
+          className={classes.stateSelect}
+          label="State"
+          value={state || ''}
+          onChange={handleInputs('state')}
+        >
+          {states.map((state, i) => (
+            <MenuItem key={i} value={state.name}>
+              {state.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <Typography>What best describes your race?</Typography>
       <FormPreferencesChecks category={'ethnicities'} />
       <Typography>What languages do you speak?</Typography>
