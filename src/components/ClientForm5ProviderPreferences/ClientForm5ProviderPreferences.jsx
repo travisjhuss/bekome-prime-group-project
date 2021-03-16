@@ -1,19 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Paper, Switch, FormControlLabel, Grid } from '@material-ui/core';
+import {
+  Typography,
+  Paper,
+  Switch,
+  FormControlLabel,
+  Grid,
+} from '@material-ui/core';
 
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
+import useStyles from '../../hooks/useStyles';
 
-function ClientForm5ProviderPreferences({ classes }) {
+function ClientForm5ProviderPreferences() {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-
-  const handleBooleans = (key) => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key, value: !clientAnswers[key] },
-    });
-  };
+  const { sliding_scale } = useSelector((store) => store.forms.clientAnswers);
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -35,17 +36,13 @@ function ClientForm5ProviderPreferences({ classes }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={clientAnswers.insurance}
-                  onChange={() => handleBooleans('insurance')}
-                />
-              }
-              label="I'm open to see someone who doesn't accept my insurance."
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={clientAnswers.sliding_scale}
-                  onChange={() => handleBooleans('sliding_scale')}
+                  checked={sliding_scale}
+                  onChange={() =>
+                    dispatch({
+                      type: 'SET_CLIENT_PERSONAL_DETAILS',
+                      payload: { key: 'sliding_scale', value: !sliding_scale },
+                    })
+                  }
                 />
               }
               label="I would like to see someone with sliding scale payments"

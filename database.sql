@@ -1,51 +1,70 @@
+-- Create a database called 'bekome'
+-- Enums for "users" and "preferences" tables
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
-CREATE TYPE "category_options" AS ENUM 
-('challenges', 'languages', 'qualities', 'formats', 'age_ranges', 
-'genders', 'ethnicities', 'sexual_orientations', 'religions', 'treatments', 'pronouns');
+CREATE TYPE "category_options" AS ENUM (
+  'challenges', 
+  'languages', 
+  'qualities', 
+  'formats', 
+  'age_ranges', 
+  'genders', 
+  'ethnicities', 
+  'sexual_orientations', 
+  'religions', 
+  'treatments', 
+  'pronouns', 
+  'states',
+  'insurance'
+);
 
+-- Create Tables
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
-  "email" VARCHAR (80) UNIQUE NOT NULL,
-  "password" VARCHAR (1000) NOT NULL,
+  "email" VARCHAR(80) UNIQUE NOT NULL,
+  "password" VARCHAR(1000) NOT NULL,
   "user_type" types,
-  "filled_out_form" BOOLEAN default false
+  "filled_out_form" BOOLEAN DEFAULT false
 );
 
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
   "clients_users_id" INT UNIQUE REFERENCES "users",
-  "first_name" VARCHAR(255),
-  "last_name" VARCHAR(255),
+  "first_name" VARCHAR(255) NOT NULL,
+  "last_name" VARCHAR(255) NOT NULL,
   "pic" VARCHAR(255),
   "date_of_birth" DATE,
   "write_in_pronouns" VARCHAR(100),
-  "location" VARCHAR(255),
+  "city" VARCHAR(255) NOT NULL,
+  "state" VARCHAR(100) NOT NULL,
   "primary_reason" TEXT,
   "previous_therapy" BOOLEAN,
-  "previous_experience" TEXT
+  "previous_experience" TEXT,
+  "sliding_scale" BOOLEAN
 );
 
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
   "providers_users_id" INT UNIQUE REFERENCES "users",
-  "first_name" VARCHAR(255),
-  "last_name" VARCHAR(255),
+  "first_name" VARCHAR(255) NOT NULL,
+  "last_name" VARCHAR(255) NOT NULL,
   "pic" VARCHAR(255),
   "video" VARCHAR(255),
-  "location" VARCHAR(255),
-  "date_of_birth" DATE,
+  "city" VARCHAR(255) NOT NULL,
+  "state" VARCHAR(100) NOT NULL,
+  "date_of_birth" DATE NOT NULL,
   "write_in_pronouns" VARCHAR(100),
-  "background" TEXT,
-  "strengths" TEXT,
-  "approach" TEXT,
-  "insurance" BOOLEAN,
-  "sliding_scale" BOOLEAN
+  "background" TEXT NOT NULL,
+  "strengths" TEXT NOT NULL,
+  "approach" TEXT NOT NULL,
+  "license_number" VARCHAR(255) NOT NULL,
+  "sliding_scale" BOOLEAN NOT NULL,
+  "accepting_clients" BOOLEAN NOT NULL
 );
 
 CREATE TABLE "clients_providers_favs" (
   "id" SERIAL PRIMARY KEY,
-  "clients_users_id" INT REFERENCES "users",
-  "providers_users_id" INT REFERENCES "users"
+  "clients_users_id" INT REFERENCES "users" ON DELETE CASCADE,
+  "providers_users_id" INT REFERENCES "users" ON DELETE CASCADE
 );
 
 CREATE TABLE "preferences" (
@@ -56,14 +75,14 @@ CREATE TABLE "preferences" (
 
 CREATE TABLE "clients_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "clients_users_id" INT REFERENCES "users",
-  "preferences_id" INT REFERENCES "preferences"
+  "clients_users_id" INT REFERENCES "users" ON DELETE CASCADE,
+  "preferences_id" INT REFERENCES "preferences" ON DELETE CASCADE
 );
 
 CREATE TABLE "providers_preferences" (
   "id" SERIAL PRIMARY KEY,
-  "providers_users_id" INT REFERENCES "users",
-  "preferences_id" INT REFERENCES "preferences"
+  "providers_users_id" INT REFERENCES "users" ON DELETE CASCADE,
+  "preferences_id" INT REFERENCES "preferences" ON DELETE CASCADE
 );
 
 CREATE TABLE "questions" (
@@ -73,11 +92,13 @@ CREATE TABLE "questions" (
 
 CREATE TABLE "providers_questions" (
   "id" SERIAL PRIMARY KEY,
-  "providers_users_id" INT REFERENCES "users",
-  "questions_id" INT REFERENCES "questions",
-  "answer" TEXT
+  "providers_users_id" INT REFERENCES "users" ON DELETE CASCADE,
+  "questions_id" INT REFERENCES "questions" ON DELETE CASCADE,
+  "answer" TEXT,
+  "displayed_on_card" BOOLEAN DEFAULT false
 );
 
+-- Insert statement for provider questions
 INSERT INTO "questions" ("content")
 VALUES
 ('I became a therapist because...'),
@@ -87,6 +108,9 @@ VALUES
 ('I am NOT a therapist who...'),
 ('I have specialized training including...');
 
+-- Insert statements for "preferences" table
+
+-- Treatments
 INSERT INTO "preferences" ("name", "category") 
 VALUES
 ('CBT', 'treatments'),
@@ -98,6 +122,7 @@ VALUES
 ('Meditation/Mindfulness', 'treatments'),
 ('Hypnosis', 'treatments');
 
+-- Qualities
 INSERT INTO "preferences" ("name", "category") 
 VALUES
 ('Empathy', 'qualities'),
@@ -109,6 +134,7 @@ VALUES
 ('Cultural competence', 'qualities'),
 ('Challenges clients', 'qualities');
 
+-- Genders
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Woman', 'genders'),
@@ -120,7 +146,7 @@ VALUES
 ('Two Spirit', 'genders'),
 ('Prefer not to respond', 'genders');
 
-
+-- Religions
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Baha''i', 'religions'),
@@ -134,8 +160,11 @@ VALUES
 ('Shinto', 'religions'),
 ('Sikhism', 'religions'),
 ('Taoism', 'religions'),
-('Zoroastrianism', 'religions');
+('Spiritual', 'religions'),
+('Not Religious', 'religions'),
+('Other', 'religions');
 
+-- Ethnicities
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Native American', 'ethnicities'),
@@ -148,6 +177,7 @@ VALUES
 ('Hispanic or Latino', 'ethnicities'),
 ('Other', 'ethnicities');
 
+-- Challenges
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Anxiety', 'challenges'),
@@ -156,8 +186,8 @@ VALUES
 ('Stress', 'challenges'),
 ('Depression', 'challenges'),
 ('Eating disorder', 'challenges'),
-('Sex / porn addiction', 'challenges'),
-('Substance abuse / addiction', 'challenges'),
+('Sex/porn addiction', 'challenges'),
+('Substance abuse/addiction', 'challenges'),
 ('Abuse', 'challenges'),
 ('Trauma', 'challenges'),
 ('Grief', 'challenges'),
@@ -166,6 +196,7 @@ VALUES
 ('ADHD', 'challenges'),
 ('High achieving professionals', 'challenges');
 
+-- Languages
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Mandarin', 'languages'),
@@ -192,6 +223,7 @@ VALUES
 ('Polish', 'languages'),
 ('Other', 'languages');
 
+-- Sexual Orientations
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Heterosexual', 'sexual_orientations'),
@@ -201,25 +233,18 @@ VALUES
 ('Prefer not to respond', 'sexual_orientations'),
 ('Other', 'sexual_orientations');
 
+-- Age ranges 
+-- The formatting of these is important! 
+-- The numbers can be adjusted, but must be formatted '24-30' or '60+'
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('24-30', 'age_ranges'),
 ('31-40', 'age_ranges'),
 ('41-50', 'age_ranges'),
 ('51-60', 'age_ranges'),
-('Over 60', 'age_ranges');
+('60+', 'age_ranges');
 
-INSERT INTO "preferences" ("name", "category")
-VALUES
-('Empathy', 'qualities'),
-('Warmth', 'qualities'),
-('Critical thinking', 'qualities'),
-('Experience', 'qualities'),
-('Intuition', 'qualities'),
-('Elite/specialized training', 'qualities'),
-('Cultural competence', 'qualities'),
-('Challenges patients', 'qualities');
-
+-- Formats
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('Individual', 'formats'),
@@ -227,8 +252,218 @@ VALUES
 ('In-Person', 'formats'),
 ('Remote', 'formats');
 
+-- Pronouns
 INSERT INTO "preferences" ("name", "category")
 VALUES
 ('she/her', 'pronouns'),
 ('he/him', 'pronouns'),
 ('they/them', 'pronouns');
+
+-- States
+INSERT INTO "preferences" ("name", "category")
+VALUES 
+('Alaska', 'states'),
+('Alabama', 'states'),
+('Arizona', 'states'),
+('Arkansas', 'states'),
+('California', 'states'),
+('Colorado', 'states'),
+('Connecticut', 'states'),
+('Delaware', 'states'),
+('District of Columbia', 'states'),
+('Florida', 'states'),
+('Georgia', 'states'),
+('Hawaii', 'states'),
+('Idaho', 'states'),
+('Illinois', 'states'),
+('Indiana', 'states'),
+('Iowa', 'states'),
+('Kansas', 'states'),
+('Kentucky', 'states'),
+('Louisiana', 'states'),
+('Maine', 'states'),
+('Maryland', 'states'),
+('Massachusetts', 'states'),
+('Michigan', 'states'),
+('Minnesota', 'states'),
+('Mississippi', 'states'),
+('Missouri', 'states'),
+('Montana', 'states'),
+('Nebraska', 'states'),
+('Nevada', 'states'),
+('New Hampshire', 'states'),
+('New Jersey', 'states'),
+('New Mexico', 'states'),
+('New York', 'states'),
+('North Carolina', 'states'),
+('North Dakota', 'states'),
+('Ohio', 'states'),
+('Oklahoma', 'states'),
+('Oregon', 'states'),
+('Pennsylvania', 'states'),
+('Puerto Rico', 'states'),
+('Rhode Island', 'states'),
+('South Carolina', 'states'),
+('South Dakota', 'states'),
+('Tennessee', 'states'),
+('Texas', 'states'),
+('Utah', 'states'),
+('Vermont', 'states'),
+('Virginia', 'states'),
+('Washington', 'states'),
+('West Virginia', 'states'),
+('Wisconsin', 'states'),
+('Wyoming', 'states');
+
+-- Insurance
+INSERT INTO "preferences" ("name", "category")
+VALUES
+('HealthPartners', 'insurance'),
+('Medica', 'insurance'),
+('United Healthcare', 'insurance'),
+('Blue Cross Blue Shield', 'insurance'),
+('UCare', 'insurance'),
+('MinnesotaCare', 'insurance'),
+('Medical Assistance', 'insurance');
+
+
+-- Example provider Joe Levine - email is joe@gmail.com, pw is 12345
+INSERT INTO "users" ("id", "email", "password", "user_type", "filled_out_form")
+VALUES
+(1, 'joe@gmail.com', '$2a$10$2mk4DpvNqM7xVZ7XeHKVvexyodC3dY3ZxAkQBLO0V0KhUGvFwBAgO', 'provider', true);
+
+INSERT INTO "providers" (
+  "id",
+  "providers_users_id",
+  "first_name",
+  "last_name",
+  "pic",
+  "video",
+  "city",
+  "state",
+  "date_of_birth",
+  "write_in_pronouns",
+  "background",
+  "strengths",
+  "approach",
+  "license_number",
+  "sliding_scale",
+  "accepting_clients"
+)
+VALUES (
+  1,
+  1,
+  'Joe',
+  'Levine',
+  'https://burkbucket.s3.amazonaws.com/22bb70ed-9456-4101-9be1-fbabedf09eb1_Rydeprofessionalheadshot.jpeg',
+  '',
+  'St. Paul',
+  'Minnesota',
+  '1975-06-23',
+  '',
+  'I have over twelve years of experience in the Minneapolis/St. Paul area. I''ve worked in a few hospitals and clinics over the years, but have really loved having my own practice.',
+  'Talkative, kind, supportive, and inquisitive.',
+  'Centered around mindfulness and non-judgmental stances. I wish to help my clients feel at peace with the world.',
+  'H465LM245',
+  false,
+  true
+);
+
+INSERT INTO "providers_questions" (
+  "id",
+  "providers_users_id",
+  "questions_id",
+  "answer",
+  "displayed_on_card"
+)
+VALUES
+(1, 1, 1, 'I want to have a positive effect on the world, and therapy was the best way to use my gifts to achieve this.', true),
+(2, 1, 2, 'Running, tennis, swimming, and walking my dog Rowdy.', true),
+(3, 1, 3, 'My mindfulness and meditation-centered approach.', true),
+(4, 1, 4, 'Guilt/shame, depression, anxiety, and perfectionism.', false),
+(5, 1, 5, 'Will just be a sounding board. I want to find solutions to help.', false),
+(6, 1, 6, 'Extensive training and practice in meditation.', false);
+INSERT INTO "providers_preferences" ("id", "providers_users_id", "preferences_id")
+VALUES
+(1,1,102),
+(2,1,18),
+(3,1,44),
+(4,1,65),
+(5,1,63),
+(6,1,32),
+(7,1,9),
+(8,1,10),
+(9,1,11),
+(10,1,2),
+(11,1,1),
+(12,1,3),
+(13,1,7),
+(14,1,48),
+(15,1,51),
+(16,1,52),
+(17,1,55),
+(18,1,62),
+(19,1,97),
+(20,1,98),
+(21,1,99),
+(22,1,100),
+(23,1,158),
+(24,1,159),
+(25,1,161),
+(26,1,162),
+(27,1,160);
+
+
+-- Example client Jordan Collins - email is jordan@gmail.com, pw is 12345
+INSERT INTO "users"("id", "email", "password", "user_type", "filled_out_form")
+VALUES
+(2, 'jordan@gmail.com', '$2a$10$IVnWX2m3SoRZT8N4vJXgsejZTVNPFT7nHCrFGvv.eFI/9Z9qgZ.6K', 'client', true);
+INSERT INTO "clients" (
+  "id",
+  "clients_users_id",
+  "first_name",
+  "last_name",
+  "pic",
+  "date_of_birth",
+  "write_in_pronouns",
+  "city",
+  "state",
+  "primary_reason",
+  "previous_therapy",
+  "previous_experience",
+  "sliding_scale"
+)
+VALUES (
+  1,
+  2,
+  'Jordan',
+  'Collins',
+  'https://burkbucket.s3.amazonaws.com/5dd7f917-61f6-4e69-9b39-9ae43f9b67bb_0b7f4e9b-f59c-4024-9f06-b3dc12850ab7-1920-1080.jpeg',
+  '1990-04-12',
+  '',
+  'Golden Valley',
+  'Minnesota',
+  'I''m having issues with Imposter Syndrome at work, and feeling lethargic and depressed at home.',
+  false,
+  '',
+  false);
+INSERT INTO "clients_preferences" ("id", "clients_users_id", "preferences_id")
+VALUES
+(1,2,102),
+(2,2,160),
+(3,2,62),
+(4,2,52),
+(5,2,48),
+(6,2,59),
+(7,2,1),
+(8,2,2),
+(9,2,7),
+(10,2,9),
+(11,2,10),
+(12,2,15),
+(13,2,16),
+(14,2,17),
+(15,2,20),
+(16,2,45),
+(17,2,65),
+(18,2,37);

@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { Paper, Box, Typography, makeStyles, Grid } from '@material-ui/core';
-import { DateTime } from 'luxon';
+import { Box, Typography, Grid } from '@material-ui/core';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
@@ -11,34 +10,27 @@ import StrengthsAccordion from '../StrengthsAccordion/StrengthsAccordion';
 import BackgroundAccordion from '../BackgroundAccordion/BackgroundAccordion';
 import SpecialtiesAccordion from '../SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
-
-const useStyles = makeStyles((theme) => ({
-  pic: {
-    width: 250,
-    height: 250,
-    objectFit: 'cover',
-    borderRadius: '50%',
-    padding: theme.spacing(3),
-  },
-}));
+import useStyles from '../../hooks/useStyles';
 
 function ProviderDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {
+    providers_users_id,
     first_name,
     last_name,
     pic,
     video,
-    location,
-    insurance,
-    sliding_scale,
-    date_of_birth,
+    city,
+    state_id,
+    age,
+    saved,
     write_in_pronouns,
     preferences_array,
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
+  const providerState = preferences.find((item) => item.id === state_id)?.name;
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
@@ -56,17 +48,17 @@ function ProviderDetails() {
       .slice(0, -2);
   };
 
-  const age = DateTime.now()
-    .diff(DateTime.fromISO(date_of_birth))
-    .toFormat('y');
-
   return (
     <Box p={2}>
       <Box display="flex" alignItems="center">
         <Typography>
           {first_name} {last_name}
         </Typography>
-        <FavoriteProviderButton providers_users_id={id} />
+        <FavoriteProviderButton
+          id={providers_users_id}
+          saved={saved}
+          type={'FETCH_PROVIDER_DETAILS'}
+        />
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={6}>
@@ -78,12 +70,11 @@ function ProviderDetails() {
                 Pronouns: {parsePreferences('pronouns')}
                 {write_in_pronouns && `, ${write_in_pronouns}`}
               </Typography>
-              <Typography>Location: {location}</Typography>
               <Typography>
-                Languages: {parsePreferences('languages')}
+                Location: {city}, {providerState}
               </Typography>
               <Typography>
-                Religious Affiliations: {parsePreferences('religions')}
+                Languages: {parsePreferences('languages')}
               </Typography>
             </Box>
           </Box>
@@ -91,7 +82,7 @@ function ProviderDetails() {
         <Grid item xs={6}>
           <QuestionAccordion />
           <StrengthsAccordion parsePreferences={parsePreferences} />
-          <BackgroundAccordion />
+          <BackgroundAccordion parsePreferences={parsePreferences} />
           <SpecialtiesAccordion parsePreferences={parsePreferences} />
           <FormatsAccordion parsePreferences={parsePreferences} />
         </Grid>
