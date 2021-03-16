@@ -9,16 +9,12 @@ import {
 
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
+import useStyles from '../../hooks/useStyles';
 
-function ClientForm5ProviderPreferences({ classes }) {
+function ClientForm5ProviderPreferences() {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-  const insurance = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'Insurance'
-  );
-  const slidingScale = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'Sliding Scale'
-  );
+  const { sliding_scale } = useSelector((store) => store.forms.clientAnswers);
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -40,11 +36,11 @@ function ClientForm5ProviderPreferences({ classes }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={clientAnswers.preferences.includes(slidingScale?.id)}
+                  checked={sliding_scale}
                   onChange={() =>
                     dispatch({
-                      type: 'SET_CLIENT_PREFERENCES',
-                      payload: slidingScale.id,
+                      type: 'SET_CLIENT_PERSONAL_DETAILS',
+                      payload: { key: 'sliding_scale', value: !sliding_scale },
                     })
                   }
                 />

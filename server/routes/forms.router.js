@@ -60,9 +60,8 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
             "primary_reason", 
             "previous_therapy", 
             "previous_experience",
-            "insurance",
             "sliding_scale"
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     `;
     await connection.query(firstSqlText, [
       req.user.id,
@@ -76,7 +75,6 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.primary_reason,
       req.body.previous_therapy,
       req.body.previous_experience,
-      req.body.insurance,
       req.body.sliding_scale,
     ]);
 
@@ -124,25 +122,27 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     // Start transaction
     await connection.query('BEGIN;');
     // Work for first query
-    // First sql query to insert new client into clients
+    // First sql query to insert new provider into providers
     const firstSqlText = `
-          INSERT INTO "providers" (
-              "providers_users_id", 
-              "first_name", 
-              "last_name", 
-              "pic", 
-              "video",
-              "city",
-              "state_id",
-              "date_of_birth", 
-              "write_in_pronouns", 
-              "background",
-              "strengths",
-              "approach",
-              "license_number"
-             )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-      `;
+      INSERT INTO "providers" (
+        "providers_users_id", 
+        "first_name", 
+        "last_name", 
+        "pic", 
+        "video",
+        "city",
+        "state_id",
+        "date_of_birth", 
+        "write_in_pronouns", 
+        "background",
+        "strengths",
+        "approach",
+        "sliding_scale",
+        "accepting_clients",
+        "license_number"
+      ) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    `;
     await connection.query(firstSqlText, [
       req.user.id,
       req.body.first_name,
@@ -156,6 +156,8 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       req.body.background,
       req.body.strengths,
       req.body.approach,
+      req.body.sliding_scale,
+      req.body.accepting_clients,
       req.body.license_number,
     ]);
     // Work for second query

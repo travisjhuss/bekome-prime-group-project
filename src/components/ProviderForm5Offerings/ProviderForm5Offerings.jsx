@@ -6,6 +6,7 @@ import {
   Switch,
   Grid,
   Box,
+  TextField,
 } from '@material-ui/core';
 
 // Component imports
@@ -13,15 +14,26 @@ import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../S3Uploader/S3Uploader';
 import useStyles from '../../hooks/useStyles';
 
-function ProviderForm5Offerings() {
+function ProviderForm5Offerings({ handleInputs }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-  const slidingScale = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'Sliding Scale'
+  const {
+    accepting_clients,
+    sliding_scale,
+    license_number,
+    state_id,
+  } = useSelector((store) => store.forms.providerAnswers);
+  const states = useSelector((store) => store.preferences).filter(
+    (item) => item.category === 'states'
   );
+  const providerState = states.find((item) => item.id === state_id)?.name;
 
-  // Client asked for inputs for licensure state and license number
+  const handleBooleans = (key, boolean) => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key, value: !boolean },
+    });
+  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -35,14 +47,20 @@ function ProviderForm5Offerings() {
             <FormControlLabel
               control={
                 <Switch
-                  checked={providerAnswers.preferences.includes(
-                    slidingScale?.id
-                  )}
+                  checked={accepting_clients}
                   onChange={() =>
-                    dispatch({
-                      type: 'SET_PROVIDER_PREFERENCES',
-                      payload: slidingScale.id,
-                    })
+                    handleBooleans('accepting_clients', accepting_clients)
+                  }
+                />
+              }
+              label="I'm currently accepting new clients"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={sliding_scale}
+                  onChange={() =>
+                    handleBooleans('sliding_scale', sliding_scale)
                   }
                 />
               }
@@ -55,6 +73,14 @@ function ProviderForm5Offerings() {
             Please upload a short video to introduce yourself!
           </Typography>
           <S3Uploader />
+          <Typography>What is your {providerState} license number?</Typography>
+          <TextField
+            variant="outlined"
+            label="License Number"
+            className={classes.inputs}
+            value={license_number || ''}
+            onChange={handleInputs('license_number')}
+          />
         </Grid>
       </Grid>
     </Paper>

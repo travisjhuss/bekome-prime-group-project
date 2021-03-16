@@ -28,7 +28,9 @@ function UserCard({ provider }) {
     write_in_pronouns,
     video,
     questions,
-    location,
+    city,
+    state_id,
+    accepting_clients,
     saved,
   } = provider;
 
@@ -42,6 +44,8 @@ function UserCard({ provider }) {
       .reduce((string, item) => (string += `${item.name}, `), '')
       .slice(0, -2);
   };
+
+  const providerState = preferences.find((item) => item.id === state_id)?.name;
 
   const sendToDetails = () => {
     history.push(`/provider-details/${providers_users_id}`);
@@ -69,7 +73,7 @@ function UserCard({ provider }) {
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
         <Typography variant="body2">
-          <LocationOn color="primary" /> {location}
+          <LocationOn color="primary" /> {city}, {providerState}
         </Typography>
         <Typography variant="body2">
           <Language color="primary" /> {parsePreferences('languages')}

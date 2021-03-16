@@ -15,8 +15,6 @@ import FormMenuChips from '../FormMenuChips/FormMenuChips';
 import S3Uploader from '../S3Uploader/S3Uploader';
 import useStyles from '../../hooks/useStyles';
 
-// This form needs a lot more work! Also, need a gender checkbox!!
-// And S3Uploader!
 function ProviderForm1Info({ handleInputs }) {
   const classes = useStyles();
   const {
@@ -71,6 +69,7 @@ function ProviderForm1Info({ handleInputs }) {
         onChange={handleInputs('date_of_birth') || ''}
         InputLabelProps={{ shrink: true }}
       />
+      <Typography>Where is your practice located?</Typography>
       <TextField
         variant="outlined"
         label="City"

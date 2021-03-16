@@ -13,8 +13,8 @@ export const clientAnswers = (
     primary_reason: '',
     previous_therapy: false,
     previous_experience: '',
-    preferences: [],
     sliding_scale: false,
+    preferences: [],
   },
   action
 ) => {
@@ -57,11 +57,11 @@ export const providerAnswers = (
     background: '',
     strengths: '',
     approach: '',
-    preferences: [],
-    questions: [],
     sliding_scale: false,
     accepting_clients: false,
     license_number: '',
+    questions: [],
+    preferences: [],
   },
   action
 ) => {

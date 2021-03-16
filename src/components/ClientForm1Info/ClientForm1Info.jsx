@@ -1,5 +1,15 @@
 import { useSelector } from 'react-redux';
-import { Paper, Typography, TextField, Grid, Box } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  TextField,
+  Grid,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 
 // Component imports
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
@@ -16,6 +26,9 @@ function ClientForm1Info({ handleInputs }) {
     city,
     state_id,
   } = useSelector((store) => store.forms.clientAnswers);
+  const states = useSelector((store) => store.preferences).filter(
+    (item) => item.category === 'states'
+  );
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -68,7 +81,7 @@ function ClientForm1Info({ handleInputs }) {
             <TextField
               fullWidth
               variant="outlined"
-              label="Location"
+              label="City"
               className={classes.inputs}
               value={city || ''}
               onChange={handleInputs('city')}
