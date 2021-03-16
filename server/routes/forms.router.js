@@ -7,9 +7,7 @@ const router = express.Router();
 
 // GET route for retrieving data from "preferences" table
 router.get('/preferences', rejectUnauthenticated, (req, res) => {
-  const sqlText = `
-        SELECT * FROM "preferences"
-        `;
+  const sqlText = `SELECT * FROM "preferences";`;
   pool
     .query(sqlText)
     .then((result) => {
@@ -23,9 +21,7 @@ router.get('/preferences', rejectUnauthenticated, (req, res) => {
 
 // GET route for retrieving data from "questions" table
 router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
-  const sqlText = `
-          SELECT * FROM "questions"
-          `;
+  const sqlText = `SELECT * FROM "questions";`;
   pool
     .query(sqlText)
     .then((result) => {
@@ -48,20 +44,21 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     await connection.query('BEGIN;');
     // First sql query to insert new client into clients
     const firstSqlText = `
-        INSERT INTO "clients" (
-            "clients_users_id", 
-            "first_name", 
-            "last_name", 
-            "pic", 
-            "date_of_birth", 
-            "write_in_pronouns", 
-            "city",
-            "state_id", 
-            "primary_reason", 
-            "previous_therapy", 
-            "previous_experience",
-            "sliding_scale"
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      INSERT INTO "clients" (
+        "clients_users_id", 
+        "first_name", 
+        "last_name", 
+        "pic", 
+        "date_of_birth", 
+        "write_in_pronouns", 
+        "city",
+        "state", 
+        "primary_reason", 
+        "previous_therapy", 
+        "previous_experience",
+        "sliding_scale"
+      ) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
     `;
     await connection.query(firstSqlText, [
       req.user.id,
@@ -71,7 +68,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.date_of_birth,
       req.body.write_in_pronouns,
       req.body.city,
-      req.body.state_id,
+      req.body.state,
       req.body.primary_reason,
       req.body.previous_therapy,
       req.body.previous_experience,
@@ -93,9 +90,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     ]);
     // 3rd query to mark filled_out_form as true
     const thirdSqlText = `
-    UPDATE "users"
-    SET "filled_out_form" = true
-    WHERE "id" = $1;
+      UPDATE "users" SET "filled_out_form" = true WHERE "id" = $1;
     `;
     await connection.query(thirdSqlText, [req.user.id]);
     // last action
@@ -131,7 +126,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
         "pic", 
         "video",
         "city",
-        "state_id",
+        "state",
         "date_of_birth", 
         "write_in_pronouns", 
         "background",
@@ -150,7 +145,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       req.body.pic,
       req.body.video,
       req.body.city,
-      req.body.state_id,
+      req.body.state,
       req.body.date_of_birth,
       req.body.write_in_pronouns,
       req.body.background,
@@ -177,7 +172,11 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     // Work for third query
     // Take the questions array and use the same SQL query for each
     const providerQuestionsQuery = `
-      INSERT INTO "providers_questions" ("providers_users_id", "questions_id", "answer")
+      INSERT INTO "providers_questions" (
+        "providers_users_id", 
+        "questions_id", 
+        "answer"
+      )
       VALUES ($1, $2, $3);
     `;
 

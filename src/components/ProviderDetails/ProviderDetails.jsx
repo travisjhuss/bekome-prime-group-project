@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { Box, Typography, makeStyles, Grid } from '@material-ui/core';
+import { Box, Typography, Grid } from '@material-ui/core';
 
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
@@ -21,7 +21,8 @@ function ProviderDetails() {
     last_name,
     pic,
     video,
-    location,
+    city,
+    state_id,
     age,
     saved,
     write_in_pronouns,
@@ -29,6 +30,7 @@ function ProviderDetails() {
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
+  const providerState = preferences.find((item) => item.id === state_id)?.name;
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
@@ -68,7 +70,9 @@ function ProviderDetails() {
                 Pronouns: {parsePreferences('pronouns')}
                 {write_in_pronouns && `, ${write_in_pronouns}`}
               </Typography>
-              <Typography>Location: {location}</Typography>
+              <Typography>
+                Location: {city}, {providerState}
+              </Typography>
               <Typography>
                 Languages: {parsePreferences('languages')}
               </Typography>

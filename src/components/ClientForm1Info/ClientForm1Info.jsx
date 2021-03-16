@@ -24,7 +24,7 @@ function ClientForm1Info({ handleInputs }) {
     write_in_pronouns,
     date_of_birth,
     city,
-    state_id,
+    state,
   } = useSelector((store) => store.forms.clientAnswers);
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
@@ -91,12 +91,14 @@ function ClientForm1Info({ handleInputs }) {
               <Select
                 className={classes.stateSelect}
                 label="State"
-                value={state_id || ''}
-                onChange={handleInputs('state_id')}
+                value={state || ''}
+                onChange={handleInputs('state')}
               >
-                {states.map((state) => {
-                  return <MenuItem value={state.id}>{state.name}</MenuItem>;
-                })}
+                {states.map((state, i) => (
+                  <MenuItem key={i} value={state.name}>
+                    {state.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <Typography>What kind of insurance do you have?</Typography>

@@ -79,13 +79,6 @@ function ExploreView() {
         return true;
       }
     })
-    .filter((item) => {
-      if (filterArray && !filterArray.includes(item.state_id)) {
-        return false;
-      } else {
-        return true;
-      }
-    });
 
   return (
     <div>

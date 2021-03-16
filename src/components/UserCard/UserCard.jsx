@@ -29,7 +29,7 @@ function UserCard({ provider }) {
     video,
     questions,
     city,
-    state_id,
+    state,
     accepting_clients,
     saved,
   } = provider;
@@ -45,10 +45,21 @@ function UserCard({ provider }) {
       .slice(0, -2);
   };
 
-  const providerState = preferences.find((item) => item.id === state_id)?.name;
-
   const sendToDetails = () => {
     history.push(`/provider-details/${providers_users_id}`);
+  };
+
+  // Find method finds the question that the provider has an answer to
+  // Also checks to see whether the provider wants this question on their card
+  const findQuestion = (id, content) => {
+    const foundQuestion = questions.find((item) => item.questions_id === id);
+    if (foundQuestion.displayed_on_card === true) {
+      return (
+        <Typography key={id} variant="body2">
+          <b>{content}</b> {foundQuestion.answer}
+        </Typography>
+      );
+    }
   };
 
   return (
@@ -73,22 +84,15 @@ function UserCard({ provider }) {
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.cardContent}>
         <Typography variant="body2">
-          <LocationOn color="primary" /> {city}, {providerState}
+          <LocationOn color="primary" /> {city}, {state}
         </Typography>
         <Typography variant="body2">
           <Language color="primary" /> {parsePreferences('languages')}
         </Typography>
         <br />
-        {providerQuestions.map((question) => (
-          // find method finds the question that the provider has an answer to
-          <Typography key={question.id} variant="body2">
-            <b>{question.content}</b>{' '}
-            {
-              questions?.find((answer) => question.id === answer.questions_id)
-                ?.answer
-            }
-          </Typography>
-        ))}
+        {providerQuestions.map((question) =>
+          findQuestion(question.id, question.content)
+        )}
       </CardContent>
       <CardActions className={classes.cardButton}>
         {pathname !== '/edit_profile' && (

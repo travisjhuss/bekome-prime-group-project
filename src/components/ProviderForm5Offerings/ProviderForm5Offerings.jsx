@@ -21,12 +21,8 @@ function ProviderForm5Offerings({ handleInputs }) {
     accepting_clients,
     sliding_scale,
     license_number,
-    state_id,
+    state,
   } = useSelector((store) => store.forms.providerAnswers);
-  const states = useSelector((store) => store.preferences).filter(
-    (item) => item.category === 'states'
-  );
-  const providerState = states.find((item) => item.id === state_id)?.name;
 
   const handleBooleans = (key, boolean) => {
     dispatch({
@@ -73,7 +69,7 @@ function ProviderForm5Offerings({ handleInputs }) {
             Please upload a short video to introduce yourself!
           </Typography>
           <S3Uploader />
-          <Typography>What is your {providerState} license number?</Typography>
+          <Typography>What is your {state} license number?</Typography>
           <TextField
             variant="outlined"
             label="License Number"

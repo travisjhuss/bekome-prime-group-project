@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
         "providers".pic, 
         "providers".video, 
         "providers".city,
-        "providers".state_id, 
+        "providers".state, 
         "providers".accepting_clients, 
         EXTRACT(YEAR FROM AGE("providers".date_of_birth)) AS "age",
         "providers".write_in_pronouns, 
@@ -36,7 +36,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
     // Gets all needed information from "providers_questions" junction table
     const sqlTextQuestions = `
-      SELECT "providers_users_id", "questions_id", "answer" 
+      SELECT "providers_users_id", "questions_id", "answer", "displayed_on_card" 
       FROM "providers_questions";
     `;
     // Sends the query to db, saves data to 'questions' var
