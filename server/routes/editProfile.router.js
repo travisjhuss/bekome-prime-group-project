@@ -5,7 +5,7 @@ const {
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/client/:id', rejectUnauthenticated, async (req, res) => {
+router.get('/client', rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
   try {
     // Start transaction
@@ -19,7 +19,7 @@ router.get('/client/:id', rejectUnauthenticated, async (req, res) => {
       WHERE "clients".clients_users_id = $1 GROUP BY "clients".id;
       `;
     // req.params.id?
-    const clientAnswers = await connection.query(sqlText, [req.params.id]);
+    const clientAnswers = await connection.query(sqlText, [req.user.id]);
 
     // last action
     await connection.query('COMMIT;');
