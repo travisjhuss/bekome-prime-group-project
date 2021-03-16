@@ -37,6 +37,11 @@ router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST route for adding a new preference to the preferences table
+router.post('/add_preference', rejectUnauthenticated, async (req, res) => {
+  console.log('adding preference', req.body)
+})
+
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database

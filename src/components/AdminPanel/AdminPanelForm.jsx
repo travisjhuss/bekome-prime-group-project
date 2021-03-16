@@ -20,8 +20,10 @@ import useStyles from '../../hooks/useStyles';
 // different dispatches for different categories?
 
 
-function AdminPanelForm({category, filteredPreferences}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, handleInputs, newPref}) {
     const classes = useStyles()
+
+
     return (
         <Paper className={classes.paper}>
             <Typography variant="h6">
@@ -47,13 +49,16 @@ function AdminPanelForm({category, filteredPreferences}) {
             className={classes.inputs}
             variant="outlined"
             label=""
+            onChange={handleInputs(category)}
+            value={newPref[category]}
             />
 
             <Button
             className={classes.adminPanelButton}
-            // onClick={addRow}
+            onClick={addPreference(category)}
             variant="contained"
             color="primary"
+            value={category}
             >
                 Add
             </Button>

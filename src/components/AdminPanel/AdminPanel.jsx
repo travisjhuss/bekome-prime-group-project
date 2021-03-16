@@ -1,6 +1,6 @@
 import AdminPanelForm from './AdminPanelForm'
 import useStyles from '../../hooks/useStyles'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -22,19 +22,61 @@ function AdminPanel() {
     const formats = preferences.filter(pref => pref.category === "formats")
     const pronouns = preferences.filter(pref => pref.category === "pronouns")
 
+    const [newPref, setNewPref] = useState({
+        treatments: '',
+        genders: '',
+        qualities: '',
+        religions: '',
+        ethnicities: '',
+        challenges: '',
+        languages: '',
+        sexual_orientations: '',
+        age_ranges: '',
+        formats: '',
+        pronouns: ''
+    })
+
 
     useEffect(() => {
         dispatch({type: 'FETCH_PREFERENCES'})
     }, []);
 
+    const addPreference = (category) => (event) => {
+        dispatch({
+            type: 'ADD_NEW_PREFERENCE',
+            payload:
+                    {
+                        name: newPref[category],
+                        category: category
+                    }
+        })
+        console.log('adding', category)
+        setNewPref({...newPref, [category]: ''})
+    }
+
+    const handleInputs = (key) => (event) => {
+        setNewPref({...newPref, [key]: event.target.value })
+        console.log(newPref)
+    };
+
 
     return (
         <div>
             <AdminPanelForm
-            category="gender"
+            category="genders"
             filteredPreferences={genders}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
             />
-            <button onClick={() => console.log(genders)}>test</button>
+            <AdminPanelForm
+            category="treatments"
+            filteredPreferences={treatments}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <button onClick={() => console.log(newPref)}>test</button>
         </div>
     )
 }

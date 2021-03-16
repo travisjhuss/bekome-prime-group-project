@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function* formsSaga() {
   yield takeEvery('FETCH_PREFERENCES', fetchPreferences);
+  yield takeEvery('ADD_NEW_PREFERENCE', addNewPreference);
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
@@ -44,14 +45,25 @@ function* addNewClient(action) {
 }
 
 function* addNewProvider(action) {
-    try {
-        console.log('in addNewProvider with payload:', action.payload);
-        yield axios.post('/api/forms/add_provider', action.payload);
-        // fetch user so nav bar updates
-        yield put({type: 'FETCH_USER'});
-    } catch (err) {
-      console.log('error in addNewProvider:', err);
-    }
+  try {
+      console.log('in addNewProvider with payload:', action.payload);
+      yield axios.post('/api/forms/add_provider', action.payload);
+      // fetch user so nav bar updates
+      yield put({type: 'FETCH_USER'});
+  } catch (err) {
+    console.log('error in addNewProvider:', err);
   }
+}
+
+function* addNewPreference(action) {
+  try {
+    console.log('in addNewPreference with payload:', action.payload);
+    yield axios.post('/api/forms/add_preference', action.payload);
+    // fetch preferences so admin panel updates
+    yield put({type: 'FETCH_PREFERENCES'});
+  } catch (err) {
+    console.log('error in addNewPreference', err);
+  }
+}
 
 export default formsSaga;
