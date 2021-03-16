@@ -6,6 +6,7 @@ import formsSaga from './forms.saga';
 import exploreSaga from './explore.saga';
 import providerDetailsSaga from './providerDetails.saga';
 import savedProvidersSaga from './savedProviders.saga';
+import editProfileSaga from './editProfile.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     exploreSaga(), // GETS provider data for ExploreView
     providerDetailsSaga(), // Handles all dispatches regarding individual providers
     savedProvidersSaga(), // GETS provider data for SavedProviders view
+    editProfileSaga(), // handles tasks involving editing any profile
   ]);
 }
