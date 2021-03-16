@@ -14,7 +14,7 @@ export const clientAnswers = (
     previous_therapy: false,
     previous_experience: '',
     sliding_scale: false,
-    preferences: [],
+    preferences_array: [],
   },
   action
 ) => {
@@ -23,21 +23,23 @@ export const clientAnswers = (
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_CLIENT_PREFERENCES':
       const preferenceId = action.payload;
-      if (state.preferences.indexOf(preferenceId) === -1) {
+      if (state.preferences_array.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, preferenceId],
+          preferences_array: [...state.preferences_array, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter(
+          preferences_array: state.preferences_array.filter(
             (index) => index !== preferenceId
           ),
         };
       }
     case 'CLEAR_CLIENT_ANSWERS':
       return {};
+    case 'SET_EDIT_CLIENT_PROFILE':
+      return action.payload;
     default:
       return state;
   }
@@ -61,7 +63,7 @@ export const providerAnswers = (
     accepting_clients: false,
     license_number: '',
     questions: [],
-    preferences: [],
+    preferences_array: [],
   },
   action
 ) => {
@@ -70,15 +72,15 @@ export const providerAnswers = (
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_PROVIDER_PREFERENCES':
       const preferenceId = action.payload;
-      if (state.preferences.indexOf(preferenceId) === -1) {
+      if (state.preferences_array.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, preferenceId],
+          preferences_array: [...state.preferences_array, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter(
+          preferences_array: state.preferences_array.filter(
             (index) => index !== preferenceId
           ),
         };
@@ -101,6 +103,10 @@ export const providerAnswers = (
           questions: [...state.questions, { question_id: id, answer }],
         };
       }
+    case 'CLEAR_PROVIDER_ANSWERS':
+      return {};
+    case 'SET_EDIT_PROVIDER_PROFILE':
+      return action.payload;
     default:
       return state;
   }

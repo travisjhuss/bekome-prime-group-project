@@ -65,7 +65,7 @@ function UserCard({ provider }) {
   return (
     <Card className={classes.cardRoot}>
       <CardContent className={classes.cardHeader}>
-        <Typography variant="h6" display="inline">
+        <Typography variant="h6" display="inline" color="secondary">
           {first_name} {last_name}
         </Typography>{' '}
         {user_type === 'client' && (
