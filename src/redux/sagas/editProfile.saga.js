@@ -34,7 +34,7 @@ function* fetchEditProviderProfile(action) {
 
 function* submitClientEdits() {
   try {
-    yield axios.put(`/api/edit/client/${action.payload.id}`, action.payload);
+    yield axios.put('/api/edit/client/', action.payload);
   } catch (err) {
     console.log('error in submitClientEdits:', err);
   }
@@ -42,7 +42,7 @@ function* submitClientEdits() {
 
 function* submitProviderEdits() {
   try {
-    yield axios.put(`/api/edit/provider/${action.payload.id}`, action.payload);
+    yield axios.put('/api/edit/provider/', action.payload);
   } catch (err) {
     console.log('error in submitProviderEdits:', err);
   }

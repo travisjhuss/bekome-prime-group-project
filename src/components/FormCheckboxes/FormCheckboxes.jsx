@@ -44,7 +44,7 @@ function FormPreferencesChecks({ category, limit }) {
             key={item.id}
             control={
               <Checkbox
-                checked={answers.preferences.includes(item.id)}
+                checked={answers.preferences?.includes(item.id)}
                 onChange={() => handleCheck(item.id)}
               />
             }

@@ -87,22 +87,32 @@ export const providerAnswers = (
       }
     case 'SET_PROVIDER_RESPONSES':
       const { id, answer } = action.payload;
-      const foundIndex = state.questions.findIndex(
-        (item) => item.question_id === id
+      const index = state.questions.findIndex(
+        (item) => item.questions_id === id
       );
-      if (foundIndex > -1) {
+      if (index > -1) {
         const newQuestionsArray = [...state.questions];
-        newQuestionsArray[foundIndex] = {
-          ...newQuestionsArray[foundIndex],
+        newQuestionsArray[index] = {
+          ...newQuestionsArray[index],
           answer,
         };
         return { ...state, questions: newQuestionsArray };
       } else {
         return {
           ...state,
-          questions: [...state.questions, { question_id: id, answer }],
+          questions: [...state.questions, { questions_id: id, answer }],
         };
       }
+    case 'SET_DISPLAYED_QUESTIONS':
+      const i = state.questions.findIndex(
+        (item) => item.questions_id === action.payload
+      );
+      const newQuestionsArray = [...state.questions];
+      newQuestionsArray[i] = {
+        ...newQuestionsArray[i],
+        displayed_on_card: !newQuestionsArray[i].displayed_on_card,
+      };
+      return { ...state, questions: newQuestionsArray };
     case 'CLEAR_PROVIDER_ANSWERS':
       return {};
     case 'SET_EDIT_PROVIDER_PROFILE':

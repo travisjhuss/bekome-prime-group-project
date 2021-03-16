@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
   stateSelect: {
     width: 240,
   },
+  questionTitle: {
+    alignSelf: 'center',
+  },
 }));
 
 export default useStyles;

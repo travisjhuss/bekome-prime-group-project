@@ -10,16 +10,19 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  DialogContentText,
+  Checkbox,
   IconButton,
   TextField,
   Button,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
+import useStyles from '../../hooks/useStyles';
 
 function QuestionAccordion({ edit }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const { questions } = useSelector((store) => store.forms.providerAnswers);
+  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+  const { questions } = useSelector((store) => store.providerDetails);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const [open, setOpen] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -33,15 +36,23 @@ function QuestionAccordion({ edit }) {
     });
   };
 
-  const findValue = (id) => {
-    const foundIndex = questions.findIndex((item) => item.questions_id === id);
-    console.log(foundIndex);
-    return questions[foundIndex]?.answer;
+  const findValue = (id, type) => {
+    const foundIndex = providerAnswers.questions.findIndex(
+      (item) => item.questions_id === id
+    );
+    return type === 'answer'
+      ? providerAnswers.questions[foundIndex]?.answer
+      : providerAnswers.questions[foundIndex]?.displayed_on_card;
   };
 
   const handleDialog = (event) => {
     event.stopPropagation();
     setDialogOpen(true);
+  };
+
+  const handleDisplayOnCard = (id) => (event) => {
+    event.stopPropagation();
+    dispatch({ type: 'SET_DISPLAYED_QUESTIONS', payload: id });
   };
 
   return (
@@ -78,7 +89,14 @@ function QuestionAccordion({ edit }) {
           {providerQuestions.map((item) => (
             <Accordion key={item.id}>
               <AccordionSummary expandIcon={<ExpandMore />}>
-                <Typography>{item.content}</Typography>
+                <Checkbox
+                  checked={findValue(item.id, 'checked')}
+                  onClick={handleDisplayOnCard(item.id)}
+                  onFocus={(event) => event.stopPropagation()}
+                />
+                <Typography className={classes.questionTitle}>
+                  {item.content}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <TextField
@@ -86,7 +104,7 @@ function QuestionAccordion({ edit }) {
                   multiline
                   fullWidth
                   rows={3}
-                  value={findValue(item.id)}
+                  value={findValue(item.id, 'answer')}
                   onChange={handleAnswer(item.id)}
                 />
               </AccordionDetails>
