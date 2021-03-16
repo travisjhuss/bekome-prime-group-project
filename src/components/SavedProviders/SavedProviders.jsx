@@ -31,7 +31,6 @@ function SavedProviders() {
               <UserCardSaved
                 key={provider.providers_users_id}
                 provider={provider}
-                favorited={true}
               />
             </Grid>
           );

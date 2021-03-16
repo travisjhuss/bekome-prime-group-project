@@ -27,7 +27,7 @@ const router = express.Router();
       // subquery excludes providers that current user has added to favorites list
       const providersSQL = `
       SELECT
-      "providers_users_id", "first_name", "last_name", "pic", "video", "location" FROM "providers"
+      "providers_users_id", "first_name", "last_name", "pic", "video", "city", "state" FROM "providers"
       WHERE
           EXISTS (
               SELECT "clients_users_id", "providers_users_id" FROM "clients_providers_favs"
@@ -92,12 +92,5 @@ const router = express.Router();
     }
   
   });
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
-});
 
 module.exports = router;
