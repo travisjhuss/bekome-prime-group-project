@@ -55,7 +55,7 @@ router.post('/add_preference', rejectUnauthenticated, (req, res) => {
     .catch((error) => {
       console.log('Error in /forms/add_preference', error)
     })
-})
+});
 
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {

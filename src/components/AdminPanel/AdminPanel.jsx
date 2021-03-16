@@ -2,6 +2,9 @@ import AdminPanelForm from './AdminPanelForm'
 import useStyles from '../../hooks/useStyles'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import {
+    Grid
+} from '@material-ui/core';
 
 
 function AdminPanel() {
@@ -52,7 +55,7 @@ function AdminPanel() {
         })
         console.log('adding', category)
         setNewPref({...newPref, [category]: ''})
-    }
+    };
 
     const handleInputs = (key) => (event) => {
         setNewPref({...newPref, [key]: event.target.value })
@@ -61,7 +64,7 @@ function AdminPanel() {
 
 
     return (
-        <div>
+        <Grid container alignItems='baseline'>
             <AdminPanelForm
             category="genders"
             filteredPreferences={genders}
@@ -76,8 +79,71 @@ function AdminPanel() {
             newPref={newPref}
             addPreference={addPreference}
             />
-            <button onClick={() => console.log(newPref)}>test</button>
-        </div>
+            <AdminPanelForm
+            category="qualities"
+            filteredPreferences={qualities}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="religions"
+            filteredPreferences={religions}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="ethnicities"
+            filteredPreferences={ethnicities}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="challenges"
+            filteredPreferences={challenges}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="languages"
+            filteredPreferences={languages}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="sexual_orientations"
+            filteredPreferences={sexual_orientations}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="age_ranges"
+            filteredPreferences={age_ranges}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="pronouns"
+            filteredPreferences={pronouns}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            <AdminPanelForm
+            category="formats"
+            filteredPreferences={formats}
+            handleInputs={handleInputs}
+            newPref={newPref}
+            addPreference={addPreference}
+            />
+            {/* <button onClick={() => console.log(newPref)}>test</button> */}
+        </Grid>
     )
 }
 

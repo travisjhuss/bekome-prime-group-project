@@ -12,57 +12,51 @@ import {
 import Delete from '@material-ui/icons/Delete';
 import useStyles from '../../hooks/useStyles';
 
-// dispatch on AdminPanel will get all rows from preferences table
-// AdminPanelForm will get data from reducer for one category
-// selected category will be prop sent down from AdminPanel
-// AdminPanelForm will have a list display for GET route
-// AdminPanelForm will have input and button for adding to list
-// different dispatches for different categories?
-
 
 function AdminPanelForm({category, filteredPreferences, addPreference, handleInputs, newPref}) {
     const classes = useStyles()
 
 
     return (
-        <Paper className={classes.paper}>
-            <Typography variant="h6">
-                {category}
-            </Typography>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl={4} >
+            <Paper className={classes.paper}>
+                <Typography variant="h6">
+                    {category}
+                </Typography>
 
-            <List>
-                {filteredPreferences.map((preference) => {
-                    return (
-                        <ListItem key={preference.id}>
-                            {preference.name}
-                            <ListItemSecondaryAction>
-                                <IconButton>
-                                <Delete />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                    )
-                })}
-            </List>
+                <List>
+                    {filteredPreferences.map((preference) => {
+                        return (
+                            <ListItem key={preference.id}>
+                                {preference.name}
+                                <ListItemSecondaryAction>
+                                    <IconButton>
+                                    <Delete />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        )
+                    })}
+                </List>
 
-            <TextField
-            className={classes.inputs}
-            variant="outlined"
-            label=""
-            onChange={handleInputs(category)}
-            value={newPref[category]}
-            />
+                <TextField
+                className={classes.inputs}
+                variant="outlined"
+                label="new preference"
+                onChange={handleInputs(category)}
+                value={newPref[category]}
+                />
 
-            <Button
-            className={classes.adminPanelButton}
-            onClick={addPreference(category)}
-            variant="contained"
-            color="primary"
-            value={category}
-            >
-                Add
-            </Button>
-        </Paper>
+                <Button
+                className={classes.adminPanelButton}
+                onClick={addPreference(category)}
+                variant="contained"
+                color="primary"
+                >
+                    Add
+                </Button>
+            </Paper>
+        </Grid>
     )
 }
 
