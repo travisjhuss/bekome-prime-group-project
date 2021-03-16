@@ -8,11 +8,11 @@ export const clientAnswers = (
     pic: '',
     date_of_birth: '',
     write_in_pronouns: '',
-    location: '',
+    city: '',
+    state: '',
     primary_reason: '',
     previous_therapy: false,
     previous_experience: '',
-    insurance: false,
     sliding_scale: false,
     preferences: [],
   },
@@ -38,6 +38,8 @@ export const clientAnswers = (
       }
     case 'CLEAR_CLIENT_ANSWERS':
       return {};
+    case 'SET_EDIT_CLIENT_PROFILE':
+      return action.payload;
     default:
       return state;
   }
@@ -50,16 +52,18 @@ export const providerAnswers = (
     last_name: '',
     pic: '',
     video: '',
-    location: '',
+    city: '',
+    state: '',
     date_of_birth: '',
     write_in_pronouns: '',
     background: '',
     strengths: '',
     approach: '',
-    insurance: false,
     sliding_scale: false,
-    preferences: [],
+    accepting_clients: false,
+    license_number: '',
     questions: [],
+    preferences: [],
   },
   action
 ) => {
@@ -99,6 +103,10 @@ export const providerAnswers = (
           questions: [...state.questions, { question_id: id, answer }],
         };
       }
+    case 'CLEAR_PROVIDER_ANSWERS':
+      return {};
+    case 'SET_EDIT_PROVIDER_PROFILE':
+      return action.payload;
     default:
       return state;
   }

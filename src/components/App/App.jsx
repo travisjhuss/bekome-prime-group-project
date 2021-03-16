@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -21,6 +21,7 @@ import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
 import EditProfile from '../EditProfile/EditProfile';
+import EditProvider from '../EditProvider/EditProvider';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
@@ -32,6 +33,7 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
+  const { user_type } = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -166,7 +168,7 @@ function App() {
               path="/edit_profile"
               // authRedirect="/user"
             >
-              <EditProfile />
+              {user_type === 'client' ? <EditProfile /> : <EditProvider />}
             </ProtectedRoute>
 
             <ProtectedRoute

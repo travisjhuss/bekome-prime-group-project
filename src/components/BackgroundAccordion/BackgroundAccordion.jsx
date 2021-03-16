@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
-function BackgroundAccordion() {
+function BackgroundAccordion({ parsePreferences }) {
   const { background, approach } = useSelector(
     (store) => store.providerDetails
   );
@@ -24,6 +24,9 @@ function BackgroundAccordion() {
           <Typography>{background}</Typography>
           <Typography>I would describe my approach as...</Typography>
           <Typography>{approach}</Typography>
+          <Typography>
+            Religious Affiliations: {parsePreferences('religions')}
+          </Typography>
         </Box>
       </AccordionDetails>
     </Accordion>

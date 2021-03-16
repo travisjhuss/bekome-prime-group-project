@@ -13,19 +13,10 @@ import {
   Box,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 300,
-  },
-  button: {
-    justifyContent: 'center',
-  },
-});
+import useStyles from '../../hooks/useStyles';
 
-function UserCardSaved({ provider, favorited }) {
+
+function UserCardSaved({ provider }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -35,31 +26,36 @@ function UserCardSaved({ provider, favorited }) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.media} image={provider.pic} />
-      <CardContent>
-        <Typography variant="h5">
-          {provider.first_name + ' ' + provider.last_name}
-        </Typography>
-
-        <Typography>
-            {provider.location}
-        </Typography>
-
-        <Typography>{provider.pronouns}</Typography>
-
-                <FavoriteProviderButton
-                providerID = {provider.providers_users_id}
-                favorited = {favorited}
-        />
-
-      </CardContent>
-      <CardActions className={classes.button}>
-        <Button size="small" color="primary" onClick={sendToDetails}>
-          Full Profile
-        </Button>
-      </CardActions>
-    </Card>
+    <center>
+      <Card className={classes.savedProviderCard}>
+        <CardMedia className={classes.cardMedia} image={provider.pic} />
+        <CardContent className={classes.cardHeader}>
+          <Typography variant="h6" display="inline">
+            {provider.first_name + ' ' + provider.last_name}
+          </Typography>{' '}
+          <FavoriteProviderButton
+            id={provider.providers_users_id}
+            saved={true}
+            type={'GET_SAVED_PROVIDERS'}
+          />
+          <br />
+          <Typography variant="body2">
+            {provider.city}, {provider.state}
+          </Typography>
+          <Typography variant="body2">{provider.pronouns}</Typography>
+        </CardContent>
+        <CardActions className={classes.cardButton}>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={sendToDetails}
+          >
+            Full Profile
+          </Button>
+        </CardActions>
+      </Card>
+    </center>
   );
 }
 

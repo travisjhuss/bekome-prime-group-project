@@ -41,32 +41,49 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   filterButton: {
-    padding: '5px 20px'
+    padding: '5px 20px',
   },
   filterMenu: {
     backgroundColor: '#e0fbfc',
-    color: '#3D5A80'
+    color: '#3D5A80',
   },
   cardRoot: {
     margin: '0px 0px',
     height: 650,
-    width: 325
+    width: 325,
+  },
+  savedProviderCard: {
+    margin: '10px 0px',
+    paddingTop: '20px',
+    width: 325,
   },
   cardMedia: {
     height: 200,
+    width: '85%',
   },
   cardButton: {
     justifyContent: 'center',
   },
   cardHeader: {
-    padding: 0
+    padding: 0,
   },
   cardContent: {
-    textAlign: 'left'
+    textAlign: 'left',
   },
   saveButton: {
-    margin: '0 0 8px 0' ,
-    padding: '0 8px 0 8px'
+    // position: 'relative',
+    marginLeft: '15px',
+    padding: 0,
+  },
+  pic: {
+    width: 250,
+    height: 250,
+    objectFit: 'cover',
+    borderRadius: '50%',
+    padding: theme.spacing(3),
+  },
+  stateSelect: {
+    width: 240,
   },
 }));
 
