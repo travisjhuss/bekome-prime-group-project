@@ -13,6 +13,8 @@ Edit - Backend
         [ ] - get editing profile (client use new? provider use providerDetails?)
         [ ] - put for changes
 
+change "preferences" on backend to "preferences_array"
+
 ThemeProvider - new component
 [x] - typography
     [x] - baskerville 

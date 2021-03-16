@@ -76,7 +76,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     ]);
 
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -86,7 +86,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // 3rd query to mark filled_out_form as true
     const thirdSqlText = `
@@ -157,7 +157,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     ]);
     // Work for second query
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -167,7 +167,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // Work for third query
     // Take the questions array and use the same SQL query for each

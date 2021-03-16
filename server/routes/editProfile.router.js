@@ -45,7 +45,7 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
       "first_name" = $1,
       "last_name" = $2,
       "pic" = $3,
-      "date_of_birth" = #4,
+      "date_of_birth" = $4,
       "write_in_pronouns" = $5,
       "city" = $6,
       "state" = $7,
@@ -53,7 +53,7 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
       "previous_therapy" = $9,
       "previous_experience" = $10,
       "sliding_scale" = $11
-      WHERE "clients_users_id" = $12
+      WHERE "clients_users_id" = $12;
       `;
 
     await connection.query(firstSqlText, [
@@ -78,7 +78,7 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
     await connection.query(deleteSql, [req.user.id]);
     // replace preferences with new insert
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -88,7 +88,7 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // last action
     await connection.query('COMMIT;');
@@ -152,7 +152,7 @@ router.put('/provider', rejectUnauthenticated, async (req, res) => {
     await connection.query(deleteSql, [req.user.id]);
     // insert new preferences
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -162,7 +162,7 @@ router.put('/provider', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // update questions
     // Take the questions array and use the same SQL query for each
@@ -178,8 +178,8 @@ router.put('/provider', rejectUnauthenticated, async (req, res) => {
       try {
         await connection.query(thirdSqlText, [
           question.answer,
-          question.display_on_card,
-          question.question_id,
+          question.displayed_on_card,
+          question.questions_id,
           req.user.id,
         ]);
       } catch (err) {
