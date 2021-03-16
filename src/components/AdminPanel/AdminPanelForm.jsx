@@ -10,10 +10,11 @@ import {
     ListItemSecondaryAction
 } from '@material-ui/core';
 import Delete from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelForm({category, filteredPreferences, addPreference, handleInputs, newPref}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference, handleInputs, newPref, notes}) {
     const classes = useStyles()
 
 
@@ -24,14 +25,21 @@ function AdminPanelForm({category, filteredPreferences, addPreference, handleInp
                     {category}
                 </Typography>
 
+                <Typography variant="caption">
+                    {notes}
+                </Typography>
+
                 <List>
                     {filteredPreferences.map((preference) => {
                         return (
                             <ListItem key={preference.id}>
                                 {preference.name}
                                 <ListItemSecondaryAction>
-                                    <IconButton>
-                                    <Delete />
+                                    <IconButton onClick={() => editPreference(preference.id)}>
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton onClick={() => deletePreference(preference.id)}>
+                                        <Delete />
                                     </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>

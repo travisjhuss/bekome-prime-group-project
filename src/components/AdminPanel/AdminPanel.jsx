@@ -57,6 +57,14 @@ function AdminPanel() {
         setNewPref({...newPref, [category]: ''})
     };
 
+    const deletePreference = (id) => {
+        console.log(id)
+    }
+
+    const editPreference = (id) => {
+        console.log(id)
+    }
+
     const handleInputs = (key) => (event) => {
         setNewPref({...newPref, [key]: event.target.value })
         console.log(newPref)
@@ -71,6 +79,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="treatments"
@@ -78,6 +88,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="qualities"
@@ -85,6 +97,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="religions"
@@ -92,6 +106,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="ethnicities"
@@ -99,6 +115,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="challenges"
@@ -106,6 +124,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="languages"
@@ -113,6 +133,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="sexual_orientations"
@@ -120,6 +142,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="age_ranges"
@@ -127,6 +151,9 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
+            notes={"make sure formatting is 'xx-xx' for filters to work properly"}
             />
             <AdminPanelForm
             category="pronouns"
@@ -134,6 +161,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             <AdminPanelForm
             category="formats"
@@ -141,6 +170,8 @@ function AdminPanel() {
             handleInputs={handleInputs}
             newPref={newPref}
             addPreference={addPreference}
+            deletePreference={deletePreference}
+            editPreference={editPreference}
             />
             {/* <button onClick={() => console.log(newPref)}>test</button> */}
         </Grid>
