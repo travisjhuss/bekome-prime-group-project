@@ -5,13 +5,14 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
 
-function SpecialtiesAccordion({ parsePreferences }) {
+function SpecialtiesAccordion({ parsePreferences, edit }) {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6">Specialties</Typography>
+        {edit && <Edit />}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

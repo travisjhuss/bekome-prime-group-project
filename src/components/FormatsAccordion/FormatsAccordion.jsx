@@ -6,9 +6,9 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
 
-function FormatsAccordion({ parsePreferences }) {
+function FormatsAccordion({ parsePreferences, edit }) {
   const {
     license_number,
     sliding_scale,
@@ -23,6 +23,7 @@ function FormatsAccordion({ parsePreferences }) {
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6">Formats/Insurance</Typography>
+        {edit && <Edit />}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

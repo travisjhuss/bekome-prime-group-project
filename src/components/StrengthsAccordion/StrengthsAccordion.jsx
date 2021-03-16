@@ -6,15 +6,16 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
 
-function StrengthsAccordion({ parsePreferences }) {
+function StrengthsAccordion({ parsePreferences, edit }) {
   const { strengths } = useSelector((store) => store.providerDetails);
 
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6">Strengths</Typography>
+        {edit && <Edit />}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

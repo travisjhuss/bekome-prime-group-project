@@ -6,9 +6,9 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
 
-function BackgroundAccordion({ parsePreferences }) {
+function BackgroundAccordion({ parsePreferences, edit }) {
   const { background, approach } = useSelector(
     (store) => store.providerDetails
   );
@@ -17,6 +17,7 @@ function BackgroundAccordion({ parsePreferences }) {
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6">Background/Approach</Typography>
+        {edit && <Edit />}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

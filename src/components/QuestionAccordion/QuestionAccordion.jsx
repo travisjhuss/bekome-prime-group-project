@@ -7,9 +7,9 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
 
-function QuestionAccordion() {
+function QuestionAccordion({ edit }) {
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.providerDetails);
   const providerQuestions = useSelector((store) => store.providerQuestions);
@@ -21,6 +21,7 @@ function QuestionAccordion() {
     <Accordion expanded={open} onChange={() => setOpen(!open)}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6">Questions</Typography>
+        {edit && <Edit />}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

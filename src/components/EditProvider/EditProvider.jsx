@@ -15,15 +15,27 @@ import useStyles from '../../hooks/useStyles';
 function EditProvider() {
   const classes = useStyles();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-  
+  const preferences = useSelector((store) => store.preferences);
+
+  const parsePreferences = (category) => {
+    return preferences
+      .filter((item) => {
+        return (
+          item.category === category && preferences_array?.includes(item.id)
+        );
+      })
+      .reduce((string, item) => (string += `${item.name}, `), '')
+      .slice(0, -2);
+  };
+
   return (
     <Box p={2}>
       <Typography>Edit Profile</Typography>
-      <QuestionAccordion />
-      <StrengthsAccordion parsePreferences={parsePreferences} />
-      <BackgroundAccordion parsePreferences={parsePreferences} />
-      <SpecialtiesAccordion parsePreferences={parsePreferences} />
-      <FormatsAccordion parsePreferences={parsePreferences} />
+      <QuestionAccordion edit={true} />
+      <StrengthsAccordion parsePreferences={parsePreferences} edit={true} />
+      <BackgroundAccordion parsePreferences={parsePreferences} edit={true} />
+      <SpecialtiesAccordion parsePreferences={parsePreferences} edit={true} />
+      <FormatsAccordion parsePreferences={parsePreferences} edit={true} />
     </Box>
   );
 }

@@ -20,7 +20,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
-import EditProfile from '../EditProfile/EditProfile';
+import EditClient from '../EditClient/EditClient';
 import EditProvider from '../EditProvider/EditProvider';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
@@ -167,7 +167,7 @@ function App() {
               path="/edit_profile"
               // authRedirect="/user"
             >
-              {user_type === 'client' ? <EditProfile /> : <EditProvider />}
+              {user_type === 'client' ? <EditClient /> : <EditProvider />}
             </ProtectedRoute>
 
             <ProtectedRoute
