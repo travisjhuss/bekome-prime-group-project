@@ -175,17 +175,20 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       INSERT INTO "providers_questions" (
         "providers_users_id", 
         "questions_id", 
-        "answer"
+        "answer",
+        "displayed_on_card"
       )
-      VALUES ($1, $2, $3);
+      VALUES ($1, $2, $3, $4);
     `;
 
-    req.body.questions.forEach(async (question) => {
+    req.body.questions.forEach(async (question, i) => {
+      const displayed = i <= 2 ? true : false;
       try {
         await connection.query(providerQuestionsQuery, [
           req.user.id,
           question.question_id,
           question.answer,
+          displayed,
         ]);
       } catch (err) {
         console.log('error in post to providers_questions:', err);
@@ -195,9 +198,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     });
     // 4th query to mark filled_out_form as true
     const fourthSqlText = `
-    UPDATE "users"
-    SET "filled_out_form" = true
-    WHERE "id" = $1;
+      UPDATE "users" SET "filled_out_form" = true WHERE "id" = $1;
     `;
     await connection.query(fourthSqlText, [req.user.id]);
     // last action
