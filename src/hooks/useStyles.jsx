@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
     padding: theme.spacing(3),
   },
+  stateSelect: {
+    width: 240,
+  },
 }));
 
 export default useStyles;

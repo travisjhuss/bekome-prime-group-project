@@ -1,5 +1,5 @@
-import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
@@ -15,6 +15,8 @@ import useStyles from '../../hooks/useStyles';
 function UserCard({ provider }) {
   const classes = useStyles();
   const history = useHistory();
+  const { pathname } = useLocation();
+  const { user_type } = useSelector((store) => store.user);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
   const {
@@ -51,11 +53,13 @@ function UserCard({ provider }) {
         <Typography variant="h6" display="inline">
           {first_name} {last_name}
         </Typography>{' '}
-        <FavoriteProviderButton
-          id={providers_users_id}
-          saved={saved}
-          type={'GET_PROVIDERS'}
-        />
+        {user_type === 'client' && (
+          <FavoriteProviderButton
+            id={providers_users_id}
+            saved={saved}
+            type={'GET_PROVIDERS'}
+          />
+        )}
         <br />
         <Typography variant="caption">
           {parsePreferences('pronouns')}
@@ -83,14 +87,16 @@ function UserCard({ provider }) {
         ))}
       </CardContent>
       <CardActions className={classes.cardButton}>
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={sendToDetails}
-        >
-          Full Profile
-        </Button>
+        {pathname !== '/edit_profile' && (
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={sendToDetails}
+          >
+            Full Profile
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

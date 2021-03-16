@@ -68,18 +68,24 @@ function ExploreView() {
     history.push(`/explore/?${newFilterString}`);
   };
 
-  const filteredProvidersList = providers.filter((item) => {
-    if (filterArray) {
-      console.log(item.preferences_array);
-      const matches = item.preferences_array.filter((element) =>
-        filterArray.includes(element)
-      );
-      console.log('matches:', matches);
-      return matches.length === filterArray.length ? true : false;
-    } else {
-      return true;
-    }
-  });
+  const filteredProvidersList = providers
+    .filter((item) => {
+      if (filterArray) {
+        const matches = item.preferences_array.filter((element) =>
+          filterArray.includes(element)
+        );
+        return matches.length === filterArray.length;
+      } else {
+        return true;
+      }
+    })
+    .filter((item) => {
+      if (filterArray && !filterArray.includes(item.state_id)) {
+        return false;
+      } else {
+        return true;
+      }
+    });
 
   return (
     <div>

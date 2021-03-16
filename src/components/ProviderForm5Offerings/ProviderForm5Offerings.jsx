@@ -11,13 +11,12 @@ import {
 // Component imports
 import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../S3Uploader/S3Uploader';
+import useStyles from '../../hooks/useStyles';
 
-function ProviderForm5Offerings({ classes }) {
+function ProviderForm5Offerings() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-  const insurance = useSelector((store) => store.preferences).find(
-    (item) => item.name === 'Insurance'
-  );
   const slidingScale = useSelector((store) => store.preferences).find(
     (item) => item.name === 'Sliding Scale'
   );
@@ -30,21 +29,9 @@ function ProviderForm5Offerings({ classes }) {
         <Grid item xs={6}>
           <Typography>I offer therapy in these formats:</Typography>
           <FormCheckboxes category={'formats'} />
+          <Typography>I accept insurance from these companies:</Typography>
+          <FormCheckboxes category={'insurance'} />
           <Box>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={providerAnswers.preferences.includes(insurance?.id)}
-                  onChange={() =>
-                    dispatch({
-                      type: 'SET_PROVIDER_PREFERENCES',
-                      payload: insurance.id,
-                    })
-                  }
-                />
-              }
-              label="I accept insurance"
-            />
             <FormControlLabel
               control={
                 <Switch

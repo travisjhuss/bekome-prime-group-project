@@ -40,20 +40,6 @@ function ClientForm5ProviderPreferences({ classes }) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={clientAnswers.preferences.includes(insurance?.id)}
-                  onChange={() =>
-                    dispatch({
-                      type: 'SET_CLIENT_PREFERENCES',
-                      payload: insurance.id,
-                    })
-                  }
-                />
-              }
-              label="I'm open to see someone who doesn't accept my insurance."
-            />
-            <FormControlLabel
-              control={
-                <Switch
                   checked={clientAnswers.preferences.includes(slidingScale?.id)}
                   onChange={() =>
                     dispatch({

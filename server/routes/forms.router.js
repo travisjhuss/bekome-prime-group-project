@@ -55,13 +55,14 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
             "pic", 
             "date_of_birth", 
             "write_in_pronouns", 
-            "location", 
+            "city",
+            "state_id", 
             "primary_reason", 
             "previous_therapy", 
             "previous_experience",
             "insurance",
             "sliding_scale"
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
     `;
     await connection.query(firstSqlText, [
       req.user.id,
@@ -70,7 +71,8 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       req.body.pic,
       req.body.date_of_birth,
       req.body.write_in_pronouns,
-      req.body.location,
+      req.body.city,
+      req.body.state_id,
       req.body.primary_reason,
       req.body.previous_therapy,
       req.body.previous_experience,
@@ -130,14 +132,15 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
               "last_name", 
               "pic", 
               "video",
-              "location",
+              "city",
+              "state_id",
               "date_of_birth", 
               "write_in_pronouns", 
               "background",
               "strengths",
               "approach",
-              "insurance",
-              "sliding_scale")
+              "license_number"
+             )
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
       `;
     await connection.query(firstSqlText, [
@@ -146,14 +149,14 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
       req.body.last_name,
       req.body.pic,
       req.body.video,
-      req.body.location,
+      req.body.city,
+      req.body.state_id,
       req.body.date_of_birth,
       req.body.write_in_pronouns,
       req.body.background,
       req.body.strengths,
       req.body.approach,
-      req.body.insurance,
-      req.body.sliding_scale,
+      req.body.license_number,
     ]);
     // Work for second query
     // Take the preferences array and generate values for query
