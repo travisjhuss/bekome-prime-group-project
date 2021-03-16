@@ -38,6 +38,8 @@ export const clientAnswers = (
       }
     case 'CLEAR_CLIENT_ANSWERS':
       return {};
+    case 'SET_EDIT_CLIENT_PROFILE':
+      return action.payload;
     default:
       return state;
   }
@@ -99,6 +101,10 @@ export const providerAnswers = (
           questions: [...state.questions, { question_id: id, answer }],
         };
       }
+    case 'CLEAR_PROVIDER_ANSWERS':
+      return {};
+    case 'SET_EDIT_PROVIDER_PROFILE':
+      return action.payload;
     default:
       return state;
   }
