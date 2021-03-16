@@ -15,6 +15,7 @@ const providerDetailsRouter = require('./routes/providerDetails.router');
 const favoriteRouter = require('./routes/favorite.router');
 const savedProvidersRouter = require('./routes/savedProviders.router');
 const s3Router = require('./routes/s3.router');
+const editProfileRouter = require('./routes/editProfile.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -35,6 +36,7 @@ app.use('/api/provider-details', providerDetailsRouter);
 app.use('/api/favorite', favoriteRouter);
 app.use('/api/saved-providers', savedProvidersRouter)
 app.use('/s3', s3Router);
+app.use('/api/edit', editProfileRouter)
 
 // Serve static files
 app.use(express.static('build'));
