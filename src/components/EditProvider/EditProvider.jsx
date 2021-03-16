@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import { Box, Typography, makeStyles, Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { Box, Typography, Grid } from '@material-ui/core';
 
 // Component imports
 import QuestionAccordion from '../QuestionAccordion/QuestionAccordion';
@@ -14,14 +14,23 @@ import useStyles from '../../hooks/useStyles';
 
 function EditProvider() {
   const classes = useStyles();
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+  const dispatch = useDispatch();
+  const { id } = useSelector((store) => store.user);
+  const provider = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'FETCH_EDIT_PROVIDER_PROFILE', payload: id });
+    dispatch({ type: 'FETCH_PREFERENCES' });
+  }, []);
 
   const parsePreferences = (category) => {
     return preferences
       .filter((item) => {
         return (
-          item.category === category && preferences_array?.includes(item.id)
+          item.category === category &&
+          provider.preferences_array?.includes(item.id)
         );
       })
       .reduce((string, item) => (string += `${item.name}, `), '')
@@ -31,11 +40,24 @@ function EditProvider() {
   return (
     <Box p={2}>
       <Typography>Edit Profile</Typography>
-      <QuestionAccordion edit={true} />
-      <StrengthsAccordion parsePreferences={parsePreferences} edit={true} />
-      <BackgroundAccordion parsePreferences={parsePreferences} edit={true} />
-      <SpecialtiesAccordion parsePreferences={parsePreferences} edit={true} />
-      <FormatsAccordion parsePreferences={parsePreferences} edit={true} />
+      <Grid container>
+        <Grid item xs={4}>
+          <UserCard provider={provider} />
+        </Grid>
+        <Grid item xs={8}>
+          <QuestionAccordion edit={true} />
+          <StrengthsAccordion parsePreferences={parsePreferences} edit={true} />
+          <BackgroundAccordion
+            parsePreferences={parsePreferences}
+            edit={true}
+          />
+          <SpecialtiesAccordion
+            parsePreferences={parsePreferences}
+            edit={true}
+          />
+          <FormatsAccordion parsePreferences={parsePreferences} edit={true} />
+        </Grid>
+      </Grid>
     </Box>
   );
 }

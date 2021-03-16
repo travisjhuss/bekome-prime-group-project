@@ -52,8 +52,8 @@ function UserCard({ provider }) {
   // Find method finds the question that the provider has an answer to
   // Also checks to see whether the provider wants this question on their card
   const findQuestion = (id, content) => {
-    const foundQuestion = questions.find((item) => item.questions_id === id);
-    if (foundQuestion.displayed_on_card === true) {
+    const foundQuestion = questions?.find((item) => item.questions_id === id);
+    if (foundQuestion?.displayed_on_card === true) {
       return (
         <Typography key={id} variant="body2">
           <b>{content}</b> {foundQuestion.answer}
