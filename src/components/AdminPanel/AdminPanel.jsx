@@ -3,7 +3,10 @@ import useStyles from '../../hooks/useStyles'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    Grid
+    Grid,
+    Modal,
+    Button,
+    Typography
 } from '@material-ui/core';
 
 
@@ -37,7 +40,9 @@ function AdminPanel() {
         age_ranges: '',
         formats: '',
         pronouns: ''
-    })
+    });
+
+    const [modalState, setModalState] = useState(false)
 
 
     useEffect(() => {
@@ -63,6 +68,7 @@ function AdminPanel() {
 
     const editPreference = (id) => {
         console.log(id)
+        setModalState(true)
     }
 
     const handleInputs = (key) => (event) => {
@@ -72,109 +78,124 @@ function AdminPanel() {
 
 
     return (
-        <Grid container alignItems='baseline'>
-            <AdminPanelForm
-            category="genders"
-            filteredPreferences={genders}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="treatments"
-            filteredPreferences={treatments}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="qualities"
-            filteredPreferences={qualities}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="religions"
-            filteredPreferences={religions}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="ethnicities"
-            filteredPreferences={ethnicities}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="challenges"
-            filteredPreferences={challenges}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="languages"
-            filteredPreferences={languages}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="sexual_orientations"
-            filteredPreferences={sexual_orientations}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="age_ranges"
-            filteredPreferences={age_ranges}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            notes={"make sure formatting is 'xx-xx' for filters to work properly"}
-            />
-            <AdminPanelForm
-            category="pronouns"
-            filteredPreferences={pronouns}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            <AdminPanelForm
-            category="formats"
-            filteredPreferences={formats}
-            handleInputs={handleInputs}
-            newPref={newPref}
-            addPreference={addPreference}
-            deletePreference={deletePreference}
-            editPreference={editPreference}
-            />
-            {/* <button onClick={() => console.log(newPref)}>test</button> */}
-        </Grid>
+        <>
+
+            <Modal
+            open={modalState}
+            >
+                <div className={classes.adminModal}>
+                    <Typography>
+
+                    </Typography>
+                    <Button onClick={() => {setModalState(false)}}>close</Button>
+                </div>
+            </Modal>
+
+            <Grid container alignItems='baseline'>
+                <AdminPanelForm
+                category="genders"
+                filteredPreferences={genders}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="treatments"
+                filteredPreferences={treatments}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="qualities"
+                filteredPreferences={qualities}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="religions"
+                filteredPreferences={religions}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="ethnicities"
+                filteredPreferences={ethnicities}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="challenges"
+                filteredPreferences={challenges}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="languages"
+                filteredPreferences={languages}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="sexual_orientations"
+                filteredPreferences={sexual_orientations}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="age_ranges"
+                filteredPreferences={age_ranges}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                notes={"make sure formatting is 'xx-xx' or 'xx+' for filters to work properly"}
+                />
+                <AdminPanelForm
+                category="pronouns"
+                filteredPreferences={pronouns}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                <AdminPanelForm
+                category="formats"
+                filteredPreferences={formats}
+                handleInputs={handleInputs}
+                newPref={newPref}
+                addPreference={addPreference}
+                deletePreference={deletePreference}
+                editPreference={editPreference}
+                />
+                {/* <button onClick={() => console.log(newPref)}>test</button> */}
+            </Grid>
+        </>
+
     )
 }
 
