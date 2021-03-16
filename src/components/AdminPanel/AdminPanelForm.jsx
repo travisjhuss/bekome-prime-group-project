@@ -14,7 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference, handleInputs, newPref, notes}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference, handleInputs, newPref}) {
     const classes = useStyles()
 
 
@@ -25,9 +25,6 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
                     {category}
                 </Typography>
 
-                <Typography variant="caption">
-                    {notes}
-                </Typography>
 
                 <List>
                     {filteredPreferences.map((preference) => {
@@ -46,6 +43,14 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
                         )
                     })}
                 </List>
+                {category === 'age_ranges' &&
+                <>
+                    <Typography variant="caption">
+                        note: formatting is 'xx-xx' or 'xx+' for age-range filters to work properly
+                    </Typography>
+                    <br/>
+                </>
+                }
 
                 <TextField
                 className={classes.inputs}

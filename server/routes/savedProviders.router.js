@@ -93,11 +93,4 @@ const router = express.Router();
   
   });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
-});
-
 module.exports = router;

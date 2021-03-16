@@ -16,7 +16,7 @@ import {
 import useStyles from '../../hooks/useStyles';
 
 
-function UserCardSaved({ provider, favorited }) {
+function UserCardSaved({ provider }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -28,30 +28,29 @@ function UserCardSaved({ provider, favorited }) {
   return (
     <center>
       <Card className={classes.savedProviderCard}>
-        <CardMedia className={classes.cardMedia} image={provider.pic}/>
+        <CardMedia className={classes.cardMedia} image={provider.pic} />
         <CardContent className={classes.cardHeader}>
           <Typography variant="h6" display="inline">
             {provider.first_name + ' ' + provider.last_name}
           </Typography>{' '}
           <FavoriteProviderButton
-
-            ID = {provider.providers_users_id}
-            saved = {true}
+            id={provider.providers_users_id}
+            saved={true}
             type={'GET_SAVED_PROVIDERS'}
           />
-          <br/>
-
-
+          <br />
           <Typography variant="body2">
-              {provider.location}
+            {provider.city}, {provider.state}
           </Typography>
-
           <Typography variant="body2">{provider.pronouns}</Typography>
-
-
         </CardContent>
         <CardActions className={classes.cardButton}>
-          <Button variant="contained" size="small" color="primary" onClick={sendToDetails}>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={sendToDetails}
+          >
             Full Profile
           </Button>
         </CardActions>

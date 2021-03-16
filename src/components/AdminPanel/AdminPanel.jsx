@@ -16,17 +16,52 @@ function AdminPanel() {
 
     const preferences = useSelector((store) => store.preferences);
 
-    const treatments = preferences.filter(pref => pref.category === "treatments")
-    const genders = preferences.filter(pref => pref.category === "genders")
-    const qualities = preferences.filter(pref => pref.category === "qualities")
-    const religions = preferences.filter(pref => pref.category === "religions")
-    const ethnicities = preferences.filter(pref => pref.category === "ethnicities")
-    const challenges = preferences.filter(pref => pref.category === "challenges")
-    const languages = preferences.filter(pref => pref.category === "languages")
-    const sexual_orientations = preferences.filter(pref => pref.category === "sexual_orientations")
-    const age_ranges = preferences.filter(pref => pref.category === "age_ranges")
-    const formats = preferences.filter(pref => pref.category === "formats")
-    const pronouns = preferences.filter(pref => pref.category === "pronouns")
+    const prefArray = [
+        {
+            name: 'treatments',
+            prefs: preferences.filter(pref => pref.category === "treatments")
+        },
+        {
+            name: 'genders',
+            prefs: preferences.filter(pref => pref.category === "genders")
+        },
+        {
+            name: 'qualities',
+            prefs: preferences.filter(pref => pref.category === "qualities")
+        },
+        {
+            name: 'religions',
+            prefs: preferences.filter(pref => pref.category === "religions")
+        },
+        {
+            name: 'ethnicities',
+            prefs: preferences.filter(pref => pref.category === "ethnicities")
+        },
+        {
+            name: 'challenges',
+            prefs: preferences.filter(pref => pref.category === "challenges")
+        },
+        {
+            name: 'languages',
+            prefs: preferences.filter(pref => pref.category === "languages")
+        },
+        {
+            name: 'sexual_orientations',
+            prefs: preferences.filter(pref => pref.category === "sexual_orientations")
+        },
+        {
+            name: 'age_ranges',
+            prefs: preferences.filter(pref => pref.category === "age_ranges")
+        },
+        {
+            name: 'formats',
+            prefs: preferences.filter(pref => pref.category === "formats")
+        },
+        {
+            name:'pronouns',
+            prefs: preferences.filter(pref => pref.category === "pronouns")
+        },
+    ]
 
     const [newPref, setNewPref] = useState({
         treatments: '',
@@ -92,107 +127,19 @@ function AdminPanel() {
             </Modal>
 
             <Grid container alignItems='baseline'>
-                <AdminPanelForm
-                category="genders"
-                filteredPreferences={genders}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="treatments"
-                filteredPreferences={treatments}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="qualities"
-                filteredPreferences={qualities}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="religions"
-                filteredPreferences={religions}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="ethnicities"
-                filteredPreferences={ethnicities}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="challenges"
-                filteredPreferences={challenges}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="languages"
-                filteredPreferences={languages}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="sexual_orientations"
-                filteredPreferences={sexual_orientations}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="age_ranges"
-                filteredPreferences={age_ranges}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                notes={"make sure formatting is 'xx-xx' or 'xx+' for filters to work properly"}
-                />
-                <AdminPanelForm
-                category="pronouns"
-                filteredPreferences={pronouns}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                <AdminPanelForm
-                category="formats"
-                filteredPreferences={formats}
-                handleInputs={handleInputs}
-                newPref={newPref}
-                addPreference={addPreference}
-                deletePreference={deletePreference}
-                editPreference={editPreference}
-                />
-                {/* <button onClick={() => console.log(newPref)}>test</button> */}
+                {prefArray.map((category) => {
+                    return (
+                        <AdminPanelForm
+                        category={category.name}
+                        filteredPreferences={category.prefs}
+                        handleInputs={handleInputs}
+                        newPref={newPref}
+                        addPreference={addPreference}
+                        deletePreference={deletePreference}
+                        editPreference={editPreference}
+                        />
+                    )
+                })}
             </Grid>
         </>
 
