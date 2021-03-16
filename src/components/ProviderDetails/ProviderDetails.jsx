@@ -74,7 +74,6 @@ function ProviderDetails() {
             <img src={pic} className={classes.pic} />
             <Box>
               <Typography>Age: {age}</Typography>
-<<<<<<< HEAD
               <Typography>Languages: {parseString('languages')}</Typography>
               
               
@@ -98,19 +97,6 @@ function ProviderDetails() {
                 }
               })}
               
-=======
-              <Typography>
-                Pronouns: {parsePreferences('pronouns')}
-                {write_in_pronouns && `, ${write_in_pronouns}`}
-              </Typography>
-              <Typography>Location: {location}</Typography>
-              <Typography>
-                Languages: {parsePreferences('languages')}
-              </Typography>
-              <Typography>
-                Religious Affiliations: {parsePreferences('religions')}
-              </Typography>
->>>>>>> 5d0795f26cf38af2b72ea636a467af8c3ed32b90
             </Box>
           </Box>
         </Grid>
