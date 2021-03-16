@@ -34,7 +34,8 @@ function QuestionAccordion({ edit }) {
   };
 
   const findValue = (id) => {
-    const foundIndex = questions.findIndex((item) => item.id === id);
+    const foundIndex = questions.findIndex((item) => item.questions_id === id);
+    console.log(foundIndex);
     return questions[foundIndex]?.answer;
   };
 
@@ -93,8 +94,12 @@ function QuestionAccordion({ edit }) {
           ))}
         </DialogContent>
         <DialogActions>
-          <Button variant="contained">Cancel</Button>
-          <Button variant="contained" color="primary">Save Changes</Button>
+          <Button variant="contained" onClick={() => setDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="contained" color="primary">
+            Save Changes
+          </Button>
         </DialogActions>
       </Dialog>
     </>
