@@ -61,6 +61,15 @@ function AdminPanel() {
             name:'pronouns',
             prefs: preferences.filter(pref => pref.category === "pronouns")
         },
+        {
+            name: 'insurance',
+            prefs: preferences.filter(pref => pref.category === 'insurance')
+        },
+        // uncomment next four lines if you'd like to edit the states in the database
+        // {
+        //     name: 'states',
+        //     prefs: preferences.filter(pref => pref.category === 'states')
+        // }
     ]
 
     const [newPref, setNewPref] = useState({
