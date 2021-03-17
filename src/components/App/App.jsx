@@ -20,7 +20,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
-import EditClient from '../EditClient/EditClient';
+import EditClient from '../EditClient/EditClientRoot/EditClientRoot';
 import EditProvider from '../EditProvider/EditProviderRoot/EditProviderRoot';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';

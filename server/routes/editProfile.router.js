@@ -5,33 +5,24 @@ const {
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/client', rejectUnauthenticated, async (req, res) => {
-  const connection = await pool.connect();
-  try {
-    // Start transaction
-    await connection.query('BEGIN;');
-    const sqlText = `
-      SELECT "clients".*,
+router.get('/client', rejectUnauthenticated, (req, res) => {
+  const sqlText = `
+    SELECT "clients".*,
       ARRAY_AGG("clients_preferences".preferences_id) AS "preferences_array" 
-      FROM "clients" JOIN "clients_preferences" ON 
-      "clients".clients_users_id = 
+    FROM "clients" 
+    JOIN "clients_preferences" ON "clients".clients_users_id = 
       "clients_preferences".clients_users_id
-      WHERE "clients".clients_users_id = $1 GROUP BY "clients".id;
-      `;
-    // req.params.id?
-    const clientAnswers = await connection.query(sqlText, [req.user.id]).rows[0];
+    WHERE "clients".clients_users_id = $1 
+    GROUP BY "clients".id;
+  `;
 
-    // last action
-    await connection.query('COMMIT;');
-    // send data from DB
-    res.send(clientAnswers);
-  } catch (err) {
-    console.log('error in GET edit/client:', err);
-    await connection.query('ROLLBACK;');
-    res.sendStatus(500);
-  } finally {
-    connection.release();
-  }
+  pool
+    .query(sqlText, [req.user.id])
+    .then((result) => res.send(result.rows[0]))
+    .catch((err) => {
+      console.log(`Error in GET with query ${sqlText}`, err);
+      res.sendStatus(500);
+    });
 });
 
 router.put('/client', rejectUnauthenticated, async (req, res) => {
@@ -142,7 +133,7 @@ router.put('/provider', rejectUnauthenticated, async (req, res) => {
       req.body.sliding_scale,
       req.body.accepting_clients,
       req.body.license_number,
-      req.user.id
+      req.user.id,
     ]);
     // delete old preferences before inserting new
     const deleteSql = `

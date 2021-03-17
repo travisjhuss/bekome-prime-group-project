@@ -8,11 +8,10 @@ function* editProfileSaga() {
   yield takeEvery('SUBMIT_PROVIDER_EDITS', submitProviderEdits);
 }
 
-function* fetchEditClientProfile(action) {
+function* fetchEditClientProfile() {
   try {
-    const id = action.payload;
     // confirm path (po's branch?)
-    const response = yield axios.get(`/api/edit/client/${id}`);
+    const response = yield axios.get('/api/edit/client/');
     // dispatch to clientAnswers
     yield put({ type: 'SET_EDIT_CLIENT_PROFILE', payload: response.data });
   } catch (err) {
