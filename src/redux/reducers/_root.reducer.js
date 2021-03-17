@@ -7,8 +7,8 @@ import preferences from './preferences.reducer';
 import exploreReducer from './explore.reducer';
 import providerDetails from './providerDetails.reducer';
 import interestedClientsReducer from './interestedClients.reducer';
-import savedProviders from './savedProviders.reducer'
-
+import savedProviders from './savedProviders.reducer';
+import oneClient from './oneClient.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -26,6 +26,7 @@ const rootReducer = combineReducers({
   providerDetails, // Returns info for one provider for ProviderDetails
   interestedClientsReducer, // This reducer holds the picture and select preference result returned from the interested-clients router
   savedProviders, // This reducer hold the providers that the client has saved as a favorite
+  oneClient, // Holds card info for a logged in client in EditClient, so the card doesn't have active changes during typing
 });
 
 export default rootReducer;

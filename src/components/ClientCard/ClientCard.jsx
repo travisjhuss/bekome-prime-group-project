@@ -15,7 +15,7 @@ import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 
-function ClientCard({ client }) {
+function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();
   const {
     first_name,
@@ -53,6 +53,13 @@ function ClientCard({ client }) {
             {parsePreferences('pronouns')}
             {write_in_pronouns && `, ${write_in_pronouns}`}
           </>
+        }
+        action={
+          edit && (
+            <IconButton onClick={() => setCardDialogOpen(true)}>
+              <Edit />
+            </IconButton>
+          )
         }
       />
       <CardMedia className={classes.cardMedia} image={pic} />

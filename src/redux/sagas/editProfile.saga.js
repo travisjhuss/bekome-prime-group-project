@@ -14,6 +14,7 @@ function* fetchEditClientProfile() {
     const response = yield axios.get('/api/edit/client/');
     // dispatch to clientAnswers
     yield put({ type: 'SET_EDIT_CLIENT_PROFILE', payload: response.data });
+    yield put({ type: 'SET_ONE_CLIENT', payload: response.data });
   } catch (err) {
     console.log('error in fetchEditClientProfile:', err);
   }
@@ -31,7 +32,7 @@ function* fetchEditProviderProfile(action) {
   }
 }
 
-function* submitClientEdits() {
+function* submitClientEdits(action) {
   try {
     yield axios.put('/api/edit/client', action.payload);
   } catch (err) {

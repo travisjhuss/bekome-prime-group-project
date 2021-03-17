@@ -91,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
   picPreview: {
     width: 200,
     height: 200,
+    objectFit: 'cover',
   },
   adminPanelButton: {
     position: 'absolute',
@@ -104,6 +105,14 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  editClientButton: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    width: '15ch',
+  },
+  editClientAccordion: {
+    display: 'block',
   },
 }));
 
