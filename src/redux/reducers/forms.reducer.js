@@ -14,7 +14,7 @@ export const clientAnswers = (
     previous_therapy: false,
     previous_experience: '',
     sliding_scale: false,
-    preferences: [],
+    preferences_array: [],
   },
   action
 ) => {
@@ -23,15 +23,15 @@ export const clientAnswers = (
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_CLIENT_PREFERENCES':
       const preferenceId = action.payload;
-      if (state.preferences.indexOf(preferenceId) === -1) {
+      if (state.preferences_array.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, preferenceId],
+          preferences_array: [...state.preferences_array, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter(
+          preferences_array: state.preferences_array.filter(
             (index) => index !== preferenceId
           ),
         };
@@ -63,7 +63,7 @@ export const providerAnswers = (
     accepting_clients: false,
     license_number: '',
     questions: [],
-    preferences: [],
+    preferences_array: [],
   },
   action
 ) => {
@@ -72,35 +72,38 @@ export const providerAnswers = (
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_PROVIDER_PREFERENCES':
       const preferenceId = action.payload;
-      if (state.preferences.indexOf(preferenceId) === -1) {
+      if (state.preferences_array.indexOf(preferenceId) === -1) {
         return {
           ...state,
-          preferences: [...state.preferences, preferenceId],
+          preferences_array: [...state.preferences_array, preferenceId],
         };
       } else {
         return {
           ...state,
-          preferences: state.preferences.filter(
+          preferences_array: state.preferences_array.filter(
             (index) => index !== preferenceId
           ),
         };
       }
     case 'SET_PROVIDER_RESPONSES':
-      const { id, answer } = action.payload;
-      const foundIndex = state.questions.findIndex(
-        (item) => item.question_id === id
-      );
-      if (foundIndex > -1) {
+      const { id, display, answer } = action.payload;
+      const i = state.questions.findIndex((item) => item.questions_id === id);
+      if (i > -1) {
         const newQuestionsArray = [...state.questions];
-        newQuestionsArray[foundIndex] = {
-          ...newQuestionsArray[foundIndex],
-          answer,
-        };
+        display
+          ? (newQuestionsArray[i] = {
+              ...newQuestionsArray[i],
+              displayed_on_card: !newQuestionsArray[i].displayed_on_card,
+            })
+          : (newQuestionsArray[i] = {
+              ...newQuestionsArray[i],
+              answer,
+            });
         return { ...state, questions: newQuestionsArray };
       } else {
         return {
           ...state,
-          questions: [...state.questions, { question_id: id, answer }],
+          questions: [...state.questions, { questions_id: id, answer }],
         };
       }
     case 'CLEAR_PROVIDER_ANSWERS':

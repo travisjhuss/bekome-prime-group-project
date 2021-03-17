@@ -34,7 +34,10 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
 
     // Query #2 - Obtains all question ID's and answers for the provider
     const sqlTextQuestionsAnswers = `
-      SELECT "questions_id", "answer" FROM "providers_questions"
+      SELECT "questions_id", 
+        "answer", 
+        "displayed_on_card" 
+      FROM "providers_questions"
       WHERE "providers_users_id" = $1;
     `;
 
@@ -75,13 +78,6 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   } finally {
     connection.release();
   }
-});
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
 });
 
 module.exports = router;
