@@ -21,7 +21,7 @@ import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
 import EditClient from '../EditClient/EditClient';
-import EditProvider from '../EditProvider/EditProvider';
+import EditProvider from '../EditProvider/EditProviderRoot/EditProviderRoot';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
