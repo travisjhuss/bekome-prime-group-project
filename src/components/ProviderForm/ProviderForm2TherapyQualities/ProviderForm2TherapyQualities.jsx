@@ -4,7 +4,6 @@ import { Paper, TextField, Typography, Grid } from '@material-ui/core';
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
-import useStyles from '../../../hooks/useStyles';
 
 function ProviderForm2TherapyQualities({ handleInputs }) {
   const classes = useStyles();
