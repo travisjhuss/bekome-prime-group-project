@@ -20,7 +20,7 @@ import {
 function ClientCard({client}) {
 
   const classes = useStyles();
-    const {first_name, last_name, pic, primary_reason} = client;
+    const {first_name, last_name, pic, primary_reason, city, state, preferences_array} = client;
     return (
       <Card className={classes.cardRoot}>
       <CardContent className={classes.cardHeader}>
@@ -30,7 +30,13 @@ function ClientCard({client}) {
     
     <Typography>{last_name}</Typography>
 
-    <Typography>Primary interests in care: {primary_reason}</Typography>
+    <Typography>{city}</Typography>
+
+    <Typography>{state}</Typography>
+
+    <Typography>Reason for care: {primary_reason}</Typography>
+
+    <Typography>{preferences_array}</Typography>
     
     </CardContent>
     </Card>
