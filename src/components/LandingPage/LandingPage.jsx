@@ -17,7 +17,7 @@ function LandingPage() {
           variant="h3"
           className={classes.landingTypography}
         >
-          Reimagining mental health care for <u>you</u>.
+          Reimagining <br/> mental health care for <u> you </u>.
         </Typography>
         <br/>
         <Typography

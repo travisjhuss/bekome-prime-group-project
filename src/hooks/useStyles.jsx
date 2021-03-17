@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   landingTypography: {
     color: '#e0fbfc',
-    margin: '50px 20px 0px 30px'
+    margin: '50px 30px 0px 30px'
   },
   landingButton: {
     width: '200px',
