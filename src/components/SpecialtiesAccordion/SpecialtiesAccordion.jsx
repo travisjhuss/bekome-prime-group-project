@@ -9,7 +9,7 @@ import {
 import { ExpandMore, Edit } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
-function SpecialtiesAccordion({ parsePreferences, edit }) {
+function SpecialtiesAccordion({ parsePreferences, edit, handleDialogs }) {
   const classes = useStyles();
   return (
     <Accordion>

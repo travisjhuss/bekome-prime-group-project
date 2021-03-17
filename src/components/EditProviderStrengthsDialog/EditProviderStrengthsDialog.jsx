@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Dialog,
   DialogTitle,
@@ -9,7 +9,6 @@ import {
   TextField,
   Grid,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 // Components

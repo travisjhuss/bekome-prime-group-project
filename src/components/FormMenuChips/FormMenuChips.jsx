@@ -11,7 +11,7 @@ function FormMenuChips({ category, string }) {
   const filteredPreferences = useSelector((store) => store.preferences).filter(
     (item) => item.category === category
   );
-  const answers =
+  const { preferences_array } =
     user_type === 'client'
       ? useSelector((store) => store.forms.clientAnswers)
       : useSelector((store) => store.forms.providerAnswers);
@@ -44,14 +44,14 @@ function FormMenuChips({ category, string }) {
           <MenuItem
             key={item.id}
             onClick={() => handleChange(item.id)}
-            selected={answers.preferences?.includes(item.id)}
+            selected={preferences_array?.includes(item.id)}
           >
             {item.name}
           </MenuItem>
         ))}
       </Menu>
       {filteredPreferences.map((item) => {
-        if (answers.preferences?.includes(item.id)) {
+        if (preferences_array?.includes(item.id)) {
           return (
             <Chip
               className={classes.chips}

@@ -15,6 +15,10 @@ import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
 import UserCard from '../UserCard/UserCard';
 import EditProviderQuestionsDialog from '../EditProviderQuestionsDialog/EditProviderQuestionsDialog';
 import EditProviderStrengthsDialog from '../EditProviderStrengthsDialog/EditProviderStrengthsDialog';
+import EditProviderBackgroundDialog from '../EditProviderBackgroundDialog/EditProviderBackgroundDialog';
+import EditProviderSpecialtiesDialog from '../EditProviderSpecialtiesDialog/EditProviderSpecialtiesDialog';
+import EditProviderFormatsDialog from '../EditProviderFormatsDialog/EditProviderFormatsDialog';
+import EditProviderCardDialog from '../EditProviderCardDialog/EditProviderCardDialog';
 
 function EditProvider() {
   const classes = useStyles();
@@ -29,6 +33,7 @@ function EditProvider() {
     background: false,
     specialties: false,
     formats: false,
+    card: false,
   });
 
   useEffect(() => {
@@ -110,6 +115,29 @@ function EditProvider() {
         handleDialogs={handleDialogs}
       />
       <EditProviderStrengthsDialog
+        handleSubmit={handleSubmit}
+        dialogOpen={dialogOpen}
+        handleDialogs={handleDialogs}
+        handleInputs={handleInputs}
+      />
+      <EditProviderBackgroundDialog
+        handleSubmit={handleSubmit}
+        dialogOpen={dialogOpen}
+        handleDialogs={handleDialogs}
+        handleInputs={handleInputs}
+      />
+      <EditProviderSpecialtiesDialog
+        handleSubmit={handleSubmit}
+        dialogOpen={dialogOpen}
+        handleDialogs={handleDialogs}
+      />
+      <EditProviderFormatsDialog
+        handleSubmit={handleSubmit}
+        dialogOpen={dialogOpen}
+        handleDialogs={handleDialogs}
+        handleInputs={handleInputs}
+      />
+      <EditProviderCardDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
         handleDialogs={handleDialogs}

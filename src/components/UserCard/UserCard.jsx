@@ -8,11 +8,12 @@ import {
   CardMedia,
   Button,
   Typography,
+  IconButton,
 } from '@material-ui/core';
-import { LocationOn, Language } from '@material-ui/icons';
+import { LocationOn, Language, Edit } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
-function UserCard({ provider }) {
+function UserCard({ provider, edit, handleDialogs }) {
   const classes = useStyles();
   const history = useHistory();
   const { pathname } = useLocation();
@@ -74,6 +75,11 @@ function UserCard({ provider }) {
             saved={saved}
             type={'GET_PROVIDERS'}
           />
+        )}
+        {edit && (
+          <IconButton onClick={() => handleDialogs('card')}>
+            <Edit />
+          </IconButton>
         )}
         <br />
         <Typography variant="caption">

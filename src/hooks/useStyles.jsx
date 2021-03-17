@@ -88,6 +88,10 @@ const useStyles = makeStyles((theme) => ({
   accordionTitle: {
     alignSelf: 'center',
   },
+  picPreview: {
+    width: 200,
+    height: 200,
+  },
 }));
 
 export default useStyles;

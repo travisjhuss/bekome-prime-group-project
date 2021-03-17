@@ -8,12 +8,12 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../hooks/useStyles';
 // Component imports
-import FormPreferencesChecks from '../FormCheckboxes/FormCheckboxes';
+import FormCheckboxes from '../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../FormMenuChips/FormMenuChips';
 import S3Uploader from '../S3Uploader/S3Uploader';
-import useStyles from '../../hooks/useStyles';
 
 function ProviderForm1Info({ handleInputs }) {
   const classes = useStyles();
@@ -46,14 +46,15 @@ function ProviderForm1Info({ handleInputs }) {
         onChange={handleInputs('last_name')}
       />
       <Typography>What pronouns do you use? (select all that apply)</Typography>
-      <FormPreferencesChecks category={'pronouns'} />
+      <FormCheckboxes category={'pronouns'} />
       <Typography>
         What best describes your gender? (select all that apply)
       </Typography>
-      <FormPreferencesChecks category={'genders'} />
+      <FormCheckboxes category={'genders'} />
       <TextField
         variant="outlined"
         label="Other"
+        size="small"
         className={classes.inputs}
         value={write_in_pronouns || ''}
         onChange={handleInputs('write_in_pronouns')}
@@ -94,7 +95,7 @@ function ProviderForm1Info({ handleInputs }) {
         </Select>
       </FormControl>
       <Typography>What best describes your race?</Typography>
-      <FormPreferencesChecks category={'ethnicities'} />
+      <FormCheckboxes category={'ethnicities'} />
       <Typography>What languages do you speak?</Typography>
       <FormMenuChips category={'languages'} string={'Languages'} />
       <Typography>What best describes your religion?</Typography>

@@ -15,15 +15,14 @@ function FormPreferencesChecks({ category, limit }) {
   const filteredPreferences = useSelector((store) => store.preferences).filter(
     (item) => item.category === category
   );
-  const answers =
+  const { preferences_array } =
     user_type === 'client'
       ? useSelector((store) => store.forms.clientAnswers)
       : useSelector((store) => store.forms.providerAnswers);
 
   const showError =
-    filteredPreferences.filter((item) =>
-      answers.preferences_array?.includes(item.id)
-    ).length > limit;
+    filteredPreferences.filter((item) => preferences_array?.includes(item.id))
+      .length > limit;
 
   const handleCheck = (id) => {
     const whichType =
@@ -45,7 +44,7 @@ function FormPreferencesChecks({ category, limit }) {
             key={item.id}
             control={
               <Checkbox
-                checked={answers.preferences_array?.includes(item.id)}
+                checked={preferences_array?.includes(item.id)}
                 onChange={() => handleCheck(item.id)}
               />
             }
