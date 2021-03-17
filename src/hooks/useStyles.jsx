@@ -111,8 +111,15 @@ const useStyles = makeStyles((theme) => ({
   },
   landingButton: {
     width: '200px',
-    margin: '20px'
-  }
+    margin: '32px'
+  },
+  howWorksText: {
+    padding: '10px',
+  },
+  howWorksButton: {
+    width: '200px',
+    margin: '10px'
+  },
 }));
 
 export default useStyles;
