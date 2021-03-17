@@ -105,6 +105,14 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  landingTypography: {
+    color: '#e0fbfc',
+    margin: '50px 20px 0px 30px'
+  },
+  landingButton: {
+    width: '200px',
+    margin: '20px'
+  }
 }));
 
 export default useStyles;
