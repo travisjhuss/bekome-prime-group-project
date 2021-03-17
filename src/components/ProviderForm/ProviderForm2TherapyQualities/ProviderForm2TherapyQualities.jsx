@@ -1,10 +1,13 @@
 import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography, Grid } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
 // Component imports
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
+import useStyles from '../../../hooks/useStyles';
 
-function ProviderForm2TherapyQualities({ classes, handleInputs }) {
+function ProviderForm2TherapyQualities({ handleInputs }) {
+  const classes = useStyles();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
 
   return (

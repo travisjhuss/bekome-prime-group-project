@@ -76,6 +76,7 @@ function EditProviderFormatsDialog({
                 label="I offer sliding scale payments"
               />
             </Box>
+            <Typography>My {state} license number is:</Typography>
             <TextField
               variant="outlined"
               label="License Number"

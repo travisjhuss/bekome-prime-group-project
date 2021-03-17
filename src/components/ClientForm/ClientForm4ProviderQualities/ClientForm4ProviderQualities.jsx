@@ -1,9 +1,11 @@
 import { Paper, Typography } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
 // Component imports
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
-function ClientForm4ProviderQualities({ classes }) {
+function ClientForm4ProviderQualities() {
+  const classes = useStyles();
   return (
     <Paper className={classes.paper} elevation={4}>
       <Typography>What qualities do you look for in a therapist?</Typography>

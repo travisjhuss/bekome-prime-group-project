@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Chip, TextField, Paper, Grid } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
-function ClientForm3TherapyPreferences({ classes, handleInputs }) {
+function ClientForm3TherapyPreferences({ handleInputs }) {
+  const classes  = useStyles();
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 

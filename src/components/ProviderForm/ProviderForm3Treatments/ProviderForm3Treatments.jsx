@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography, Grid } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
 // Component imports
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
-function ProviderForm3Treatments({ classes, handleInputs }) {
+function ProviderForm3Treatments({ handleInputs }) {
+  const classes = useStyles();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
   return (
     <Paper className={classes.paper} elevation={4}>

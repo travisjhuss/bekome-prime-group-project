@@ -4,14 +4,16 @@ import {
   Paper,
   Typography,
   TextField,
-  Box,
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
 
-function ProviderForm4Questions({ classes }) {
+function ProviderForm4Questions() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);

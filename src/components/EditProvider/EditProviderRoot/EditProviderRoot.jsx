@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Box, Typography, Grid } from '@material-ui/core';
 
-// Custom hooks
-import useStyles from '../../../hooks/useStyles';
 // Components
 import QuestionAccordion from '../../QuestionAccordion/QuestionAccordion';
 import StrengthsAccordion from '../../StrengthsAccordion/StrengthsAccordion';
@@ -19,8 +16,7 @@ import EditProviderSpecialtiesDialog from '../EditProviderSpecialtiesDialog/Edit
 import EditProviderFormatsDialog from '../EditProviderFormatsDialog/EditProviderFormatsDialog';
 import EditProviderCardDialog from '../EditProviderCardDialog/EditProviderCardDialog';
 
-function EditProvider() {
-  const classes = useStyles();
+function EditProviderRoot() {
   const dispatch = useDispatch();
   const { id } = useSelector((store) => store.user);
   const provider = useSelector((store) => store.providerDetails);
@@ -67,7 +63,7 @@ function EditProvider() {
   const handleSubmit = () => {
     dispatch({
       type: 'SUBMIT_PROVIDER_EDITS',
-      payload: { answers: providerAnswers, id: provider.providers_users_id },
+      payload: { answers: providerAnswers, id },
     });
   };
 
@@ -146,4 +142,4 @@ function EditProvider() {
   );
 }
 
-export default EditProvider;
+export default EditProviderRoot;

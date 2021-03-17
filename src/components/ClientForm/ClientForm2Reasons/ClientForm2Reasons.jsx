@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Paper, Typography, TextField, Grid } from '@material-ui/core';
-
-// Component imports
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
-function ClientForm2Reasons({ classes, handleInputs }) {
+function ClientForm2Reasons({ handleInputs }) {
+  const classes = useStyles();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
   return (

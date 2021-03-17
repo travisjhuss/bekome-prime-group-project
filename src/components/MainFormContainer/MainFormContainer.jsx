@@ -92,15 +92,10 @@ function MainFormContainer() {
         </Box>
       </Box>
       {user_type === 'client' ? (
-        <ClientFormRoot
-          currentPage={currentPage}
-          classes={classes}
-          handleInputs={handleInputs}
-        />
+        <ClientFormRoot currentPage={currentPage} handleInputs={handleInputs} />
       ) : (
         <ProviderFormRoot
           currentPage={currentPage}
-          classes={classes}
           handleInputs={handleInputs}
         />
       )}
