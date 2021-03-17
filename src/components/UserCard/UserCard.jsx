@@ -101,7 +101,7 @@ function UserCard({ provider, edit, handleDialogs }) {
         )}
       </CardContent>
       <CardActions className={classes.cardButton}>
-        {pathname !== '/edit_profile' && (
+        {!edit && (
           <Button
             variant="contained"
             size="small"

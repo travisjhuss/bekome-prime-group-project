@@ -14,7 +14,6 @@ function* fetchPreferences() {
   try {
     // GET all preferences from DB to populate forms
     const response = yield axios.get('/api/forms/preferences');
-    console.log('fetchPreferences response.data', response.data);
     // save in preferences reducer
     yield put({ type: 'SET_PREFERENCES', payload: response.data });
   } catch (err) {
