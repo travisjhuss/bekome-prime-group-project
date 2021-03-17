@@ -4,6 +4,7 @@ import axios from 'axios';
 function* formsSaga() {
   yield takeEvery('FETCH_PREFERENCES', fetchPreferences);
   yield takeEvery('ADD_NEW_PREFERENCE', addNewPreference);
+  yield takeEvery('DELETE_PREFERENCE', deletePreference);
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
@@ -63,6 +64,18 @@ function* addNewPreference(action) {
     yield put({type: 'FETCH_PREFERENCES'});
   } catch (err) {
     console.log('error in addNewPreference', err);
+  }
+}
+
+function* deletePreference(action) {
+  const id = action.payload
+  try {
+    console.log('in deletePreference with payload:', action.payload);
+    yield axios.delete(`/api/forms/delete_preference/${id}`);
+    // fetch preferences so admin panel updates
+    yield put({type: 'FETCH_PREFERENCES'});
+  } catch (err) {
+    console.log('error in deletePreference', err);
   }
 }
 

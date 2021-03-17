@@ -57,7 +57,7 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
                 variant="outlined"
                 label="new preference"
                 onChange={handleInputs(category)}
-                value={newPref[category]}
+                value={newPref}
                 />
 
                 <Button

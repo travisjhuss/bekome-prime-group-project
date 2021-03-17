@@ -65,7 +65,7 @@ function AdminPanel() {
             name: 'insurance',
             prefs: preferences.filter(pref => pref.category === 'insurance')
         },
-        // uncomment next four lines if you'd like to edit the states in the database
+        // uncomment next four lines if you'd like a form to edit the states in the database
         // {
         //     name: 'states',
         //     prefs: preferences.filter(pref => pref.category === 'states')
@@ -108,6 +108,10 @@ function AdminPanel() {
 
     const deletePreference = (id) => {
         console.log(id)
+        dispatch({
+            type: 'DELETE_PREFERENCE',
+            payload: id
+        })
     }
 
     const editPreference = (id) => {
@@ -117,7 +121,7 @@ function AdminPanel() {
 
     const handleInputs = (key) => (event) => {
         setNewPref({...newPref, [key]: event.target.value })
-        console.log(newPref)
+        // console.log(newPref)
     };
 
 
@@ -142,7 +146,7 @@ function AdminPanel() {
                         category={category.name}
                         filteredPreferences={category.prefs}
                         handleInputs={handleInputs}
-                        newPref={newPref}
+                        newPref={newPref[category]}
                         addPreference={addPreference}
                         deletePreference={deletePreference}
                         editPreference={editPreference}

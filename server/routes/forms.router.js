@@ -53,6 +53,21 @@ router.post('/add_preference', rejectUnauthenticated, (req, res) => {
     })
 });
 
+// DELETE route for deleting a preference from the preferences table
+router.delete('/delete_preference/:id', rejectUnauthenticated, (req, res) => {
+  const deletePreference = `
+    DELETE FROM "preferences"
+    WHERE "id" = $1;
+  `;
+
+  pool
+    .query(deletePreference, [req.params.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router DELETE', err);
+    });
+});
+
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
