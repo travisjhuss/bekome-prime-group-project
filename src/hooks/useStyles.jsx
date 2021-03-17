@@ -120,6 +120,19 @@ const useStyles = makeStyles((theme) => ({
     width: '200px',
     margin: '10px'
   },
+  loginContainer: {
+    margin: 'auto',
+    width: '500px',
+    height: '600px',
+    
+  },
+  centerContainer: {
+    marginTop: '50px'
+  },
+  loginBtn: {
+    width: '100%',
+    
+  }
 }));
 
 export default useStyles;

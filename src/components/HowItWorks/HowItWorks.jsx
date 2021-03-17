@@ -17,8 +17,8 @@ function HowItWorks() {
             How it Works
           </Typography>
           <br />
-          <Typography variant="h5" className={classes.landingTypography}>
-            Simple like a dating app, just without the romance.
+          <Typography variant="h4" className={classes.landingTypography}>
+            Simple like a dating app,<br/> just without the romance.
           </Typography>
         </div>
         <Grid container spacing={2} className="how-it-works-flow">
