@@ -72,19 +72,6 @@ function AdminPanel() {
         // }
     ]
 
-    const [newPref, setNewPref] = useState({
-        treatments: '',
-        genders: '',
-        qualities: '',
-        religions: '',
-        ethnicities: '',
-        challenges: '',
-        languages: '',
-        sexual_orientations: '',
-        age_ranges: '',
-        formats: '',
-        pronouns: ''
-    });
 
     const [modalState, setModalState] = useState(false)
 
@@ -93,17 +80,16 @@ function AdminPanel() {
         dispatch({type: 'FETCH_PREFERENCES'})
     }, []);
 
-    const addPreference = (category) => (event) => {
+    const addPreference = (preference) => {
         dispatch({
             type: 'ADD_NEW_PREFERENCE',
             payload:
                     {
-                        name: newPref[category],
-                        category: category
+                        name: preference.name,
+                        category: preference.category
                     }
         })
-        console.log('adding', category)
-        setNewPref({...newPref, [category]: ''})
+        console.log('adding', preference)
     };
 
     const deletePreference = (id) => {
@@ -119,10 +105,6 @@ function AdminPanel() {
         setModalState(true)
     }
 
-    const handleInputs = (key) => (event) => {
-        setNewPref({...newPref, [key]: event.target.value })
-        // console.log(newPref)
-    };
 
 
     return (
@@ -145,8 +127,8 @@ function AdminPanel() {
                         <AdminPanelForm
                         category={category.name}
                         filteredPreferences={category.prefs}
-                        handleInputs={handleInputs}
-                        newPref={newPref[category]}
+                        // handleInputs={handleInputs}
+                        // newPref={newPref}
                         addPreference={addPreference}
                         deletePreference={deletePreference}
                         editPreference={editPreference}

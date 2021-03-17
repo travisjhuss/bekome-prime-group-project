@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
     Paper,
     TextField,
@@ -14,8 +16,19 @@ import EditIcon from '@material-ui/icons/Edit';
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference, handleInputs, newPref}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference}) {
     const classes = useStyles()
+
+    const [newPref, setNewPref] = useState()
+
+    const handleInputs = (event) => {
+        setNewPref(event.target.value)
+    };
+
+    const handleSubmit = (dataToSend) => {
+        addPreference(dataToSend);
+        setNewPref('')
+    }
 
 
     return (
@@ -56,13 +69,13 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
                 className={classes.inputs}
                 variant="outlined"
                 label="new preference"
-                onChange={handleInputs(category)}
+                onChange={handleInputs}
                 value={newPref}
                 />
 
                 <Button
                 className={classes.adminPanelButton}
-                onClick={addPreference(category)}
+                onClick={() => handleSubmit({category: category, name: newPref})}
                 variant="contained"
                 color="primary"
                 >
