@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
-// Component imports
-import FilterMenu from '../FilterMenu/FilterMenu';
-import UserCard from '../UserCard/UserCard';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import Swiper core and required modules
+// Import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 // Import Swiper styles
 import 'swiper/swiper-bundle.css';
+// Components
+import FilterMenu from '../FilterMenu/FilterMenu';
+import UserCard from '../UserCard/UserCard';
 
 function ExploreView() {
   const history = useHistory();

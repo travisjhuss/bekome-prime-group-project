@@ -111,7 +111,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     ]);
 
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -121,7 +121,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // 3rd query to mark filled_out_form as true
     const thirdSqlText = `
@@ -133,7 +133,7 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
     // send success status
     res.sendStatus(201);
   } catch (err) {
-    console.log('error in post /add-client:', err);
+    console.log('error in post /add_client:', err);
     await connection.query('ROLLBACK;');
     res.sendStatus(500);
   } finally {
@@ -171,7 +171,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
         "accepting_clients",
         "license_number"
       ) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
     `;
     await connection.query(firstSqlText, [
       req.user.id,
@@ -192,7 +192,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     ]);
     // Work for second query
     // Take the preferences array and generate values for query
-    const preferenceValues = req.body.preferences
+    const preferenceValues = req.body.preferences_array
       .reduce((valueString, val, i) => (valueString += `($1, $${i + 2}),`), '')
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
@@ -202,7 +202,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     `;
     await connection.query(secondSqlText, [
       req.user.id,
-      ...req.body.preferences,
+      ...req.body.preferences_array,
     ]);
     // Work for third query
     // Take the questions array and use the same SQL query for each
@@ -217,11 +217,11 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     `;
 
     req.body.questions.forEach(async (question, i) => {
-      const displayed = i <= 2 ? true : false;
+      const displayed = i <= 2; // Automatically displays the first three q's 
       try {
         await connection.query(providerQuestionsQuery, [
           req.user.id,
-          question.question_id,
+          question.questions_id,
           question.answer,
           displayed,
         ]);

@@ -8,11 +8,12 @@ import {
   CardMedia,
   Button,
   Typography,
+  IconButton,
 } from '@material-ui/core';
-import { LocationOn, Language } from '@material-ui/icons';
+import { LocationOn, Language, Edit } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
-function UserCard({ provider }) {
+function UserCard({ provider, edit, handleDialogs }) {
   const classes = useStyles();
   const history = useHistory();
   const { pathname } = useLocation();
@@ -52,8 +53,8 @@ function UserCard({ provider }) {
   // Find method finds the question that the provider has an answer to
   // Also checks to see whether the provider wants this question on their card
   const findQuestion = (id, content) => {
-    const foundQuestion = questions.find((item) => item.questions_id === id);
-    if (foundQuestion.displayed_on_card === true) {
+    const foundQuestion = questions?.find((item) => item.questions_id === id);
+    if (foundQuestion?.displayed_on_card === true) {
       return (
         <Typography key={id} variant="body2">
           <b>{content}</b> {foundQuestion.answer}
@@ -74,6 +75,11 @@ function UserCard({ provider }) {
             saved={saved}
             type={'GET_PROVIDERS'}
           />
+        )}
+        {edit && (
+          <IconButton onClick={() => handleDialogs('card')}>
+            <Edit />
+          </IconButton>
         )}
         <br />
         <Typography variant="caption">

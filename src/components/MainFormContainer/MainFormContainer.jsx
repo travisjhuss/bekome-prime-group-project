@@ -7,13 +7,12 @@ import {
   Stepper,
   Step,
   StepLabel,
-  makeStyles,
   Button,
 } from '@material-ui/core';
 
 // Component imports
-import ClientFormRoot from '../ClientFormRoot/ClientFormRoot';
-import ProviderFormRoot from '../ProviderFormRoot/ProviderFormRoot';
+import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
+import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
 import useStyles from '../../hooks/useStyles';
 
 // Strings that display on stepper for Client
@@ -93,15 +92,10 @@ function MainFormContainer() {
         </Box>
       </Box>
       {user_type === 'client' ? (
-        <ClientFormRoot
-          currentPage={currentPage}
-          classes={classes}
-          handleInputs={handleInputs}
-        />
+        <ClientFormRoot currentPage={currentPage} handleInputs={handleInputs} />
       ) : (
         <ProviderFormRoot
           currentPage={currentPage}
-          classes={classes}
           handleInputs={handleInputs}
         />
       )}

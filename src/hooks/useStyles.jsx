@@ -85,10 +85,17 @@ const useStyles = makeStyles((theme) => ({
   stateSelect: {
     width: 240,
   },
+  accordionTitle: {
+    alignSelf: 'center',
+  },
+  picPreview: {
+    width: 200,
+    height: 200,
+  },
   adminPanelButton: {
     position: 'absolute',
     marginLeft: '15px',
-    padding: 0
+    padding: 0,
   },
   adminModal: {
     position: 'absolute',

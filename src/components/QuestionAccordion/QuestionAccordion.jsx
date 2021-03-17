@@ -6,10 +6,13 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  IconButton,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, Edit } from '@material-ui/icons';
+import useStyles from '../../hooks/useStyles';
 
-function QuestionAccordion() {
+function QuestionAccordion({ edit, handleDialogs }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.providerDetails);
   const providerQuestions = useSelector((store) => store.providerQuestions);
@@ -18,26 +21,39 @@ function QuestionAccordion() {
   useEffect(() => dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' }), []);
 
   return (
-    <Accordion expanded={open} onChange={() => setOpen(!open)}>
-      <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography variant="h6">Questions</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Box>
-          {providerQuestions.map((item) => (
-            <>
-              <Typography>
+    <>
+      <Accordion expanded={open} onChange={() => setOpen(!open)}>
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <Typography variant="h6" className={classes.accordionTitle}>
+            Questions
+          </Typography>
+          {edit && (
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                handleDialogs('questions');
+              }}
+              onFocus={(event) => event.stopPropagation()}
+            >
+              <Edit />
+            </IconButton>
+          )}
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box>
+            {providerQuestions.map((item) => (
+              <Typography key={item.id}>
                 {item.content + ' '}
                 {
                   questions?.find((answer) => item.id === answer.questions_id)
                     ?.answer
                 }
               </Typography>
-            </>
-          ))}
-        </Box>
-      </AccordionDetails>
-    </Accordion>
+            ))}
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+    </>
   );
 }
 
