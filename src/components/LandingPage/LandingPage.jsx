@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {Button, Typography} from '@material-ui/core';
 import useStyles from '../../hooks/useStyles';
 import './LandingPage.css';
 
-// CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
-
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
   const classes = useStyles();
   const history = useHistory();
-
-  const onLogin = (event) => {
-    history.push('/login');
-  };
 
   return (
     <>
@@ -41,7 +33,7 @@ function LandingPage() {
           variant="contained" 
           color="primary" 
           className={classes.landingButton}
-          onClick={onLogin}
+          onClick={() => history.push('/login')}
         >
           Get Started
         </Button>
