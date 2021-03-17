@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { Box, Typography, Grid } from "@material-ui/core";
 
 // Component imports
-import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
-import QuestionAccordion from '../QuestionAccordion/QuestionAccordion';
-import StrengthsAccordion from '../StrengthsAccordion/StrengthsAccordion';
-import BackgroundAccordion from '../BackgroundAccordion/BackgroundAccordion';
-import SpecialtiesAccordion from '../SpecialtiesAccordion/SpecialtiesAccordion';
-import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
-import useStyles from '../../hooks/useStyles';
+import FavoriteProviderButton from "../FavoriteProviderButton/FavoriteProviderButton";
+import QuestionAccordion from "../QuestionAccordion/QuestionAccordion";
+import StrengthsAccordion from "../StrengthsAccordion/StrengthsAccordion";
+import BackgroundAccordion from "../BackgroundAccordion/BackgroundAccordion";
+import SpecialtiesAccordion from "../SpecialtiesAccordion/SpecialtiesAccordion";
+import FormatsAccordion from "../FormatsAccordion/FormatsAccordion";
+import useStyles from "../../hooks/useStyles";
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -33,8 +33,8 @@ function ProviderDetails() {
   const providerState = preferences.find((item) => item.id === state_id)?.name;
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
-    dispatch({ type: 'FETCH_PREFERENCES' });
+    dispatch({ type: "FETCH_PROVIDER_DETAILS", payload: id });
+    dispatch({ type: "FETCH_PREFERENCES" });
   }, []);
 
   const parsePreferences = (category) => {
@@ -44,7 +44,7 @@ function ProviderDetails() {
           item.category === category && preferences_array?.includes(item.id)
         );
       })
-      .reduce((string, item) => (string += `${item.name}, `), '')
+      .reduce((string, item) => (string += `${item.name}, `), "")
       .slice(0, -2);
   };
 
@@ -57,7 +57,7 @@ function ProviderDetails() {
         <FavoriteProviderButton
           id={providers_users_id}
           saved={saved}
-          type={'FETCH_PROVIDER_DETAILS'}
+          type={"FETCH_PROVIDER_DETAILS"}
         />
       </Box>
       <Grid container spacing={3}>
@@ -66,29 +66,19 @@ function ProviderDetails() {
             <img src={pic} className={classes.pic} />
             <Box>
               <Typography>Age: {age}</Typography>
-              <Typography>Languages: {parseString('languages')}</Typography>
-              
-              
-              <Typography>Pronouns:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === "pronouns") {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                } 
-              })}
-              <Typography>Languages:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === "languages") {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
-
-<Typography>Religious Affiliations:</Typography>
-              {providersPreferences.map((item) => {
-                if (item.category === "religions") {
-                  return <Typography key={item.id}>{item.name}</Typography>;
-                }
-              })}
-              
+              <Typography>
+                Pronouns: {parsePreferences("pronouns")}
+                {write_in_pronouns && `, ${write_in_pronouns}`}
+              </Typography>
+              <Typography>
+                Location: {city}, {providerState}
+              </Typography>
+              <Typography>
+                Languages: {parsePreferences("languages")}
+              </Typography>
+              <Typography>
+                Religious Affiliations: {parsePreferences("religions")}
+              </Typography>
             </Box>
           </Box>
         </Grid>
