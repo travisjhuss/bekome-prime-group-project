@@ -34,15 +34,17 @@ function* fetchEditProviderProfile(action) {
 
 function* submitClientEdits() {
   try {
-    yield axios.put('/api/edit/client/', action.payload);
+    yield axios.put('/api/edit/client', action.payload);
   } catch (err) {
     console.log('error in submitClientEdits:', err);
   }
 }
 
-function* submitProviderEdits() {
+function* submitProviderEdits(action) {
+  const { answers, id } = action.payload;
   try {
-    yield axios.put('/api/edit/provider/', action.payload);
+    yield axios.put('/api/edit/provider', answers);
+    yield put({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
   } catch (err) {
     console.log('error in submitProviderEdits:', err);
   }

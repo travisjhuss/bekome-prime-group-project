@@ -86,16 +86,19 @@ export const providerAnswers = (
         };
       }
     case 'SET_PROVIDER_RESPONSES':
-      const { id, answer } = action.payload;
-      const index = state.questions.findIndex(
-        (item) => item.questions_id === id
-      );
-      if (index > -1) {
+      const { id, display, answer } = action.payload;
+      const i = state.questions.findIndex((item) => item.questions_id === id);
+      if (i > -1) {
         const newQuestionsArray = [...state.questions];
-        newQuestionsArray[index] = {
-          ...newQuestionsArray[index],
-          answer,
-        };
+        display
+          ? (newQuestionsArray[i] = {
+              ...newQuestionsArray[i],
+              displayed_on_card: !newQuestionsArray[i].displayed_on_card,
+            })
+          : (newQuestionsArray[i] = {
+              ...newQuestionsArray[i],
+              answer,
+            });
         return { ...state, questions: newQuestionsArray };
       } else {
         return {
@@ -103,16 +106,6 @@ export const providerAnswers = (
           questions: [...state.questions, { questions_id: id, answer }],
         };
       }
-    case 'SET_DISPLAYED_QUESTIONS':
-      const i = state.questions.findIndex(
-        (item) => item.questions_id === action.payload
-      );
-      const newQuestionsArray = [...state.questions];
-      newQuestionsArray[i] = {
-        ...newQuestionsArray[i],
-        displayed_on_card: !newQuestionsArray[i].displayed_on_card,
-      };
-      return { ...state, questions: newQuestionsArray };
     case 'CLEAR_PROVIDER_ANSWERS':
       return {};
     case 'SET_EDIT_PROVIDER_PROFILE':

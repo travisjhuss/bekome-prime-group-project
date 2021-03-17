@@ -21,8 +21,9 @@ function FormPreferencesChecks({ category, limit }) {
       : useSelector((store) => store.forms.providerAnswers);
 
   const showError =
-    filteredPreferences.filter((item) => answers.preferences?.includes(item.id))
-      .length > limit;
+    filteredPreferences.filter((item) =>
+      answers.preferences_array?.includes(item.id)
+    ).length > limit;
 
   const handleCheck = (id) => {
     const whichType =
@@ -44,7 +45,7 @@ function FormPreferencesChecks({ category, limit }) {
             key={item.id}
             control={
               <Checkbox
-                checked={answers.preferences?.includes(item.id)}
+                checked={answers.preferences_array?.includes(item.id)}
                 onChange={() => handleCheck(item.id)}
               />
             }

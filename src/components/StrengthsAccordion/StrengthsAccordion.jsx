@@ -5,17 +5,34 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
 
-function StrengthsAccordion({ parsePreferences, edit }) {
+// Component imports
+import useStyles from '../../hooks/useStyles';
+
+function StrengthsAccordion({ parsePreferences, edit, handleDialogs }) {
+  const classes = useStyles();
   const { strengths } = useSelector((store) => store.providerDetails);
 
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography variant="h6">Strengths</Typography>
-        {edit && <Edit />}
+        <Typography variant="h6" className={classes.accordionTitle}>
+          Strengths
+        </Typography>
+        {edit && (
+          <IconButton
+            onClick={(event) => {
+              event.stopPropagation();
+              handleDialogs('strengths');
+            }}
+            onFocus={(event) => event.stopPropagation()}
+          >
+            <Edit />
+          </IconButton>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

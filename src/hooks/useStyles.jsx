@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   stateSelect: {
     width: 240,
   },
-  questionTitle: {
+  accordionTitle: {
     alignSelf: 'center',
   },
 }));

@@ -4,15 +4,30 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
+import useStyles from '../../hooks/useStyles';
 
 function SpecialtiesAccordion({ parsePreferences, edit }) {
+  const classes = useStyles();
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography variant="h6">Specialties</Typography>
-        {edit && <Edit />}
+        <Typography className={classes.accordionTitle} variant="h6">
+          Specialties
+        </Typography>
+        {edit && (
+          <IconButton
+            onClick={(event) => {
+              event.stopPropagation();
+              handleDialogs('specialties');
+            }}
+            onFocus={(event) => event.stopPropagation()}
+          >
+            <Edit />
+          </IconButton>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Box>

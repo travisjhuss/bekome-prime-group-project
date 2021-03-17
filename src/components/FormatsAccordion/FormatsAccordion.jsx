@@ -5,10 +5,13 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
+import useStyles from '../../hooks/useStyles';
 
-function FormatsAccordion({ parsePreferences, edit }) {
+function FormatsAccordion({ parsePreferences, edit, handleDialogs }) {
+  const classes = useStyles();
   const {
     license_number,
     sliding_scale,
@@ -22,8 +25,20 @@ function FormatsAccordion({ parsePreferences, edit }) {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography variant="h6">Formats/Insurance</Typography>
-        {edit && <Edit />}
+        <Typography className={classes.accordionTitle} variant="h6">
+          Formats/Insurance
+        </Typography>
+        {edit && (
+          <IconButton
+            onClick={(event) => {
+              event.stopPropagation();
+              handleDialogs('formats');
+            }}
+            onFocus={(event) => event.stopPropagation()}
+          >
+            <Edit />
+          </IconButton>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Box>
