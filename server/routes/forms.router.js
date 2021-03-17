@@ -33,6 +33,41 @@ router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST route for adding a new preference to the preferences table
+router.post('/add_preference', rejectUnauthenticated, (req, res) => {
+  console.log('adding preference', req.body)
+
+  const sqlText = `
+    INSERT INTO "preferences" ("name", "category")
+    VALUES ($1, $2);
+  `;
+
+  pool
+    .query(sqlText, [req.body.name, req.body.category])
+    .then((result) => {
+      res.sendStatus(201);
+      console.log(result)
+    })
+    .catch((error) => {
+      console.log('Error in /forms/add_preference', error)
+    })
+});
+
+// DELETE route for deleting a preference from the preferences table
+router.delete('/delete_preference/:id', rejectUnauthenticated, (req, res) => {
+  const deletePreference = `
+    DELETE FROM "preferences"
+    WHERE "id" = $1;
+  `;
+
+  pool
+    .query(deletePreference, [req.params.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router DELETE', err);
+    });
+});
+
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
   // Open the connection to our database
