@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Grid } from '@material-ui/core';
-
 // Components
 import QuestionAccordion from '../../QuestionAccordion/QuestionAccordion';
 import StrengthsAccordion from '../../StrengthsAccordion/StrengthsAccordion';

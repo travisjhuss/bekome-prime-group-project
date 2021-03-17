@@ -10,8 +10,7 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
-
-// Component imports
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import useStyles from '../../../hooks/useStyles';
 import S3Uploader from '../../S3Uploader/S3Uploader';

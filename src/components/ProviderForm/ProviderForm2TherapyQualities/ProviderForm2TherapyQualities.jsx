@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography, Grid } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
-// Component imports
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import useStyles from '../../../hooks/useStyles';
 

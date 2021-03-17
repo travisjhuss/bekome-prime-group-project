@@ -1,4 +1,4 @@
-// Component imports
+// Components
 import ClientForm1Info from '../ClientForm1Info/ClientForm1Info';
 import ClientForm2Reasons from '../ClientForm2Reasons/ClientForm2Reasons';
 import ClientForm3TherapyPreferences from '../ClientForm3TherapyPreferences/ClientForm3TherapyPreferences';

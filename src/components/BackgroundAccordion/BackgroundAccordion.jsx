@@ -8,6 +8,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
+// Custom hooks
 import useStyles from '../../hooks/useStyles';
 
 function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {

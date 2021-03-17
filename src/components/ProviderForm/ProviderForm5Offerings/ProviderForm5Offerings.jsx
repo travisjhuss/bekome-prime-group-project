@@ -8,8 +8,7 @@ import {
   Box,
   TextField,
 } from '@material-ui/core';
-
-// Component imports
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 import useStyles from '../../../hooks/useStyles';

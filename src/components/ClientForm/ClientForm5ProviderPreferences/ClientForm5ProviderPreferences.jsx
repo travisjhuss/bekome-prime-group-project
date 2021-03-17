@@ -6,10 +6,11 @@ import {
   FormControlLabel,
   Grid,
 } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
+// Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../../FormMenuChips/FormMenuChips';
-import useStyles from '../../../hooks/useStyles';
 
 function ClientForm5ProviderPreferences() {
   const classes = useStyles();
