@@ -111,6 +111,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  adminPanelList: {
+    
+  },
+  questionsFormContainer: {
+    margin: theme.spacing(10),
+    padding: theme.spacing(3),
+  }
 }));
 
 export default useStyles;

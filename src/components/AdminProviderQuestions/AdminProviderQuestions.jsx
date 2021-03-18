@@ -11,7 +11,8 @@ import {
     Button,
     List,
     ListItem,
-    ListItemSecondaryAction
+    ListItemSecondaryAction,
+    Divider
 } from '@material-ui/core';
 import Delete from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -66,7 +67,9 @@ function AdminProviderQuestions() {
 
     return (
 
-        <>
+        <Paper
+        className={classes.questionsFormContainer}
+        >
             <AdminQuestionsEdit
             modalState={modalState}
             setModalState={setModalState}
@@ -75,9 +78,12 @@ function AdminProviderQuestions() {
             editQuestion={editQuestion}
             />
 
-            <List>
+            <List
+            className={classes.adminPanelList}
+            >
                 {questions.map((question) => {
                     return (
+                        <>
                         <ListItem key={question.id}>
                             {question.content}
                             <ListItemSecondaryAction>
@@ -89,6 +95,8 @@ function AdminProviderQuestions() {
                                 </IconButton>
                             </ListItemSecondaryAction>
                         </ListItem>
+                        <Divider  component="li" />
+                        </>
                     )
                 })}
             </List>
@@ -111,7 +119,7 @@ function AdminProviderQuestions() {
                     Add
                 </Button>
             </form>
-        </>
+        </Paper>
     )
 }
 
