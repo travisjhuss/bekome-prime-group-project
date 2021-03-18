@@ -16,6 +16,7 @@ const favoriteRouter = require('./routes/favorite.router');
 const savedProvidersRouter = require('./routes/savedProviders.router');
 const s3Router = require('./routes/s3.router');
 const editProfileRouter = require('./routes/editProfile.router');
+const interestedClientsRouter = require('./routes/interestedClients.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -37,6 +38,7 @@ app.use('/api/favorite', favoriteRouter);
 app.use('/api/saved-providers', savedProvidersRouter)
 app.use('/s3', s3Router);
 app.use('/api/edit', editProfileRouter)
+app.use('/api/interested-clients', interestedClientsRouter);
 
 // Serve static files
 app.use(express.static('build'));
@@ -44,7 +46,7 @@ app.use(express.static('build'));
 // App Set //
 const PORT = process.env.PORT || 5000;
 
-/** Listen * */
+/* Listen */
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });

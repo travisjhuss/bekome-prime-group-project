@@ -1,7 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
+import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
   CardActionArea,
@@ -12,13 +10,12 @@ import {
   Typography,
   Box,
 } from '@material-ui/core';
-
-import useStyles from '../../hooks/useStyles';
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
 
 
 function UserCardSaved({ provider }) {
   const history = useHistory();
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   const sendToDetails = () => {

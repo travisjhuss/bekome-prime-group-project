@@ -90,8 +90,6 @@ router.put('/edit_question', rejectUnauthenticated, (req, res) => {
 
 // POST route for adding a new preference to the preferences table
 router.post('/add_preference', rejectUnauthenticated, (req, res) => {
-  console.log('adding preference', req.body)
-
   const sqlText = `
     INSERT INTO "preferences" ("name", "category")
     VALUES ($1, $2);
@@ -192,8 +190,8 @@ router.post('/add_client', rejectUnauthenticated, async (req, res) => {
       .slice(0, -1); // Takes off last comma
     // Second sql query to insert preferences into clients_preferences
     const secondSqlText = `
-        INSERT INTO "clients_preferences" ("clients_users_id", "preferences_id")
-        VALUES ${preferenceValues};
+      INSERT INTO "clients_preferences" ("clients_users_id", "preferences_id")
+      VALUES ${preferenceValues};
     `;
     await connection.query(secondSqlText, [
       req.user.id,

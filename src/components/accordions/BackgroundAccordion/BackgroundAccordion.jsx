@@ -9,16 +9,25 @@ import {
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
 // Custom hooks
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
-function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {
+function BackgroundAccordion({
+  parsePreferences,
+  edit,
+  setDialogOpen,
+  openAccordion,
+  handleOpenAccordion,
+}) {
   const classes = useStyles();
   const { background, approach } = useSelector(
     (store) => store.providerDetails
   );
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={openAccordion === 'background'}
+      onChange={handleOpenAccordion('background')}
+    >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.accordionTitle} variant="h6">
           Background/Approach
@@ -27,7 +36,7 @@ function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {
           <IconButton
             onClick={(event) => {
               event.stopPropagation();
-              handleDialogs('background');
+              setDialogOpen('background');
             }}
             onFocus={(event) => event.stopPropagation()}
           >

@@ -20,7 +20,7 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 function EditProviderFormatsDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
+  handleCancel,
   handleInputs,
 }) {
   const classes = useStyles();
@@ -41,8 +41,8 @@ function EditProviderFormatsDialog({
 
   return (
     <Dialog
-      open={dialogOpen.formats}
-      onClose={() => handleDialogs('formats')}
+      open={dialogOpen === 'formats'}
+      onClose={handleCancel}
       fullWidth
       maxWidth="md"
     >
@@ -92,17 +92,10 @@ function EditProviderFormatsDialog({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleDialogs('formats')}>
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('formats');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>

@@ -1,6 +1,6 @@
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
+import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
   CardActions,
@@ -11,12 +11,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { LocationOn, Language, Edit } from '@material-ui/icons';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
-function UserCard({ provider, edit, handleDialogs }) {
+function UserCard({ provider, edit, setDialogOpen }) {
   const classes = useStyles();
   const history = useHistory();
-  const { pathname } = useLocation();
   const { user_type } = useSelector((store) => store.user);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
@@ -77,7 +76,7 @@ function UserCard({ provider, edit, handleDialogs }) {
           />
         )}
         {edit && (
-          <IconButton onClick={() => handleDialogs('card')}>
+          <IconButton onClick={() => setDialogOpen('card')}>
             <Edit />
           </IconButton>
         )}
@@ -101,7 +100,7 @@ function UserCard({ provider, edit, handleDialogs }) {
         )}
       </CardContent>
       <CardActions className={classes.cardButton}>
-        {pathname !== '/edit_profile' && (
+        {!edit && (
           <Button
             variant="contained"
             size="small"

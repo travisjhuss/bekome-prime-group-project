@@ -22,8 +22,8 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
         EXTRACT(YEAR FROM AGE("providers".date_of_birth)) AS "age",
         ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
       FROM "providers" 
-      JOIN "providers_preferences" ON "providers".providers_users_id = 
-        "providers_preferences".providers_users_id
+      JOIN "providers_preferences" ON "providers".providers_users_id 
+        = "providers_preferences".providers_users_id
       WHERE "providers".providers_users_id = $1 
       GROUP BY "providers".id;
     `;
@@ -47,9 +47,12 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
 
     // Checks if this provider is favorited by the user
     const sqlTextSavedProvider = `
-      SELECT EXISTS (SELECT "id" FROM "clients_providers_favs" 
-      WHERE "clients_users_id" = $1 AND "providers_users_id" = $2);
+      SELECT EXISTS (
+        SELECT "id" FROM "clients_providers_favs" 
+        WHERE "clients_users_id" = $1 AND "providers_users_id" = $2
+      );
     `;
+    
     const isSaved = (
       await connection.query(sqlTextSavedProvider, [req.user.id, id])
     ).rows[0].exists;

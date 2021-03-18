@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
   picPreview: {
     width: 200,
     height: 200,
+    objectFit: 'cover',
   },
   adminPanelButton: {
     position: 'absolute',
@@ -110,22 +111,22 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     top: '100px',
-    left: '100px'
+    left: '100px',
   },
   landingTypography: {
     color: '#e0fbfc',
-    margin: '50px 30px 0px 30px'
+    margin: '50px 30px 0px 30px',
   },
   landingButton: {
     width: '200px',
-    margin: '32px'
+    margin: '32px',
   },
   howWorksText: {
     padding: '10px',
   },
   howWorksButton: {
     width: '200px',
-    margin: '10px'
+    margin: '10px',
   },
   loginContainer: {
     margin: 'auto',
@@ -135,21 +136,35 @@ const useStyles = makeStyles((theme) => ({
   centerContainer: {
     paddingTop: '50px',
     height: '100vh',
-    backgroundImage: `url(${Image})`
+    backgroundImage: `url(${Image})`,
+  },
+  editClientButton: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    width: '15ch',
+  },
+  editClientAccordion: {
+    display: 'block',
+  },
+  filterDrawer: {
+    width: 300,
+  },
+  filterListItem: {
+    paddingLeft: theme.spacing(4),
   },
   loginBtn: {
     width: '95%',
   },
   loginForm: {
-    margin: '30px'
+    margin: '30px',
   },
   loginTextField: {
     '& .MuiOutlinedInput-input': {
-      padding: '8px 8px'
-  }
+      padding: '8px 8px',
+    },
   },
   submitBtn: {
-    width: '150px'
+    width: '150px',
   },
   adminModalInput: {
     marginTop: theme.spacing(1),
@@ -158,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
   questionsFormContainer: {
     margin: theme.spacing(10),
     padding: theme.spacing(3),
-  }
+  },
 }));
 
 export default useStyles;

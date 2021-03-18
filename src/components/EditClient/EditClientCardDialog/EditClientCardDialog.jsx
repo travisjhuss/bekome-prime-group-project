@@ -18,13 +18,13 @@ import {
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
-import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 
-function EditProviderCardDialog({
+function EditClientCardDialog({
   handleSubmit,
-  dialogOpen,
+  cardDialogOpen,
+  setCardDialogOpen,
   handleInputs,
   handleCancel,
 }) {
@@ -37,7 +37,7 @@ function EditProviderCardDialog({
     city,
     state,
     pic,
-  } = useSelector((store) => store.forms.providerAnswers);
+  } = useSelector((store) => store.forms.clientAnswers);
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
@@ -46,10 +46,10 @@ function EditProviderCardDialog({
 
   return (
     <Dialog
-      open={dialogOpen === 'card'}
+      open={cardDialogOpen}
       fullWidth
       maxWidth="md"
-      onClose={handleCancel}
+      onClose={() => setCardDialogOpen(false)}
     >
       <DialogTitle>Edit Personal Information</DialogTitle>
       <DialogContent>
@@ -94,9 +94,6 @@ function EditProviderCardDialog({
             />
           </Grid>
           <Grid item xs={6}>
-            <Typography>What languages do you speak?</Typography>
-            <FormMenuChips category={'languages'} string={'Languages'} />
-            <Typography>Where is your practice located?</Typography>
             <TextField
               variant="outlined"
               label="City"
@@ -121,18 +118,36 @@ function EditProviderCardDialog({
               </Select>
             </FormControl>
             <Typography>Upload a Photo:</Typography>
+            <Typography variant="body2" gutterBottom>
+              <i>not required</i>
+            </Typography>
             <Box display="flex">
               <S3Uploader />
               <img className={classes.picPreview} src={pic} />
             </Box>
           </Grid>
         </Grid>
+        <Typography>What kind of insurance do you have?</Typography>
+        <FormCheckboxes category={'insurance'} />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={handleCancel}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setCardDialogOpen(false);
+            handleCancel();
+          }}
+        >
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            handleSubmit();
+            setCardDialogOpen(false);
+          }}
+        >
           Save Changes
         </Button>
       </DialogActions>
@@ -140,4 +155,4 @@ function EditProviderCardDialog({
   );
 }
 
-export default EditProviderCardDialog;
+export default EditClientCardDialog;

@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Box, Typography, Grid } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../hooks/useStyles';
 // Component imports
 import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
-import QuestionAccordion from '../QuestionAccordion/QuestionAccordion';
-import StrengthsAccordion from '../StrengthsAccordion/StrengthsAccordion';
-import BackgroundAccordion from '../BackgroundAccordion/BackgroundAccordion';
-import SpecialtiesAccordion from '../SpecialtiesAccordion/SpecialtiesAccordion';
-import FormatsAccordion from '../FormatsAccordion/FormatsAccordion';
-import useStyles from '../../hooks/useStyles';
+import QuestionAccordion from '../accordions/QuestionAccordion/QuestionAccordion';
+import StrengthsAccordion from '../accordions/StrengthsAccordion/StrengthsAccordion';
+import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAccordion';
+import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
+import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -22,7 +22,7 @@ function ProviderDetails() {
     pic,
     video,
     city,
-    state_id,
+    state,
     age,
     saved,
     write_in_pronouns,
@@ -30,7 +30,7 @@ function ProviderDetails() {
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
-  const providerState = preferences.find((item) => item.id === state_id)?.name;
+  const [openAccordion, setOpenAccordion] = useState('questions');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
@@ -46,6 +46,10 @@ function ProviderDetails() {
       })
       .reduce((string, item) => (string += `${item.name}, `), '')
       .slice(0, -2);
+  };
+
+  const handleOpenAccordion = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : false);
   };
 
   return (
@@ -71,20 +75,42 @@ function ProviderDetails() {
                 {write_in_pronouns && `, ${write_in_pronouns}`}
               </Typography>
               <Typography>
-                Location: {city}, {providerState}
+                Location: {city}, {state}
               </Typography>
               <Typography>
                 Languages: {parsePreferences('languages')}
+              </Typography>
+              <Typography>
+                Religious Affiliations: {parsePreferences('religions')}
               </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <QuestionAccordion />
-          <StrengthsAccordion parsePreferences={parsePreferences} />
-          <BackgroundAccordion parsePreferences={parsePreferences} />
-          <SpecialtiesAccordion parsePreferences={parsePreferences} />
-          <FormatsAccordion parsePreferences={parsePreferences} />
+          <QuestionAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+          />
+          <StrengthsAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <BackgroundAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <SpecialtiesAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <FormatsAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
         </Grid>
       </Grid>
     </Box>
