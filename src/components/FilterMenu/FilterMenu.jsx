@@ -15,8 +15,7 @@ import {
   Switch,
   FormControlLabel,
 } from '@material-ui/core';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import { ExpandMore, ExpandLess, FilterList } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
 function FilterMenu({ query }) {
@@ -62,7 +61,7 @@ function FilterMenu({ query }) {
   return (
     <Box>
       <Button
-        startIcon={<FilterListIcon />}
+        startIcon={<FilterList />}
         color="primary"
         className={classes.filterButton}
         onClick={() => dispatch({ type: 'SET_DRAWER' })}
