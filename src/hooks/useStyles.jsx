@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Image from './atop-hill.jpeg';
 
 // This hook will allow styling with MUI to be more consistent through components.
 // import with "import useStyles from '../../hooks/useStyles'" in a given component
@@ -128,10 +129,11 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width: '400px',
     height: '560px',
-    
   },
   centerContainer: {
-    marginTop: '50px'
+    paddingTop: '50px',
+    height: '100vh',
+    backgroundImage: `url(${Image})`
   },
   loginBtn: {
     width: '100%',
@@ -146,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submitBtn: {
     width: '150px'
-  }
+  },
 }));
 
 export default useStyles;
