@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { DateTime } from 'luxon';
 import {
   Dialog,
   DialogTitle,
@@ -40,6 +41,8 @@ function EditClientCardDialog({
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
+
+  const formattedDate = DateTime.fromISO(date_of_birth).toFormat('yyyy-MM-dd');
 
   return (
     <Dialog
@@ -85,7 +88,7 @@ function EditClientCardDialog({
               variant="outlined"
               label="Date of Birth"
               className={classes.inputs}
-              value={date_of_birth}
+              value={formattedDate}
               onChange={handleInputs('date_of_birth') || ''}
               InputLabelProps={{ shrink: true }}
             />
@@ -124,6 +127,8 @@ function EditClientCardDialog({
             </Box>
           </Grid>
         </Grid>
+        <Typography>What kind of insurance do you have?</Typography>
+        <FormCheckboxes category={'insurance'} />
       </DialogContent>
       <DialogActions>
         <Button

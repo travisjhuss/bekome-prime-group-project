@@ -6,19 +6,20 @@ import { Typography, Box, Grid } from '@material-ui/core';
 import useStyles from '../../../hooks/useStyles';
 // Components
 import ClientCard from '../../ClientCard/ClientCard';
+import EditClientProviderQualitiesAccordion from '../EditClientProviderQualitiesAccordion/EditClientProviderQualitiesAccordion';
 import EditClientCardDialog from '../EditClientCardDialog/EditClientCardDialog';
 import EditClientReasonsAccordion from '../EditClientReasonsAccordion/EditClientReasonsAccordion';
 import EditClientTherapyPreferencesAccordion from '../EditClientTherapyPreferencesAccordion/EditClientTherapyPreferencesAccordion';
+import EditClientProviderPreferencesAccordion from '../EditClientProviderPreferencesAccordion/EditClientProviderPreferencesAccordion';
 
-
-function EditClient() {
+function EditClientRoot() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const client = useSelector((store) => store.oneClient);
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
   const [cardDialogOpen, setCardDialogOpen] = useState(false);
-  const [openAccordion, setOpenAccordion] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState('providerQualities');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_EDIT_CLIENT_PROFILE' });
@@ -34,10 +35,12 @@ function EditClient() {
 
   const handleSubmit = () => {
     dispatch({ type: 'SUBMIT_CLIENT_EDITS', payload: clientAnswers });
+    if (!cardDialogOpen) {
+      setOpenAccordion(false);
+    }
   };
 
   const handleCancel = () => {
-    dispatch({ type: 'CLEAR_CLIENT_ANSWERS' });
     dispatch({ type: 'FETCH_EDIT_CLIENT_PROFILE' });
     if (!cardDialogOpen) {
       setOpenAccordion(false);
@@ -61,6 +64,12 @@ function EditClient() {
             />
           </Grid>
           <Grid item xs={8}>
+            <EditClientProviderQualitiesAccordion
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+              handleOpenAccordion={handleOpenAccordion}
+              openAccordion={openAccordion}
+            />
             <EditClientReasonsAccordion
               handleInputs={handleInputs}
               handleSubmit={handleSubmit}
@@ -70,6 +79,12 @@ function EditClient() {
             />
             <EditClientTherapyPreferencesAccordion
               handleInputs={handleInputs}
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+              handleOpenAccordion={handleOpenAccordion}
+              openAccordion={openAccordion}
+            />
+            <EditClientProviderPreferencesAccordion
               handleSubmit={handleSubmit}
               handleCancel={handleCancel}
               handleOpenAccordion={handleOpenAccordion}
@@ -89,4 +104,4 @@ function EditClient() {
   );
 }
 
-export default EditClient;
+export default EditClientRoot;
