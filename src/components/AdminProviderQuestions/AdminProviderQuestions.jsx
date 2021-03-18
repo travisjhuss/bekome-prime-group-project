@@ -42,6 +42,13 @@ function AdminProviderQuestions() {
         setNewQuestion('')
     }
 
+    const deleteQuestion = (id) => {
+        dispatch({
+            type: 'DELETE_QUESTION',
+            payload: id
+        })
+    }
+
     // const openEditModal = (id) => {
     //     const selectedPreference = filteredPreferences.filter(pref => pref.id === id)
     //     setEditState({id: id, name: selectedPreference[0].name, category: category})
@@ -59,10 +66,10 @@ function AdminProviderQuestions() {
                             <ListItemSecondaryAction>
                                 {/* <IconButton onClick={() => openEditModal(preference.id)}>
                                     <EditIcon />
-                                </IconButton>
-                                <IconButton onClick={() => deletePreference(preference.id)}>
-                                    <Delete />
                                 </IconButton> */}
+                                <IconButton onClick={() => deleteQuestion(question.id)}>
+                                    <Delete />
+                                </IconButton>
                             </ListItemSecondaryAction>
                         </ListItem>
                     )

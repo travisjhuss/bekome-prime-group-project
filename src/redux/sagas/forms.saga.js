@@ -8,6 +8,7 @@ function* formsSaga() {
   yield takeEvery('EDIT_PREFERENCE', editPreference);
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_QUESTION', addNewQuestion);
+  yield takeEvery('DELETE_QUESTION', deleteQuestion);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
 }
@@ -44,6 +45,14 @@ function* addNewQuestion(action) {
     yield put({ type: 'FETCH_PROVIDER_QUESTIONS' })
   } catch (err) {
     console.log('error in addNewQuestion', err)
+  }
+}
+
+function* deleteQuestion(action) {
+  try {
+    console.log('in saga delete question', action.payload)
+  } catch (err) {
+    console.log('error in deleteQuestion', err)
   }
 }
 

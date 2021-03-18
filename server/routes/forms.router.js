@@ -52,6 +52,22 @@ router.post('/add_question', rejectUnauthenticated, (req, res) => {
         console.log('Error in /forms/add_question', error)
         res.sendStatus(500)
       })
+});
+
+// DELETE route for deleting provider question
+router.delete('/delete_question/:id', rejectUnauthenticated, (req, res) => {
+  const deleteQuestion = `
+    DELETE FROM "questions"
+    WHERE "id" = $1;
+  `;
+
+  pool
+    .query(deleteQuestion, [req.params.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router DELETE question', err);
+      res.sendStatus(500);
+    })
 })
 
 // POST route for adding a new preference to the preferences table
@@ -86,7 +102,7 @@ router.delete('/delete_preference/:id', rejectUnauthenticated, (req, res) => {
     .query(deletePreference, [req.params.id])
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      console.log('error in forms.router DELETE', err);
+      console.log('error in forms.router DELETE preference', err);
       res.sendStatus(500)
     });
 });
