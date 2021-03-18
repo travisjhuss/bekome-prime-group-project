@@ -12,6 +12,7 @@ function* formsSaga() {
   yield takeEvery('EDIT_QUESTION', editQuestion);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
+  yield takeEvery('FETCH_USERS', fetchUsers);
 }
 
 function* fetchPreferences() {
@@ -125,6 +126,16 @@ function* editPreference(action) {
     yield put({type: 'FETCH_PREFERENCES'});
   } catch(err) {
     console.log('error in editPreference', err)
+  }
+}
+
+function* fetchUsers() {
+  try {
+    const response = yield axios.get('/api/forms/fetch_users')
+    console.log('in fetchUsers with response data: ', response.data)
+    yield put({ type: 'SET_USERS', payload: response.data })
+  } catch (error) {
+    console.log('error in fetchUsers', error)
   }
 }
 

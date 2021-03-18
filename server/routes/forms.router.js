@@ -326,4 +326,18 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+router.get('/fetch_users', rejectUnauthenticated, (req, res) => {
+  sqlText = `
+  SELECT "id", "email", "user_type", "filled_out_form" FROM "users";
+  `
+  pool
+    .query(sqlText)
+    .then((result) => {
+      res.send(result.rows)})
+    .catch((err) => {
+      console.log('error in /fetch_users', err)
+      res.sendStatus(500)
+    })
+})
+
 module.exports = router;

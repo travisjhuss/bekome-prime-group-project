@@ -78,9 +78,7 @@ function AdminProviderQuestions() {
             editQuestion={editQuestion}
             />
 
-            <List
-            className={classes.adminPanelList}
-            >
+            <List>
                 {questions.map((question) => {
                     return (
                         <>
