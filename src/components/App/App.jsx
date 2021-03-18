@@ -25,6 +25,7 @@ import EditProvider from '../EditProvider/EditProviderRoot/EditProviderRoot';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
+import AdminProviderQuestions from '../AdminProviderQuestions/AdminProviderQuestions';
 
 import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';
@@ -179,6 +180,17 @@ function App() {
               // authRedirect="/user"
             >
               <AdminPanel />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows AdminPanel at "/admin-questions"
+              exact
+              path="/admin-questions"
+              // authRedirect="/user"
+            >
+              <AdminProviderQuestions />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}

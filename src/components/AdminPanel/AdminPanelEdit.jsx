@@ -35,7 +35,7 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
                     <TextField
                     className={classes.adminModalInput}
                     variant="outlined"
-                    label={"edit preference in " + editState.category}
+                    label={"editing in " + editState.category}
                     onChange={handleInputs}
                     value={editState.name}
                     fullWidth

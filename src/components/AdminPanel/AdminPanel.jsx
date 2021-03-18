@@ -68,9 +68,11 @@ function AdminPanel() {
         //     prefs: preferences.filter(pref => pref.category === 'states')
         // }
     ]
+    console.log(prefArray)
 
     useEffect(() => {
         dispatch({type: 'FETCH_PREFERENCES'})
+        dispatch({type: 'FETCH_PROVIDER_QUESTIONS'})
     }, []);
 
     const addPreference = (preference) => {
@@ -104,6 +106,7 @@ function AdminPanel() {
 
     return (
         <Grid container alignItems='baseline'>
+
             {prefArray.map((category) => {
                 return (
                     <AdminPanelForm
