@@ -31,19 +31,32 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
 
                 </Typography>
 
-                <TextField
-                className={classes.inputs}
+                <form onSubmit={() => {handleEditSubmit(editState)}}>
+                    <TextField
+                    className={classes.adminModalInput}
+                    variant="outlined"
+                    label={"edit preference in " + editState.category}
+                    onChange={handleInputs}
+                    value={editState.name}
+                    fullWidth
+                    />
+
+                    <Button
+                    type="submit"
+                    variant="outlined"
+                    >
+                        Submit
+                    </Button>
+                </form>
+
+                <br/>
+
+                <Button
+                onClick={() => {setModalState(false)}}
                 variant="outlined"
-                label="edit preference"
-                onChange={handleInputs}
-                value={editState.name}
-                />
-
-                <Button onClick={() => {handleEditSubmit(editState)}}>
-                    Submit
+                >
+                    close
                 </Button>
-
-                <Button onClick={() => {setModalState(false)}}>close</Button>
             </div>
         </Modal>
     )

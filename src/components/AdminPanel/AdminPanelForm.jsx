@@ -84,23 +84,25 @@ function AdminPanelForm({category, filteredPreferences, addPreference, deletePre
                 </>
                 }
 
-                <TextField
-                className={classes.inputs}
-                variant="outlined"
-                label="new preference"
-                onChange={handleInputs}
-                value={newPref}
-                />
+                <form onSubmit={() => handleSubmit({category: category, name: newPref})}>
+                    <TextField
+                    className={classes.inputs}
+                    variant="outlined"
+                    label="new preference"
+                    onChange={handleInputs}
+                    value={newPref}
+                    />
 
-                <Button
-                className={classes.adminPanelButton}
-                onClick={() => handleSubmit({category: category, name: newPref})}
-                variant="contained"
-                color="primary"
-                >
-                    Add
-                </Button>
-                <br/>
+                    <Button
+                    className={classes.adminPanelButton}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    >
+                        Add
+                    </Button>
+                </form>
+
             </Paper>
         </Grid>
     )

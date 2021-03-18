@@ -99,11 +99,17 @@ const useStyles = makeStyles((theme) => ({
   },
   adminModal: {
     position: 'absolute',
-    width: 400,
+    width: 800,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    top: '100px',
+    left: '100px'
+  },
+  adminModalInput: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }));
 
