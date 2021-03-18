@@ -53,7 +53,7 @@ function Nav() {
             </Button>
             <Button onClick={() => history.push('/login')}>
               <Typography variant="subtitle1" color="secondary">
-                Login / Sign-up
+                Sign-up / Login
               </Typography>
             </Button>
           </>
