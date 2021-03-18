@@ -37,7 +37,14 @@ function* fetchProviderQuestions() {
 }
 
 function* addNewQuestion(action) {
-  console.log('in saga new question', action.payload)
+  try {
+    console.log('in saga new question', action.payload)
+    yield axios.post('/api/forms/add_question', {content: action.payload});
+    // fetch provider questions so the admin form updates
+    yield put({ type: 'FETCH_PROVIDER_QUESTIONS' })
+  } catch (err) {
+    console.log('error in addNewQuestion', err)
+  }
 }
 
 function* addNewClient(action) {

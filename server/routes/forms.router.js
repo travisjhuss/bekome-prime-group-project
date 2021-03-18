@@ -33,6 +33,27 @@ router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST route for adding a new provider question
+router.post('/add_question', rejectUnauthenticated, (req, res) => {
+  const sqlText = `
+    INSERT INTO "questions" ("content")
+    VALUES ($1);
+    `;
+
+    console.log(req.body)
+
+    pool
+      .query(sqlText, [req.body.content])
+      .then((result) => {
+        res.sendStatus(201)
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log('Error in /forms/add_question', error)
+        res.sendStatus(500)
+      })
+})
+
 // POST route for adding a new preference to the preferences table
 router.post('/add_preference', rejectUnauthenticated, (req, res) => {
   console.log('adding preference', req.body)
