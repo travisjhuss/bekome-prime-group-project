@@ -9,6 +9,7 @@ function* formsSaga() {
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_QUESTION', addNewQuestion);
   yield takeEvery('DELETE_QUESTION', deleteQuestion);
+  yield takeEvery('EDIT_QUESTION', editQuestion);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
 }
@@ -57,6 +58,17 @@ function* deleteQuestion(action) {
     yield put({ type: 'FETCH_PROVIDER_QUESTIONS' })
   } catch (err) {
     console.log('error in deleteQuestion', err)
+  }
+}
+
+function* editQuestion(action) {
+  try {
+    console.log('in editQuestion with payload: ', action.payload);
+    yield axios.put('/api/forms/edit_question', action.payload);
+
+    yield put({type: 'FETCH_PROVIDER_QUESTIONS'});
+  } catch(err) {
+    console.log('error in editQuestion', err)
   }
 }
 

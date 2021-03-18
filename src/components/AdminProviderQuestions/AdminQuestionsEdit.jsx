@@ -7,17 +7,18 @@ import {
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelEdit({ modalState, setModalState, editState, setEditState, editPreference }) {
+function AdminQuestionsEdit({ modalState, setModalState, editState, setEditState, editQuestion }) {
     const classes = useStyles()
 
 
     const handleInputs = (event) => {
-        setEditState({...editState, name: event.target.value})
+        setEditState({...editState, content: event.target.value})
     };
 
-    const handleEditSubmit = (dataToSend) => {
-        editPreference(dataToSend)
-        setEditState({name:'', category: ''})
+    const handleEditSubmit = (event) => {
+        event.preventDefault();
+        editQuestion(editState)
+        setEditState({content:''})
         setModalState(false)
     }
 
@@ -27,14 +28,17 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
         open={modalState}
         >
             <div className={classes.adminModal}>
+                <Typography>
 
-                <form onSubmit={() => {handleEditSubmit(editState)}}>
+                </Typography>
+
+                <form onSubmit={handleEditSubmit}>
                     <TextField
                     className={classes.adminModalInput}
                     variant="outlined"
-                    label={"editing in " + editState.category}
+                    label={"editing question"}
                     onChange={handleInputs}
-                    value={editState.name}
+                    value={editState.content}
                     fullWidth
                     />
 
@@ -59,4 +63,4 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
     )
 }
 
-export default AdminPanelEdit;
+export default AdminQuestionsEdit;

@@ -70,6 +70,24 @@ router.delete('/delete_question/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
+// PUT route for editiing provider question
+router.put('/edit_question', rejectUnauthenticated, (req, res) => {
+  console.log('in edit question router', req.body)
+  const editQuestion = `
+    UPDATE "questions" SET
+    "content" = $1
+    WHERE "id" = $2;
+  `;
+
+  pool
+    .query(editQuestion, [req.body.content, req.body.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router question PUT', err)
+      res.sendStatus(500)
+    });
+});
+
 // POST route for adding a new preference to the preferences table
 router.post('/add_preference', rejectUnauthenticated, (req, res) => {
   console.log('adding preference', req.body)

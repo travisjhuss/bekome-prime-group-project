@@ -1,6 +1,7 @@
 import useStyles from '../../hooks/useStyles'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import AdminQuestionsEdit from './AdminQuestionsEdit';
 import {
     Paper,
     TextField,
@@ -26,8 +27,8 @@ function AdminProviderQuestions() {
     }, []);
 
     const [newQuestion, setNewQuestion] = useState('')
-    // const [modalState, setModalState] = useState(false)
-    // const [editState, setEditState] = useState({category: '', name: ''})
+    const [modalState, setModalState] = useState(false)
+    const [editState, setEditState] = useState({content: ''})
 
     const handleInputs = (event) => {
         console.log(event.target.value)
@@ -49,24 +50,40 @@ function AdminProviderQuestions() {
         })
     }
 
-    // const openEditModal = (id) => {
-    //     const selectedPreference = filteredPreferences.filter(pref => pref.id === id)
-    //     setEditState({id: id, name: selectedPreference[0].name, category: category})
-    //     setModalState(true)
-    // }
+    const editQuestion = (question) => {
+        console.log(question)
+        dispatch({
+            type: 'EDIT_QUESTION',
+            payload: question
+        })
+    }
+
+    const openEditModal = (id) => {
+        const selectedQuestion = questions.filter(question => question.id === id)
+        setEditState({id: id, content: selectedQuestion[0].content})
+        setModalState(true)
+    }
 
     return (
 
         <>
+            <AdminQuestionsEdit
+            modalState={modalState}
+            setModalState={setModalState}
+            editState={editState}
+            setEditState={setEditState}
+            editQuestion={editQuestion}
+            />
+
             <List>
                 {questions.map((question) => {
                     return (
                         <ListItem key={question.id}>
                             {question.content}
                             <ListItemSecondaryAction>
-                                {/* <IconButton onClick={() => openEditModal(preference.id)}>
+                                <IconButton onClick={() => openEditModal(question.id)}>
                                     <EditIcon />
-                                </IconButton> */}
+                                </IconButton>
                                 <IconButton onClick={() => deleteQuestion(question.id)}>
                                     <Delete />
                                 </IconButton>
