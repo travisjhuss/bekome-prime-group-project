@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Box, Chip, makeStyles } from '@material-ui/core';
+import {
+  Box,
+  Chip,
+  makeStyles,
+  Typography,
+  Button,
+  Grid,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   chips: {
@@ -15,30 +22,31 @@ function RegisterForm() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
   const [type, setType] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-    dispatch({
-      type: 'REGISTER',
-      payload: { username: email, password, user_type: type },
-    });
-    history.push('/new-profile/1');
+    if (password === password2) {
+      setPasswordsDoNotMatch(false);
+      dispatch({
+        type: 'REGISTER',
+        payload: { username: email, password, user_type: type },
+      });
+      history.push('/new-profile/1');
+    } else {
+      setPasswordsDoNotMatch(true);
+    }
   };
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
-      {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
-          {errors.registrationMessage}
-        </h3>
-      )}
-      <div>
-        <label htmlFor="username">
-          Email Address:
+    <form onSubmit={registerUser}>
+      <Grid container spacing={1} justify="center">
+        <Grid item xs={12}>
+          <Typography>Email Address:</Typography>
           <input
             type="text"
             name="username"
@@ -46,11 +54,9 @@ function RegisterForm() {
             required
             onChange={(event) => setEmail(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>Password:</Typography>
           <input
             type="password"
             name="password"
@@ -58,25 +64,66 @@ function RegisterForm() {
             required
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-      </div>
-      <Box>
-        <Chip
-          className={classes.chips}
-          onClick={() => setType('client')}
-          label="I am a client."
-          color={type === 'client' ? 'primary' : 'default'}
-        />
-        <Chip
-          className={classes.chips}
-          onClick={() => setType('provider')}
-          label="I am a provider."
-          color={type === 'provider' ? 'primary' : 'default'}
-        />
-      </Box>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>Confirm Password:</Typography>
+          <input
+            type="password"
+            name="password2"
+            value={password2}
+            required
+            onChange={(event) => setPassword2(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Box>
+            <Chip
+              className={classes.chips}
+              onClick={() => setType('client')}
+              label="I am a client."
+              variant={type === 'client' ? 'default' : 'outlined'}
+              color="primary"
+            />
+            <Chip
+              className={classes.chips}
+              onClick={() => setType('provider')}
+              label="I am a provider."
+              variant={type === 'provider' ? 'default' : 'outlined'}
+              color="primary"
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">
+            {' '}
+            I agree to the <u>Terms of Use</u> & <u>Privacy Policy</u>
+          </label>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            name="submit"
+            value="Register"
+          >
+            Submit
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+        {passwordsDoNotMatch && (
+          <h3 className="alert" role="alert">
+            Passwords Do Not Match
+          </h3>
+        )}
+        {errors.registrationMessage && (
+          <h3 className="alert" role="alert">
+            {errors.registrationMessage}
+          </h3>
+        )}
+        </Grid>
+      </Grid>
     </form>
   );
 }

@@ -122,8 +122,8 @@ const useStyles = makeStyles((theme) => ({
   },
   loginContainer: {
     margin: 'auto',
-    width: '500px',
-    height: '600px',
+    width: '400px',
+    height: '560px',
     
   },
   centerContainer: {
@@ -131,7 +131,9 @@ const useStyles = makeStyles((theme) => ({
   },
   loginBtn: {
     width: '100%',
-    
+  },
+  loginForm: {
+    margin: '30px'
   }
 }));
 
