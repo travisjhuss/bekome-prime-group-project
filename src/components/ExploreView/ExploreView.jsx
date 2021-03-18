@@ -46,43 +46,27 @@ function ExploreView() {
     },
   };
 
-  const filterArray = queryString.parse(location.search, {
+  const query = queryString.parse(location.search, {
     arrayFormat: 'bracket',
     parseNumbers: true,
-  }).filters;
+  });
 
-  const handleFilterURL = (id) => {
-    let newFilterString = '';
-    if (filterArray && filterArray.includes(id)) {
-      const newArray = filterArray.filter((item) => item !== id);
-      newFilterString = queryString.stringify(
-        { filters: newArray },
-        { arrayFormat: 'bracket' }
+  const filterArray = query.filterIds;
+
+  const filteredProvidersList = providers.filter((item) => {
+    if (filterArray) {
+      const matches = item.preferences_array.filter((element) =>
+        filterArray.includes(element)
       );
+      return matches.length === filterArray.length;
     } else {
-      newFilterString = queryString.stringify(
-        { filters: filterArray ? [...filterArray, id] : [id] },
-        { arrayFormat: 'bracket' }
-      );
+      return true;
     }
-    history.push(`/explore/?${newFilterString}`);
-  };
-
-  const filteredProvidersList = providers
-    .filter((item) => {
-      if (filterArray) {
-        const matches = item.preferences_array.filter((element) =>
-          filterArray.includes(element)
-        );
-        return matches.length === filterArray.length;
-      } else {
-        return true;
-      }
-    })
+  });
 
   return (
     <div>
-      <FilterMenu handleFilterURL={handleFilterURL} filterArray={filterArray} />
+      <FilterMenu query={query} />
       <Swiper
         spaceBetween={0}
         navigation

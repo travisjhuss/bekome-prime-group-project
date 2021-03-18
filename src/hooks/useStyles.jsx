@@ -114,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
   editClientAccordion: {
     display: 'block',
   },
+  filterDrawer: {
+    width: 300,
+  },
+  filterListItem: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 export default useStyles;
