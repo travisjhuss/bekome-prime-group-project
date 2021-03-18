@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
   exploreReducer, // reducer that contains all explore provider data
   providerDetails, // Returns info for one provider for ProviderDetails
   interestedClientsReducer, // This reducer holds the picture and select preference result returned from the interested-clients router
-  savedProviders, // This reducer hold the providers that the client has saved as a favorite
+  savedProviders, // This reducer holds the providers that the client has saved as a favorite
   oneClient, // Holds card info for a logged in client in EditClient, so the card doesn't have active changes during typing
   allUsers, // contains data on all users in users table for Admin view
 });
