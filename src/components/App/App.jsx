@@ -23,10 +23,9 @@ import EditProvider from '../EditProvider/EditProviderRoot/EditProviderRoot';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
-// Mui imports and theme
 import AdminProviderQuestions from '../AdminProviderQuestions/AdminProviderQuestions';
 import AdminUsersList from '../AdminUsersList/AdminUsersList';
-
+// Mui imports and theme
 import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';
 import './App.css';

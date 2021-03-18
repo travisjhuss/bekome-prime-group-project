@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 import {
@@ -23,16 +22,12 @@ import useStyles from '../../hooks/useStyles';
 function FilterMenu({ query }) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const preferences = useSelector((store) => store.preferences);
-  const {
-    filterIds,
-    states,
-    booleans,
-    collapseOnRefresh,
-    drawerOnRefresh,
-  } = query;
-  const [drawer, setDrawer] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const { filterIds, states, booleans } = query;
+  const { collapseOpen, drawerOpen } = useSelector(
+    (store) => store.drawerCollapse
+  );
 
   const handleFilterArray = (value, key) => {
     const array =
@@ -44,12 +39,7 @@ function FilterMenu({ query }) {
         ? [...array, value]
         : [value];
     const newFilterString = queryString.stringify(
-      {
-        ...query,
-        [key]: newFilterArray,
-        drawerOnRefresh: drawer,
-        collapseOnRefresh: collapse,
-      },
+      { ...query, [key]: newFilterArray },
       { arrayFormat: 'bracket' }
     );
     history.push(`/explore/?${newFilterString}`);
@@ -69,38 +59,13 @@ function FilterMenu({ query }) {
       .join(' ');
   };
 
-  const handleCollapse = (category) => {
-    collapse === category ? setCollapse(false) : setCollapse(category);
-  };
-
-  const handleCollapseOpen = (category) => {
-    if (collapseOnRefresh && collapseOnRefresh === category) {
-      delete query.collapseOnRefresh;
-      setCollapse(category);
-      return true;
-    } else if (collapse && collapse === category) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const handleDrawerClose = () => {
-    if (drawerOnRefresh) {
-      delete query.drawerOnRefresh;
-      setDrawer(false);
-    } else {
-      setDrawer(false);
-    }
-  };
-
   return (
     <Box>
       <Button
         startIcon={<FilterListIcon />}
         color="primary"
         className={classes.filterButton}
-        onClick={() => setDrawer(true)}
+        onClick={() => dispatch({ type: 'SET_DRAWER' })}
       >
         <Typography variant="subtitle1">Filters</Typography>
       </Button>
@@ -134,21 +99,26 @@ function FilterMenu({ query }) {
       <Drawer
         BackdropProps={{ invisible: true }}
         anchor={'left'}
-        open={drawerOnRefresh || drawer}
-        onClose={handleDrawerClose}
+        open={drawerOpen}
+        onClose={() => dispatch({ type: 'SET_DRAWER' })}
       >
         <List>
           {categories.sort().map((category, i) => (
             <Box key={i} className={classes.filterDrawer}>
-              <ListItem button onClick={() => handleCollapse(category)}>
+              <ListItem
+                button
+                onClick={() =>
+                  dispatch({ type: 'SET_COLLAPSE', payload: category })
+                }
+              >
                 <ListItemIcon>
-                  {collapse === category ? <ExpandLess /> : <ExpandMore />}
+                  {collapseOpen === category ? <ExpandLess /> : <ExpandMore />}
                 </ListItemIcon>
                 <Typography subtitle="subtitle1">
                   {parseCategory(category)}
                 </Typography>
               </ListItem>
-              <Collapse in={handleCollapseOpen(category)} unmountOnExit>
+              <Collapse in={collapseOpen === category} unmountOnExit>
                 {preferences.map((item) => {
                   if (
                     item.category === category &&
