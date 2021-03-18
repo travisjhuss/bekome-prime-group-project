@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Grid,
-    Modal,
-    Button,
-    Typography,
-    TextField,
 } from '@material-ui/core';
 
 
@@ -73,10 +69,6 @@ function AdminPanel() {
         // }
     ]
 
-
-    const [modalState, setModalState] = useState(false)
-
-
     useEffect(() => {
         dispatch({type: 'FETCH_PREFERENCES'})
     }, []);
@@ -101,66 +93,27 @@ function AdminPanel() {
         })
     }
 
-    // const editPreference = (id) => {
-    //     console.log(id)
-    //     setModalState(true)
-    // }
-
-    // const [editPref, setEditPref] = useState('')
-
-    // const handleInputs = (event) => {
-    //     setEditPref(event.target.value)
-    // };
-
-    // const handleSubmit = (dataToSend) => {
-    //     addPreference(dataToSend);
-    //     setEditPref('')
-    // }
-
+    const editPreference = (dataToSend) => {
+        console.log(dataToSend)
+    }
 
 
     return (
-        <>
-
-            {/* <Modal
-            open={modalState}
-            >
-                <div className={classes.adminModal}>
-                    <Typography>
-
-                    </Typography>
-
-                    <TextField 
-                    className={classes.inputs}
-                    variant="outlined"
-                    label="edit preference"
-                    onChange={handleInputs}
-                    value={editPref}
+        <Grid container alignItems='baseline'>
+            {prefArray.map((category) => {
+                return (
+                    <AdminPanelForm
+                    category={category.name}
+                    filteredPreferences={category.prefs}
+                    // handleInputs={handleInputs}
+                    // newPref={newPref}
+                    addPreference={addPreference}
+                    deletePreference={deletePreference}
+                    editPreference={editPreference}
                     />
-
-                    <Button onClick={() => {handleSubmit()}}>Submit</Button>
-
-
-                    <Button onClick={() => {setModalState(false)}}>close</Button>
-                </div>
-            </Modal> */}
-
-            <Grid container alignItems='baseline'>
-                {prefArray.map((category) => {
-                    return (
-                        <AdminPanelForm
-                        category={category.name}
-                        filteredPreferences={category.prefs}
-                        // handleInputs={handleInputs}
-                        // newPref={newPref}
-                        addPreference={addPreference}
-                        deletePreference={deletePreference}
-                        // editPreference={editPreference}
-                        />
-                    )
-                })}
-            </Grid>
-        </>
+                )
+            })}
+        </Grid>
 
     )
 }

@@ -17,12 +17,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelForm({category, filteredPreferences, addPreference, deletePreference}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, deletePreference, editPreference}) {
     const classes = useStyles()
 
     const [newPref, setNewPref] = useState('')
     const [modalState, setModalState] = useState(false)
-    const [editPref, setEditPref] = useState('')
+    const [editState, setEditState] = useState({})
 
     const handleInputs = (event) => {
         setNewPref(event.target.value)
@@ -33,10 +33,9 @@ function AdminPanelForm({category, filteredPreferences, addPreference, deletePre
         setNewPref('')
     }
 
-    const editPreference = (id) => {
+    const openEditModal = (id) => {
         const selectedPreference = filteredPreferences.filter(pref => pref.id === id)
-        console.log(selectedPreference)
-        setEditPref(selectedPreference[0].name)
+        setEditState({id: id, name: selectedPreference[0].name, category: category})
         setModalState(true)
     }
 
@@ -47,8 +46,9 @@ function AdminPanelForm({category, filteredPreferences, addPreference, deletePre
             <AdminPanelEdit
             modalState={modalState}
             setModalState={setModalState}
-            editPref={editPref}
-            setEditPref={setEditPref}
+            editState={editState}
+            setEditState={setEditState}
+            editPreference={editPreference}
             />
 
             <Paper className={classes.paper}>
@@ -64,7 +64,7 @@ function AdminPanelForm({category, filteredPreferences, addPreference, deletePre
                             <ListItem key={preference.id}>
                                 {preference.name}
                                 <ListItemSecondaryAction>
-                                    <IconButton onClick={() => editPreference(preference.id)}>
+                                    <IconButton onClick={() => openEditModal(preference.id)}>
                                         <EditIcon />
                                     </IconButton>
                                     <IconButton onClick={() => deletePreference(preference.id)}>

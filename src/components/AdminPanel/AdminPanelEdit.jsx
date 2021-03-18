@@ -10,19 +10,19 @@ import {
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelEdit({ modalState, setModalState, editPref, setEditPref }) {
+function AdminPanelEdit({ modalState, setModalState, editState, setEditState, editPreference }) {
     const classes = useStyles()
 
-    // const [editPref, setEditPref] = useState()
 
     const handleInputs = (event) => {
-        setEditPref(event.target.value)
-        console.log(editPref)
+        setEditState(event.target.value)
     };
 
-    const handleSubmit = (dataToSend) => {
-        addPreference(dataToSend);
-        setEditPref('')
+    const handleEditSubmit = (dataToSend) => {
+        console.log(dataToSend)
+        editPreference(dataToSend)
+        setEditState({name:'', category: ''})
+        setModalState(false)
     }
 
 
@@ -40,11 +40,12 @@ function AdminPanelEdit({ modalState, setModalState, editPref, setEditPref }) {
                 variant="outlined"
                 label="edit preference"
                 onChange={handleInputs}
-                value={editPref}
+                value={editState.name}
                 />
 
-                <Button onClick={() => {handleSubmit()}}>Submit</Button>
-
+                <Button onClick={() => {handleEditSubmit({id: editState.id, category: editState.category, name: editState.name})}}>
+                    Submit
+                </Button>
 
                 <Button onClick={() => {setModalState(false)}}>close</Button>
             </div>
