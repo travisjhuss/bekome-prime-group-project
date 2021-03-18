@@ -33,6 +33,61 @@ router.get('/provider_questions', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST route for adding a new provider question
+router.post('/add_question', rejectUnauthenticated, (req, res) => {
+  const sqlText = `
+    INSERT INTO "questions" ("content")
+    VALUES ($1);
+    `;
+
+    console.log(req.body)
+
+    pool
+      .query(sqlText, [req.body.content])
+      .then((result) => {
+        res.sendStatus(201)
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log('Error in /forms/add_question', error)
+        res.sendStatus(500)
+      })
+});
+
+// DELETE route for deleting provider question
+router.delete('/delete_question/:id', rejectUnauthenticated, (req, res) => {
+  const deleteQuestion = `
+    DELETE FROM "questions"
+    WHERE "id" = $1;
+  `;
+
+  pool
+    .query(deleteQuestion, [req.params.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router DELETE question', err);
+      res.sendStatus(500);
+    })
+})
+
+// PUT route for editiing provider question
+router.put('/edit_question', rejectUnauthenticated, (req, res) => {
+  console.log('in edit question router', req.body)
+  const editQuestion = `
+    UPDATE "questions" SET
+    "content" = $1
+    WHERE "id" = $2;
+  `;
+
+  pool
+    .query(editQuestion, [req.body.content, req.body.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router question PUT', err)
+      res.sendStatus(500)
+    });
+});
+
 // POST route for adding a new preference to the preferences table
 router.post('/add_preference', rejectUnauthenticated, (req, res) => {
   console.log('adding preference', req.body)
@@ -50,6 +105,7 @@ router.post('/add_preference', rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log('Error in /forms/add_preference', error)
+      res.sendStatus(500)
     })
 });
 
@@ -64,9 +120,29 @@ router.delete('/delete_preference/:id', rejectUnauthenticated, (req, res) => {
     .query(deletePreference, [req.params.id])
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      console.log('error in forms.router DELETE', err);
+      console.log('error in forms.router DELETE preference', err);
+      res.sendStatus(500)
     });
 });
+
+// PUT route for editing a preference in the preferences table
+router.put('/edit_preference', rejectUnauthenticated, (req, res) => {
+  console.log('in edit router', req.body)
+  const editPreference = `
+    UPDATE "preferences" SET
+    "category" = $1,
+    "name" = $2
+    WHERE "id" = $3;
+  `;
+
+  pool
+    .query(editPreference, [req.body.category, req.body.name, req.body.id])
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.log('error in forms.router PUT', err)
+      res.sendStatus(500)
+    })
+})
 
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
@@ -249,5 +325,19 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     connection.release();
   }
 });
+
+router.get('/fetch_users', rejectUnauthenticated, (req, res) => {
+  sqlText = `
+  SELECT "id", "email", "user_type", "filled_out_form" FROM "users";
+  `
+  pool
+    .query(sqlText)
+    .then((result) => {
+      res.send(result.rows)})
+    .catch((err) => {
+      console.log('error in /fetch_users', err)
+      res.sendStatus(500)
+    })
+})
 
 module.exports = router;
