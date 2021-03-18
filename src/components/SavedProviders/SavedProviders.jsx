@@ -1,8 +1,9 @@
-import UserCardSaved from '../UserCardSaved/UserCardSaved';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+// Components
+import UserCardSaved from '../cards/UserCardSaved/UserCardSaved';
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {

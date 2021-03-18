@@ -21,17 +21,10 @@ function EditProviderRoot() {
   const provider = useSelector((store) => store.providerDetails);
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
   const preferences = useSelector((store) => store.preferences);
-  const [dialogOpen, setDialogOpen] = useState({
-    questions: false,
-    strengths: false,
-    background: false,
-    specialties: false,
-    formats: false,
-    card: false,
-  });
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState('questions');
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
     dispatch({ type: 'FETCH_EDIT_PROVIDER_PROFILE', payload: id });
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
@@ -55,8 +48,13 @@ function EditProviderRoot() {
     });
   };
 
-  const handleDialogs = (whichDialog) => {
-    setDialogOpen({ ...dialogOpen, [whichDialog]: !dialogOpen[whichDialog] });
+  const handleOpenAccordion = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : false);
+  };
+
+  const handleCancel = () => {
+    dispatch({ type: 'FETCH_EDIT_PROVIDER_PROFILE', payload: id });
+    setDialogOpen(false);
   };
 
   const handleSubmit = () => {
@@ -64,6 +62,7 @@ function EditProviderRoot() {
       type: 'SUBMIT_PROVIDER_EDITS',
       payload: { answers: providerAnswers, id },
     });
+    setDialogOpen(false);
   };
 
   return (
@@ -75,30 +74,43 @@ function EditProviderRoot() {
             <UserCard
               provider={provider}
               edit={true}
-              handleDialogs={handleDialogs}
+              setDialogOpen={setDialogOpen}
             />
           </Grid>
           <Grid item xs={8}>
-            <QuestionAccordion edit={true} handleDialogs={handleDialogs} />
+            <QuestionAccordion
+              edit={true}
+              setDialogOpen={setDialogOpen}
+              openAccordion={openAccordion}
+              handleOpenAccordion={handleOpenAccordion}
+            />
             <StrengthsAccordion
               parsePreferences={parsePreferences}
               edit={true}
-              handleDialogs={handleDialogs}
+              setDialogOpen={setDialogOpen}
+              openAccordion={openAccordion}
+              handleOpenAccordion={handleOpenAccordion}
             />
             <BackgroundAccordion
               parsePreferences={parsePreferences}
               edit={true}
-              handleDialogs={handleDialogs}
+              setDialogOpen={setDialogOpen}
+              openAccordion={openAccordion}
+              handleOpenAccordion={handleOpenAccordion}
             />
             <SpecialtiesAccordion
               parsePreferences={parsePreferences}
               edit={true}
-              handleDialogs={handleDialogs}
+              setDialogOpen={setDialogOpen}
+              openAccordion={openAccordion}
+              handleOpenAccordion={handleOpenAccordion}
             />
             <FormatsAccordion
               parsePreferences={parsePreferences}
               edit={true}
-              handleDialogs={handleDialogs}
+              setDialogOpen={setDialogOpen}
+              openAccordion={openAccordion}
+              handleOpenAccordion={handleOpenAccordion}
             />
           </Grid>
         </Grid>
@@ -106,36 +118,36 @@ function EditProviderRoot() {
       <EditProviderQuestionsDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
+        handleCancel={handleCancel}
       />
       <EditProviderStrengthsDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
         handleInputs={handleInputs}
+        handleCancel={handleCancel}
       />
       <EditProviderBackgroundDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
         handleInputs={handleInputs}
+        handleCancel={handleCancel}
       />
       <EditProviderSpecialtiesDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
+        handleCancel={handleCancel}
       />
       <EditProviderFormatsDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
         handleInputs={handleInputs}
+        handleCancel={handleCancel}
       />
       <EditProviderCardDialog
         handleSubmit={handleSubmit}
         dialogOpen={dialogOpen}
-        handleDialogs={handleDialogs}
         handleInputs={handleInputs}
+        handleCancel={handleCancel}
       />
     </>
   );

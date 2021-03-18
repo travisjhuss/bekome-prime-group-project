@@ -12,12 +12,21 @@ import { ExpandMore, Edit } from '@material-ui/icons';
 // Component imports
 import useStyles from '../../../hooks/useStyles';
 
-function StrengthsAccordion({ parsePreferences, edit, handleDialogs }) {
+function StrengthsAccordion({
+  parsePreferences,
+  edit,
+  setDialogOpen,
+  openAccordion,
+  handleOpenAccordion,
+}) {
   const classes = useStyles();
   const { strengths } = useSelector((store) => store.providerDetails);
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={openAccordion === 'strengths'}
+      onChange={handleOpenAccordion('strengths')}
+    >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography variant="h6" className={classes.accordionTitle}>
           Strengths
@@ -26,7 +35,7 @@ function StrengthsAccordion({ parsePreferences, edit, handleDialogs }) {
           <IconButton
             onClick={(event) => {
               event.stopPropagation();
-              handleDialogs('strengths');
+              setDialogOpen('strengths');
             }}
             onFocus={(event) => event.stopPropagation()}
           >

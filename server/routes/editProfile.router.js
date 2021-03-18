@@ -10,8 +10,8 @@ router.get('/client', rejectUnauthenticated, (req, res) => {
     SELECT "clients".*,
       ARRAY_AGG("clients_preferences".preferences_id) AS "preferences_array" 
     FROM "clients" 
-    JOIN "clients_preferences" ON "clients".clients_users_id = 
-      "clients_preferences".clients_users_id
+    JOIN "clients_preferences" ON "clients".clients_users_id 
+      = "clients_preferences".clients_users_id
     WHERE "clients".clients_users_id = $1 
     GROUP BY "clients".id;
   `;

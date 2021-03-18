@@ -71,9 +71,7 @@ const router = express.Router();
             (pronounsCount > 1)
             ? fullProviderObject.pronouns += '; ' + pref.name
             : fullProviderObject.pronouns +=  pref.name
-        }
-        console.log(fullProviderObject)
-  
+        }  
         // pushing each fullProvider object into the array that will be sent to the client
         fullProviderArray.push(fullProviderObject);
       }

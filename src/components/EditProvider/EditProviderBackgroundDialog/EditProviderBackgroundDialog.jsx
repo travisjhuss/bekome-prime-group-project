@@ -18,8 +18,8 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 function EditProviderBackgroundDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
   handleInputs,
+  handleCancel,
 }) {
   const classes = useStyles();
   const { background, approach } = useSelector(
@@ -27,10 +27,7 @@ function EditProviderBackgroundDialog({
   );
 
   return (
-    <Dialog
-      open={dialogOpen.background}
-      onClose={() => handleDialogs('background')}
-    >
+    <Dialog open={dialogOpen === 'background'} onClose={handleCancel}>
       <DialogTitle>Edit Background/Approach</DialogTitle>
       <DialogContent>
         <Grid container spacing={3}>
@@ -73,17 +70,10 @@ function EditProviderBackgroundDialog({
         <FormMenuChips category={'religions'} string={'Religions'} />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleDialogs('background')}>
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('background');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>

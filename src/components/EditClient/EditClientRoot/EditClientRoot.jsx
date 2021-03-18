@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Box, Grid } from '@material-ui/core';
 // Custom hooks
@@ -13,9 +12,7 @@ import EditClientTherapyPreferencesAccordion from '../EditClientTherapyPreferenc
 import EditClientProviderPreferencesAccordion from '../EditClientProviderPreferencesAccordion/EditClientProviderPreferencesAccordion';
 
 function EditClientRoot() {
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const client = useSelector((store) => store.oneClient);
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
   const [cardDialogOpen, setCardDialogOpen] = useState(false);

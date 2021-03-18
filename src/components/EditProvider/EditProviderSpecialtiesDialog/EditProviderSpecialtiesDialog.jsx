@@ -13,12 +13,12 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 function EditProviderSpecialtiesDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
+  handleCancel,
 }) {
   return (
     <Dialog
-      open={dialogOpen.specialties}
-      onClose={() => handleDialogs('specialties')}
+      open={dialogOpen === 'specialties'}
+      onClose={handleCancel}
       fullWidth
       maxWidth="md"
     >
@@ -38,20 +38,10 @@ function EditProviderSpecialtiesDialog({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="contained"
-          onClick={() => handleDialogs('specialties')}
-        >
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('specialties');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>

@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
@@ -13,7 +13,7 @@ import {
 import { LocationOn, Language, Edit } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
-function UserCard({ provider, edit, handleDialogs }) {
+function UserCard({ provider, edit, setDialogOpen }) {
   const classes = useStyles();
   const history = useHistory();
   const { user_type } = useSelector((store) => store.user);
@@ -76,7 +76,7 @@ function UserCard({ provider, edit, handleDialogs }) {
           />
         )}
         {edit && (
-          <IconButton onClick={() => handleDialogs('card')}>
+          <IconButton onClick={() => setDialogOpen('card')}>
             <Edit />
           </IconButton>
         )}

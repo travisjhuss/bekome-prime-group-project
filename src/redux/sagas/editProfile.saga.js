@@ -27,6 +27,7 @@ function* fetchEditProviderProfile(action) {
     const response = yield axios.get(`/api/provider-details/${id}`);
     // dispatch to providerAnswers
     yield put({ type: 'SET_EDIT_PROVIDER_PROFILE', payload: response.data });
+    yield put({ type: 'SET_PROVIDER_DETAILS', payload: response.data });
   } catch (err) {
     console.log('error in fetchEditProviderProfile:', err);
   }
