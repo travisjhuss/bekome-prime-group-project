@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 
 // Component imports
-import ClientFormRoot from '../clientForm/ClientFormRoot/ClientFormRoot';
-import ProviderFormRoot from '../providerForm/ProviderFormRoot/ProviderFormRoot';
+import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
+import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
 import useStyles from '../../hooks/useStyles';
 
 // Strings that display on stepper for Client
