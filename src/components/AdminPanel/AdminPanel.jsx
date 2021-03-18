@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Grid,
-    Modal,
-    Button,
-    Typography
 } from '@material-ui/core';
 
 
@@ -65,19 +62,17 @@ function AdminPanel() {
             name: 'insurance',
             prefs: preferences.filter(pref => pref.category === 'insurance')
         },
-        // uncomment next four lines if you'd like a form to edit the states in the database
+        // uncomment next four lines if you'd like a form on the AdminPanel to edit the states in the database
         // {
         //     name: 'states',
         //     prefs: preferences.filter(pref => pref.category === 'states')
         // }
     ]
-
-
-    const [modalState, setModalState] = useState(false)
-
+    console.log(prefArray)
 
     useEffect(() => {
         dispatch({type: 'FETCH_PREFERENCES'})
+        dispatch({type: 'FETCH_PROVIDER_QUESTIONS'})
     }, []);
 
     const addPreference = (preference) => {
@@ -100,43 +95,30 @@ function AdminPanel() {
         })
     }
 
-    const editPreference = (id) => {
-        console.log(id)
-        setModalState(true)
+    const editPreference = (preference) => {
+        console.log(preference)
+        dispatch({
+            type: 'EDIT_PREFERENCE',
+            payload: preference
+        })
     }
 
 
-
     return (
-        <>
+        <Grid container alignItems='baseline'>
 
-            <Modal
-            open={modalState}
-            >
-                <div className={classes.adminModal}>
-                    <Typography>
-
-                    </Typography>
-                    <Button onClick={() => {setModalState(false)}}>close</Button>
-                </div>
-            </Modal>
-
-            <Grid container alignItems='baseline'>
-                {prefArray.map((category) => {
-                    return (
-                        <AdminPanelForm
-                        category={category.name}
-                        filteredPreferences={category.prefs}
-                        // handleInputs={handleInputs}
-                        // newPref={newPref}
-                        addPreference={addPreference}
-                        deletePreference={deletePreference}
-                        editPreference={editPreference}
-                        />
-                    )
-                })}
-            </Grid>
-        </>
+            {prefArray.map((category) => {
+                return (
+                    <AdminPanelForm
+                    category={category.name}
+                    filteredPreferences={category.prefs}
+                    addPreference={addPreference}
+                    deletePreference={deletePreference}
+                    editPreference={editPreference}
+                    />
+                )
+            })}
+        </Grid>
 
     )
 }

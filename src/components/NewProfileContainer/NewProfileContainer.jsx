@@ -34,7 +34,7 @@ const providerSteps = [
 ];
 
 // Outer container that holds all form components
-function MainFormContainer() {
+function NewProfileContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
