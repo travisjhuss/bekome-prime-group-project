@@ -4,7 +4,6 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchProviderDetails(action) {
   const id = action.payload;
   const response = yield axios.get(`/api/provider-details/${id}`);
-
   yield put({ type: 'SET_PROVIDER_DETAILS', payload: response.data });
 }
 

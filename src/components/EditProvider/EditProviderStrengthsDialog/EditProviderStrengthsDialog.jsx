@@ -17,16 +17,14 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 function EditProviderStrengthsDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
+  handleCancel,
   handleInputs,
 }) {
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
   const classes = useStyles();
+  const { strengths } = useSelector((store) => store.forms.providerAnswers);
+
   return (
-    <Dialog
-      open={dialogOpen.strengths}
-      onClose={() => handleDialogs('strengths')}
-    >
+    <Dialog open={dialogOpen === 'strengths'} onClose={handleCancel}>
       <DialogTitle>Edit Strengths</DialogTitle>
       <DialogContent>
         <Grid container spacing={3}>
@@ -40,7 +38,7 @@ function EditProviderStrengthsDialog({
               rows={6}
               label="Answer here"
               onChange={handleInputs('strengths')}
-              value={providerAnswers.strengths}
+              value={strengths}
             />
           </Grid>
           <Grid item xs={6}>
@@ -50,17 +48,10 @@ function EditProviderStrengthsDialog({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleDialogs('strengths')}>
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('strengths');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>

@@ -1,55 +1,38 @@
-import { useSelector } from 'react-redux';
 import {
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  TextField,
   Box,
   Button,
 } from '@material-ui/core';
-import { ExpandMore, Edit } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
-function EditClientReasonsAccordion({
-  handleInputs,
+function EditClientProviderQualitiesAccordion({
   handleSubmit,
   handleCancel,
   handleOpenAccordion,
   openAccordion,
 }) {
   const classes = useStyles();
-  const { primary_reason } = useSelector((store) => store.forms.clientAnswers);
 
   return (
     <Accordion
-      expanded={openAccordion === 'reasons'}
-      onChange={handleOpenAccordion('reasons')}
+      expanded={openAccordion === 'providerQualities'}
+      onChange={handleOpenAccordion('providerQualities')}
     >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.accordionTitle} variant="h6">
-          Reasons/Challenges
+          Therapist Qualities
         </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.editClientAccordion}>
-        <Typography>
-          What is your primary reason for seeking therapy?
-        </Typography>
-        <TextField
-          variant="outlined"
-          label="Answer here"
-          multiline
-          fullWidth
-          rows={4}
-          className={classes.inputs}
-          value={primary_reason || ''}
-          onChange={handleInputs('primary_reason')}
-        />
-        <Typography>What are you struggling with?</Typography>
-        <FormCheckboxes category={'challenges'} />
+        <Typography>What qualities do you look for in a therapist?</Typography>
+        <FormCheckboxes category={'qualities'} limit={5} />
         <Box display="flex" flexDirection="row-reverse">
           <Button
             variant="contained"
@@ -62,7 +45,10 @@ function EditClientReasonsAccordion({
           <Button
             variant="contained"
             className={classes.editClientButton}
-            onClick={handleCancel}
+            onClick={() => {
+              handleCancel();
+              handleOpenAccordion(false);
+            }}
           >
             Cancel
           </Button>
@@ -72,4 +58,4 @@ function EditClientReasonsAccordion({
   );
 }
 
-export default EditClientReasonsAccordion;
+export default EditClientProviderQualitiesAccordion;

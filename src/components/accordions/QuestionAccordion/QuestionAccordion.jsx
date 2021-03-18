@@ -9,20 +9,27 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
-function QuestionAccordion({ edit, handleDialogs }) {
+function QuestionAccordion({
+  edit,
+  setDialogOpen,
+  openAccordion,
+  handleOpenAccordion,
+}) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.providerDetails);
   const providerQuestions = useSelector((store) => store.providerQuestions);
-  const [open, setOpen] = useState(true);
 
   useEffect(() => dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' }), []);
 
   return (
     <>
-      <Accordion expanded={open} onChange={() => setOpen(!open)}>
+      <Accordion
+        expanded={openAccordion === 'questions'}
+        onChange={handleOpenAccordion('questions')}
+      >
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Typography variant="h6" className={classes.accordionTitle}>
             Questions
@@ -31,7 +38,7 @@ function QuestionAccordion({ edit, handleDialogs }) {
             <IconButton
               onClick={(event) => {
                 event.stopPropagation();
-                handleDialogs('questions');
+                setDialogOpen('questions');
               }}
               onFocus={(event) => event.stopPropagation()}
             >

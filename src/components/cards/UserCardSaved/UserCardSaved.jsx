@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
+import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
   CardActionArea,
@@ -11,7 +11,7 @@ import {
   Box,
 } from '@material-ui/core';
 // Custom hooks
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
 
 function UserCardSaved({ provider }) {

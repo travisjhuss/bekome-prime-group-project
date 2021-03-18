@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Grid } from '@material-ui/core';
-
+// Custom hooks
+import useStyles from '../../hooks/useStyles';
 // Component imports
-import FavoriteProviderButton from "../FavoriteProviderButton/FavoriteProviderButton";
-import QuestionAccordion from "../QuestionAccordion/QuestionAccordion";
-import StrengthsAccordion from "../StrengthsAccordion/StrengthsAccordion";
-import BackgroundAccordion from "../BackgroundAccordion/BackgroundAccordion";
-import SpecialtiesAccordion from "../SpecialtiesAccordion/SpecialtiesAccordion";
-import FormatsAccordion from "../FormatsAccordion/FormatsAccordion";
-import useStyles from "../../hooks/useStyles";
+import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
+import QuestionAccordion from '../accordions/QuestionAccordion/QuestionAccordion';
+import StrengthsAccordion from '../accordions/StrengthsAccordion/StrengthsAccordion';
+import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAccordion';
+import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
+import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -30,10 +30,11 @@ function ProviderDetails() {
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
+  const [openAccordion, setOpenAccordion] = useState('questions');
 
   useEffect(() => {
-    dispatch({ type: "FETCH_PROVIDER_DETAILS", payload: id });
-    dispatch({ type: "FETCH_PREFERENCES" });
+    dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
   const parsePreferences = (category) => {
@@ -43,8 +44,12 @@ function ProviderDetails() {
           item.category === category && preferences_array?.includes(item.id)
         );
       })
-      .reduce((string, item) => (string += `${item.name}, `), "")
+      .reduce((string, item) => (string += `${item.name}, `), '')
       .slice(0, -2);
+  };
+
+  const handleOpenAccordion = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : false);
   };
 
   return (
@@ -56,7 +61,7 @@ function ProviderDetails() {
         <FavoriteProviderButton
           id={providers_users_id}
           saved={saved}
-          type={"FETCH_PROVIDER_DETAILS"}
+          type={'FETCH_PROVIDER_DETAILS'}
         />
       </Box>
       <Grid container spacing={3}>
@@ -66,27 +71,46 @@ function ProviderDetails() {
             <Box>
               <Typography>Age: {age}</Typography>
               <Typography>
-                Pronouns: {parsePreferences("pronouns")}
+                Pronouns: {parsePreferences('pronouns')}
                 {write_in_pronouns && `, ${write_in_pronouns}`}
               </Typography>
               <Typography>
                 Location: {city}, {state}
               </Typography>
               <Typography>
-                Languages: {parsePreferences("languages")}
+                Languages: {parsePreferences('languages')}
               </Typography>
               <Typography>
-                Religious Affiliations: {parsePreferences("religions")}
+                Religious Affiliations: {parsePreferences('religions')}
               </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <QuestionAccordion />
-          <StrengthsAccordion parsePreferences={parsePreferences} />
-          <BackgroundAccordion parsePreferences={parsePreferences} />
-          <SpecialtiesAccordion parsePreferences={parsePreferences} />
-          <FormatsAccordion parsePreferences={parsePreferences} />
+          <QuestionAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+          />
+          <StrengthsAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <BackgroundAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <SpecialtiesAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
+          <FormatsAccordion
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            parsePreferences={parsePreferences}
+          />
         </Grid>
       </Grid>
     </Box>

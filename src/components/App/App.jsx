@@ -1,32 +1,30 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   HashRouter as Router,
   Route,
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
+// Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import MainFormContainer from '../MainFormContainer/MainFormContainer';
+import NewProfileContainer from '../NewProfileContainer/NewProfileContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
-import EditClient from '../EditClient/EditClientRoot/EditClientRoot';
-import EditProvider from '../EditProvider/EditProviderRoot/EditProviderRoot';
+import EditClient from '../editClient/EditClientRoot/EditClientRoot';
+import EditProvider from '../editProvider/EditProviderRoot/EditProviderRoot';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
-import ClientCard from '../ClientCard/ClientCard'
-
+// Mui imports and theme
 import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';
 import './App.css';
@@ -89,7 +87,7 @@ function App() {
               exact
               path="/new-profile/:page"
             >
-              <MainFormContainer />
+              <NewProfileContainer />
             </ProtectedRoute>
 
             {/* When a value is supplied for the authRedirect prop the user will

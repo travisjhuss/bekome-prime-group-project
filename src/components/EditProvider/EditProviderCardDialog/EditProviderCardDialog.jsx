@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { DateTime } from 'luxon';
 import {
   Dialog,
   DialogTitle,
@@ -24,8 +25,8 @@ import S3Uploader from '../../S3Uploader/S3Uploader';
 function EditProviderCardDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
   handleInputs,
+  handleCancel,
 }) {
   const classes = useStyles();
   const {
@@ -41,12 +42,14 @@ function EditProviderCardDialog({
     (item) => item.category === 'states'
   );
 
+  const formattedDate = DateTime.fromISO(date_of_birth).toFormat('yyyy-MM-dd');
+
   return (
     <Dialog
-      open={dialogOpen.card}
+      open={dialogOpen === 'card'}
       fullWidth
       maxWidth="md"
-      onClose={() => handleDialogs('card')}
+      onClose={handleCancel}
     >
       <DialogTitle>Edit Personal Information</DialogTitle>
       <DialogContent>
@@ -85,7 +88,7 @@ function EditProviderCardDialog({
               variant="outlined"
               label="Date of Birth"
               className={classes.inputs}
-              value={date_of_birth}
+              value={formattedDate}
               onChange={handleInputs('date_of_birth') || ''}
               InputLabelProps={{ shrink: true }}
             />
@@ -126,17 +129,10 @@ function EditProviderCardDialog({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleDialogs('card')}>
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('card');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>
