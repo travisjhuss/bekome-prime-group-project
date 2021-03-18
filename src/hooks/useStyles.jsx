@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  chipsSignup: {
+    width: '18ch',
+    margin: theme.spacing(0.5),
+  },
   chips: {
     marginLeft: theme.spacing(0.5),
     marginRight: theme.spacing(0.5),
@@ -134,6 +138,14 @@ const useStyles = makeStyles((theme) => ({
   },
   loginForm: {
     margin: '30px'
+  },
+  loginTextField: {
+    '& .MuiOutlinedInput-input': {
+      padding: '8px 8px'
+  }
+  },
+  submitBtn: {
+    width: '150px'
   }
 }));
 

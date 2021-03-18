@@ -8,14 +8,9 @@ import {
   Typography,
   Button,
   Grid,
+  TextField
 } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  chips: {
-    width: '18ch',
-    margin: theme.spacing(0.5),
-  },
-}));
+import useStyles from '../../hooks/useStyles';
 
 function RegisterForm() {
   const classes = useStyles();
@@ -47,7 +42,10 @@ function RegisterForm() {
       <Grid container spacing={1} justify="center">
         <Grid item xs={12}>
           <Typography>Email Address:</Typography>
-          <input
+          <TextField
+            className={classes.loginTextField}
+            color="secondary"
+            variant="outlined"
             type="text"
             name="username"
             value={email}
@@ -56,8 +54,11 @@ function RegisterForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography>Password:</Typography>
-          <input
+          <Typography>Create Password:</Typography>
+          <TextField
+            className={classes.loginTextField}
+            color="secondary"
+            variant="outlined"
             type="password"
             name="password"
             value={password}
@@ -67,7 +68,10 @@ function RegisterForm() {
         </Grid>
         <Grid item xs={12}>
           <Typography>Confirm Password:</Typography>
-          <input
+          <TextField
+            className={classes.loginTextField}
+            color="secondary"
+            variant="outlined"
             type="password"
             name="password2"
             value={password2}
@@ -78,14 +82,14 @@ function RegisterForm() {
         <Grid item xs={12}>
           <Box>
             <Chip
-              className={classes.chips}
+              className={classes.chipsSignup}
               onClick={() => setType('client')}
               label="I am a client."
               variant={type === 'client' ? 'default' : 'outlined'}
               color="primary"
             />
             <Chip
-              className={classes.chips}
+              className={classes.chipsSignup}
               onClick={() => setType('provider')}
               label="I am a provider."
               variant={type === 'provider' ? 'default' : 'outlined'}
@@ -97,11 +101,12 @@ function RegisterForm() {
           <input type="checkbox" id="terms" name="terms" required />
           <label for="terms">
             {' '}
-            I agree to the <u>Terms of Use</u> & <u>Privacy Policy</u>
+            <Typography variant="caption">I agree to the <u>Terms of Use</u> & <u>Privacy Policy</u></Typography>
           </label>
         </Grid>
         <Grid item xs={12}>
           <Button
+            className={classes.submitBtn}
             color="secondary"
             variant="contained"
             type="submit"

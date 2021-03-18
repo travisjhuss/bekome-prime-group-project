@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Paper, Button, Typography, Grid } from '@material-ui/core';
+import { Button, Typography, Grid, TextField } from '@material-ui/core';
 import useStyles from '../../hooks/useStyles';
 
 function LoginForm() {
@@ -29,38 +29,36 @@ function LoginForm() {
 
   return (
     <form onSubmit={login}>
-      <center>
-        {errors.loginMessage && (
-          <h3 className="alert" role="alert">
-            {errors.loginMessage}
-          </h3>
-        )}
-        <div>
-          <label htmlFor="username">
-            Email:
-            <input
-              type="text"
-              name="username"
-              required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
-        </div>
-        <div>
+      <Grid container spacing={5} justify="center">
+        <Grid item xs={12}>
+          <Typography>Email Address:</Typography>
+          <TextField
+            className={classes.loginTextField}
+            color="secondary"
+            variant="outlined"
+            type="text"
+            name="username"
+            required
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>Password:</Typography>
+          <TextField
+            className={classes.loginTextField}
+            color="secondary"
+            variant="outlined"
+            type="password"
+            name="password"
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <Button
+            className={classes.submitBtn}
             color="secondary"
             variant="contained"
             type="submit"
@@ -69,8 +67,13 @@ function LoginForm() {
           >
             Submit
           </Button>
-        </div>
-      </center>
+        </Grid>
+        {errors.loginMessage && (
+          <h3 className="alert" role="alert">
+            {errors.loginMessage}
+          </h3>
+        )}
+      </Grid>
     </form>
   );
 }
