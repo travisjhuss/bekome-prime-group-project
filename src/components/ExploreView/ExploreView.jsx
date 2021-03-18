@@ -49,20 +49,39 @@ function ExploreView() {
   const query = queryString.parse(location.search, {
     arrayFormat: 'bracket',
     parseNumbers: true,
+    parseBooleans: true,
   });
+  const { filterIds, states, booleans } = query;
 
-  const filterArray = query.filterIds;
-
-  const filteredProvidersList = providers.filter((item) => {
-    if (filterArray) {
-      const matches = item.preferences_array.filter((element) =>
-        filterArray.includes(element)
-      );
-      return matches.length === filterArray.length;
-    } else {
+  const filteredProvidersList = providers
+    .filter((item) => {
+      if (filterIds) {
+        const matches = item.preferences_array.filter((element) =>
+          filterIds.includes(element)
+        );
+        return matches.length === filterIds.length;
+      } else {
+        return true;
+      }
+    })
+    .filter((item) => {
+      if (states) {
+        if (!states.includes(item.state)) {
+          return false;
+        }
+      }
       return true;
-    }
-  });
+    })
+    .filter((item) => {
+      if (booleans) {
+        if (booleans.includes('Accepting Clients') && !item.accepting_clients) {
+          return false;
+        } else if (booleans.includes('Sliding Scale') && !item.sliding_scale) {
+          return false;
+        }
+      }
+      return true;
+    });
 
   return (
     <div>

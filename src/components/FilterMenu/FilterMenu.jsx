@@ -13,6 +13,8 @@ import {
   ListItem,
   Collapse,
   Box,
+  Switch,
+  FormControlLabel,
 } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -22,25 +24,34 @@ function FilterMenu({ query }) {
   const classes = useStyles();
   const history = useHistory();
   const preferences = useSelector((store) => store.preferences);
+  const {
+    filterIds,
+    states,
+    booleans,
+    collapseOnRefresh,
+    drawerOnRefresh,
+  } = query;
   const [drawer, setDrawer] = useState(false);
-  const [collapseOpen, setCollapseOpen] = useState(false);
+  const [collapse, setCollapse] = useState(false);
 
-  const { filterIds } = query;
-
-  const handleFilterURL = (id) => {
-    let newFilterString = '';
-    if (filterIds && filterIds.includes(id)) {
-      const newArray = filterIds.filter((item) => item !== id);
-      newFilterString = queryString.stringify(
-        { filterIds: newArray },
-        { arrayFormat: 'bracket' }
-      );
-    } else {
-      newFilterString = queryString.stringify(
-        { filterIds: filterIds ? [...filterIds, id] : [id] },
-        { arrayFormat: 'bracket' }
-      );
-    }
+  const handleFilterArray = (value, key) => {
+    const array =
+      key === 'filterIds' ? filterIds : key === 'states' ? states : booleans;
+    const newFilterArray =
+      array && array.includes(value)
+        ? array.filter((item) => item !== value)
+        : array
+        ? [...array, value]
+        : [value];
+    const newFilterString = queryString.stringify(
+      {
+        ...query,
+        [key]: newFilterArray,
+        drawerOnRefresh: drawer,
+        collapseOnRefresh: collapse,
+      },
+      { arrayFormat: 'bracket' }
+    );
     history.push(`/explore/?${newFilterString}`);
   };
 
@@ -58,10 +69,29 @@ function FilterMenu({ query }) {
       .join(' ');
   };
 
+  const handleCollapse = (category) => {
+    collapse === category ? setCollapse(false) : setCollapse(category);
+  };
+
   const handleCollapseOpen = (category) => {
-    collapseOpen === category
-      ? setCollapseOpen(false)
-      : setCollapseOpen(category);
+    if (collapseOnRefresh && collapseOnRefresh === category) {
+      delete query.collapseOnRefresh;
+      setCollapse(category);
+      return true;
+    } else if (collapse && collapse === category) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleDrawerClose = () => {
+    if (drawerOnRefresh) {
+      delete query.drawerOnRefresh;
+      setDrawer(false);
+    } else {
+      setDrawer(false);
+    }
   };
 
   return (
@@ -75,31 +105,50 @@ function FilterMenu({ query }) {
         <Typography variant="subtitle1">Filters</Typography>
       </Button>
       {preferences.map((item) => {
-        if (filterIds?.includes(item.id)) {
+        if (filterIds?.includes(item.id) || states?.includes(item.name)) {
           return (
             <Chip
               key={item.id}
               className={classes.chips}
               label={item.name}
               color="primary"
-              onDelete={() => handleFilterURL(item.id)}
+              onDelete={() => {
+                item.category === 'states'
+                  ? handleFilterArray(item.name, 'states')
+                  : handleFilterArray(item.id, 'filterIds');
+              }}
             />
           );
         }
       })}
-      <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
+      {booleans?.map((item, i) => (
+        <Chip
+          key={i}
+          className={classes.chips}
+          label={item}
+          color="primary"
+          onDelete={() => handleFilterArray(item, 'booleans')}
+        />
+      ))}
+
+      <Drawer
+        BackdropProps={{ invisible: true }}
+        anchor={'left'}
+        open={drawerOnRefresh || drawer}
+        onClose={handleDrawerClose}
+      >
         <List>
           {categories.sort().map((category, i) => (
             <Box key={i} className={classes.filterDrawer}>
-              <ListItem button onClick={() => handleCollapseOpen(category)}>
+              <ListItem button onClick={() => handleCollapse(category)}>
                 <ListItemIcon>
-                  {collapseOpen === category ? <ExpandLess /> : <ExpandMore />}
+                  {collapse === category ? <ExpandLess /> : <ExpandMore />}
                 </ListItemIcon>
                 <Typography subtitle="subtitle1">
                   {parseCategory(category)}
                 </Typography>
               </ListItem>
-              <Collapse in={collapseOpen === category} unmountOnExit>
+              <Collapse in={handleCollapseOpen(category)} unmountOnExit>
                 {preferences.map((item) => {
                   if (
                     item.category === category &&
@@ -110,7 +159,11 @@ function FilterMenu({ query }) {
                         className={classes.filterListItem}
                         key={item.id}
                         button
-                        onClick={() => handleFilterURL(item.id)}
+                        onClick={() => {
+                          category === 'states'
+                            ? handleFilterArray(item.name, 'states')
+                            : handleFilterArray(item.id, 'filterIds');
+                        }}
                         dense
                       >
                         <ListItemIcon>
@@ -118,7 +171,10 @@ function FilterMenu({ query }) {
                             color="primary"
                             disableRipple
                             size="small"
-                            checked={filterIds?.includes(item.id)}
+                            checked={
+                              filterIds?.includes(item.id) ||
+                              states?.includes(item.name)
+                            }
                           />
                         </ListItemIcon>
                         <Typography variant="body2">{item.name}</Typography>
@@ -129,6 +185,36 @@ function FilterMenu({ query }) {
               </Collapse>
             </Box>
           ))}
+          <Box px={2} paddingTop={2}>
+            <FormControlLabel
+              className={classes.filterSwitches}
+              control={
+                <Switch
+                  checked={booleans?.includes('Accepting Clients')}
+                  onClick={() =>
+                    handleFilterArray('Accepting Clients', 'booleans')
+                  }
+                />
+              }
+              label={
+                <Typography variant="body2">Accepting New Clients</Typography>
+              }
+            />
+          </Box>
+          <Box px={2}>
+            <FormControlLabel
+              className={classes.filterSwitches}
+              control={
+                <Switch
+                  checked={booleans?.includes('Sliding Scale')}
+                  onClick={() => handleFilterArray('Sliding Scale', 'booleans')}
+                />
+              }
+              label={
+                <Typography variant="body2">Sliding Scale Payments</Typography>
+              }
+            />
+          </Box>
         </List>
       </Drawer>
     </Box>
