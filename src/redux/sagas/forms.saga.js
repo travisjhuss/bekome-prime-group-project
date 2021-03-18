@@ -51,6 +51,10 @@ function* addNewQuestion(action) {
 function* deleteQuestion(action) {
   try {
     console.log('in saga delete question', action.payload)
+    yield axios.delete(`/api/forms/delete_question/${action.payload}`)
+
+    // fetch provider questions so the admin form updates
+    yield put({ type: 'FETCH_PROVIDER_QUESTIONS' })
   } catch (err) {
     console.log('error in deleteQuestion', err)
   }
