@@ -1,7 +1,5 @@
-Login Page
-    [ ] - signup/login toggle to display proper form
-    [ ] - password verification on signup
-    [ ] - background?
+[ ] - admin authorization
+[x] - logout redirect
 
 4 Dummy Data Providers 
 
