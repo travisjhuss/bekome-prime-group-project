@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import AdminPanelEdit from './AdminPanelEdit';
 
 import {
     Paper,
@@ -16,10 +17,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import useStyles from '../../hooks/useStyles';
 
 
-function AdminPanelForm({category, filteredPreferences, addPreference, editPreference, deletePreference}) {
+function AdminPanelForm({category, filteredPreferences, addPreference, deletePreference}) {
     const classes = useStyles()
 
-    const [newPref, setNewPref] = useState()
+    const [newPref, setNewPref] = useState('')
+    const [modalState, setModalState] = useState(false)
+    const [editPref, setEditPref] = useState('')
 
     const handleInputs = (event) => {
         setNewPref(event.target.value)
@@ -30,13 +33,29 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
         setNewPref('')
     }
 
+    const editPreference = (id) => {
+        const selectedPreference = filteredPreferences.filter(pref => pref.id === id)
+        console.log(selectedPreference)
+        setEditPref(selectedPreference[0].name)
+        setModalState(true)
+    }
+
 
     return (
         <Grid item xs={12} sm={12} md={6} lg={4} xl={4} >
+
+            <AdminPanelEdit
+            modalState={modalState}
+            setModalState={setModalState}
+            editPref={editPref}
+            setEditPref={setEditPref}
+            />
+
             <Paper className={classes.paper}>
                 <Typography variant="h6">
                     {category}
                 </Typography>
+
 
 
                 <List>
@@ -81,6 +100,7 @@ function AdminPanelForm({category, filteredPreferences, addPreference, editPrefe
                 >
                     Add
                 </Button>
+                <br/>
             </Paper>
         </Grid>
     )

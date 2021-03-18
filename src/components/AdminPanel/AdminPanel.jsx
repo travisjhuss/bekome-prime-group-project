@@ -6,7 +6,8 @@ import {
     Grid,
     Modal,
     Button,
-    Typography
+    Typography,
+    TextField,
 } from '@material-ui/core';
 
 
@@ -100,26 +101,49 @@ function AdminPanel() {
         })
     }
 
-    const editPreference = (id) => {
-        console.log(id)
-        setModalState(true)
-    }
+    // const editPreference = (id) => {
+    //     console.log(id)
+    //     setModalState(true)
+    // }
+
+    // const [editPref, setEditPref] = useState('')
+
+    // const handleInputs = (event) => {
+    //     setEditPref(event.target.value)
+    // };
+
+    // const handleSubmit = (dataToSend) => {
+    //     addPreference(dataToSend);
+    //     setEditPref('')
+    // }
 
 
 
     return (
         <>
 
-            <Modal
+            {/* <Modal
             open={modalState}
             >
                 <div className={classes.adminModal}>
                     <Typography>
 
                     </Typography>
+
+                    <TextField 
+                    className={classes.inputs}
+                    variant="outlined"
+                    label="edit preference"
+                    onChange={handleInputs}
+                    value={editPref}
+                    />
+
+                    <Button onClick={() => {handleSubmit()}}>Submit</Button>
+
+
                     <Button onClick={() => {setModalState(false)}}>close</Button>
                 </div>
-            </Modal>
+            </Modal> */}
 
             <Grid container alignItems='baseline'>
                 {prefArray.map((category) => {
@@ -131,7 +155,7 @@ function AdminPanel() {
                         // newPref={newPref}
                         addPreference={addPreference}
                         deletePreference={deletePreference}
-                        editPreference={editPreference}
+                        // editPreference={editPreference}
                         />
                     )
                 })}
