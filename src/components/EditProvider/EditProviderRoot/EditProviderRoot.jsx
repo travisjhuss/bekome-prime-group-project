@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Grid } from '@material-ui/core';
 // Components
-import QuestionAccordion from '../../QuestionAccordion/QuestionAccordion';
-import StrengthsAccordion from '../../StrengthsAccordion/StrengthsAccordion';
-import BackgroundAccordion from '../../BackgroundAccordion/BackgroundAccordion';
-import SpecialtiesAccordion from '../../SpecialtiesAccordion/SpecialtiesAccordion';
-import FormatsAccordion from '../../FormatsAccordion/FormatsAccordion';
-import UserCard from '../../UserCard/UserCard';
+import QuestionAccordion from '../../accordions/QuestionAccordion/QuestionAccordion';
+import StrengthsAccordion from '../../accordions/StrengthsAccordion/StrengthsAccordion';
+import BackgroundAccordion from '../../accordions/BackgroundAccordion/BackgroundAccordion';
+import SpecialtiesAccordion from '../../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
+import FormatsAccordion from '../../accordions/FormatsAccordion/FormatsAccordion';
+import UserCard from '../../cards/UserCard/UserCard';
 import EditProviderQuestionsDialog from '../EditProviderQuestionsDialog/EditProviderQuestionsDialog';
 import EditProviderStrengthsDialog from '../EditProviderStrengthsDialog/EditProviderStrengthsDialog';
 import EditProviderBackgroundDialog from '../EditProviderBackgroundDialog/EditProviderBackgroundDialog';

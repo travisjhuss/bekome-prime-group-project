@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import {
   Typography,
   Box,
@@ -8,26 +7,21 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
-// Custom hooks
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
-function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {
+function SpecialtiesAccordion({ parsePreferences, edit, handleDialogs }) {
   const classes = useStyles();
-  const { background, approach } = useSelector(
-    (store) => store.providerDetails
-  );
-
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.accordionTitle} variant="h6">
-          Background/Approach
+          Specialties
         </Typography>
         {edit && (
           <IconButton
             onClick={(event) => {
               event.stopPropagation();
-              handleDialogs('background');
+              handleDialogs('specialties');
             }}
             onFocus={(event) => event.stopPropagation()}
           >
@@ -37,12 +31,11 @@ function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {
       </AccordionSummary>
       <AccordionDetails>
         <Box>
-          <Typography>A little about my background...</Typography>
-          <Typography>{background}</Typography>
-          <Typography>I would describe my approach as...</Typography>
-          <Typography>{approach}</Typography>
           <Typography>
-            Religious Affiliations: {parsePreferences('religions')}
+            I am trained in... {parsePreferences('treatments')}
+          </Typography>
+          <Typography>
+            I excel at treating clients with... {parsePreferences('challenges')}
           </Typography>
         </Box>
       </AccordionDetails>
@@ -50,4 +43,4 @@ function BackgroundAccordion({ parsePreferences, edit, handleDialogs }) {
   );
 }
 
-export default BackgroundAccordion;
+export default SpecialtiesAccordion;

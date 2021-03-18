@@ -8,7 +8,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
 function FormatsAccordion({ parsePreferences, edit, handleDialogs }) {
   const classes = useStyles();

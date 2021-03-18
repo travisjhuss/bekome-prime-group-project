@@ -10,7 +10,7 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 import 'swiper/swiper-bundle.css';
 // Components
 import FilterMenu from '../FilterMenu/FilterMenu';
-import UserCard from '../UserCard/UserCard';
+import UserCard from '../cards/UserCard/UserCard';
 
 function ExploreView() {
   const history = useHistory();

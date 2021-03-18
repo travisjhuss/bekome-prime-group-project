@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
 function QuestionAccordion({ edit, handleDialogs }) {
   const classes = useStyles();

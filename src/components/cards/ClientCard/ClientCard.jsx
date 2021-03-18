@@ -1,6 +1,5 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import FavoriteProviderButton from '../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
   CardHeader,
@@ -13,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
 function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();

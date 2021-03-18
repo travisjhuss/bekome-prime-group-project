@@ -5,11 +5,11 @@ import { Box, Typography, Grid } from '@material-ui/core';
 
 // Component imports
 import FavoriteProviderButton from "../FavoriteProviderButton/FavoriteProviderButton";
-import QuestionAccordion from "../QuestionAccordion/QuestionAccordion";
-import StrengthsAccordion from "../StrengthsAccordion/StrengthsAccordion";
-import BackgroundAccordion from "../BackgroundAccordion/BackgroundAccordion";
-import SpecialtiesAccordion from "../SpecialtiesAccordion/SpecialtiesAccordion";
-import FormatsAccordion from "../FormatsAccordion/FormatsAccordion";
+import QuestionAccordion from '../accordions/QuestionAccordion/QuestionAccordion';
+import StrengthsAccordion from '../accordions/StrengthsAccordion/StrengthsAccordion';
+import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAccordion';
+import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
+import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
 import useStyles from "../../hooks/useStyles";
 
 function ProviderDetails() {
