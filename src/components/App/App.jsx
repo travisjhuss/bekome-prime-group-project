@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
+import NavAdmin from '../NavAdmin/NavAdmin';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
@@ -16,7 +17,6 @@ import UserPage from '../UserPage/UserPage';
 import MainFormContainer from '../MainFormContainer/MainFormContainer';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
 import ExploreView from '../ExploreView/ExploreView';
 import SavedProviders from '../SavedProviders/SavedProviders';
 import InterestedClients from '../InterestedClients/InterestedClients';
@@ -45,7 +45,8 @@ function App() {
       <CssBaseline />
       <Router>
         <div>
-          <Nav />
+          {user_type === 'admin' ? <NavAdmin /> : <Nav />}
+          {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -76,7 +77,13 @@ function App() {
               exact
               path="/user"
             >
-              <UserPage />
+              {user_type === 'admin' ? (
+                <AdminPanel />
+              ) : user_type === 'client' ? (
+                <ExploreView />
+              ) : (
+                <InterestedClients />
+              )}
             </ProtectedRoute>
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
@@ -105,16 +112,6 @@ function App() {
               authRedirect="/user"
             >
               <LoginPage />
-            </ProtectedRoute>
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows RegisterPage at "/registration"
-              exact
-              path="/registration"
-              authRedirect="/user"
-            >
-              <RegisterPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -172,39 +169,42 @@ function App() {
               {user_type === 'client' ? <EditClient /> : <EditProvider />}
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows AdminPanel at "/admin"
-              exact
-              path="/admin"
-              // authRedirect="/user"
-            >
-              <AdminPanel />
-            </ProtectedRoute>
+            {user_type === 'admin' && (
+              <>
+                <ProtectedRoute
+                  // with authRedirect:
+                  // - if logged in, redirects to "/user"
+                  // - else shows AdminPanel at "/admin"
+                  exact
+                  path="/admin"
+                  // authRedirect="/user"
+                >
+                  <AdminPanel />
+                </ProtectedRoute>
 
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows AdminPanel at "/admin-questions"
-              exact
-              path="/admin-questions"
-              // authRedirect="/user"
-            >
-              <AdminProviderQuestions />
-            </ProtectedRoute>
+                <ProtectedRoute
+                  // with authRedirect:
+                  // - if logged in, redirects to "/user"
+                  // - else shows AdminPanel at "/admin-questions"
+                  exact
+                  path="/admin-questions"
+                  // authRedirect="/user"
+                >
+                  <AdminProviderQuestions />
+                </ProtectedRoute>
 
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows AdminPanel at "/admin-users"
-              exact
-              path="/admin-users"
-              // authRedirect="/user"
-            >
-              <AdminUsersList />
-            </ProtectedRoute>
-
+                <ProtectedRoute
+                  // with authRedirect:
+                  // - if logged in, redirects to "/user"
+                  // - else shows AdminPanel at "/admin-users"
+                  exact
+                  path="/admin-users"
+                  // authRedirect="/user"
+                >
+                  <AdminUsersList />
+                </ProtectedRoute>
+              </>
+            )}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
               <h1>404</h1>

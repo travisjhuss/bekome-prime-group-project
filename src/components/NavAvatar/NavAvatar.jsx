@@ -51,7 +51,7 @@ function NavAvatar() {
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
-    history.push('/about');
+    history.push('/login');
   };
 
   const openEdit = () => {

@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Image})`
   },
   loginBtn: {
-    width: '100%',
+    width: '95%',
   },
   loginForm: {
     margin: '30px'
