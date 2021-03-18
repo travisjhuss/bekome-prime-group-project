@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------------
+How It Works Page Grid
+-------------------------------------------------------------------------------- */
+.how-it-works-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 8.333337%);
+    grid-template-rows: repeat(12, 8.333337%);
+  }
+  
+  .how-it-works-img {
+    width: 100%;
+    min-width: 900px;
+    max-height: 375px;
+    min-height: 375px;
+    object-fit: cover;
+    grid-column: 1 / 13;
+    grid-row: 1 / 8;
+  }
+  
+  .how-it-works-img-overlay {
+    grid-column: 1 / 6;
+    grid-row: 1 / 8;
+    background-color: rgba(0,0,0,.25);
+    z-index: 10;
+    max-height: 375px;
+    min-height: 375px;
+    /* padding: 40px 15px 0 25px; */
+  }
+
+  .how-it-works-flow {  
+    grid-column: 1 / 13;
+    grid-row: 8 / 13;
+  }
+
+  .how-it-works-icon {
+    width: 165px;
+    margin-top: 5px;
+  }
+  
