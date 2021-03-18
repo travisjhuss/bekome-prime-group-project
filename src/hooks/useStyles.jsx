@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Image from './atop-hill.jpeg';
 
 // This hook will allow styling with MUI to be more consistent through components.
 // import with "import useStyles from '../../hooks/useStyles'" in a given component
@@ -13,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   inputs: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  chipsSignup: {
+    width: '18ch',
+    margin: theme.spacing(0.5),
   },
   chips: {
     marginLeft: theme.spacing(0.5),
@@ -106,6 +111,45 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     top: '100px',
     left: '100px'
+  },
+  landingTypography: {
+    color: '#e0fbfc',
+    margin: '50px 30px 0px 30px'
+  },
+  landingButton: {
+    width: '200px',
+    margin: '32px'
+  },
+  howWorksText: {
+    padding: '10px',
+  },
+  howWorksButton: {
+    width: '200px',
+    margin: '10px'
+  },
+  loginContainer: {
+    margin: 'auto',
+    width: '400px',
+    height: '560px',
+  },
+  centerContainer: {
+    paddingTop: '50px',
+    height: '100vh',
+    backgroundImage: `url(${Image})`
+  },
+  loginBtn: {
+    width: '100%',
+  },
+  loginForm: {
+    margin: '30px'
+  },
+  loginTextField: {
+    '& .MuiOutlinedInput-input': {
+      padding: '8px 8px'
+  }
+  },
+  submitBtn: {
+    width: '150px'
   },
   adminModalInput: {
     marginTop: theme.spacing(1),

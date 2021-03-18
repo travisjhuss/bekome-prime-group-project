@@ -46,7 +46,7 @@ function Nav() {
         ) : (
           <>
           {/* what a user sees before logging in */}
-            <Button onClick={() => history.push('/how-it-works')}>
+            <Button onClick={() => history.push('/how_it_works')}>
               <Typography variant="subtitle1" color="primary">
                 How it Works
               </Typography>
