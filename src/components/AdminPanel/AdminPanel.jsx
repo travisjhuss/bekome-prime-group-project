@@ -62,7 +62,7 @@ function AdminPanel() {
             name: 'insurance',
             prefs: preferences.filter(pref => pref.category === 'insurance')
         },
-        // uncomment next four lines if you'd like a form to edit the states in the database
+        // uncomment next four lines if you'd like a form on the AdminPanel to edit the states in the database
         // {
         //     name: 'states',
         //     prefs: preferences.filter(pref => pref.category === 'states')
@@ -93,8 +93,12 @@ function AdminPanel() {
         })
     }
 
-    const editPreference = (dataToSend) => {
-        console.log(dataToSend)
+    const editPreference = (preference) => {
+        console.log(preference)
+        dispatch({
+            type: 'EDIT_PREFERENCE',
+            payload: preference
+        })
     }
 
 
@@ -105,8 +109,6 @@ function AdminPanel() {
                     <AdminPanelForm
                     category={category.name}
                     filteredPreferences={category.prefs}
-                    // handleInputs={handleInputs}
-                    // newPref={newPref}
                     addPreference={addPreference}
                     deletePreference={deletePreference}
                     editPreference={editPreference}

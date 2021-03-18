@@ -5,6 +5,7 @@ function* formsSaga() {
   yield takeEvery('FETCH_PREFERENCES', fetchPreferences);
   yield takeEvery('ADD_NEW_PREFERENCE', addNewPreference);
   yield takeEvery('DELETE_PREFERENCE', deletePreference);
+  yield takeEvery('EDIT_PREFERENCE', editPreference);
   yield takeEvery('FETCH_PROVIDER_QUESTIONS', fetchProviderQuestions);
   yield takeEvery('ADD_NEW_CLIENT', addNewClient);
   yield takeEvery('ADD_NEW_PROVIDER', addNewProvider);
@@ -76,6 +77,17 @@ function* deletePreference(action) {
     yield put({type: 'FETCH_PREFERENCES'});
   } catch (err) {
     console.log('error in deletePreference', err);
+  }
+}
+
+function* editPreference(action) {
+  try {
+    console.log('in editPreference with payload: ', action.payload);
+    yield axios.put('/api/forms/edit_preference', action.payload);
+
+    yield put({type: 'FETCH_PREFERENCES'});
+  } catch(err) {
+    console.log('error in editPreference', err)
   }
 }
 

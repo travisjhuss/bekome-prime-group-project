@@ -1,7 +1,4 @@
-import { useState } from 'react'
-
 import {
-    Grid,
     Modal,
     Button,
     Typography,
@@ -15,11 +12,10 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
 
 
     const handleInputs = (event) => {
-        setEditState(event.target.value)
+        setEditState({...editState, name: event.target.value})
     };
 
     const handleEditSubmit = (dataToSend) => {
-        console.log(dataToSend)
         editPreference(dataToSend)
         setEditState({name:'', category: ''})
         setModalState(false)
@@ -43,7 +39,7 @@ function AdminPanelEdit({ modalState, setModalState, editState, setEditState, ed
                 value={editState.name}
                 />
 
-                <Button onClick={() => {handleEditSubmit({id: editState.id, category: editState.category, name: editState.name})}}>
+                <Button onClick={() => {handleEditSubmit(editState)}}>
                     Submit
                 </Button>
 

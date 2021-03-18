@@ -22,7 +22,7 @@ function AdminPanelForm({category, filteredPreferences, addPreference, deletePre
 
     const [newPref, setNewPref] = useState('')
     const [modalState, setModalState] = useState(false)
-    const [editState, setEditState] = useState({})
+    const [editState, setEditState] = useState({category: '', name: ''})
 
     const handleInputs = (event) => {
         setNewPref(event.target.value)
