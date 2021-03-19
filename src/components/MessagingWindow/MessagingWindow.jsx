@@ -18,13 +18,14 @@ const socket = io.connect('http://localhost:5001');
 function MessagingWindow() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { id, first_name, pic } = useSelector((store) => store.user);
-  const interestedClients = useSelector(
-    (store) => store.interestedClientsReducer
-  );
+  const { id, first_name, pic, user_type } = useSelector((store) => store.user);
+  const groupToMessage =
+    user_type === 'client'
+      ? useSelector((store) => store.exploreReducer)
+      : useSelector((store) => store.interestedClients);
   const messages = useSelector((store) => store.messages);
   const { messageId } = useSelector((store) => store.messageWindow);
-  const [text, setText] = useState('');
+  const [messageText, setMessageText] = useState('');
 
   const handleSendMessage = () => {
     socket.emit('SEND_MESSAGE', {
@@ -32,14 +33,16 @@ function MessagingWindow() {
       sender_name: first_name,
       sender_pic: pic,
       recipient_users_id: messageId,
-      message: text,
+      message: messageText,
     });
     setText('');
   };
 
-  const messageName = interestedClients.find(
-    (item) => item.clients_users_id === messageId
-  ).first_name;
+  const messageName = groupToMessage.find(
+    (item) =>
+      item.clients_users_id === messageId ||
+      item.providers_users_id === messageId
+  )?.first_name;
 
   return (
     <Paper className={classes.messagingWindow} elevation={4}>
@@ -75,8 +78,8 @@ function MessagingWindow() {
       <Box display="flex" alignItems="center">
         <TextField
           fullWidth
-          value={text}
-          onChange={(event) => setText(event.target.value)}
+          value={messageText}
+          onChange={(event) => setMessageText(event.target.value)}
         />
         <IconButton color="primary" onClick={handleSendMessage}>
           <Send />
