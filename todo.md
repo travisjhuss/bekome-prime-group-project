@@ -1,5 +1,4 @@
-[ ] - admin authorization
-[x] - logout redirect
+
 
 4 Dummy Data Providers 
 

@@ -3,14 +3,16 @@ import { useSelector } from 'react-redux';
 import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
+  CardHeader,
   CardActions,
+  CardActionArea,
   CardContent,
   CardMedia,
   Button,
   Typography,
   IconButton,
 } from '@material-ui/core';
-import { LocationOn, Language, Edit } from '@material-ui/icons';
+import { LocationOn, Language, Edit, PersonAdd, PlayArrow } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
 function UserCard({ provider, edit, setDialogOpen }) {
@@ -63,30 +65,38 @@ function UserCard({ provider, edit, setDialogOpen }) {
   };
 
   return (
-    <Card className={classes.cardRoot}>
-      <CardContent className={classes.cardHeader}>
-        <Typography variant="h6" display="inline" color="secondary">
-          {first_name} {last_name}
-        </Typography>{' '}
-        {user_type === 'client' && (
-          <FavoriteProviderButton
-            id={providers_users_id}
-            saved={saved}
-            type={'GET_PROVIDERS'}
-          />
-        )}
-        {edit && (
-          <IconButton onClick={() => setDialogOpen('card')}>
-            <Edit />
-          </IconButton>
-        )}
-        <br />
-        <Typography variant="caption">
-          {parsePreferences('pronouns')}
-          {write_in_pronouns && `, ${write_in_pronouns}`}
-        </Typography>
-      </CardContent>
-      <CardMedia className={classes.cardMedia} image={pic} />
+    <Card className={classes.cardRoot} raised={true}>
+      <CardHeader
+        className={classes.cardHeader}
+        action={
+          user_type === 'client' && (
+            <FavoriteProviderButton
+              id={providers_users_id}
+              saved={saved}
+              type={'GET_PROVIDERS'}
+            />
+          )
+        }
+        title={
+          <Typography variant="h6" color="secondary">
+            {first_name} {last_name}
+          </Typography>
+        }
+        subheader={
+          <Typography variant="caption">
+            {parsePreferences('pronouns')}
+            {write_in_pronouns && `, ${write_in_pronouns}`}
+          </Typography>
+        }
+      />
+      {edit && (
+        <IconButton onClick={() => setDialogOpen('card')}>
+          <Edit />
+        </IconButton>
+      )}
+      <CardActionArea onClick={sendToDetails}>
+        <CardMedia className={classes.cardMedia} image={pic} />
+      </CardActionArea>
       <CardContent className={classes.cardContent}>
         <Typography variant="body2">
           <LocationOn color="primary" /> {city}, {state}
@@ -94,6 +104,16 @@ function UserCard({ provider, edit, setDialogOpen }) {
         <Typography variant="body2">
           <Language color="primary" /> {parsePreferences('languages')}
         </Typography>
+        {accepting_clients && (
+          <Typography variant="body2">
+            <PersonAdd color="primary"/> Accepting new clients
+          </Typography>
+        )}
+        {video && (
+          <Typography variant="body2">
+            <PlayArrow color="primary"/> See my video
+          </Typography>
+        )}
         <br />
         {providerQuestions.map((question) =>
           findQuestion(question.id, question.content)

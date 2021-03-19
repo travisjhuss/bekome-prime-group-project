@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardRoot: {
     margin: '0px 0px',
-    height: 650,
-    width: 325,
+    height: 640,
+    width: 340,
   },
   savedProviderCard: {
     margin: '10px 0px',
@@ -70,15 +70,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   cardHeader: {
-    padding: 0,
+    padding: 5,
+    paddingLeft: 50,
+    textAlign: 'center'
   },
   cardContent: {
     textAlign: 'left',
+    padding: '10 25px 10 25px',
+    height: 300,
+    overflow: 'scroll'
   },
   saveButton: {
-    // position: 'relative',
-    marginLeft: '15px',
-    padding: 0,
+    // paddingRight: 5,
+    // paddingTop: 5
   },
   pic: {
     width: 250,
