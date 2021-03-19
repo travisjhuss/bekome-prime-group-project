@@ -47,6 +47,10 @@ function MessagingWidget() {
   const messages = useSelector((store) => store.messages.messagesReducer);
   const [collapse, setCollapse] = useState(false);
   const unread = messages.findIndex((item) => item.read === false) > -1;
+  const groupedMessages = [];
+  for (let message of messages) {
+
+  }
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
 
@@ -59,6 +63,7 @@ function MessagingWidget() {
       type: 'OPEN_MESSAGE_WINDOW',
       payload: senders_users_id,
     });
+    
     if (read === false) {
       dispatch({ type: 'MARK_AS_READ', payload: id });
     }

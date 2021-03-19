@@ -44,9 +44,19 @@ io.on('connection', (socket) => {
 // GET route to retrieve message history from the database
 router.get('/', (req, res) => {
   const sqlText = `
-    SELECT * FROM "messages" 
-    WHERE "recipient_users_id" = $1 OR "sender_users_id" = $1 
-    ORDER BY "timestamp" ASC;
+    SELECT "messages".*, 
+      "clients".first_name AS "clients_name", 
+      "clients".pic AS "clients_pic", 
+      "providers".first_name AS "providers_name", 
+      "providers".pic AS "providers_pic" 
+    FROM "providers"
+    JOIN "messages" 
+      ON "messages".recipient_users_id = "providers".providers_users_id 
+      OR "messages".sender_users_id = "providers".providers_users_id
+    JOIN "clients" ON "clients".clients_users_id = "messages".recipient_users_id 
+      OR "clients".clients_users_id = "messages".sender_users_id
+    WHERE "recipient_users_id" = $1 OR "sender_users_id" = $1
+    ORDER BY "timestamp" DESC;
   `;
 
   pool
@@ -61,6 +71,8 @@ router.get('/', (req, res) => {
 router.put('/', (req, res) => {
   const { id } = req.body;
   const sqlText = `UPDATE "messages" SET "read" = TRUE WHERE "id" = $1;`;
+
+  console.log(id);
 
   pool
     .query(sqlText, [id])

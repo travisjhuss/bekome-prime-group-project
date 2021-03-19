@@ -23,19 +23,18 @@ function MessagingWindow() {
     user_type === 'client'
       ? useSelector((store) => store.exploreReducer)
       : useSelector((store) => store.interestedClients);
-  const messages = useSelector((store) => store.messages);
-  const { messageId } = useSelector((store) => store.messageWindow);
+  const messages = useSelector((store) => store.messages.messagesReducer);
+  const { messageId } = useSelector((store) => store.messages.windowOpen);
   const [messageText, setMessageText] = useState('');
 
-  const handleSendMessage = () => {
+  const handleSendMessage = (event) => {
+    event.preventDefault();
     socket.emit('SEND_MESSAGE', {
       sender_users_id: id,
-      sender_name: first_name,
-      sender_pic: pic,
       recipient_users_id: messageId,
       message: messageText,
     });
-    setText('');
+    setMessageText('');
   };
 
   const messageName = groupToMessage.find(
@@ -75,16 +74,18 @@ function MessagingWindow() {
           </Box>
         ))}
       </Box>
-      <Box display="flex" alignItems="center">
-        <TextField
-          fullWidth
-          value={messageText}
-          onChange={(event) => setMessageText(event.target.value)}
-        />
-        <IconButton color="primary" onClick={handleSendMessage}>
-          <Send />
-        </IconButton>
-      </Box>
+      <form onSubmit={handleSendMessage}>
+        <Box display="flex" alignItems="center">
+          <TextField
+            fullWidth
+            value={messageText}
+            onChange={(event) => setMessageText(event.target.value)}
+          />
+          <IconButton color="primary" type="submit">
+            <Send />
+          </IconButton>
+        </Box>
+      </form>
     </Paper>
   );
 }
