@@ -12,7 +12,6 @@ import oneClient from './oneClient.reducer';
 import allUsers from './allUsers.reducer';
 import drawerCollapse from './drawerCollapse.reducer';
 import messages from './messages.reducer';
-import messageWindow from './messageWindow.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -34,7 +33,6 @@ const rootReducer = combineReducers({
   allUsers, // contains data on all users in users table for Admin view
   drawerCollapse, // Keeps the state of the filter menu open on URL changes on ExploreView
   messages, // Holds all the messages for the logged in user
-  messageWindow, // Cross-app communication to open message window
 });
 
 export default rootReducer;

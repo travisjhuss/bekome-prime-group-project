@@ -58,4 +58,17 @@ router.get('/', (req, res) => {
     });
 });
 
+router.put('/', (req, res) => {
+  const { id } = req.body;
+  const sqlText = `UPDATE "messages" SET "read" = TRUE WHERE "id" = $1;`;
+
+  pool
+    .query(sqlText, [id])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log(`Error in PUT with query ${sqlText}`, err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

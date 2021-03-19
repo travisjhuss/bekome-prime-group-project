@@ -10,6 +10,16 @@ function* fetchMessages() {
   }
 }
 
+function* markAsRead(action) {
+  try {
+    yield axios.put('/api/messaging', action.payload);
+    yield put({ type: 'FETCH_MESSAGES' });
+  } catch (err) {
+    console.log('Error in markAsRead', err);
+  }
+}
+
 export default function* messagingSaga() {
   yield takeEvery('FETCH_MESSAGES', fetchMessages);
+  yield takeEvery('MARK_AS_READ', markAsRead);
 }

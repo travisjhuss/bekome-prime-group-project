@@ -35,7 +35,7 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
   const { filled_out_form, user_type } = useSelector((store) => store.user);
-  const { open } = useSelector((store) => store.messageWindow);
+  const { open } = useSelector((store) => store.messages.windowOpen);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });

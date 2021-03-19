@@ -19,8 +19,6 @@ import {
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
-// Components
-import MessagingWindow from '../MessagingWindow/MessagingWindow';
 // Socket connection
 const socket = io.connect('http://localhost:5001');
 
@@ -46,14 +44,25 @@ function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { first_name, pic } = useSelector((store) => store.user);
-  const messages = useSelector((store) => store.messages);
+  const messages = useSelector((store) => store.messages.messagesReducer);
   const [collapse, setCollapse] = useState(false);
+  const unread = messages.findIndex((item) => item.read === false) > -1;
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
 
   socket.on('RECEIVE_MESSAGE', () => {
     dispatch({ type: 'FETCH_MESSAGES' });
   });
+
+  const handleClickMessage = (senders_users_id, read, id) => {
+    dispatch({
+      type: 'OPEN_MESSAGE_WINDOW',
+      payload: senders_users_id,
+    });
+    if (read === false) {
+      dispatch({ type: 'MARK_AS_READ', payload: id });
+    }
+  };
 
   return (
     <Paper className={classes.messageBar} elevation={4}>
@@ -62,7 +71,7 @@ function MessagingWidget() {
         alignItems="center"
         onClick={() => setCollapse(!collapse)}
       >
-        {messages[0] ? (
+        {unread ? (
           <StyledBadge
             overlap="circle"
             anchorOrigin={{
@@ -97,10 +106,11 @@ function MessagingWidget() {
                 <ListItem
                   button
                   onClick={() =>
-                    dispatch({
-                      type: 'OPEN_MESSAGE_WINDOW',
-                      payload: item.senders_users_id,
-                    })
+                    handleClickMessage(
+                      item.senders_users_id,
+                      item.read,
+                      item.id
+                    )
                   }
                 >
                   <ListItemIcon>
