@@ -108,10 +108,14 @@ const useStyles = makeStyles((theme) => ({
   // styling added for ClientCard
   clientCard: {
     // backgroundColor: '#A9A9A9',
-    backgroundColor: "#cfd8dc",
+    backgroundImage: `url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/reclaimed-wood-where-to-buy-1571066028.jpg?crop=0.6624353549600376xw:1xh;center,top&resize=768:*")`,
+    // backgroundColor: "#cfd8dc",
     margin: "0px 0px",
     height: 650,
     width: 325,
+
+
+    // https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/reclaimed-wood-where-to-buy-1571066028.jpg?crop=0.6624353549600376xw:1xh;center,top&resize=768:*
   },
   // styling for interested clients
   interestedClients: {
