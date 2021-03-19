@@ -48,7 +48,7 @@ function ProviderDetails() {
   };
 
   return (
-    <Box p={2}>
+    <Box p={2} >
       <Box display="flex" alignItems="center">
         <Typography>
           {first_name} {last_name}
