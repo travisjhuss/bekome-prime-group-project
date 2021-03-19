@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { Box, Typography, Grid, Button } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 // Component imports
@@ -34,6 +34,7 @@ function ProviderDetails() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'GET_PROVIDERS' });
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
@@ -83,6 +84,18 @@ function ProviderDetails() {
               <Typography>
                 Religious Affiliations: {parsePreferences('religions')}
               </Typography>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={() =>
+                  dispatch({
+                    type: 'OPEN_MESSAGE_WINDOW',
+                    payload: providers_users_id,
+                  })
+                }
+              >
+                Send Message
+              </Button>
             </Box>
           </Box>
         </Grid>

@@ -7,7 +7,8 @@ import exploreSaga from './explore.saga';
 import providerDetailsSaga from './providerDetails.saga';
 import savedProvidersSaga from './savedProviders.saga';
 import editProfileSaga from './editProfile.saga';
-import interestedClientsSaga from './interestedClients.saga'
+import interestedClientsSaga from './interestedClients.saga';
+import messagesSaga from './messages.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     savedProvidersSaga(), // GETS provider data for SavedProviders view
     editProfileSaga(), // handles tasks involving editing any profile
     interestedClientsSaga(), // saga that calls api router to GET interested client using provider's user id
+    messagesSaga(), // GET route for all messages on db for logged in user
   ]);
 }

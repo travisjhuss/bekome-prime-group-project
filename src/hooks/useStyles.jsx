@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   submitBtn: {
-    width: '150px',
+    width: 150,
   },
   adminModalInput: {
     marginTop: theme.spacing(1),
@@ -173,6 +173,32 @@ const useStyles = makeStyles((theme) => ({
   questionsFormContainer: {
     margin: theme.spacing(10),
     padding: theme.spacing(3),
+  },
+  messageBar: {
+    position: 'fixed',
+    padding: theme.spacing(1),
+    width: 300,
+    bottom: 5,
+    right: 5,
+    cursor: 'pointer',
+    zIndex: 1,
+  },
+  messageAvatar: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+  },
+  messagingWindow: {
+    position: 'fixed',
+    padding: theme.spacing(1),
+    width: 300,
+    minHeight: 300,
+    bottom: 5,
+    right: 350,
+    zIndex: 1,
+  },
+  messagingBody: {
+    height: 200,
+    overflow: 'scroll',
   },
 }));
 
