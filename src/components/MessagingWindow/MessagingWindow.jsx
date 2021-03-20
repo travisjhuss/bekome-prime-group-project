@@ -18,13 +18,11 @@ const socket = io.connect('http://localhost:5001');
 function MessagingWindow() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { id, first_name, pic, user_type } = useSelector((store) => store.user);
-  const groupToMessage =
-    user_type === 'client'
-      ? useSelector((store) => store.exploreReducer)
-      : useSelector((store) => store.interestedClients);
-  const messages = useSelector((store) => store.messages.messagesReducer);
-  const { messageId } = useSelector((store) => store.messages.windowOpen);
+  const { id, user_type } = useSelector((store) => store.user);
+  const { conversationId } = useSelector((store) => store.messages.windowOpen);
+  const chat = useSelector((store) => store.messages.messagesReducer).find(
+    (item) => item.conversation === conversationId
+  );
   const [messageText, setMessageText] = useState('');
 
   const handleSendMessage = (event) => {
@@ -33,15 +31,10 @@ function MessagingWindow() {
       sender_users_id: id,
       recipient_users_id: messageId,
       message: messageText,
+      conversation: conversationId,
     });
     setMessageText('');
   };
-
-  const messageName = groupToMessage.find(
-    (item) =>
-      item.clients_users_id === messageId ||
-      item.providers_users_id === messageId
-  )?.first_name;
 
   return (
     <Paper className={classes.messagingWindow} elevation={4}>
@@ -53,7 +46,10 @@ function MessagingWindow() {
         alignItems="center"
       >
         <Typography variant="body2">
-          <b>Message {messageName}</b>
+          <b>
+            Conversation with{' '}
+            {user_type === 'client' ? chat.providers_name : chat.clients_name}
+          </b>
         </Typography>
         <IconButton
           size="small"
@@ -64,13 +60,24 @@ function MessagingWindow() {
       </Box>
       <Divider />
       <Box className={classes.messagingBody}>
-        {messages.map((item) => (
-          <Box p={1}>
-            <Typography variant="body2">
-              <b>
-                {item.sender_name}: {item.message}
-              </b>
-            </Typography>
+        {chat.message_log?.map((item) => (
+          <Box
+            m={1}
+            display="flex"
+            flexDirection={
+              item.recipient_users_id === id ? 'row' : 'row-reverse'
+            }
+          >
+            <Box
+              p={1.5}
+              className={
+                item.recipient_users_id === id
+                  ? classes.notUserBubble
+                  : classes.userBubble
+              }
+            >
+              <Typography variant="body2">{item.message}</Typography>
+            </Box>
           </Box>
         ))}
       </Box>

@@ -15,7 +15,7 @@ const io = socket(5001, {
 io.on('connection', (socket) => {
   const { id } = socket.client;
   console.log(`User connected: ${id}`);
-
+  // POST route for messages sent through socket.io to database
   socket.on('SEND_MESSAGE', (data) => {
     const sqlText = `
       INSERT INTO "messages" (
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         data.recipient_users_id,
         data.message,
       ])
-      .then(io.emit('RECEIVE_MESSAGE'))
+      .then(io.emit('RECEIVE_MESSAGE')) // This triggers a GET route on client
       .catch((err) => {
         console.log(`Error in messaging with query ${sqlText}`, err);
       });
@@ -42,21 +42,28 @@ io.on('connection', (socket) => {
 });
 
 // GET route to retrieve message history from the database
+// Array is grouped by 'conversation', with the messages in their own array
+// of objects with the key of 'message_log'
 router.get('/', (req, res) => {
   const sqlText = `
-    SELECT "messages".*, 
+    SELECT "messages".conversation, 
       "clients".first_name AS "clients_name", 
       "clients".pic AS "clients_pic", 
-      "providers".first_name AS "providers_name", 
-      "providers".pic AS "providers_pic" 
+      "providers".first_name AS "providers_name",
+      "providers".pic AS "providers_pic",
+      JSON_AGG("messages".* ORDER BY "messages".timestamp) AS "message_log"
     FROM "providers"
-    JOIN "messages" 
-      ON "messages".recipient_users_id = "providers".providers_users_id 
+    JOIN "messages" ON "messages".recipient_users_id = 
+      "providers".providers_users_id 
       OR "messages".sender_users_id = "providers".providers_users_id
     JOIN "clients" ON "clients".clients_users_id = "messages".recipient_users_id 
       OR "clients".clients_users_id = "messages".sender_users_id
-    WHERE "recipient_users_id" = $1 OR "sender_users_id" = $1
-    ORDER BY "timestamp" DESC;
+    WHERE "sender_users_id" = $1 OR "recipient_users_id" = $1
+    GROUP BY "conversation", 
+      "clients".first_name, 
+      "clients".pic, 
+      "providers".first_name,
+      "providers".pic;
   `;
 
   pool
@@ -68,11 +75,12 @@ router.get('/', (req, res) => {
     });
 });
 
+// Toggle a message to 'read' when a recipient opens it
 router.put('/', (req, res) => {
   const { id } = req.body;
-  const sqlText = `UPDATE "messages" SET "read" = TRUE WHERE "id" = $1;`;
-
-  console.log(id);
+  const sqlText = `
+    UPDATE "messages" SET "read_by_recipient" = TRUE WHERE "id" = $1;
+  `;
 
   pool
     .query(sqlText, [id])

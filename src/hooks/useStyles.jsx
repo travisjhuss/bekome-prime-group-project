@@ -200,6 +200,20 @@ const useStyles = makeStyles((theme) => ({
     height: 200,
     overflow: 'scroll',
   },
+  messageWidgetListItem: {
+    height: 80,
+    overflow: 'hidden',
+  },
+  userBubble: {
+    maxWidth: '75%',
+    borderRadius: 12,
+    backgroundColor: '#e0fbfc',
+  },
+  notUserBubble: {
+    maxWidth: '75%',
+    borderRadius: 12,
+    border: '1px solid #e0fbfc',
+  },
 }));
 
 export default useStyles;

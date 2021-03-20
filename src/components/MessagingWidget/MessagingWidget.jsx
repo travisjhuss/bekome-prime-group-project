@@ -43,14 +43,10 @@ const StyledBadge = withStyles((theme) => ({
 function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { first_name, pic } = useSelector((store) => store.user);
+  const { first_name, pic, user_type } = useSelector((store) => store.user);
   const messages = useSelector((store) => store.messages.messagesReducer);
   const [collapse, setCollapse] = useState(false);
-  const unread = messages.findIndex((item) => item.read === false) > -1;
-  const groupedMessages = [];
-  for (let message of messages) {
-
-  }
+  const unread = true;
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
 
@@ -58,15 +54,11 @@ function MessagingWidget() {
     dispatch({ type: 'FETCH_MESSAGES' });
   });
 
-  const handleClickMessage = (senders_users_id, read, id) => {
+  const handleClickMessage = (conversationId) => {
     dispatch({
       type: 'OPEN_MESSAGE_WINDOW',
-      payload: senders_users_id,
+      payload: conversationId,
     });
-    
-    if (read === false) {
-      dispatch({ type: 'MARK_AS_READ', payload: id });
-    }
   };
 
   return (
@@ -105,30 +97,40 @@ function MessagingWidget() {
       </Box>
       <Collapse in={collapse}>
         <List>
-          {messages.map((item) => {
+          {messages.map((item, i) => {
             return (
-              <Box key={item.id}>
+              <Box key={i}>
                 <ListItem
+                  className={classes.messageWidgetListItem}
                   button
-                  onClick={() =>
-                    handleClickMessage(
-                      item.senders_users_id,
-                      item.read,
-                      item.id
-                    )
-                  }
+                  onClick={() => handleClickMessage(item.conversation)}
                 >
                   <ListItemIcon>
                     <Avatar
                       className={classes.messageAvatar}
-                      src={item.sender_pic}
+                      src={
+                        user_type === 'client'
+                          ? item.providers_pic
+                          : item.clients_pic
+                      }
                     >
-                      {item.sender_name && item.sender_name.charAt(0)}
+                      {user_type === 'client'
+                        ? item.providers_name.charAt(0)
+                        : item.clients_name.charAt(0)}
                     </Avatar>
                   </ListItemIcon>
-                  <Typography variant="body2">
-                    <b>{item.sender_name}</b> {item.message}
-                  </Typography>
+                  <Box>
+                    <Typography variant="body2">
+                      <b>
+                        {user_type === 'client'
+                          ? item.providers_name
+                          : item.clients_name}
+                      </b>
+                    </Typography>
+                    <Typography variant="body2">
+                      {item.message_log[item.message_log.length - 1].message}
+                    </Typography>
+                  </Box>
                 </ListItem>
                 <Divider />
               </Box>
