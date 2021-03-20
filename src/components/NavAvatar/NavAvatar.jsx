@@ -51,6 +51,7 @@ function NavAvatar() {
   const logout = () => {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'CLOSE_MESSAGE_WINDOW' });
     history.push('/login');
   };
 

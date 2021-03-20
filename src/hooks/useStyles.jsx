@@ -207,12 +207,16 @@ const useStyles = makeStyles((theme) => ({
   userBubble: {
     maxWidth: '75%',
     borderRadius: 12,
-    backgroundColor: '#e0fbfc',
+    backgroundColor: '#3D5A80',
+    color: 'white',
   },
   notUserBubble: {
     maxWidth: '75%',
     borderRadius: 12,
-    border: '1px solid #e0fbfc',
+    backgroundColor: '#eeeeee',
+  },
+  messageTextField: {
+    fontSize: '0.9em',
   },
 }));
 

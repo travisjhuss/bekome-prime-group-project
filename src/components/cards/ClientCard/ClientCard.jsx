@@ -13,8 +13,6 @@ import {
 import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
-// Components
-import MessagingWindow from '../../MessagingWindow/MessagingWindow';
 
 function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();

@@ -20,7 +20,19 @@ const windowOpen = (state = { open: false, conversationId: '' }, action) => {
   }
 };
 
+const textInput = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_MESSAGE_TEXT':
+      return action.payload;
+    case 'CLEAR_MESSAGE_TEXT':
+      return '';
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   messagesReducer,
   windowOpen,
+  textInput,
 });

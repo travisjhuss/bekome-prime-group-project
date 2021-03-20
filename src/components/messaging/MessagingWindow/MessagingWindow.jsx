@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   TextField,
@@ -6,12 +5,11 @@ import {
   Typography,
   IconButton,
   Paper,
-  Avatar,
   Divider,
 } from '@material-ui/core';
 import { Close, Send } from '@material-ui/icons';
 import io from 'socket.io-client';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
 
 const socket = io.connect('http://localhost:5001');
 
@@ -20,20 +18,34 @@ function MessagingWindow() {
   const dispatch = useDispatch();
   const { id, user_type } = useSelector((store) => store.user);
   const { conversationId } = useSelector((store) => store.messages.windowOpen);
-  const chat = useSelector((store) => store.messages.messagesReducer).find(
+  const messageText = useSelector((store) => store.messages.textInput);
+  const {
+    clients_name,
+    clients_users_id,
+    providers_name,
+    providers_users_id,
+    message_log,
+  } = useSelector((store) => store.messages.messagesReducer).find(
     (item) => item.conversation === conversationId
   );
-  const [messageText, setMessageText] = useState('');
 
-  const handleSendMessage = (event) => {
-    event.preventDefault();
+  const handleSendMessage = () => {
     socket.emit('SEND_MESSAGE', {
       sender_users_id: id,
-      recipient_users_id: messageId,
+      recipient_users_id:
+        user_type === 'client' ? providers_users_id : clients_users_id,
       message: messageText,
       conversation: conversationId,
     });
-    setMessageText('');
+    dispatch({ type: 'CLEAR_MESSAGE_TEXT' });
+  };
+
+  const handleCheckForEnter = (event) => {
+    event.shiftKey && event.keyCode === 13
+      ? dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value })
+      : event.keyCode === 13
+      ? handleSendMessage()
+      : dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value });
   };
 
   return (
@@ -48,7 +60,7 @@ function MessagingWindow() {
         <Typography variant="body2">
           <b>
             Conversation with{' '}
-            {user_type === 'client' ? chat.providers_name : chat.clients_name}
+            {user_type === 'client' ? providers_name : clients_name}
           </b>
         </Typography>
         <IconButton
@@ -60,8 +72,9 @@ function MessagingWindow() {
       </Box>
       <Divider />
       <Box className={classes.messagingBody}>
-        {chat.message_log?.map((item) => (
+        {message_log?.map((item) => (
           <Box
+            key={item.id}
             m={1}
             display="flex"
             flexDirection={
@@ -81,18 +94,26 @@ function MessagingWindow() {
           </Box>
         ))}
       </Box>
-      <form onSubmit={handleSendMessage}>
-        <Box display="flex" alignItems="center">
-          <TextField
-            fullWidth
-            value={messageText}
-            onChange={(event) => setMessageText(event.target.value)}
-          />
-          <IconButton color="primary" type="submit">
-            <Send />
-          </IconButton>
-        </Box>
-      </form>
+      <Divider />
+      <Box display="flex" alignItems="center">
+        <TextField
+          fullWidth
+          multiline
+          InputProps={{
+            classes: {
+              input: classes.messageTextField,
+            },
+          }}
+          value={messageText}
+          onChange={(event) =>
+            dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value })
+          }
+          onKeyDown={handleCheckForEnter}
+        />
+        <IconButton color="primary" onClick={handleSendMessage}>
+          <Send />
+        </IconButton>
+      </Box>
     </Paper>
   );
 }

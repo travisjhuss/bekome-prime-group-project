@@ -19,18 +19,16 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', (data) => {
     const sqlText = `
       INSERT INTO "messages" (
+        "conversation",
         "sender_users_id", 
-        "sender_name", 
-        "sender_pic",
         "recipient_users_id", 
         "message"
-      ) VALUES ($1, $2, $3, $4, $5);
+      ) VALUES ($1, $2, $3, $4);
     `;
     pool
       .query(sqlText, [
+        data.conversation,
         data.sender_users_id,
-        data.sender_name,
-        data.sender_pic,
         data.recipient_users_id,
         data.message,
       ])
@@ -49,12 +47,14 @@ router.get('/', (req, res) => {
     SELECT "messages".conversation, 
       "clients".first_name AS "clients_name", 
       "clients".pic AS "clients_pic", 
+      "clients".clients_users_id,
       "providers".first_name AS "providers_name",
       "providers".pic AS "providers_pic",
+      "providers".providers_users_id,
       JSON_AGG("messages".* ORDER BY "messages".timestamp) AS "message_log"
     FROM "providers"
-    JOIN "messages" ON "messages".recipient_users_id = 
-      "providers".providers_users_id 
+    JOIN "messages" ON "messages".recipient_users_id 
+      = "providers".providers_users_id 
       OR "messages".sender_users_id = "providers".providers_users_id
     JOIN "clients" ON "clients".clients_users_id = "messages".recipient_users_id 
       OR "clients".clients_users_id = "messages".sender_users_id
@@ -63,7 +63,9 @@ router.get('/', (req, res) => {
       "clients".first_name, 
       "clients".pic, 
       "providers".first_name,
-      "providers".pic;
+      "providers".pic,
+      "clients".clients_users_id,
+      "providers".providers_users_id;
   `;
 
   pool

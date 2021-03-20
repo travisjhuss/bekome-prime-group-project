@@ -18,7 +18,9 @@ import {
 } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 // Custom hooks
-import useStyles from '../../hooks/useStyles';
+import useStyles from '../../../hooks/useStyles';
+// Components
+import MessagingListItem from '../MessagingListItem/MessagingListItem';
 // Socket connection
 const socket = io.connect('http://localhost:5001');
 
@@ -43,10 +45,10 @@ const StyledBadge = withStyles((theme) => ({
 function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { first_name, pic, user_type } = useSelector((store) => store.user);
+  const { first_name, pic } = useSelector((store) => store.user);
   const messages = useSelector((store) => store.messages.messagesReducer);
   const [collapse, setCollapse] = useState(false);
-  const unread = true;
+  const [unread, setUnread] = useState(false);
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
 
@@ -96,47 +98,24 @@ function MessagingWidget() {
         </IconButton>
       </Box>
       <Collapse in={collapse}>
-        <List>
-          {messages.map((item, i) => {
-            return (
-              <Box key={i}>
-                <ListItem
-                  className={classes.messageWidgetListItem}
-                  button
-                  onClick={() => handleClickMessage(item.conversation)}
-                >
-                  <ListItemIcon>
-                    <Avatar
-                      className={classes.messageAvatar}
-                      src={
-                        user_type === 'client'
-                          ? item.providers_pic
-                          : item.clients_pic
-                      }
-                    >
-                      {user_type === 'client'
-                        ? item.providers_name.charAt(0)
-                        : item.clients_name.charAt(0)}
-                    </Avatar>
-                  </ListItemIcon>
-                  <Box>
-                    <Typography variant="body2">
-                      <b>
-                        {user_type === 'client'
-                          ? item.providers_name
-                          : item.clients_name}
-                      </b>
-                    </Typography>
-                    <Typography variant="body2">
-                      {item.message_log[item.message_log.length - 1].message}
-                    </Typography>
-                  </Box>
-                </ListItem>
-                <Divider />
-              </Box>
-            );
-          })}
-        </List>
+        {messages[0] ? (
+          <List>
+            {messages.map((message, i) => (
+              <MessagingListItem
+                key={i}
+                message={message}
+                handleClickMessage={handleClickMessage}
+                setUnread={setUnread}
+              />
+            ))}
+          </List>
+        ) : (
+          <Box p={2}>
+            <Typography variant="body2" align="center">
+              You don't have any messages.
+            </Typography>
+          </Box>
+        )}
       </Collapse>
     </Paper>
   );
