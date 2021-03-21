@@ -35,7 +35,7 @@ function EditClientReasonsAccordion({
         </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.editClientAccordion}>
-        <Typography>
+        <Typography gutterBottom>
           What is your primary reason for seeking therapy?
         </Typography>
         <TextField
@@ -48,8 +48,10 @@ function EditClientReasonsAccordion({
           value={primary_reason || ''}
           onChange={handleInputs('primary_reason')}
         />
-        <Typography>What are you struggling with?</Typography>
-        <FormCheckboxes category={'challenges'} />
+        <Box paddingTop={2}>
+          <Typography>What are you struggling with?</Typography>
+          <FormCheckboxes category={'challenges'} />
+        </Box>
         <Box display="flex" flexDirection="row-reverse">
           <Button
             variant="contained"

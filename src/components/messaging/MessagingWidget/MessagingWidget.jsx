@@ -45,7 +45,15 @@ function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { first_name, pic, id } = useSelector((store) => store.user);
-  const messages = useSelector((store) => store.messages.messagesReducer);
+  // Message threads, sorted by date so the most current is first
+  const messages = useSelector((store) => store.messages.messagesReducer).sort(
+    (a, b) => {
+      return (
+        new Date(b.message_log[b.message_log.length - 1].timestamp) -
+        new Date(a.message_log[a.message_log.length - 1].timestamp)
+      );
+    }
+  );
   const [collapse, setCollapse] = useState(false);
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
@@ -64,8 +72,8 @@ function MessagingWidget() {
     dispatch({ type: 'FETCH_MESSAGES' });
   });
 
-  // Called in the props sent to MessagingListItem, checks to see if the user
-  // is the recipient of the last message in the array and if it's unread
+  // Called in the props sent to MessagingListItem, checks to see if user is the
+  // recipient of the last message in its message_log array and if it's unread
   const checkForUnread = (message_log) => {
     const { recipient_users_id, read_by_recipient } = message_log[
       message_log.length - 1
@@ -125,7 +133,7 @@ function MessagingWidget() {
         ) : (
           <Box p={2}>
             <Typography variant="body2" align="center">
-              You don't have any messages.
+              <i>You don't have any messages.</i>
             </Typography>
           </Box>
         )}

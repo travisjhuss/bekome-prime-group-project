@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { DateTime, Interval } from 'luxon';
 import {
   Box,
   ListItem,
@@ -20,10 +21,8 @@ function MessagingListItem({ messageThread, unread }) {
     conversation,
     providers_name,
     providers_pic,
-    providers_users_id,
     clients_name,
     clients_pic,
-    clients_users_id,
     message_log,
   } = messageThread;
 
@@ -45,6 +44,14 @@ function MessagingListItem({ messageThread, unread }) {
     }
   };
 
+  // Parse the date of the last message sent
+  const lastMessageDate = DateTime.fromISO(
+    message_log[message_log.length - 1].timestamp
+  );
+  const dateToDisplay = lastMessageDate.hasSame(DateTime.now(), 'day')
+    ? lastMessageDate.toLocaleString(DateTime.TIME_SIMPLE)
+    : lastMessageDate.toFormat('LLL d');
+
   return (
     <Box>
       <ListItem
@@ -62,14 +69,15 @@ function MessagingListItem({ messageThread, unread }) {
               : clients_name.charAt(0)}
           </Avatar>
         </ListItemIcon>
-        <Box>
-          <Box paddingTop={1}>
+        <Box flexGrow={1}>
+          <Box paddingTop={1} display="flex" justifyContent="space-between">
             <Typography
               variant="body2"
               className={unread && classes.unreadMessageText}
             >
               {user_type === 'client' ? providers_name : clients_name}
             </Typography>
+            <Typography variant="body2">{dateToDisplay}</Typography>
           </Box>
           <Box className={classes.messagePreviewBox} paddingTop={0.5}>
             <Typography

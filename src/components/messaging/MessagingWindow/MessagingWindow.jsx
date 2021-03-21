@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import io from 'socket.io-client';
 import {
   TextField,
   Box,
@@ -10,7 +11,6 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { Close, Send } from '@material-ui/icons';
-import io from 'socket.io-client';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Socket.io connection
@@ -26,6 +26,10 @@ function MessagingWindow() {
     (store) => store.messages.windowOpen
   ).messageData;
   const messageText = useSelector((store) => store.messages.textInput);
+  
+  // Finds a previous message thread between these two users, if it exists,
+  // based on the conversation id, which is a combo of the two id numbers 
+  // separated by '_', i.e. '2_6'
   const messageThread = useSelector(
     (store) => store.messages.messagesReducer
   ).find(
@@ -36,9 +40,9 @@ function MessagingWindow() {
   );
 
   // Finds who the user is based on their user type.
-  // NOTE this is based only on provider/client messaging at the moment
   // Or, if this is a new message without a thread, it will assign the values
   // to what was sent via redux from hitting a 'Send Message' button
+  // NOTE: this is based only on provider/client messaging at the moment
   const notTheUser = messageThread
     ? user_type === 'client'
       ? {
@@ -64,6 +68,7 @@ function MessagingWindow() {
   };
 
   // Sends message through socket.io, which triggers a POST to the db
+  // Either sends the existing conversation id, or a new one
   const handleSendMessage = () => {
     socket.emit('SEND_MESSAGE', {
       sender_users_id: id,
@@ -76,7 +81,7 @@ function MessagingWindow() {
   };
 
   // Allows the user to press the 'enter' key to send, and 'shift + enter'
-  // to type a new line
+  // to type on a new line
   const handleCheckForEnter = (event) => {
     event.shiftKey && event.keyCode === 13
       ? dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value })

@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.9em',
   },
   checkboxBox: {
-    maxHeight: 400,
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
@@ -76,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   saveButton: {
-    // position: 'relative',
     marginLeft: '15px',
     padding: 0,
   },
@@ -89,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
   },
   stateSelect: {
     width: 240,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   accordionTitle: {
     alignSelf: 'center',
@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     height: 200,
     objectFit: 'cover',
+    paddingLeft: theme.spacing(2),
   },
   adminPanelButton: {
     position: 'absolute',
@@ -145,6 +146,7 @@ const useStyles = makeStyles((theme) => ({
   },
   editClientAccordion: {
     display: 'block',
+    padding: theme.spacing(3),
   },
   filterDrawer: {
     width: 300,
@@ -200,19 +202,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     padding: theme.spacing(1),
     width: 350,
-    height: 300,
+    minHeight: 300,
     bottom: 0,
     right: 350,
     zIndex: 1,
   },
   messagingBody: {
-    height: 200,
+    height: 250,
     overflow: 'scroll',
-  },
-  messagingStartAtBottom: {
-    overflow: 'auto',
-    display: 'flex',
-    flexDirection: 'column-reverse',
   },
   messagingWidgetListItem: {
     height: 100,

@@ -8,7 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from '../../hooks/useStyles';
 
-function FormPreferencesChecks({ category, limit }) {
+function FormCheckboxes({ category, limit, size }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
@@ -35,10 +35,12 @@ function FormPreferencesChecks({ category, limit }) {
     });
   };
 
+  const whatSize = size === 'sm' ? 200 : size === 'md' ? 300 : 400;
+
   return (
     <FormControl error={showError}>
       {limit && <FormHelperText>Please choose up to {limit}.</FormHelperText>}
-      <Box className={classes.checkboxBox}>
+      <Box className={classes.checkboxBox} maxHeight={whatSize}>
         {filteredPreferences.map((item) => (
           <FormControlLabel
             key={item.id}
@@ -56,4 +58,4 @@ function FormPreferencesChecks({ category, limit }) {
   );
 }
 
-export default FormPreferencesChecks;
+export default FormCheckboxes;
