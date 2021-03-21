@@ -20,7 +20,7 @@ import {
   Language,
   Edit,
   PersonAdd,
-  PlayArrow,
+  PlayCircleFilled,
 } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
@@ -118,9 +118,16 @@ function UserCard({ provider, edit, setDialogOpen }) {
           <CardMedia className={classes.cardMedia} image={pic} />
         </CardActionArea>
         <CardContent className={classes.cardContent}>
-          <Typography variant="body2">
+          <Typography variant="body2" display="inline">
             <LocationOn color="primary" /> {city}, {state}
           </Typography>
+          {video && (
+          <Tooltip title="View Video">
+            <IconButton onClick={handleOpen} className={classes.videoBtn} color="secondary">
+              <PlayCircleFilled/>
+            </IconButton>
+            </Tooltip>
+          )}
           <Typography variant="body2">
             <Language color="primary" /> {parsePreferences('languages')}
           </Typography>
@@ -144,13 +151,6 @@ function UserCard({ provider, edit, setDialogOpen }) {
             >
               Full Profile
             </Button>
-          )}
-          {video && (
-          <Tooltip title="View Video">
-            <IconButton onClick={handleOpen} className={classes.videoBtn} color="secondary">
-              <PlayArrow/>
-            </IconButton>
-            </Tooltip>
           )}
         </CardActions>
       </Card>

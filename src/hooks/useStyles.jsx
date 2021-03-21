@@ -81,11 +81,10 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'scroll'
   },
   videoBtn: {
-    position: 'relative',
-    // top: '230px',
-    left: '80px',
-    transform: 'scale(1.3)',
     padding: 0,
+    position: 'inherit',
+    margin: '0 0 0 82px',
+    transform: 'scale(1.3)'
   },
   saveButton: {
     // paddingRight: 5,
