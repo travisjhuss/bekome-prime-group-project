@@ -79,10 +79,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   pic: {
-    width: 250,
-    height: 250,
+    width: 350,
+    height: 350,
     objectFit: 'cover',
-    borderRadius: '50%',
+    borderRadius: '20%',
     padding: theme.spacing(3),
   },
   stateSelect: {
@@ -113,6 +113,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     top: '100px',
     left: '100px',
+  },
+  videoModal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "25%",
+    left: "25%",
   },
   landingTypography: {
     color: '#e0fbfc',
