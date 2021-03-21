@@ -1,68 +1,51 @@
 import React, { useState } from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import RegisterForm from '../RegisterForm/RegisterForm';
-import { Paper, Button, Typography, Grid } from '@material-ui/core';
+import { Paper, Typography, Grid, Tab, Tabs } from '@material-ui/core';
 import useStyles from '../../hooks/useStyles';
 
 function LoginPage() {
   const classes = useStyles();
-  const [showSignup, setShowSignup] = useState(true);
-  const [loginBtn, setLoginBtn] = useState('outlined');
-  const [signupBtn, setSignupBtn] = useState('contained');
+  const [tab, setTab] = useState(0);
 
-  const clickLogin = () => {
-    setShowSignup(false);
-    setLoginBtn('contained');
-    setSignupBtn('outlined');
-  }
-
-  const clickSignup = () => {
-    setShowSignup(true);
-    setLoginBtn('outlined');
-    setSignupBtn('contained');
+  function TabPanel({ children, tab, index }) {
+    return (
+      <div
+        role="tabpanel"
+        hidden={tab !== index}
+        id={`simple-tabpanel-${index}`}
+      >
+        {tab === index && <>{children}</>}
+      </div>
+    );
   }
 
   return (
     <div className={classes.centerContainer}>
       <Paper className={classes.loginContainer}>
+        <Tabs
+          value={tab}
+          onChange={(event, value) => setTab(value)}
+          indicatorColor="secondary"
+          textColor="primary"
+          variant="fullWidth"
+        >
+          <Tab label={<Typography>Sign Up</Typography>} />
+          <Tab label={<Typography>Login</Typography>} />
+        </Tabs>
         <Grid container align="center" spacing={1}>
-          <Grid item xs={6}>
-            <Button
-              variant={signupBtn}
-              color="primary"
-              className={classes.loginBtn}
-              onClick={clickSignup}
-            >
-              <Typography>Sign Up</Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant={loginBtn}
-              color="primary"
-              className={classes.loginBtn}
-              onClick={clickLogin}
-            >
-              <Typography>Login</Typography>
-            </Button>
+          <Grid item xs={12} className={classes.loginForm}>
+            <TabPanel tab={tab} index={0}>
+              <RegisterForm />
+            </TabPanel>
           </Grid>
           <Grid item xs={12} className={classes.loginForm}>
-            {showSignup ? <RegisterForm /> : <LoginForm />}
+            <TabPanel tab={tab} index={1}>
+              <LoginForm />
+            </TabPanel>
           </Grid>
         </Grid>
       </Paper>
-
-      {/* <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/registration');
-          }}
-        >
-          Register
-        </button>
-      </center> */}
     </div>
   );
 }

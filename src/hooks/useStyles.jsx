@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#3D5A80",
   },
   cardRoot: {
-    margin: "0px 0px",
-    height: 650,
-    width: 325,
+    margin: '0px 0px',
+    height: 640,
+    width: 340,
   },
   savedProviderCard: {
     margin: "10px 0px",
@@ -63,20 +63,32 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     height: 200,
-    width: "85%",
+    width: '85%',
+    borderRadius: "5px"
   },
   cardButton: {
     justifyContent: "center",
   },
   cardHeader: {
-    padding: 0,
+    padding: 5,
+    paddingLeft: 50,
+    textAlign: 'center'
   },
   cardContent: {
-    textAlign: "left",
+    textAlign: 'left',
+    padding: '10 25px 10 25px',
+    height: 300,
+    overflow: 'scroll'
+  },
+  videoBtn: {
+    padding: 0,
+    position: 'inherit',
+    margin: '0 0 0 82px',
+    transform: 'scale(1.3)'
   },
   saveButton: {
-    marginLeft: "15px",
-    padding: 0,
+    // paddingRight: 5,
+    // paddingTop: 5
   },
   pic: {
     width: 350,
@@ -184,6 +196,10 @@ const useStyles = makeStyles((theme) => ({
   questionsFormContainer: {
     margin: theme.spacing(10),
     padding: theme.spacing(3),
+  },
+  video: {
+    height: '480px',
+    border: '10px solid #e0fbfc',
   },
   messageBar: {
     position: "fixed",
