@@ -9,11 +9,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 // Import Swiper styles
 import 'swiper/swiper-bundle.css';
+import useStyles from "../../hooks/useStyles";
 
 function InterestedClients() {
   // write a dispatch that calls saga to execute a GET route that gets clients that match provider in table named: clients_providers_favs
   const dispatch = useDispatch();
-
+const classes = useStyles();
   const user = useSelector((store) => store.user);
   const interestedClientsReducer = useSelector(
     (store) => store.interestedClientsReducer

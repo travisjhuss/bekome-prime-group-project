@@ -42,7 +42,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
   };
 
   return (
-    <Card className={classes.cardRoot}>
+    <Card className={classes.clientCard}>
       <CardHeader
         title={
           <Typography variant="h6">
@@ -63,6 +63,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
           )
         }
       />
+      
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.CardContent}>
         <Typography variant="body2">
