@@ -9,12 +9,23 @@ const messagesReducer = (state = [], action) => {
   }
 };
 
-const windowOpen = (state = { open: false, messageId: '' }, action) => {
+const windowOpen = (state = { open: false, messageData: {} }, action) => {
   switch (action.type) {
     case 'OPEN_MESSAGE_WINDOW':
-      return { open: true, messageId: action.payload };
+      return { open: true, messageData: action.payload };
     case 'CLOSE_MESSAGE_WINDOW':
-      return { open: false, messageId: '' };
+      return { open: false, messageData: '' };
+    default:
+      return state;
+  }
+};
+
+const textInput = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_MESSAGE_TEXT':
+      return action.payload;
+    case 'CLEAR_MESSAGE_TEXT':
+      return '';
     default:
       return state;
   }
@@ -23,4 +34,5 @@ const windowOpen = (state = { open: false, messageId: '' }, action) => {
 export default combineReducers({
   messagesReducer,
   windowOpen,
+  textInput,
 });

@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.9em',
   },
   checkboxBox: {
-    maxHeight: 400,
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
@@ -76,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   saveButton: {
-    // position: 'relative',
     marginLeft: '15px',
     padding: 0,
   },
@@ -89,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
   },
   stateSelect: {
     width: 240,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   accordionTitle: {
     alignSelf: 'center',
@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     height: 200,
     objectFit: 'cover',
+    paddingLeft: theme.spacing(2),
   },
   adminPanelButton: {
     position: 'absolute',
@@ -154,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
   },
   editClientAccordion: {
     display: 'block',
+    padding: theme.spacing(3),
   },
   filterDrawer: {
     width: 300,
@@ -187,27 +189,62 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     padding: theme.spacing(1),
     width: 300,
-    bottom: 5,
-    right: 5,
+    bottom: 0,
+    right: 10,
     cursor: 'pointer',
     zIndex: 1,
   },
-  messageAvatar: {
+  messagingWidgetAvatar: {
     height: theme.spacing(4),
     width: theme.spacing(4),
+  },
+  messagingListAvatar: {
+    height: theme.spacing(5),
+    width: theme.spacing(5),
+  },
+  messagingWindowAvatar: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+    marginRight: theme.spacing(1.5),
   },
   messagingWindow: {
     position: 'fixed',
     padding: theme.spacing(1),
-    width: 300,
+    width: 350,
     minHeight: 300,
-    bottom: 5,
+    bottom: 0,
     right: 350,
     zIndex: 1,
   },
   messagingBody: {
-    height: 200,
+    height: 250,
     overflow: 'scroll',
+  },
+  messagingWidgetListItem: {
+    height: 100,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  userBubble: {
+    maxWidth: '75%',
+    borderRadius: 12,
+    backgroundColor: '#3D5A80',
+    color: 'white',
+  },
+  notUserBubble: {
+    maxWidth: '75%',
+    borderRadius: 12,
+    backgroundColor: '#eeeeee',
+  },
+  messageTextField: {
+    fontSize: '0.9em',
+  },
+  unreadMessageText: {
+    fontWeight: 700,
+  },
+  messagePreviewBox: {
+    height: 60,
+    overflow: 'hidden',
   },
 }));
 

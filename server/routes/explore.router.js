@@ -27,8 +27,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
         "providers".sliding_scale,
         ARRAY_AGG("providers_preferences".preferences_id) AS "preferences_array" 
       FROM "providers" 
-      JOIN "providers_preferences" ON "providers".providers_users_id = 
-        "providers_preferences".providers_users_id
+      JOIN "providers_preferences" ON "providers".providers_users_id 
+        = "providers_preferences".providers_users_id
       GROUP BY "providers".id;
     `;
     // Sends the query to db, saves data to 'providers' var
@@ -112,43 +112,6 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     // End connection to db
     connection.release();
   }
-});
-
-// POST route to add a provider to a client's favorites, adds an entry to
-// 'clients_providers_favs' junction table
-router.post('/fav', (req, res) => {
-  const { clients_users_id, providers_users_id } = req.body;
-
-  const sqlText = `
-    INSERT INTO "clients_providers_favs" 
-    ("clients_users_id", "providers_users_id")
-    VALUES ($1, $2);
-  `;
-
-  pool
-    .query(sqlText, [clients_users_id, providers_users_id])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log(`Error in POST with query ${sqlText}`, err);
-      res.sendStatus(500);
-    });
-});
-
-// Removes a favorite from a client's profile, deletes entry on
-// 'clients_providers_favs' junction table
-router.delete('/fav/:id', (req, res) => {
-  const sqlText = `
-    DELETE FROM "clients_providers_favs" 
-    WHERE "clients_users_id" = $1 AND "providers_users_id" = $2;
-  `;
-
-  pool
-    .query(sqlText, [req.user.id, req.params.id])
-    .then(() => res.sendStatus(204))
-    .catch((err) => {
-      console.log(`Error in DELETE with query ${sqlText}`, err);
-      res.sendStatus(500);
-    });
 });
 
 module.exports = router;

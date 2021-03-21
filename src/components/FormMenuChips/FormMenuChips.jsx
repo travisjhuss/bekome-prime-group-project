@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Menu, MenuItem, Chip } from '@material-ui/core';
-
+// Custom hooks
 import useStyles from '../../hooks/useStyles';
 
 function FormMenuChips({ category, string }) {
