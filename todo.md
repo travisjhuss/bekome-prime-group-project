@@ -1,19 +1,7 @@
-Edit - Backend
-    [ ] - reducers
-        [ ] - providerQuestions
-        [ ] - preferences
-        [x] - edit client add case to forms reducers
-        [x] - edit provider add case to forms reducers
-    [ ] - sagas
-        [x] - fetch client
-        [x] - fetch provider
-        [x] - submit client
-        [x] - submit provider
-    [ ] - routes
-        [ ] - get editing profile (client use new? provider use providerDetails?)
-        [ ] - put for changes
+[ ] - admin authorization
+[x] - logout redirect
 
-change "preferences" on backend to "preferences_array"
+4 Dummy Data Providers 
 
 ThemeProvider - new component
 [x] - typography

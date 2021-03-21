@@ -1,4 +1,4 @@
-import ClientCard from "../ClientCard/ClientCard";
+import ClientCard from "../cards/ClientCard/ClientCard";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";

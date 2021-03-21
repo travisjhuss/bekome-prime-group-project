@@ -19,7 +19,7 @@ import useStyles from '../../../hooks/useStyles';
 function EditProviderQuestionsDialog({
   handleSubmit,
   dialogOpen,
-  handleDialogs,
+  handleCancel,
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -51,10 +51,7 @@ function EditProviderQuestionsDialog({
   };
 
   return (
-    <Dialog
-      open={dialogOpen.questions}
-      onClose={() => handleDialogs('questions')}
-    >
+    <Dialog open={dialogOpen == 'questions'} onClose={handleCancel}>
       <DialogTitle>Edit Answers</DialogTitle>
       <DialogContent>
         {providerQuestions.map((item) => (
@@ -83,17 +80,10 @@ function EditProviderQuestionsDialog({
         ))}
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleDialogs('questions')}>
+        <Button variant="contained" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleSubmit();
-            handleDialogs('questions');
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </DialogActions>

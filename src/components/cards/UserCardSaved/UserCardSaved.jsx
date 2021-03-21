@@ -1,0 +1,59 @@
+import { useHistory } from 'react-router-dom';
+import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Box,
+} from '@material-ui/core';
+// Custom hooks
+import useStyles from '../../../hooks/useStyles';
+
+
+function UserCardSaved({ provider }) {
+  const history = useHistory();
+  const classes = useStyles();
+
+  const sendToDetails = () => {
+    history.push(`/provider-details/${provider.providers_users_id}`);
+  };
+
+  return (
+    <center>
+      <Card className={classes.savedProviderCard}>
+        <CardMedia className={classes.cardMedia} image={provider.pic} />
+        <CardContent className={classes.cardHeader}>
+          <Typography variant="h6" display="inline">
+            {provider.first_name + ' ' + provider.last_name}
+          </Typography>{' '}
+          <FavoriteProviderButton
+            id={provider.providers_users_id}
+            saved={true}
+            type={'GET_SAVED_PROVIDERS'}
+          />
+          <br />
+          <Typography variant="body2">
+            {provider.city}, {provider.state}
+          </Typography>
+          <Typography variant="body2">{provider.pronouns}</Typography>
+        </CardContent>
+        <CardActions className={classes.cardButton}>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={sendToDetails}
+          >
+            Full Profile
+          </Button>
+        </CardActions>
+      </Card>
+    </center>
+  );
+}
+
+export default UserCardSaved;
