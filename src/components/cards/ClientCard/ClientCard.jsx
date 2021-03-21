@@ -13,10 +13,14 @@ import {
 import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
+// Components
+import MessagingWindow from '../../MessagingWindow/MessagingWindow';
 
 function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const {
+    clients_users_id,
     first_name,
     last_name,
     city,
@@ -80,6 +84,16 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         <Typography variant="body2">
           {parsePreferences('challenges')}
         </Typography>
+        <Button
+          onClick={() =>
+            dispatch({
+              type: 'OPEN_MESSAGE_WINDOW',
+              payload: clients_users_id,
+            })
+          }
+        >
+          Send a Message
+        </Button>
       </CardContent>
     </Card>
   );

@@ -11,6 +11,7 @@ import savedProviders from './savedProviders.reducer';
 import oneClient from './oneClient.reducer';
 import allUsers from './allUsers.reducer';
 import drawerCollapse from './drawerCollapse.reducer';
+import messages from './messages.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   oneClient, // Holds card info for a logged in client in EditClient, so the card doesn't have active changes during typing
   allUsers, // contains data on all users in users table for Admin view
   drawerCollapse, // Keeps the state of the filter menu open on URL changes on ExploreView
+  messages, // Holds all the messages for the logged in user
 });
 
 export default rootReducer;

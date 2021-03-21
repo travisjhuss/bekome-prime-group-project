@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   submitBtn: {
-    width: '150px',
+    width: 150,
   },
   adminModalInput: {
     marginTop: theme.spacing(1),
@@ -174,24 +174,31 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(10),
     padding: theme.spacing(3),
   },
-  // styling added for ClientCard
-  clientCard: {
-    backgroundColor: '#FDFEFE',
-    // backgroundImage: `url("https://images.squarespace-cdn.com/content/v1/595db0b044024313332d1ef8/1580112394032-GZBYMVB6X78FV1P8S5KK/ke17ZwdGBToddI8pDm48kNiEM88mrzHRsd1mQ3bxVct7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0s0XaMNjCqAzRibjnE_wBlkZ2axuMlPfqFLWy-3Tjp4nKScCHg1XF4aLsQJlo6oYbA/White%2BShiplap%2B1-24.jpg?format=2500w")`,
-    // backgroundColor: "#cfd8dc",
-    margin: "0px 0px",
-    height: 650,
-    width: 325,
-
-
-    // https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/reclaimed-wood-where-to-buy-1571066028.jpg?crop=0.6624353549600376xw:1xh;center,top&resize=768:*
+  messageBar: {
+    position: 'fixed',
+    padding: theme.spacing(1),
+    width: 300,
+    bottom: 5,
+    right: 5,
+    cursor: 'pointer',
+    zIndex: 1,
   },
-  // styling for interested clients
-  interestedClients: {
-    // backgroundColor: '#e0fbfc',
-    // backgroundImage: `url("https://www.oregonlive.com/resizer/DVqQcCGiR0-cNqvzN17wcBNJKwM=/1280x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/image.oregonlive.com/home/olive-media/width2048/img/events_impact/photo/2016/10/26/21395512-standard.jpg")`,
-    background: 'linear-gradient(10deg, #e0fbfc 5%, #FFFFFF 90%)',
-
+  messageAvatar: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+  },
+  messagingWindow: {
+    position: 'fixed',
+    padding: theme.spacing(1),
+    width: 300,
+    minHeight: 300,
+    bottom: 5,
+    right: 350,
+    zIndex: 1,
+  },
+  messagingBody: {
+    height: 200,
+    overflow: 'scroll',
   },
 }));
 
