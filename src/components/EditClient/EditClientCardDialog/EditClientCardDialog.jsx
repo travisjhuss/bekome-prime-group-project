@@ -71,18 +71,6 @@ function EditClientCardDialog({
               value={last_name || ''}
               onChange={handleInputs('last_name')}
             />
-            <Typography>
-              What pronouns do you use? (select all that apply)
-            </Typography>
-            <FormCheckboxes category={'pronouns'} />
-            <TextField
-              variant="outlined"
-              label="Other"
-              className={classes.inputs}
-              size="small"
-              value={write_in_pronouns || ''}
-              onChange={handleInputs('write_in_pronouns')}
-            />
             <TextField
               type="date"
               variant="outlined"
@@ -92,8 +80,6 @@ function EditClientCardDialog({
               onChange={handleInputs('date_of_birth') || ''}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField
               variant="outlined"
               label="City"
@@ -117,18 +103,38 @@ function EditClientCardDialog({
                 ))}
               </Select>
             </FormControl>
-            <Typography>Upload a Photo:</Typography>
-            <Typography variant="body2" gutterBottom>
-              <i>not required</i>
-            </Typography>
-            <Box display="flex">
-              <S3Uploader />
-              <img className={classes.picPreview} src={pic} />
+            <Box py={1}>
+              <Typography>
+                What pronouns do you use? (select all that apply)
+              </Typography>
+              <FormCheckboxes category={'pronouns'} />
+              <Box>
+                <TextField
+                  variant="outlined"
+                  label="Other"
+                  className={classes.inputs}
+                  size="small"
+                  value={write_in_pronouns || ''}
+                  onChange={handleInputs('write_in_pronouns')}
+                />
+              </Box>
             </Box>
           </Grid>
+          <Grid item xs={6}>
+            <Box paddingBottom={2}>
+              <Typography>What kind of insurance do you have?</Typography>
+              <FormCheckboxes category={'insurance'} size="sm" />
+            </Box>
+          <Typography>Upload a Photo:</Typography>
+          <Typography variant="body2" gutterBottom>
+            <i>not required</i>
+          </Typography>
+          <Box display="flex" paddingTop={1}>
+            <S3Uploader />
+            <img className={classes.picPreview} src={pic} />
+          </Box>
+          </Grid>
         </Grid>
-        <Typography>What kind of insurance do you have?</Typography>
-        <FormCheckboxes category={'insurance'} />
       </DialogContent>
       <DialogActions>
         <Button

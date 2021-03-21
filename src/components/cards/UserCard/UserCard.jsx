@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 import {
   Card,
@@ -27,6 +27,7 @@ import useStyles from '../../../hooks/useStyles';
 function UserCard({ provider, edit, setDialogOpen }) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
@@ -143,6 +144,7 @@ function UserCard({ provider, edit, setDialogOpen }) {
         </CardContent>
         <CardActions className={classes.cardButton}>
           {!edit && (
+          <>
             <Button
               variant="contained"
               size="small"
@@ -151,10 +153,28 @@ function UserCard({ provider, edit, setDialogOpen }) {
             >
               Full Profile
             </Button>
-          )}
-        </CardActions>
-      </Card>
-      <Dialog
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={() =>
+                dispatch({
+                  type: 'OPEN_MESSAGE_WINDOW',
+                  payload: {
+                    sentName: first_name,
+                    sentPic: pic,
+                    sentId: providers_users_id,
+                  },
+                })
+              }
+            >
+              Send Message
+            </Button>
+          </>
+        )}
+      </CardActions>
+    </Card>
+    <Dialog
         open={open}
         onClose={handleClose}
       >

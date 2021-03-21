@@ -9,6 +9,7 @@ import {
   Grid,
   FormControlLabel,
   Switch,
+  Divider,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
@@ -45,21 +46,30 @@ function EditClientProviderPreferencesAccordion({
         </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.editClientAccordion}>
+        <Typography>My ideal therapist would be:</Typography>
         <Grid container spacing={5}>
-          <Grid item xs={12}>
-            <Typography>My ideal therapist would be:</Typography>
-            <FormCheckboxes category={'genders'} />
-            <FormCheckboxes category={'sexual_orientations'} />
-            <FormCheckboxes category={'ethnicities'} />
+          <Grid item xs={6}>
+            <Box paddingBottom={1}>
+              <FormCheckboxes category={'genders'} />
+            </Box>
+            <Divider />
+            <Box paddingTop={1}>
+              <FormCheckboxes category={'sexual_orientations'} />
+            </Box>
           </Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              <Typography>My therapist should speak:</Typography>
+          <Grid item xs={6}>
+            <FormCheckboxes category={'ethnicities'} />
+            <Box py={1}>
+              <Typography gutterBottom>My therapist should speak:</Typography>
               <FormMenuChips category={'languages'} string={'Languages'} />
-              <Typography>My therapist's ideal religion would be:</Typography>
+            </Box>
+            <Box py={1}>
+              <Typography gutterBottom>
+                My therapist's ideal religion would be:
+              </Typography>
               <FormMenuChips category={'religions'} string={'Religions'} />
-            </Grid>
-            <Grid item xs={6}>
+            </Box>
+            <Box py={1}>
               <FormControlLabel
                 control={
                   <Switch
@@ -69,10 +79,10 @@ function EditClientProviderPreferencesAccordion({
                 }
                 label="I would like to see someone with sliding scale payments"
               />
-            </Grid>
+            </Box>
           </Grid>
         </Grid>
-        <Box display="flex" flexDirection="row-reverse">
+        <Box display="flex" flexDirection="row-reverse" paddingTop={3}>
           <Button
             variant="contained"
             color="primary"

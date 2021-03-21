@@ -25,6 +25,8 @@ import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
 import AdminProviderQuestions from '../AdminProviderQuestions/AdminProviderQuestions';
 import AdminUsersList from '../AdminUsersList/AdminUsersList';
+import MessagingWidget from '../messaging/MessagingWidget/MessagingWidget';
+import MessagingWindow from '../messaging/MessagingWindow/MessagingWindow';
 // Mui imports and theme
 import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';
@@ -32,7 +34,8 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-  const { user_type } = useSelector((store) => store.user);
+  const { filled_out_form, user_type } = useSelector((store) => store.user);
+  const { open } = useSelector((store) => store.messages.windowOpen);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -208,6 +211,8 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
+          {filled_out_form && <MessagingWidget />}
+          {open && <MessagingWindow />}
           <Footer />
         </div>
       </Router>

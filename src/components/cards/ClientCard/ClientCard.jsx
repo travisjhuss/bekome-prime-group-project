@@ -16,7 +16,9 @@ import useStyles from '../../../hooks/useStyles';
 
 function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const {
+    clients_users_id,
     first_name,
     last_name,
     city,
@@ -40,7 +42,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
   };
 
   return (
-    <Card className={classes.cardRoot}>
+    <Card className={classes.clientCard}>
       <CardHeader
         title={
           <Typography variant="h6">
@@ -61,6 +63,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
           )
         }
       />
+      
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.CardContent}>
         <Typography variant="body2">
@@ -79,6 +82,16 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         <Typography variant="body2">
           {parsePreferences('challenges')}
         </Typography>
+        <Button
+          onClick={() =>
+            dispatch({
+              type: 'OPEN_MESSAGE_WINDOW',
+              payload: clients_users_id,
+            })
+          }
+        >
+          Send a Message
+        </Button>
       </CardContent>
     </Card>
   );

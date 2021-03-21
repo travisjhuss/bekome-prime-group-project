@@ -14,6 +14,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// Gets the full name of the user alongside their id/email/user_type etc
+router.get('/name', rejectUnauthenticated, (req, res) => {
+  const { id, user_type } = req.user;
+  const sqlText =
+    user_type === 'client'
+      ? `
+        SELECT "first_name", "pic" FROM "clients" 
+        WHERE "clients_users_id" = $1;
+      `
+      : `
+        SELECT "first_name", "pic" FROM "providers" 
+        WHERE "providers_users_id" = $1;
+      `;
+  pool
+    .query(sqlText, [id])
+    .then((result) => res.send(result.rows[0]))
+    .catch((err) => {
+      console.log(`Error in GET with query ${sqlText}`, err);
+      res.sendStatus(500);
+    });
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

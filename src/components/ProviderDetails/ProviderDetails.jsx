@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { Box, Typography, Grid, Button } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 // Component imports
@@ -11,6 +11,7 @@ import StrengthsAccordion from '../accordions/StrengthsAccordion/StrengthsAccord
 import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAccordion';
 import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
+import VideoModal from '../VideoModal/VideoModal';
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -31,9 +32,11 @@ function ProviderDetails() {
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
   const [openAccordion, setOpenAccordion] = useState('questions');
+  const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
+    dispatch({ type: 'GET_PROVIDERS' });
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
@@ -53,67 +56,106 @@ function ProviderDetails() {
   };
 
   return (
-    <Box p={2}>
-      <Box display="flex" alignItems="center">
-        <Typography>
-          {first_name} {last_name}
-        </Typography>
-        <FavoriteProviderButton
-          id={providers_users_id}
-          saved={saved}
-          type={'FETCH_PROVIDER_DETAILS'}
-        />
-      </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <Box display="flex">
-            <img src={pic} className={classes.pic} />
-            <Box>
-              <Typography>Age: {age}</Typography>
-              <Typography>
-                Pronouns: {parsePreferences('pronouns')}
-                {write_in_pronouns && `, ${write_in_pronouns}`}
-              </Typography>
-              <Typography>
-                Location: {city}, {state}
-              </Typography>
-              <Typography>
-                Languages: {parsePreferences('languages')}
-              </Typography>
-              <Typography>
-                Religious Affiliations: {parsePreferences('religions')}
-              </Typography>
+    <>
+      <VideoModal
+        modalState={modalState}
+        setModalState={setModalState}
+        video={"http://techslides.com/demos/sample-videos/small.webm"}
+      />
+      <Box p={4} >
+        <Box display="flex" alignItems="center" ml={4}>
+          <Typography variant="h4">
+            {first_name} {last_name}
+          </Typography>
+          <FavoriteProviderButton
+            id={providers_users_id}
+            saved={saved}
+            type={'FETCH_PROVIDER_DETAILS'}
+          />
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Box display="flex">
+              <img src={pic} className={classes.pic} />
+              <Box mt={6} >
+                <Typography gutterBottom={true}>Age: {age}</Typography>
+                <Typography gutterBottom={true}>
+                  Pronouns: {parsePreferences('pronouns')}
+                  {write_in_pronouns && `, ${write_in_pronouns}`}
+                </Typography >
+                <Typography gutterBottom={true}>
+                  Location: {city}, {state}
+                </Typography>
+                <Typography gutterBottom={true}>
+                  Languages: {parsePreferences('languages')}
+                </Typography>
+                <Typography gutterBottom={true}>
+                  Religious Affiliations: {parsePreferences('religions')}
+                </Typography>
+                <Box>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={() =>
+                      dispatch({
+                        type: 'OPEN_MESSAGE_WINDOW',
+                        payload: providers_users_id,
+                      })
+                    }
+                  >
+                    Send Message
+                  </Button>
+                </Box>
+                <Box mt={2}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => setModalState(true)}
+                  >
+                    Watch Video
+                  </Button>
+                </Box>
+              </Box>
             </Box>
-          </Box>
+          </Grid>
+          <Grid item xs={6} >
+            <Box boxShadow={2}>
+              <QuestionAccordion
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+              />
+              <StrengthsAccordion
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                parsePreferences={parsePreferences}
+              />
+              <BackgroundAccordion
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                parsePreferences={parsePreferences}
+              />
+              <SpecialtiesAccordion
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                parsePreferences={parsePreferences}
+              />
+              <FormatsAccordion
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                parsePreferences={parsePreferences}
+              />
+            </Box>
+          </Grid>
+          {/* <Grid item alignContent="center">
+            <Box boxShadow={2} alignItems="center" p={2}>
+              <video controls>
+              <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" /> 
+              </video>
+            </Box>
+          </Grid> */}
         </Grid>
-        <Grid item xs={6}>
-          <QuestionAccordion
-            openAccordion={openAccordion}
-            handleOpenAccordion={handleOpenAccordion}
-          />
-          <StrengthsAccordion
-            openAccordion={openAccordion}
-            handleOpenAccordion={handleOpenAccordion}
-            parsePreferences={parsePreferences}
-          />
-          <BackgroundAccordion
-            openAccordion={openAccordion}
-            handleOpenAccordion={handleOpenAccordion}
-            parsePreferences={parsePreferences}
-          />
-          <SpecialtiesAccordion
-            openAccordion={openAccordion}
-            handleOpenAccordion={handleOpenAccordion}
-            parsePreferences={parsePreferences}
-          />
-          <FormatsAccordion
-            openAccordion={openAccordion}
-            handleOpenAccordion={handleOpenAccordion}
-            parsePreferences={parsePreferences}
-          />
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }
 
