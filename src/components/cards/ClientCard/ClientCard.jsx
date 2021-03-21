@@ -63,7 +63,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
           )
         }
       />
-      
+
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.CardContent}>
         <Typography variant="body2">
@@ -83,10 +83,16 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
           {parsePreferences('challenges')}
         </Typography>
         <Button
+          variant="contained"
+          color="secondary"
           onClick={() =>
             dispatch({
               type: 'OPEN_MESSAGE_WINDOW',
-              payload: clients_users_id,
+              payload: {
+                sentName: first_name,
+                sentPic: pic,
+                sentId: clients_users_id,
+              },
             })
           }
         >

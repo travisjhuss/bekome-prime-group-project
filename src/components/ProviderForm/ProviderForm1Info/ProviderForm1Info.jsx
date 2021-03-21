@@ -104,7 +104,7 @@ function ProviderForm1Info({ handleInputs }) {
         </Grid>
         <Grid item xs={6}>
           <Typography>Upload a Photo:</Typography>
-          <S3Uploader />
+          <S3Uploader picOrVideo="pic" />
           <Typography>What best describes your race?</Typography>
           <FormCheckboxes category={'ethnicities'} />
           <Typography>What best describes your sexual orientation?</Typography>

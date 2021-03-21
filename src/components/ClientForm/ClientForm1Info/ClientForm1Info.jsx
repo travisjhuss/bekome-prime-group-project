@@ -109,7 +109,7 @@ function ClientForm1Info({ handleInputs }) {
           <Typography variant="body2" gutterBottom>
             <i>not required</i>
           </Typography>
-          <S3Uploader />
+          <S3Uploader picOrVideo="pic" />
         </Grid>
       </Grid>
     </Paper>
