@@ -80,6 +80,13 @@ const useStyles = makeStyles((theme) => ({
     height: 300,
     overflow: 'scroll'
   },
+  videoBtn: {
+    position: 'relative',
+    // top: '230px',
+    left: '80px',
+    transform: 'scale(1.3)',
+    padding: 0,
+  },
   saveButton: {
     // paddingRight: 5,
     // paddingTop: 5
@@ -178,6 +185,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(10),
     padding: theme.spacing(3),
   },
+  video: {
+    height: '480px',
+    border: '10px solid #e0fbfc',
+  }
 }));
 
 export default useStyles;

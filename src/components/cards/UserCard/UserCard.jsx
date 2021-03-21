@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
@@ -11,8 +12,16 @@ import {
   Button,
   Typography,
   IconButton,
+  Dialog,
+  Tooltip
 } from '@material-ui/core';
-import { LocationOn, Language, Edit, PersonAdd, PlayArrow } from '@material-ui/icons';
+import {
+  LocationOn,
+  Language,
+  Edit,
+  PersonAdd,
+  PlayArrow,
+} from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
 function UserCard({ provider, edit, setDialogOpen }) {
@@ -35,6 +44,16 @@ function UserCard({ provider, edit, setDialogOpen }) {
     accepting_clients,
     saved,
   } = provider;
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const parsePreferences = (category) => {
     return preferences
@@ -65,73 +84,83 @@ function UserCard({ provider, edit, setDialogOpen }) {
   };
 
   return (
-    <Card className={classes.cardRoot} raised={true}>
-      <CardHeader
-        className={classes.cardHeader}
-        action={
-          user_type === 'client' && (
-            <FavoriteProviderButton
-              id={providers_users_id}
-              saved={saved}
-              type={'GET_PROVIDERS'}
-            />
-          )
-        }
-        title={
-          <Typography variant="h6" color="secondary">
-            {first_name} {last_name}
-          </Typography>
-        }
-        subheader={
-          <Typography variant="caption">
-            {parsePreferences('pronouns')}
-            {write_in_pronouns && `, ${write_in_pronouns}`}
-          </Typography>
-        }
-      />
-      {edit && (
-        <IconButton onClick={() => setDialogOpen('card')}>
-          <Edit />
-        </IconButton>
-      )}
-      <CardActionArea onClick={sendToDetails}>
-        <CardMedia className={classes.cardMedia} image={pic} />
-      </CardActionArea>
-      <CardContent className={classes.cardContent}>
-        <Typography variant="body2">
-          <LocationOn color="primary" /> {city}, {state}
-        </Typography>
-        <Typography variant="body2">
-          <Language color="primary" /> {parsePreferences('languages')}
-        </Typography>
-        {accepting_clients && (
+    <>
+      <Card className={classes.cardRoot} raised={true}>
+        <CardHeader
+          className={classes.cardHeader}
+          action={
+            user_type === 'client' && (
+              <FavoriteProviderButton
+                id={providers_users_id}
+                saved={saved}
+                type={'GET_PROVIDERS'}
+              />
+            )
+          }
+          title={
+            <Typography variant="h6" color="secondary">
+              {first_name} {last_name}
+            </Typography>
+          }
+          subheader={
+            <Typography variant="caption">
+              {parsePreferences('pronouns')}
+              {write_in_pronouns && `, ${write_in_pronouns}`}
+            </Typography>
+          }
+        />
+        {edit && (
+          <IconButton onClick={() => setDialogOpen('card')}>
+            <Edit />
+          </IconButton>
+        )}
+        <CardActionArea onClick={sendToDetails}>
+          <CardMedia className={classes.cardMedia} image={pic} />
+        </CardActionArea>
+        <CardContent className={classes.cardContent}>
           <Typography variant="body2">
-            <PersonAdd color="primary"/> Accepting new clients
+            <LocationOn color="primary" /> {city}, {state}
           </Typography>
-        )}
-        {video && (
           <Typography variant="body2">
-            <PlayArrow color="primary"/> See my video
+            <Language color="primary" /> {parsePreferences('languages')}
           </Typography>
-        )}
-        <br />
-        {providerQuestions.map((question) =>
-          findQuestion(question.id, question.content)
-        )}
-      </CardContent>
-      <CardActions className={classes.cardButton}>
-        {!edit && (
-          <Button
-            variant="contained"
-            size="small"
-            color="primary"
-            onClick={sendToDetails}
-          >
-            Full Profile
-          </Button>
-        )}
-      </CardActions>
-    </Card>
+          {accepting_clients && (
+            <Typography variant="body2">
+              <PersonAdd color="primary" /> Accepting new clients
+            </Typography>
+          )}
+          <br />
+          {providerQuestions.map((question) =>
+            findQuestion(question.id, question.content)
+          )}
+        </CardContent>
+        <CardActions className={classes.cardButton}>
+          {!edit && (
+            <Button
+              variant="contained"
+              size="small"
+              color="primary"
+              onClick={sendToDetails}
+            >
+              Full Profile
+            </Button>
+          )}
+          {video && (
+          <Tooltip title="View Video">
+            <IconButton onClick={handleOpen} className={classes.videoBtn} color="secondary">
+              <PlayArrow/>
+            </IconButton>
+            </Tooltip>
+          )}
+        </CardActions>
+      </Card>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <video src={video} controls className={classes.video}/>
+      </Dialog>
+    </>
   );
 }
 
