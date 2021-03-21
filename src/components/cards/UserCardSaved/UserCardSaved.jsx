@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
+import { useDispatch } from 'react-redux';
 import {
   Card,
   CardActionArea,
@@ -12,9 +12,21 @@ import {
 } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
+// Components
+import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 
 function UserCardSaved({ provider }) {
+  const {
+    providers_users_id,
+    pic,
+    city,
+    state,
+    pronouns,
+    first_name,
+    last_name,
+  } = provider;
   const history = useHistory();
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const sendToDetails = () => {
@@ -24,21 +36,21 @@ function UserCardSaved({ provider }) {
   return (
     <center>
       <Card className={classes.savedProviderCard}>
-        <CardMedia className={classes.cardMedia} image={provider.pic} />
+        <CardMedia className={classes.cardMedia} image={pic} />
         <CardContent className={classes.cardHeader}>
           <Typography variant="h6" display="inline">
-            {provider.first_name + ' ' + provider.last_name}
+            {first_name + ' ' + last_name}
           </Typography>{' '}
           <FavoriteProviderButton
-            id={provider.providers_users_id}
+            id={providers_users_id}
             saved={true}
             type={'GET_SAVED_PROVIDERS'}
           />
           <br />
           <Typography variant="body2">
-            {provider.city}, {provider.state}
+            {city}, {state}
           </Typography>
-          <Typography variant="body2">{provider.pronouns}</Typography>
+          <Typography variant="body2">{pronouns}</Typography>
         </CardContent>
         <CardActions className={classes.cardButton}>
           <Button
@@ -53,7 +65,7 @@ function UserCardSaved({ provider }) {
             variant="contained"
             size="small"
             color="secondary"
-            onClick={() => () =>
+            onClick={() =>
               dispatch({
                 type: 'OPEN_MESSAGE_WINDOW',
                 payload: {
@@ -61,7 +73,8 @@ function UserCardSaved({ provider }) {
                   sentPic: pic,
                   sentId: providers_users_id,
                 },
-              })}
+              })
+            }
           >
             Send Message
           </Button>
