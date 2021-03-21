@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DateTime } from 'luxon';
 import io from 'socket.io-client';
 import {
   Box,
@@ -11,10 +10,7 @@ import {
   withStyles,
   Badge,
   Collapse,
-  Divider,
   List,
-  ListItem,
-  ListItemIcon,
 } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 // Custom hooks
@@ -45,22 +41,32 @@ const StyledBadge = withStyles((theme) => ({
 function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { first_name, pic } = useSelector((store) => store.user);
+  const { first_name, pic, id } = useSelector((store) => store.user);
   const messages = useSelector((store) => store.messages.messagesReducer);
   const [collapse, setCollapse] = useState(false);
-  const [unread, setUnread] = useState(false);
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
+
+  const checkForBadge = messages.findIndex((item) => {
+    const { recipient_users_id, read_by_recipient } = item.message_log[
+      item.message_log.length - 1
+    ];
+    return recipient_users_id === id && read_by_recipient === false;
+  });
 
   socket.on('RECEIVE_MESSAGE', () => {
     dispatch({ type: 'FETCH_MESSAGES' });
   });
 
-  const handleClickMessage = (conversationId) => {
-    dispatch({
-      type: 'OPEN_MESSAGE_WINDOW',
-      payload: conversationId,
-    });
+  const checkForUnread = (message_log) => {
+    const { recipient_users_id, read_by_recipient } = message_log[
+      message_log.length - 1
+    ];
+    if (recipient_users_id === id && read_by_recipient === false) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -70,7 +76,7 @@ function MessagingWidget() {
         alignItems="center"
         onClick={() => setCollapse(!collapse)}
       >
-        {unread ? (
+        {checkForBadge > -1 ? (
           <StyledBadge
             overlap="circle"
             anchorOrigin={{
@@ -79,12 +85,12 @@ function MessagingWidget() {
             }}
             variant="dot"
           >
-            <Avatar className={classes.messageAvatar} src={pic}>
+            <Avatar className={classes.messagingWidgetAvatar} src={pic}>
               {first_name && first_name.charAt(0)}
             </Avatar>
           </StyledBadge>
         ) : (
-          <Avatar className={classes.messageAvatar} src={pic}>
+          <Avatar className={classes.messagingWidgetAvatar} src={pic}>
             {first_name && first_name.charAt(0)}
           </Avatar>
         )}
@@ -100,12 +106,11 @@ function MessagingWidget() {
       <Collapse in={collapse}>
         {messages[0] ? (
           <List>
-            {messages.map((message, i) => (
+            {messages.map((message) => (
               <MessagingListItem
-                key={i}
+                key={message.id}
                 message={message}
-                handleClickMessage={handleClickMessage}
-                setUnread={setUnread}
+                unread={checkForUnread(message.message_log)}
               />
             ))}
           </List>

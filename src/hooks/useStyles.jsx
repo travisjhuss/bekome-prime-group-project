@@ -178,21 +178,30 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     padding: theme.spacing(1),
     width: 300,
-    bottom: 5,
-    right: 5,
+    bottom: 0,
+    right: 10,
     cursor: 'pointer',
     zIndex: 1,
   },
-  messageAvatar: {
+  messagingWidgetAvatar: {
     height: theme.spacing(4),
     width: theme.spacing(4),
+  },
+  messagingListAvatar: {
+    height: theme.spacing(5),
+    width: theme.spacing(5),
+  },
+  messagingWindowAvatar: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+    marginRight: theme.spacing(1.5),
   },
   messagingWindow: {
     position: 'fixed',
     padding: theme.spacing(1),
-    width: 300,
-    minHeight: 300,
-    bottom: 5,
+    width: 350,
+    height: 300,
+    bottom: 0,
     right: 350,
     zIndex: 1,
   },
@@ -200,9 +209,15 @@ const useStyles = makeStyles((theme) => ({
     height: 200,
     overflow: 'scroll',
   },
-  messageWidgetListItem: {
-    height: 80,
-    overflow: 'hidden',
+  messagingStartAtBottom: {
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  },
+  messagingWidgetListItem: {
+    height: 100,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   userBubble: {
     maxWidth: '75%',
@@ -217,6 +232,13 @@ const useStyles = makeStyles((theme) => ({
   },
   messageTextField: {
     fontSize: '0.9em',
+  },
+  unreadMessageText: {
+    fontWeight: 700,
+  },
+  messagePreviewBox: {
+    height: 60,
+    overflow: 'hidden',
   },
 }));
 

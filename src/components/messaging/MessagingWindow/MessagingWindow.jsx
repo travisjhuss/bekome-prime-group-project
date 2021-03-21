@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   TextField,
@@ -6,6 +7,7 @@ import {
   IconButton,
   Paper,
   Divider,
+  Avatar,
 } from '@material-ui/core';
 import { Close, Send } from '@material-ui/icons';
 import io from 'socket.io-client';
@@ -22,12 +24,25 @@ function MessagingWindow() {
   const {
     clients_name,
     clients_users_id,
+    clients_pic,
     providers_name,
     providers_users_id,
+    providers_pic,
     message_log,
   } = useSelector((store) => store.messages.messagesReducer).find(
     (item) => item.conversation === conversationId
   );
+  const notTheUser =
+    user_type === 'client'
+      ? { name: providers_name, pic: providers_pic }
+      : { name: clients_name, pic: clients_pic };
+  const messagesBottomRef = useRef(null);
+
+  useEffect(() => scrollToBottom(), []);
+
+  const scrollToBottom = () => {
+    messagesBottomRef.current?.scrollIntoView();
+  };
 
   const handleSendMessage = () => {
     socket.emit('SEND_MESSAGE', {
@@ -57,12 +72,17 @@ function MessagingWindow() {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography variant="body2">
-          <b>
-            Conversation with{' '}
-            {user_type === 'client' ? providers_name : clients_name}
-          </b>
-        </Typography>
+        <Box display="flex" alignItems="center">
+          <Avatar
+            className={classes.messagingWindowAvatar}
+            src={notTheUser.pic}
+          >
+            {notTheUser.name.charAt(0)}
+          </Avatar>
+          <Typography variant="body2">
+            <b>Conversation with {notTheUser.name}</b>
+          </Typography>
+        </Box>
         <IconButton
           size="small"
           onClick={() => dispatch({ type: 'CLOSE_MESSAGE_WINDOW' })}
@@ -72,7 +92,7 @@ function MessagingWindow() {
       </Box>
       <Divider />
       <Box className={classes.messagingBody}>
-        {message_log?.map((item) => (
+        {message_log?.map((item, i) => (
           <Box
             key={item.id}
             m={1}
@@ -93,6 +113,7 @@ function MessagingWindow() {
             </Box>
           </Box>
         ))}
+        <div ref={messagesBottomRef}></div>
       </Box>
       <Divider />
       <Box display="flex" alignItems="center">
