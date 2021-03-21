@@ -20,6 +20,7 @@ import MessagingListItem from '../MessagingListItem/MessagingListItem';
 // Socket connection
 const socket = io.connect('http://localhost:5001');
 
+// Badge component which is added to user's Avatar if they have unread messages
 const StyledBadge = withStyles((theme) => ({
   badge: {
     backgroundColor: '#EE6C4D',
@@ -38,6 +39,8 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
+// This is a constant bar on the screen in all views, displaying messages the
+// user has received, and notifying them when new messages are received
 function MessagingWidget() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -47,6 +50,7 @@ function MessagingWidget() {
 
   useEffect(() => dispatch({ type: 'FETCH_MESSAGES' }), []);
 
+  // Checks to see if there are unread messages in the user's list
   const checkForBadge = messages.findIndex((item) => {
     const { recipient_users_id, read_by_recipient } = item.message_log[
       item.message_log.length - 1
@@ -54,10 +58,14 @@ function MessagingWidget() {
     return recipient_users_id === id && read_by_recipient === false;
   });
 
+  // When socket.io sends a 'RECEIVE_MESSAGE', this triggers a GET route
+  // to retrieve messages from the db
   socket.on('RECEIVE_MESSAGE', () => {
     dispatch({ type: 'FETCH_MESSAGES' });
   });
 
+  // Called in the props sent to MessagingListItem, checks to see if the user
+  // is the recipient of the last message in the array and if it's unread
   const checkForUnread = (message_log) => {
     const { recipient_users_id, read_by_recipient } = message_log[
       message_log.length - 1
@@ -106,11 +114,11 @@ function MessagingWidget() {
       <Collapse in={collapse}>
         {messages[0] ? (
           <List>
-            {messages.map((message) => (
+            {messages.map((messageThread, i) => (
               <MessagingListItem
-                key={message.id}
-                message={message}
-                unread={checkForUnread(message.message_log)}
+                key={i}
+                messageThread={messageThread}
+                unread={checkForUnread(messageThread.message_log)}
               />
             ))}
           </List>

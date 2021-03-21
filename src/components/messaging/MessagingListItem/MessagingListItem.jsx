@@ -10,7 +10,9 @@ import {
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
-function MessagingListItem({ message, unread }) {
+// This displays a user's messages organized by conversation between
+// provider and client
+function MessagingListItem({ messageThread, unread }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
@@ -18,16 +20,23 @@ function MessagingListItem({ message, unread }) {
     conversation,
     providers_name,
     providers_pic,
+    providers_users_id,
     clients_name,
     clients_pic,
+    clients_users_id,
     message_log,
-  } = message;
+  } = messageThread;
 
-  const handleClickMessage = (conversationId) => {
+  // Triggers opening MessagingWindow and gives it the clicked conversation ID
+  const handleClickMessage = () => {
     dispatch({
       type: 'OPEN_MESSAGE_WINDOW',
-      payload: conversationId,
+      payload: {
+        conversationId: conversation,
+      },
     });
+    // Uses the previously found 'unread' status to trigger the message
+    // being marked as read, if applicable
     if (unread === true) {
       dispatch({
         type: 'MARK_AS_READ',
@@ -41,7 +50,7 @@ function MessagingListItem({ message, unread }) {
       <ListItem
         className={classes.messagingWidgetListItem}
         button
-        onClick={() => handleClickMessage(conversation)}
+        onClick={handleClickMessage}
       >
         <ListItemIcon>
           <Avatar

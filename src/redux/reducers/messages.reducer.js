@@ -9,12 +9,12 @@ const messagesReducer = (state = [], action) => {
   }
 };
 
-const windowOpen = (state = { open: false, conversationId: '' }, action) => {
+const windowOpen = (state = { open: false, messageData: {} }, action) => {
   switch (action.type) {
     case 'OPEN_MESSAGE_WINDOW':
-      return { open: true, conversationId: action.payload };
+      return { open: true, messageData: action.payload };
     case 'CLOSE_MESSAGE_WINDOW':
-      return { open: false, conversationId: '' };
+      return { open: false, messageData: '' };
     default:
       return state;
   }

@@ -11,31 +11,50 @@ import {
 } from '@material-ui/core';
 import { Close, Send } from '@material-ui/icons';
 import io from 'socket.io-client';
+// Custom hooks
 import useStyles from '../../../hooks/useStyles';
-
+// Socket.io connection
 const socket = io.connect('http://localhost:5001');
 
+// Shows the array of messages each conversation contains, and the TextField
+// to send a new message
 function MessagingWindow() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { id, user_type } = useSelector((store) => store.user);
-  const { conversationId } = useSelector((store) => store.messages.windowOpen);
+  const { sentName, sentPic, sentId, conversationId } = useSelector(
+    (store) => store.messages.windowOpen
+  ).messageData;
   const messageText = useSelector((store) => store.messages.textInput);
-  const {
-    clients_name,
-    clients_users_id,
-    clients_pic,
-    providers_name,
-    providers_users_id,
-    providers_pic,
-    message_log,
-  } = useSelector((store) => store.messages.messagesReducer).find(
-    (item) => item.conversation === conversationId
+  const messageThread = useSelector(
+    (store) => store.messages.messagesReducer
+  ).find(
+    (item) =>
+      item.conversation === conversationId ||
+      item.conversation === `${id}_${sentId}` ||
+      item.conversation === `${sentId}_${id}`
   );
-  const notTheUser =
-    user_type === 'client'
-      ? { name: providers_name, pic: providers_pic }
-      : { name: clients_name, pic: clients_pic };
+
+  // Finds who the user is based on their user type.
+  // NOTE this is based only on provider/client messaging at the moment
+  // Or, if this is a new message without a thread, it will assign the values
+  // to what was sent via redux from hitting a 'Send Message' button
+  const notTheUser = messageThread
+    ? user_type === 'client'
+      ? {
+          name: messageThread.providers_name,
+          pic: messageThread.providers_pic,
+          id: messageThread.providers_users_id,
+        }
+      : {
+          name: messageThread.clients_name,
+          pic: messageThread.clients_pic,
+          id: messageThread.clients_users_id,
+        }
+    : { name: sentName, pic: sentPic, id: sentId };
+
+  // useRef makes sure the message window starts at the bottom/most recent text,
+  // along with the following useEffect() and scrollToBottom() functions
   const messagesBottomRef = useRef(null);
 
   useEffect(() => scrollToBottom(), []);
@@ -44,17 +63,20 @@ function MessagingWindow() {
     messagesBottomRef.current?.scrollIntoView();
   };
 
+  // Sends message through socket.io, which triggers a POST to the db
   const handleSendMessage = () => {
     socket.emit('SEND_MESSAGE', {
       sender_users_id: id,
-      recipient_users_id:
-        user_type === 'client' ? providers_users_id : clients_users_id,
+      recipient_users_id: notTheUser.id,
       message: messageText,
-      conversation: conversationId,
+      conversation: messageThread?.conversation || `${id}_${sentId}`,
     });
+    // Clears the stored message data in redux
     dispatch({ type: 'CLEAR_MESSAGE_TEXT' });
   };
 
+  // Allows the user to press the 'enter' key to send, and 'shift + enter'
+  // to type a new line
   const handleCheckForEnter = (event) => {
     event.shiftKey && event.keyCode === 13
       ? dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value })
@@ -92,7 +114,7 @@ function MessagingWindow() {
       </Box>
       <Divider />
       <Box className={classes.messagingBody}>
-        {message_log?.map((item, i) => (
+        {messageThread?.message_log.map((item) => (
           <Box
             key={item.id}
             m={1}
