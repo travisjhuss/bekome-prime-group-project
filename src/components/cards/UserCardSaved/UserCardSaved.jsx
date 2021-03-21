@@ -13,7 +13,6 @@ import {
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
-
 function UserCardSaved({ provider }) {
   const history = useHistory();
   const classes = useStyles();
@@ -49,6 +48,22 @@ function UserCardSaved({ provider }) {
             onClick={sendToDetails}
           >
             Full Profile
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            color="secondary"
+            onClick={() => () =>
+              dispatch({
+                type: 'OPEN_MESSAGE_WINDOW',
+                payload: {
+                  sentName: first_name,
+                  sentPic: pic,
+                  sentId: providers_users_id,
+                },
+              })}
+          >
+            Send Message
           </Button>
         </CardActions>
       </Card>

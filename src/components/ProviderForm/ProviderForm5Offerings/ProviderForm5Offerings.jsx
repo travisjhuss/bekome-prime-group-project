@@ -67,7 +67,7 @@ function ProviderForm5Offerings({ handleInputs }) {
           <Typography>
             Please upload a short video to introduce yourself!
           </Typography>
-          <S3Uploader />
+          <S3Uploader picOrVideo="video" />
           <Typography>What is your {state} license number?</Typography>
           <TextField
             variant="outlined"

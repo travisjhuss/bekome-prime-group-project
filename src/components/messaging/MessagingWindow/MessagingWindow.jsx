@@ -26,9 +26,9 @@ function MessagingWindow() {
     (store) => store.messages.windowOpen
   ).messageData;
   const messageText = useSelector((store) => store.messages.textInput);
-  
+
   // Finds a previous message thread between these two users, if it exists,
-  // based on the conversation id, which is a combo of the two id numbers 
+  // based on the conversation id, which is a combo of the two id numbers
   // separated by '_', i.e. '2_6'
   const messageThread = useSelector(
     (store) => store.messages.messagesReducer

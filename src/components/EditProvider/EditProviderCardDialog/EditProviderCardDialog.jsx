@@ -71,18 +71,6 @@ function EditProviderCardDialog({
               value={last_name || ''}
               onChange={handleInputs('last_name')}
             />
-            <Typography>
-              What pronouns do you use? (select all that apply)
-            </Typography>
-            <FormCheckboxes category={'pronouns'} />
-            <TextField
-              variant="outlined"
-              label="Other"
-              className={classes.inputs}
-              size="small"
-              value={write_in_pronouns || ''}
-              onChange={handleInputs('write_in_pronouns')}
-            />
             <TextField
               type="date"
               variant="outlined"
@@ -92,38 +80,64 @@ function EditProviderCardDialog({
               onChange={handleInputs('date_of_birth') || ''}
               InputLabelProps={{ shrink: true }}
             />
+            <Box py={1}>
+              <Typography>
+                What pronouns do you use? (select all that apply)
+              </Typography>
+              <FormCheckboxes category={'pronouns'} />
+              <Box>
+                <TextField
+                  variant="outlined"
+                  label="Other"
+                  className={classes.inputs}
+                  size="small"
+                  value={write_in_pronouns || ''}
+                  onChange={handleInputs('write_in_pronouns')}
+                />
+              </Box>
+            </Box>
+            <Box py={1}>
+              <Typography gutterBottom>What languages do you speak?</Typography>
+              <FormMenuChips category={'languages'} string={'Languages'} />
+            </Box>
           </Grid>
           <Grid item xs={6}>
-            <Typography>What languages do you speak?</Typography>
-            <FormMenuChips category={'languages'} string={'Languages'} />
-            <Typography>Where is your practice located?</Typography>
-            <TextField
-              variant="outlined"
-              label="City"
-              className={classes.inputs}
-              value={city || ''}
-              onChange={handleInputs('city')}
-            />
-            <FormControl variant="outlined">
-              <InputLabel id="state-picker">State</InputLabel>
-              <Select
-                labelId="state-picker"
-                className={classes.stateSelect}
-                label="State"
-                value={state || ''}
-                onChange={handleInputs('state')}
-              >
-                {states.map((state, i) => (
-                  <MenuItem key={i} value={state.name}>
-                    {state.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Typography>Upload a Photo:</Typography>
-            <Box display="flex">
-              <S3Uploader />
+            <Box py={1}>
+              <Typography gutterBottom>
+                Where is your practice located?
+              </Typography>
+              <TextField
+                variant="outlined"
+                label="City"
+                className={classes.inputs}
+                value={city || ''}
+                onChange={handleInputs('city')}
+              />
+              <FormControl variant="outlined">
+                <InputLabel id="state-picker">State</InputLabel>
+                <Select
+                  labelId="state-picker"
+                  className={classes.stateSelect}
+                  label="State"
+                  value={state || ''}
+                  onChange={handleInputs('state')}
+                >
+                  {states.map((state, i) => (
+                    <MenuItem key={i} value={state.name}>
+                      {state.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Typography gutterBottom>Upload a Photo:</Typography>
+            <Box display="flex" paddingBottom={2}>
+              <S3Uploader picOrVideo="pic" />
               <img className={classes.picPreview} src={pic} />
+            </Box>
+            <Typography gutterBottom>Upload a Video:</Typography>
+            <Box display="flex" paddingBottom={2}>
+              <S3Uploader picOrVideo="video" />
             </Box>
           </Grid>
         </Grid>
