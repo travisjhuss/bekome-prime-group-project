@@ -60,9 +60,9 @@ function ProviderDetails() {
       <VideoModal
         modalState={modalState}
         setModalState={setModalState}
-        video={"http://techslides.com/demos/sample-videos/small.webm"}
+        video={'http://techslides.com/demos/sample-videos/small.webm'}
       />
-      <Box p={4} >
+      <Box p={4}>
         <Box display="flex" alignItems="center" ml={4}>
           <Typography variant="h4">
             {first_name} {last_name}
@@ -77,12 +77,12 @@ function ProviderDetails() {
           <Grid item xs={6}>
             <Box display="flex">
               <img src={pic} className={classes.pic} />
-              <Box mt={6} >
+              <Box mt={6}>
                 <Typography gutterBottom={true}>Age: {age}</Typography>
                 <Typography gutterBottom={true}>
                   Pronouns: {parsePreferences('pronouns')}
                   {write_in_pronouns && `, ${write_in_pronouns}`}
-                </Typography >
+                </Typography>
                 <Typography gutterBottom={true}>
                   Location: {city}, {state}
                 </Typography>
@@ -99,7 +99,11 @@ function ProviderDetails() {
                     onClick={() =>
                       dispatch({
                         type: 'OPEN_MESSAGE_WINDOW',
-                        payload: providers_users_id,
+                        payload: {
+                          sentName: first_name,
+                          sentPic: pic,
+                          sentId: providers_users_id,
+                        },
                       })
                     }
                   >
@@ -118,7 +122,7 @@ function ProviderDetails() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={6} >
+          <Grid item xs={6}>
             <Box boxShadow={2}>
               <QuestionAccordion
                 openAccordion={openAccordion}
