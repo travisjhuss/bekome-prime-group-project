@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
   cardMedia: {
     height: 200,
     width: '85%',
+    borderRadius: "5px"
   },
   cardButton: {
     justifyContent: 'center',
