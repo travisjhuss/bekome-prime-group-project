@@ -25,8 +25,8 @@ import AdminPanel from '../AdminPanel/AdminPanel';
 import ProviderDetails from '../ProviderDetails/ProviderDetails';
 import AdminProviderQuestions from '../AdminProviderQuestions/AdminProviderQuestions';
 import AdminUsersList from '../AdminUsersList/AdminUsersList';
-import MessagingWidget from '../MessagingWidget/MessagingWidget';
-import MessagingWindow from '../MessagingWindow/MessagingWindow';
+import MessagingWidget from '../messaging/MessagingWidget/MessagingWidget';
+import MessagingWindow from '../messaging/MessagingWindow/MessagingWindow';
 // Mui imports and theme
 import { ThemeProvider, CssBaseline } from '@material-ui/core/';
 import theme from '../MuiTheme/MuiTheme';

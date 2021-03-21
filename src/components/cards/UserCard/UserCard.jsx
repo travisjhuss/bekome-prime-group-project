@@ -118,7 +118,11 @@ function UserCard({ provider, edit, setDialogOpen }) {
               onClick={() =>
                 dispatch({
                   type: 'OPEN_MESSAGE_WINDOW',
-                  payload: providers_users_id,
+                  payload: {
+                    sentName: first_name,
+                    sentPic: pic,
+                    sentId: providers_users_id,
+                  },
                 })
               }
             >

@@ -47,19 +47,21 @@ function EditClientTherapyPreferencesAccordion({
       </AccordionSummary>
       <AccordionDetails className={classes.editClientAccordion}>
         <Typography>Have you seen a therapist before?</Typography>
-        <Chip
-          className={classes.chipButtons}
-          label="Yes"
-          onClick={() => handleBoolean(true)}
-          color={previous_therapy ? 'primary' : 'default'}
-        />
-        <Chip
-          className={classes.chipButtons}
-          label="No"
-          onClick={() => handleBoolean(false)}
-          color={previous_therapy ? 'default' : 'primary'}
-        />
-        <Typography>
+        <Box paddingTop={1} paddingBottom={2}>
+          <Chip
+            className={classes.chipButtons}
+            label="Yes"
+            onClick={() => handleBoolean(true)}
+            color={previous_therapy ? 'primary' : 'default'}
+          />
+          <Chip
+            className={classes.chipButtons}
+            label="No"
+            onClick={() => handleBoolean(false)}
+            color={previous_therapy ? 'default' : 'primary'}
+          />
+        </Box>
+        <Typography gutterBottom>
           If so, how was your previous therapy experience?
         </Typography>
         <TextField
@@ -72,8 +74,12 @@ function EditClientTherapyPreferencesAccordion({
           value={previous_experience || ''}
           onChange={handleInputs('previous_experience')}
         />
-        <Typography>What kind of treatments are you interested in?</Typography>
-        <FormCheckboxes category={'treatments'} limit={3} />
+        <Box py={2}>
+          <Typography>
+            What kind of treatments are you interested in?
+          </Typography>
+          <FormCheckboxes category={'treatments'} limit={3} size="sm" />
+        </Box>
         <Box display="flex" flexDirection="row-reverse">
           <Button
             variant="contained"

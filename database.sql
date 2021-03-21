@@ -98,6 +98,16 @@ CREATE TABLE "providers_questions" (
   "displayed_on_card" BOOLEAN DEFAULT false
 );
 
+CREATE TABLE "messages" (
+"id" SERIAL PRIMARY KEY,
+"timestamp" TIMESTAMP DEFAULT NOW(),
+"sender_users_id" INT REFERENCES "users",
+"recipient_users_id" INT REFERENCES "users",
+"read_by_recipient" BOOLEAN DEFAULT FALSE,
+"message" TEXT,
+"conversation" VARCHAR(100)
+);
+
 -- Insert statement for provider questions
 INSERT INTO "questions" ("content")
 VALUES

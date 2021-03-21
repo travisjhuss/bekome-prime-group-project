@@ -32,7 +32,7 @@ function EditClientProviderQualitiesAccordion({
       </AccordionSummary>
       <AccordionDetails className={classes.editClientAccordion}>
         <Typography>What qualities do you look for in a therapist?</Typography>
-        <FormCheckboxes category={'qualities'} limit={5} />
+        <FormCheckboxes category={'qualities'} limit={5} size="sm" />
         <Box display="flex" flexDirection="row-reverse">
           <Button
             variant="contained"

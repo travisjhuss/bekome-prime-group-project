@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Image from './atop-hill.jpeg';
+import { makeStyles } from "@material-ui/core/styles";
+import Image from "./atop-hill.jpeg";
 
 // This hook will allow styling with MUI to be more consistent through components.
 // import with "import useStyles from '../../hooks/useStyles'" in a given component
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   chipsSignup: {
-    width: '18ch',
+    width: "18ch",
     margin: theme.spacing(0.5),
   },
   chips: {
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.9em",
   },
   checkboxBox: {
-    maxHeight: 400,
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
@@ -76,19 +75,20 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   saveButton: {
-    // position: 'relative',
     marginLeft: "15px",
     padding: 0,
   },
   pic: {
-    width: 250,
-    height: 250,
+    width: 350,
+    height: 350,
     objectFit: "cover",
-    borderRadius: "50%",
+    borderRadius: "20%",
     padding: theme.spacing(3),
   },
   stateSelect: {
     width: 240,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   accordionTitle: {
     alignSelf: "center",
@@ -96,7 +96,8 @@ const useStyles = makeStyles((theme) => ({
   picPreview: {
     width: 200,
     height: 200,
-    objectFit: 'cover',
+    objectFit: "cover",
+    paddingLeft: theme.spacing(2),
   },
   adminPanelButton: {
     position: "absolute",
@@ -104,47 +105,57 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   adminModal: {
-    position: 'absolute',
+    position: "absolute",
     width: 800,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    top: '100px',
-    left: '100px',
+    top: "100px",
+    left: "100px",
+  },
+  videoModal: {
+    position: "absolute",
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "25%",
+    left: "25%",
   },
   landingTypography: {
-    color: '#e0fbfc',
-    margin: '50px 30px 0px 30px',
+    color: "#e0fbfc",
+    margin: "50px 30px 0px 30px",
   },
   landingButton: {
-    width: '200px',
-    margin: '32px',
+    width: "200px",
+    margin: "32px",
   },
   howWorksText: {
-    padding: '10px',
+    padding: "10px",
   },
   howWorksButton: {
-    width: '200px',
-    margin: '10px',
+    width: "200px",
+    margin: "10px",
   },
   loginContainer: {
-    margin: 'auto',
-    width: '400px',
-    height: '560px',
+    margin: "auto",
+    width: "400px",
+    height: "560px",
   },
   centerContainer: {
-    paddingTop: '50px',
-    height: '100vh',
+    paddingTop: "50px",
+    height: "100vh",
     backgroundImage: `url(${Image})`,
   },
   editClientButton: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    width: '15ch',
+    width: "15ch",
   },
   editClientAccordion: {
-    display: 'block',
+    display: "block",
+    padding: theme.spacing(3),
   },
   filterDrawer: {
     width: 300,
@@ -153,14 +164,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   loginBtn: {
-    width: '95%',
+    width: "95%",
   },
   loginForm: {
-    margin: '30px',
+    margin: "30px",
   },
   loginTextField: {
-    '& .MuiOutlinedInput-input': {
-      padding: '8px 8px',
+    "& .MuiOutlinedInput-input": {
+      padding: "8px 8px",
     },
   },
   submitBtn: {
@@ -175,30 +186,65 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   messageBar: {
-    position: 'fixed',
+    position: "fixed",
     padding: theme.spacing(1),
     width: 300,
-    bottom: 5,
-    right: 5,
-    cursor: 'pointer',
+    bottom: 0,
+    right: 10,
+    cursor: "pointer",
     zIndex: 1,
   },
-  messageAvatar: {
+  messagingWidgetAvatar: {
     height: theme.spacing(4),
     width: theme.spacing(4),
   },
+  messagingListAvatar: {
+    height: theme.spacing(5),
+    width: theme.spacing(5),
+  },
+  messagingWindowAvatar: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+    marginRight: theme.spacing(1.5),
+  },
   messagingWindow: {
-    position: 'fixed',
+    position: "fixed",
     padding: theme.spacing(1),
-    width: 300,
+    width: 350,
     minHeight: 300,
-    bottom: 5,
+    bottom: 0,
     right: 350,
     zIndex: 1,
   },
   messagingBody: {
-    height: 200,
-    overflow: 'scroll',
+    height: 250,
+    overflow: "scroll",
+  },
+  messagingWidgetListItem: {
+    height: 100,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  userBubble: {
+    maxWidth: "75%",
+    borderRadius: 12,
+    backgroundColor: "#3D5A80",
+    color: "white",
+  },
+  notUserBubble: {
+    maxWidth: "75%",
+    borderRadius: 12,
+    backgroundColor: "#eeeeee",
+  },
+  messageTextField: {
+    fontSize: "0.9em",
+  },
+  unreadMessageText: {
+    fontWeight: 700,
+  },
+  messagePreviewBox: {
+    height: 60,
+    overflow: "hidden",
   },
 }));
 

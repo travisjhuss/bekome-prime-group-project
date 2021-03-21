@@ -12,7 +12,7 @@ function* fetchMessages() {
 
 function* markAsRead(action) {
   try {
-    yield axios.put('/api/messaging', action.payload);
+    yield axios.put('/api/messaging', { id: action.payload });
     yield put({ type: 'FETCH_MESSAGES' });
   } catch (err) {
     console.log('Error in markAsRead', err);

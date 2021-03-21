@@ -18,16 +18,23 @@ import {
 import { ExpandMore, ExpandLess, FilterList } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
+// Displays all the filter options, handles all URL queryString data, which is
+// then read on ExploreView
 function FilterMenu({ query }) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const preferences = useSelector((store) => store.preferences);
+  // Current information stored in the URL, sent as props from ExploreView
   const { filterIds, states, booleans } = query;
+  // Holds the status of a collapse or the whole drawer being open in redux
+  // Will still reset on refresh, but otherwise will remain open
   const { collapseOpen, drawerOpen } = useSelector(
     (store) => store.drawerCollapse
   );
 
+  // Splits the calls of this function into three categories of filterIds,
+  // states, and booleans, and adds the data to the query string accordingly
   const handleFilterArray = (value, key) => {
     const array =
       key === 'filterIds' ? filterIds : key === 'states' ? states : booleans;
@@ -44,6 +51,7 @@ function FilterMenu({ query }) {
     history.push(`/explore/?${newFilterString}`);
   };
 
+  // Creates a new array with just the category names for display on the menu
   const categories = [];
   preferences.forEach((item) => {
     if (!categories.includes(item.category) && item.category !== 'pronouns') {
@@ -51,6 +59,7 @@ function FilterMenu({ query }) {
     }
   });
 
+  // Parses the category names from the db to display with proper formatting
   const parseCategory = (string) => {
     return string
       .split('_')
