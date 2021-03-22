@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { Box, Typography, Grid, Button, IconButton } from '@material-ui/core';
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  IconButton,
+  Dialog,
+} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
@@ -12,7 +19,6 @@ import StrengthsAccordion from '../accordions/StrengthsAccordion/StrengthsAccord
 import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAccordion';
 import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
-import VideoModal from '../VideoModal/VideoModal';
 
 function ProviderDetails() {
   const classes = useStyles();
@@ -34,7 +40,7 @@ function ProviderDetails() {
   const preferences = useSelector((store) => store.preferences);
   const { id } = useParams();
   const [openAccordion, setOpenAccordion] = useState('questions');
-  const [modalState, setModalState] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
@@ -57,16 +63,19 @@ function ProviderDetails() {
     setOpenAccordion(isExpanded ? panel : false);
   };
 
+  const handleVideoOpen = () => {
+    setVideoOpen(!videoOpen);
+  };
+
   return (
     <>
-      <VideoModal
-        modalState={modalState}
-        setModalState={setModalState}
-        video={'http://techslides.com/demos/sample-videos/small.webm'}
-      />
       <Box p={4}>
         <Box display="flex" alignItems="center" ml={4}>
-          <IconButton color="primary" onClick={() => history.goBack()} className={classes.backBtn}>
+          <IconButton
+            color="primary"
+            onClick={() => history.goBack()}
+            className={classes.backBtn}
+          >
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="h4">
@@ -83,18 +92,18 @@ function ProviderDetails() {
             <Box display="flex">
               <img src={pic} className={classes.pic} />
               <Box mt={6}>
-                <Typography gutterBottom={true}>Age: {age}</Typography>
-                <Typography gutterBottom={true}>
+                <Typography gutterBottom>Age: {age}</Typography>
+                <Typography gutterBottom>
                   Pronouns: {parsePreferences('pronouns')}
                   {write_in_pronouns && `, ${write_in_pronouns}`}
                 </Typography>
-                <Typography gutterBottom={true}>
+                <Typography gutterBottom>
                   Location: {city}, {state}
                 </Typography>
-                <Typography gutterBottom={true}>
+                <Typography gutterBottom>
                   Languages: {parsePreferences('languages')}
                 </Typography>
-                <Typography gutterBottom={true}>
+                <Typography gutterBottom>
                   Religious Affiliations: {parsePreferences('religions')}
                 </Typography>
                 <Box>
@@ -119,7 +128,7 @@ function ProviderDetails() {
                   <Button
                     color="primary"
                     variant="contained"
-                    onClick={() => setModalState(true)}
+                    onClick={() => setVideoOpen(true)}
                   >
                     Watch Video
                   </Button>
@@ -155,15 +164,11 @@ function ProviderDetails() {
               />
             </Box>
           </Grid>
-          {/* <Grid item alignContent="center">
-            <Box boxShadow={2} alignItems="center" p={2}>
-              <video controls>
-              <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" /> 
-              </video>
-            </Box>
-          </Grid> */}
         </Grid>
       </Box>
+      <Dialog open={videoOpen} onClose={handleVideoOpen}>
+        <video src={video} controls className={classes.video} />
+      </Dialog>
     </>
   );
 }

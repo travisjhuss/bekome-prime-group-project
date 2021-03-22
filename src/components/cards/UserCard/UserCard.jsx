@@ -14,6 +14,7 @@ import {
   IconButton,
   Dialog,
   Tooltip,
+  Box,
 } from '@material-ui/core';
 import {
   LocationOn,
@@ -45,15 +46,10 @@ function UserCard({ provider, edit, setDialogOpen }) {
     accepting_clients,
     saved,
   } = provider;
+  const [videoOpen, setVideoOpen] = useState(false);
 
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleVideo = () => {
+    setVideoOpen(!videoOpen);
   };
 
   const parsePreferences = (category) => {
@@ -114,32 +110,48 @@ function UserCard({ provider, edit, setDialogOpen }) {
             </Typography>
           }
         />
-        <CardActionArea onClick={sendToDetails}>
+        {user_type === 'client' ? (
+          <CardActionArea onClick={sendToDetails}>
+            <CardMedia className={classes.cardMedia} image={pic} />
+          </CardActionArea>
+        ) : (
           <CardMedia className={classes.cardMedia} image={pic} />
-        </CardActionArea>
+        )}
         <CardContent className={classes.cardContent}>
-          <Typography variant="body2" display="inline">
-            <LocationOn color="primary" /> {city}, {state}
-          </Typography>
-          {video && (
-            <Tooltip title="View Video">
-              <IconButton
-                onClick={handleOpen}
-                className={classes.videoBtn}
-                color="secondary"
-              >
-                <PlayCircleFilled />
-              </IconButton>
-            </Tooltip>
-          )}
-          <Typography variant="body2">
-            <Language color="primary" /> {parsePreferences('languages')}
-          </Typography>
-          {accepting_clients && (
+          <Box display="flex">
+            <Box display="flex" flexGrow={1} alignItems="center">
+              <LocationOn className={classes.userCardIcons} color="primary" />
+              <Typography variant="body2">
+                {city}, {state}
+              </Typography>
+            </Box>
+            {video && (
+              <Tooltip title="View Video">
+                <IconButton
+                  onClick={handleVideo}
+                  className={classes.videoBtn}
+                  color="secondary"
+                  size="small"
+                >
+                  <PlayCircleFilled />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+          <Box display="flex" alignItems="center" paddingTop={0.5}>
+            <Language className={classes.userCardIcons} color="primary" />
             <Typography variant="body2">
-              <PersonAdd color="primary" /> Accepting new clients
+              {parsePreferences('languages')}
             </Typography>
-          )}
+          </Box>
+          <Box display="flex" alignItems="center" paddingTop={0.5}>
+            {accepting_clients && (
+              <>
+                <PersonAdd color="primary" className={classes.userCardIcons} />
+                <Typography variant="body2">Accepting new clients</Typography>
+              </>
+            )}
+          </Box>
           <br />
           {providerQuestions.map((question) =>
             findQuestion(question.id, question.content)
@@ -177,7 +189,7 @@ function UserCard({ provider, edit, setDialogOpen }) {
           )}
         </CardActions>
       </Card>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={videoOpen} onClose={handleVideo}>
         <video src={video} controls className={classes.video} />
       </Dialog>
     </>

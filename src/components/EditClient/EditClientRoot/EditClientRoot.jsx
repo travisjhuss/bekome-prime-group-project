@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Box, Grid } from '@material-ui/core';
-// Custom hooks
-import useStyles from '../../../hooks/useStyles';
 // Components
 import ClientCard from '../../cards/ClientCard/ClientCard';
 import EditClientProviderQualitiesAccordion from '../EditClientProviderQualitiesAccordion/EditClientProviderQualitiesAccordion';
@@ -51,7 +49,6 @@ function EditClientRoot() {
   return (
     <>
       <Box p={3}>
-        <Typography variant="h6">Edit Profile</Typography>
         <Grid container spacing={3}>
           <Grid item xs={4}>
             <center>
@@ -63,6 +60,9 @@ function EditClientRoot() {
             </center>
           </Grid>
           <Grid item xs={8}>
+            <Box pb={2}>
+              <Typography variant="h5">Edit Profile</Typography>
+            </Box>
             <EditClientProviderQualitiesAccordion
               handleSubmit={handleSubmit}
               handleCancel={handleCancel}

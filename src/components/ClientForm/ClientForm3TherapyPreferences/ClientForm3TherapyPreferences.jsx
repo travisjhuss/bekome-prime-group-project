@@ -1,5 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Chip, TextField, Paper, Grid } from '@material-ui/core';
+import {
+  Typography,
+  Chip,
+  TextField,
+  Paper,
+  Grid,
+  Box,
+} from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
@@ -21,7 +28,9 @@ function ClientForm3TherapyPreferences({ handleInputs }) {
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={4}>
-          <Typography><b>Have you seen a therapist before?</b></Typography>
+          <Typography gutterBottom>
+            <b>Have you seen a therapist before?</b>
+          </Typography>
           <Chip
             className={classes.chipButtons}
             label="Yes"
@@ -34,19 +43,21 @@ function ClientForm3TherapyPreferences({ handleInputs }) {
             onClick={() => handleBoolean(false)}
             color={clientAnswers.previous_therapy ? 'default' : 'primary'}
           />
-          <Typography>
-            <b>If so, how was your previous therapy experience?</b>
-          </Typography>
-          <TextField
-            disabled={!clientAnswers.previous_therapy}
-            label="Answer here"
-            variant="outlined"
-            multiline
-            fullWidth
-            rows={12}
-            value={clientAnswers.previous_experience || ''}
-            onChange={handleInputs('previous_experience')}
-          />
+          <Box pt={2}>
+            <Typography>
+              <b>If so, how was your previous therapy experience?</b>
+            </Typography>
+            <TextField
+              disabled={!clientAnswers.previous_therapy}
+              label="Answer here"
+              variant="outlined"
+              multiline
+              fullWidth
+              rows={12}
+              value={clientAnswers.previous_experience || ''}
+              onChange={handleInputs('previous_experience')}
+            />
+          </Box>
         </Grid>
         <Grid item xs={4}>
           <Typography>

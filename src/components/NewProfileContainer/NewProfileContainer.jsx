@@ -14,6 +14,7 @@ import {
 import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
 import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
 import useStyles from '../../hooks/useStyles';
+import { ArrowForwardIos, ArrowBackIos } from '@material-ui/icons';
 
 // Strings that display on stepper for Client
 const clientSteps = [
@@ -64,10 +65,15 @@ function NewProfileContainer() {
   };
 
   const handleSubmit = () => {
-    user_type === 'client'
-      ? dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers })
-      : dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
-    history.push('/explore');
+    if (user_type === 'client') {
+      dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers });
+      history.push('/explore');
+      dispatch({ type: 'CLEAR_CLIENT_ANSWERS' });
+    } else {
+      dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
+      history.push('/interested_clients');
+      dispatch({ type: 'CLEAR_PROVIDER_ANSWERS' });
+    }
   };
 
   return (
@@ -105,6 +111,7 @@ function NewProfileContainer() {
           onClick={() => history.push(`/new-profile/${currentPage - 1}`)}
           variant="contained"
           color="default"
+          startIcon={<ArrowBackIos />}
         >
           Back
         </Button>
@@ -113,6 +120,7 @@ function NewProfileContainer() {
           onClick={handleNextButton}
           variant="contained"
           color="primary"
+          endIcon={<ArrowForwardIos />}
         >
           {currentPage === stepArrayToDisplay.length ? 'Submit' : 'Next'}
         </Button>

@@ -52,7 +52,7 @@ function EditProviderFormatsDialog({
           <Grid item xs={6}>
             <Typography>I offer therapy in these formats:</Typography>
             <FormCheckboxes category={'formats'} />
-            <Box>
+            <Box py={3}>
               <FormControlLabel
                 control={
                   <Switch
@@ -62,7 +62,7 @@ function EditProviderFormatsDialog({
                     }
                   />
                 }
-                label="I'm currently accepting new clients"
+                label="I'm accepting new clients"
               />
               <FormControlLabel
                 control={

@@ -1,4 +1,4 @@
--- Create a database called 'bekome'
+-- Create database called 'bekome'
 -- Enums for "users" and "preferences" tables
 CREATE TYPE "types" AS ENUM ('client', 'provider', 'admin');
 CREATE TYPE "category_options" AS ENUM (
@@ -28,7 +28,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "clients" (
   "id" SERIAL PRIMARY KEY,
-  "clients_users_id" INT UNIQUE REFERENCES "users",
+  "clients_users_id" INT UNIQUE REFERENCES "users" ON DELETE CASCADE,
   "first_name" VARCHAR(255) NOT NULL,
   "last_name" VARCHAR(255) NOT NULL,
   "pic" VARCHAR(255),
@@ -44,7 +44,7 @@ CREATE TABLE "clients" (
 
 CREATE TABLE "providers" (
   "id" SERIAL PRIMARY KEY,
-  "providers_users_id" INT UNIQUE REFERENCES "users",
+  "providers_users_id" INT UNIQUE REFERENCES "users" ON DELETE CASCADE,
   "first_name" VARCHAR(255) NOT NULL,
   "last_name" VARCHAR(255) NOT NULL,
   "pic" VARCHAR(255),
@@ -101,8 +101,8 @@ CREATE TABLE "providers_questions" (
 CREATE TABLE "messages" (
 "id" SERIAL PRIMARY KEY,
 "timestamp" TIMESTAMP DEFAULT NOW(),
-"sender_users_id" INT REFERENCES "users",
-"recipient_users_id" INT REFERENCES "users",
+"sender_users_id" INT REFERENCES "users" ON DELETE CASCADE,
+"recipient_users_id" INT REFERENCES "users" ON DELETE CASCADE,
 "read_by_recipient" BOOLEAN DEFAULT FALSE,
 "message" TEXT,
 "conversation" VARCHAR(100)
@@ -335,145 +335,3 @@ VALUES
 ('UCare', 'insurance'),
 ('MinnesotaCare', 'insurance'),
 ('Medical Assistance', 'insurance');
-
-
--- Example provider Joe Levine - email is joe@gmail.com, pw is 12345
-INSERT INTO "users" ("id", "email", "password", "user_type", "filled_out_form")
-VALUES
-(1, 'joe@gmail.com', '$2a$10$2mk4DpvNqM7xVZ7XeHKVvexyodC3dY3ZxAkQBLO0V0KhUGvFwBAgO', 'provider', true);
-
-INSERT INTO "providers" (
-  "id",
-  "providers_users_id",
-  "first_name",
-  "last_name",
-  "pic",
-  "video",
-  "city",
-  "state",
-  "date_of_birth",
-  "write_in_pronouns",
-  "background",
-  "strengths",
-  "approach",
-  "license_number",
-  "sliding_scale",
-  "accepting_clients"
-)
-VALUES (
-  1,
-  1,
-  'Joe',
-  'Levine',
-  'https://burkbucket.s3.amazonaws.com/22bb70ed-9456-4101-9be1-fbabedf09eb1_Rydeprofessionalheadshot.jpeg',
-  '',
-  'St. Paul',
-  'Minnesota',
-  '1975-06-23',
-  '',
-  'I have over twelve years of experience in the Minneapolis/St. Paul area. I''ve worked in a few hospitals and clinics over the years, but have really loved having my own practice.',
-  'Talkative, kind, supportive, and inquisitive.',
-  'Centered around mindfulness and non-judgmental stances. I wish to help my clients feel at peace with the world.',
-  'H465LM245',
-  false,
-  true
-);
-
-INSERT INTO "providers_questions" (
-  "id",
-  "providers_users_id",
-  "questions_id",
-  "answer",
-  "displayed_on_card"
-)
-VALUES
-(1, 1, 1, 'I want to have a positive effect on the world, and therapy was the best way to use my gifts to achieve this.', true),
-(2, 1, 2, 'Running, tennis, swimming, and walking my dog Rowdy.', true),
-(3, 1, 3, 'My mindfulness and meditation-centered approach.', true),
-(4, 1, 4, 'Guilt/shame, depression, anxiety, and perfectionism.', false),
-(5, 1, 5, 'Will just be a sounding board. I want to find solutions to help.', false),
-(6, 1, 6, 'Extensive training and practice in meditation.', false);
-INSERT INTO "providers_preferences" ("id", "providers_users_id", "preferences_id")
-VALUES
-(1,1,102),
-(2,1,18),
-(3,1,44),
-(4,1,65),
-(5,1,63),
-(6,1,32),
-(7,1,9),
-(8,1,10),
-(9,1,11),
-(10,1,2),
-(11,1,1),
-(12,1,3),
-(13,1,7),
-(14,1,48),
-(15,1,51),
-(16,1,52),
-(17,1,55),
-(18,1,62),
-(19,1,97),
-(20,1,98),
-(21,1,99),
-(22,1,100),
-(23,1,158),
-(24,1,159),
-(25,1,161),
-(26,1,162),
-(27,1,160);
-
-
--- Example client Jordan Collins - email is jordan@gmail.com, pw is 12345
-INSERT INTO "users"("id", "email", "password", "user_type", "filled_out_form")
-VALUES
-(2, 'jordan@gmail.com', '$2a$10$IVnWX2m3SoRZT8N4vJXgsejZTVNPFT7nHCrFGvv.eFI/9Z9qgZ.6K', 'client', true);
-INSERT INTO "clients" (
-  "id",
-  "clients_users_id",
-  "first_name",
-  "last_name",
-  "pic",
-  "date_of_birth",
-  "write_in_pronouns",
-  "city",
-  "state",
-  "primary_reason",
-  "previous_therapy",
-  "previous_experience",
-  "sliding_scale"
-)
-VALUES (
-  1,
-  2,
-  'Jordan',
-  'Collins',
-  'https://burkbucket.s3.amazonaws.com/5dd7f917-61f6-4e69-9b39-9ae43f9b67bb_0b7f4e9b-f59c-4024-9f06-b3dc12850ab7-1920-1080.jpeg',
-  '1990-04-12',
-  '',
-  'Golden Valley',
-  'Minnesota',
-  'I''m having issues with Imposter Syndrome at work, and feeling lethargic and depressed at home.',
-  false,
-  '',
-  false);
-INSERT INTO "clients_preferences" ("id", "clients_users_id", "preferences_id")
-VALUES
-(1,2,102),
-(2,2,160),
-(3,2,62),
-(4,2,52),
-(5,2,48),
-(6,2,59),
-(7,2,1),
-(8,2,2),
-(9,2,7),
-(10,2,9),
-(11,2,10),
-(12,2,15),
-(13,2,16),
-(14,2,17),
-(15,2,20),
-(16,2,45),
-(17,2,65),
-(18,2,37);

@@ -11,11 +11,9 @@ import {
   Button,
   Typography,
   Dialog,
+  Box,
 } from '@material-ui/core';
-import {
-  LocationOn,
-  PlayCircleFilled,
-} from '@material-ui/icons';
+import { LocationOn, PlayCircleFilled } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
@@ -39,7 +37,6 @@ function UserCardSaved({ provider }) {
   const sendToDetails = () => {
     history.push(`/provider-details/${provider.providers_users_id}`);
   };
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -72,10 +69,18 @@ function UserCardSaved({ provider }) {
           }
           subheader={<Typography variant="body2">{pronouns}</Typography>}
         />
-        <CardContent>
-          <Typography variant="body2">
-            <LocationOn color="primary" /> {city}, {state}
-          </Typography>
+        <CardContent className={classes.savedUserCardsContent}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            pb={1}
+          >
+            <LocationOn className={classes.userCardIcons} color="primary" />
+            <Typography variant="body2">
+              {city}, {state}
+            </Typography>
+          </Box>
           {video && (
             <Button
               onClick={handleOpen}

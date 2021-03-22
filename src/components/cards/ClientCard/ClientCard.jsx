@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   IconButton,
+  Box,
 } from '@material-ui/core';
 import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
@@ -64,16 +65,21 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
           )
         }
       />
-
       <CardMedia className={classes.cardMedia} image={pic} />
       <CardContent className={classes.clientContent}>
-        <Typography variant="body2">
-          <LocationOn color="primary" /> {city}, {state}
-        </Typography>
-        <Typography variant="body2">
-          <Language color="primary" /> {parsePreferences('languages')}
-        </Typography>
-        <br/>
+        <Box display="flex" alignItems="center">
+          <LocationOn className={classes.userCardIcons} color="primary" />
+          <Typography variant="body2">
+            {city}, {state}
+          </Typography>
+        </Box>
+        <Box display="flex" alignItems="center" pt={0.5}>
+          <Language className={classes.userCardIcons} color="primary" />
+          <Typography variant="body2">
+            {parsePreferences('languages')}
+          </Typography>
+        </Box>
+        <br />
         <Typography variant="body2">
           <b>Primary reason for seeking therapy:</b>
         </Typography>
@@ -84,28 +90,28 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         <Typography variant="body2">
           {parsePreferences('challenges')}
         </Typography>
-        </CardContent>
-        <CardActions className={classes.cardButton}>
+      </CardContent>
+      <CardActions className={classes.cardButton}>
         {!edit && (
-        <Button
-          variant="contained"
-          color="secondary"
-          size="small"
-          onClick={() =>
-            dispatch({
-              type: 'OPEN_MESSAGE_WINDOW',
-              payload: {
-                sentName: first_name,
-                sentPic: pic,
-                sentId: clients_users_id,
-              },
-            })
-          }
-        >
-          Send Message
-        </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            onClick={() =>
+              dispatch({
+                type: 'OPEN_MESSAGE_WINDOW',
+                payload: {
+                  sentName: first_name,
+                  sentPic: pic,
+                  sentId: clients_users_id,
+                },
+              })
+            }
+          >
+            Send Message
+          </Button>
         )}
-        </CardActions>
+      </CardActions>
     </Card>
   );
 }

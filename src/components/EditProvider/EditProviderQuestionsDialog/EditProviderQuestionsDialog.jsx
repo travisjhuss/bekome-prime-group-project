@@ -23,7 +23,7 @@ function EditProviderQuestionsDialog({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+  const { questions } = useSelector((store) => store.forms.providerAnswers);
   const providerQuestions = useSelector((store) => store.providerQuestions);
 
   const handleAnswer = (id) => (event) => {
@@ -34,12 +34,14 @@ function EditProviderQuestionsDialog({
   };
 
   const findValue = (id, type) => {
-    const i = providerAnswers.questions.findIndex(
-      (item) => item.questions_id === id
-    );
-    return type === 'answer'
-      ? providerAnswers.questions[i]?.answer
-      : providerAnswers.questions[i]?.displayed_on_card;
+    const i = questions?.findIndex((item) => item.questions_id === id);
+    if (i > -1) {
+      return type === 'answer'
+        ? questions[i].answer
+        : questions[i].displayed_on_card;
+    } else {
+      return '';
+    }
   };
 
   const handleDisplayOnCard = (id) => (event) => {
@@ -48,6 +50,23 @@ function EditProviderQuestionsDialog({
       type: 'SET_PROVIDER_RESPONSES',
       payload: { id, display: true },
     });
+  };
+
+  const handlePoData = (id) => {
+    const whatAnswer =
+      questions.find((item) => item.questions_id === 4).answer ===
+      `People who have grown up with family members dealing with substance abuse.`
+        ? `People struggling with work/life balance.`
+        : `People who have grown up with family members dealing with substance abuse.`;
+    if (id === 4) {
+      dispatch({
+        type: 'SET_PROVIDER_RESPONSES',
+        payload: {
+          id: 4,
+          answer: whatAnswer,
+        },
+      });
+    }
   };
 
   return (
@@ -66,7 +85,7 @@ function EditProviderQuestionsDialog({
                 {item.content}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails onClick={() => handlePoData(item.id)}>
               <TextField
                 variant="outlined"
                 multiline

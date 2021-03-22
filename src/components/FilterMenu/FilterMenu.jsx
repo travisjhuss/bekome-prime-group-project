@@ -146,7 +146,7 @@ function FilterMenu({ query }) {
                       >
                         <ListItemIcon>
                           <Checkbox
-                            color="primary"
+                            color="secondary"
                             disableRipple
                             size="small"
                             checked={

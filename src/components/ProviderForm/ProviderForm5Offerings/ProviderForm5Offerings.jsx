@@ -30,26 +30,46 @@ function ProviderForm5Offerings({ handleInputs }) {
     });
   };
 
+  const handleTravisData = () => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'license_number', value: '219905738MN' },
+    });
+  };
+
   return (
     <Paper className={classes.paper} elevation={4}>
-      <Grid container spacing={5}>
-        <Grid item xs={6}>
-          <Typography>I offer therapy in these formats:</Typography>
+      <Grid container spacing={4}>
+        <Grid item xs={4}>
+          <Typography gutterBottom>
+            <b>I offer therapy in these formats:</b>
+          </Typography>
           <FormCheckboxes category={'formats'} />
-          <Typography>I accept insurance from these companies:</Typography>
-          <FormCheckboxes category={'insurance'} />
-          <Box>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={accepting_clients}
-                  onChange={() =>
-                    handleBooleans('accepting_clients', accepting_clients)
-                  }
-                />
-              }
-              label="I'm currently accepting new clients"
+          <Box py={2}>
+            <Typography onClick={handleTravisData} gutterBottom>
+              <b>What is your {state} license number?</b>
+            </Typography>
+            <TextField
+              variant="outlined"
+              label="License Number"
+              className={classes.inputs}
+              value={license_number || ''}
+              onChange={handleInputs('license_number')}
             />
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>
+            <b>I accept insurance from these companies:</b>
+          </Typography>
+          <FormCheckboxes category={'insurance'} />
+        </Grid>
+        <Grid item xs={4}>
+          <Typography gutterBottom>
+            <b>Please upload a short video to introduce yourself!</b>
+          </Typography>
+          <S3Uploader picOrVideo="video" />
+          <Box pt={2}>
             <FormControlLabel
               control={
                 <Switch
@@ -61,21 +81,18 @@ function ProviderForm5Offerings({ handleInputs }) {
               }
               label="I offer sliding scale payments"
             />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={accepting_clients}
+                  onChange={() =>
+                    handleBooleans('accepting_clients', accepting_clients)
+                  }
+                />
+              }
+              label="I'm accepting new clients"
+            />
           </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography>
-            Please upload a short video to introduce yourself!
-          </Typography>
-          <S3Uploader picOrVideo="video" />
-          <Typography>What is your {state} license number?</Typography>
-          <TextField
-            variant="outlined"
-            label="License Number"
-            className={classes.inputs}
-            value={license_number || ''}
-            onChange={handleInputs('license_number')}
-          />
         </Grid>
       </Grid>
     </Paper>
