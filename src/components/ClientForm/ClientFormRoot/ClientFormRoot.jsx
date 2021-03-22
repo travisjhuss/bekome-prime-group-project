@@ -2,8 +2,7 @@
 import ClientForm1Info from '../ClientForm1Info/ClientForm1Info';
 import ClientForm2Reasons from '../ClientForm2Reasons/ClientForm2Reasons';
 import ClientForm3TherapyPreferences from '../ClientForm3TherapyPreferences/ClientForm3TherapyPreferences';
-import ClientForm4ProviderQualities from '../ClientForm4ProviderQualities/ClientForm4ProviderQualities';
-import ClientForm5ProviderPreferences from '../ClientForm5ProviderPreferences/ClientForm5ProviderPreferences';
+import ClientForm4ProviderPreferences from '../ClientForm4ProviderPreferences/ClientForm4ProviderPreferences';
 
 const ClientFormRoot = ({ currentPage, handleInputs }) => {
   switch (currentPage) {
@@ -14,7 +13,7 @@ const ClientFormRoot = ({ currentPage, handleInputs }) => {
     case 3:
       return <ClientForm3TherapyPreferences handleInputs={handleInputs} />;
     case 4:
-      return <ClientForm5ProviderPreferences handleInputs={handleInputs} />;
+      return <ClientForm4ProviderPreferences handleInputs={handleInputs} />;
   }
 };
 

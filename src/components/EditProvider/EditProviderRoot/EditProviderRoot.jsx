@@ -67,8 +67,7 @@ function EditProviderRoot() {
 
   return (
     <>
-      <Box p={2}>
-        <Typography>Edit Profile</Typography>
+      <Box p={3}>
         <Grid container>
           <Grid item xs={4}>
             <center>
@@ -80,6 +79,7 @@ function EditProviderRoot() {
             </center>
           </Grid>
           <Grid item xs={8}>
+            <Typography variant="h5">Edit Profile</Typography>
             <QuestionAccordion
               edit={true}
               setDialogOpen={setDialogOpen}

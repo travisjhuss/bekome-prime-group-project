@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
   TextField,
-  Grid,
+  Box,
 } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
@@ -24,28 +24,33 @@ function EditProviderStrengthsDialog({
   const { strengths } = useSelector((store) => store.forms.providerAnswers);
 
   return (
-    <Dialog open={dialogOpen === 'strengths'} onClose={handleCancel}>
+    <Dialog
+      open={dialogOpen === 'strengths'}
+      onClose={handleCancel}
+      fullWidth
+      maxWidth="sm"
+    >
       <DialogTitle>Edit Strengths</DialogTitle>
       <DialogContent>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <Typography>My clients would describe me as:</Typography>
-            <TextField
-              className={classes.inputs}
-              variant="outlined"
-              multiline
-              fullWidth
-              rows={6}
-              label="Answer here"
-              onChange={handleInputs('strengths')}
-              value={strengths}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Typography>My biggest strengths as a therapist are:</Typography>
-            <FormCheckboxes category={'qualities'} limit={5} />
-          </Grid>
-        </Grid>
+        <Box pb={2}>
+          <Typography gutterBottom>
+            <b>My clients would describe me as:</b>
+          </Typography>
+          <TextField
+            className={classes.inputs}
+            variant="outlined"
+            multiline
+            fullWidth
+            rows={6}
+            label="Answer here"
+            onChange={handleInputs('strengths')}
+            value={strengths}
+          />
+        </Box>
+        <Typography>
+          <b>My biggest strengths as a therapist are:</b>
+        </Typography>
+        <FormCheckboxes category={'qualities'} limit={5} size="sm" />
       </DialogContent>
       <DialogActions>
         <Button variant="contained" onClick={handleCancel}>

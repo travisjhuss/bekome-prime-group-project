@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, TextField, Typography, Grid } from '@material-ui/core';
+import { Paper, TextField, Typography, Grid, Box } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
@@ -37,14 +37,16 @@ function ProviderForm3Treatments({ handleInputs }) {
             value={providerAnswers.background}
             onChange={handleInputs('background')}
           />
-          <Typography gutterBottom>
-            <b>I'm trained in these treatments:</b>
-          </Typography>
-          <FormCheckboxes category={'treatments'} size="sm" />
+          <Box pt={2}>
+            <Typography gutterBottom>
+              <b>I'm trained in these treatments:</b>
+            </Typography>
+            <FormCheckboxes category={'treatments'} size="sm" />
+          </Box>
         </Grid>
         <Grid item xs={6}>
-          <Typography>
-            The challenges I most often help people with are:
+          <Typography gutterBottom>
+            <b>The challenges I most often help people with are:</b>
           </Typography>
           <FormCheckboxes category={'challenges'} limit={5} />
         </Grid>

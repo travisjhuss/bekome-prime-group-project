@@ -55,7 +55,9 @@ function ProviderForm4Questions() {
 
   return (
     <Paper className={classes.paper} elevation={4}>
-      <Typography>Please answer the following questions:</Typography>
+      <Typography>
+        <b>Please answer the following questions:</b>
+      </Typography>
       {providerQuestions.map((item, i) => (
         <Accordion
           key={item.id}
@@ -64,11 +66,11 @@ function ProviderForm4Questions() {
         >
           <AccordionSummary expandIcon={<ExpandMore />}>
             <Box flexGrow={1}>
-              <Typography>{item.content}</Typography>
+              <Typography>
+                <b>{item.content}</b>
+              </Typography>
             </Box>
-            {findValue(item.id) && (
-              <DoneOutline color="primary" />
-            )}
+            {findValue(item.id) && <DoneOutline color="primary" />}
           </AccordionSummary>
           <AccordionDetails onClick={() => handleTravisData(item.id)}>
             <TextField

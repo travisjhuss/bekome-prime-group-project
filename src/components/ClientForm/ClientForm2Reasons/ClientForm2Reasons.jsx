@@ -24,7 +24,7 @@ function ClientForm2Reasons({ handleInputs }) {
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={6}>
-          <Typography onClick={handleConnorData}>
+          <Typography onClick={handleConnorData} gutterBottom>
             <b>What is your primary reason for seeking therapy?</b>
           </Typography>
           <TextField
@@ -32,7 +32,7 @@ function ClientForm2Reasons({ handleInputs }) {
             label="Answer here"
             multiline
             fullWidth
-            rows={16}
+            rows={8}
             className={classes.inputs}
             value={clientAnswers.primary_reason || ''}
             onChange={handleInputs('primary_reason')}
@@ -42,7 +42,7 @@ function ClientForm2Reasons({ handleInputs }) {
           <Typography>
             <b>What are you struggling with?</b>
           </Typography>
-          <FormCheckboxes category={'challenges'} />
+          <FormCheckboxes category={'challenges'} size="lg" />
         </Grid>
       </Grid>
     </Paper>

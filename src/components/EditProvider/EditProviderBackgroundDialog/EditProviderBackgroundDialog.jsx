@@ -8,6 +8,7 @@ import {
   Typography,
   TextField,
   Grid,
+  Box,
 } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
@@ -27,12 +28,19 @@ function EditProviderBackgroundDialog({
   );
 
   return (
-    <Dialog open={dialogOpen === 'background'} onClose={handleCancel}>
+    <Dialog
+      open={dialogOpen === 'background'}
+      onClose={handleCancel}
+      fullWidth
+      maxWidth="md"
+    >
       <DialogTitle>Edit Background/Approach</DialogTitle>
       <DialogContent>
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           <Grid item xs={6}>
-            <Typography>A little about my background...</Typography>
+            <Typography gutterBottom>
+              <b>A little about my background...</b>
+            </Typography>
             <TextField
               className={classes.inputs}
               variant="outlined"
@@ -45,7 +53,9 @@ function EditProviderBackgroundDialog({
             />
           </Grid>
           <Grid item xs={6}>
-            <Typography>I would describe my approach as...</Typography>
+            <Typography gutterBottom>
+              <b>I would describe my approach as...</b>
+            </Typography>
             <TextField
               className={classes.inputs}
               variant="outlined"
@@ -57,17 +67,28 @@ function EditProviderBackgroundDialog({
               value={approach}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={6}>
             <Typography>
-              What best describes your gender? (select all that apply)
+              <b>What best describes your gender?</b>
             </Typography>
-            <FormCheckboxes category={'genders'} />
-            <Typography>What best describes your race?</Typography>
+            <Typography>
+              <i>select all that apply</i>
+            </Typography>
+            <FormCheckboxes category={'genders'} size="sm" />
+            <Box pt={3}>
+              <Typography gutterBottom>
+                <b>What best describes your religion?</b>
+              </Typography>
+              <FormMenuChips category={'religions'} string={'Religions'} />
+            </Box>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography gutterBottom>
+              <b>What best describes your race?</b>
+            </Typography>
             <FormCheckboxes category={'ethnicities'} />
           </Grid>
         </Grid>
-        <Typography>What best describes your religion?</Typography>
-        <FormMenuChips category={'religions'} string={'Religions'} />
       </DialogContent>
       <DialogActions>
         <Button variant="contained" onClick={handleCancel}>

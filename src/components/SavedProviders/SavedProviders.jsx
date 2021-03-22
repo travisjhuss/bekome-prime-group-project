@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Box } from '@material-ui/core/';
 // Components
 import UserCardSaved from '../cards/UserCardSaved/UserCardSaved';
 
@@ -24,7 +24,7 @@ function SavedProviders() {
   }, []);
 
   return (
-    <div>
+    <Box pt={3}>
       <Grid container className={classes.gridContainer} spacing={3}>
         {savedProvidersReducer.map((provider) => {
           return (
@@ -37,7 +37,7 @@ function SavedProviders() {
           );
         })}
       </Grid>
-    </div>
+    </Box>
   );
 }
 

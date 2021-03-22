@@ -42,12 +42,12 @@ function ProviderForm5Offerings({ handleInputs }) {
       <Grid container spacing={4}>
         <Grid item xs={4}>
           <Typography gutterBottom>
-            I offer therapy in these formats:
+            <b>I offer therapy in these formats:</b>
           </Typography>
           <FormCheckboxes category={'formats'} />
           <Box py={2}>
             <Typography onClick={handleTravisData} gutterBottom>
-              What is your {state} license number?
+              <b>What is your {state} license number?</b>
             </Typography>
             <TextField
               variant="outlined"
@@ -59,40 +59,40 @@ function ProviderForm5Offerings({ handleInputs }) {
           </Box>
         </Grid>
         <Grid item xs={4}>
-          <Typography>I accept insurance from these companies:</Typography>
+          <Typography>
+            <b>I accept insurance from these companies:</b>
+          </Typography>
           <FormCheckboxes category={'insurance'} />
         </Grid>
         <Grid item xs={4}>
           <Typography gutterBottom>
-            Please upload a short video to introduce yourself!
+            <b>Please upload a short video to introduce yourself!</b>
           </Typography>
           <S3Uploader picOrVideo="video" />
-        </Grid>
-      </Grid>
-      <Grid container spacing={4} direction="row-reverse">
-        <Grid item xs={4}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={accepting_clients}
-                onChange={() =>
-                  handleBooleans('accepting_clients', accepting_clients)
-                }
-              />
-            }
-            label="I'm accepting new clients"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={sliding_scale}
-                onChange={() => handleBooleans('sliding_scale', sliding_scale)}
-              />
-            }
-            label="I offer sliding scale payments"
-          />
+          <Box pt={2}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={sliding_scale}
+                  onChange={() =>
+                    handleBooleans('sliding_scale', sliding_scale)
+                  }
+                />
+              }
+              label="I offer sliding scale payments"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={accepting_clients}
+                  onChange={() =>
+                    handleBooleans('accepting_clients', accepting_clients)
+                  }
+                />
+              }
+              label="I'm accepting new clients"
+            />
+          </Box>
         </Grid>
       </Grid>
     </Paper>

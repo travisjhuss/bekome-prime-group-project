@@ -129,7 +129,6 @@ function ProviderForm1Info({ handleInputs }) {
             value={city || ''}
             onChange={handleInputs('city')}
           />
-
           <FormControl variant="outlined" className={classes.stateSelect}>
             <InputLabel id="state-picker">State</InputLabel>
             <Select

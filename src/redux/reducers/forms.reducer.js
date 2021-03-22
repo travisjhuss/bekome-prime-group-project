@@ -23,7 +23,7 @@ export const clientAnswers = (
       return { ...state, [action.payload.key]: action.payload.value };
     case 'SET_CLIENT_PREFERENCES':
       const preferenceId = action.payload;
-      if (state.preferences_array.indexOf(preferenceId) === -1) {
+      if (state.preferences_array?.indexOf(preferenceId) === -1) {
         return {
           ...state,
           preferences_array: [...state.preferences_array, preferenceId],
@@ -37,7 +37,20 @@ export const clientAnswers = (
         };
       }
     case 'CLEAR_CLIENT_ANSWERS':
-      return {};
+      return {
+        first_name: '',
+        last_name: '',
+        pic: '',
+        date_of_birth: '',
+        write_in_pronouns: '',
+        city: '',
+        state: '',
+        primary_reason: '',
+        previous_therapy: false,
+        previous_experience: '',
+        sliding_scale: false,
+        preferences_array: [],
+      };
     case 'SET_EDIT_CLIENT_PROFILE':
       return action.payload;
     default:
@@ -107,7 +120,24 @@ export const providerAnswers = (
         };
       }
     case 'CLEAR_PROVIDER_ANSWERS':
-      return {};
+      return {
+        first_name: '',
+        last_name: '',
+        pic: '',
+        video: '',
+        city: '',
+        state: '',
+        date_of_birth: '',
+        write_in_pronouns: '',
+        background: '',
+        strengths: '',
+        approach: '',
+        sliding_scale: false,
+        accepting_clients: false,
+        license_number: '',
+        questions: [],
+        preferences_array: [],
+      };
     case 'SET_EDIT_PROVIDER_PROFILE':
       return action.payload;
     default:

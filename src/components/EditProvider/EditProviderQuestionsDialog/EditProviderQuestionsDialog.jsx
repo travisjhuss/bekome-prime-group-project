@@ -34,10 +34,14 @@ function EditProviderQuestionsDialog({
   };
 
   const findValue = (id, type) => {
-    const i = questions.findIndex((item) => item.questions_id === id);
-    return type === 'answer'
-      ? questions[i]?.answer
-      : questions[i]?.displayed_on_card;
+    const i = questions?.findIndex((item) => item.questions_id === id);
+    if (i > -1) {
+      return type === 'answer'
+        ? questions[i].answer
+        : questions[i].displayed_on_card;
+    } else {
+      return '';
+    }
   };
 
   const handleDisplayOnCard = (id) => (event) => {

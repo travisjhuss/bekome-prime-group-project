@@ -194,7 +194,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   video: {
-    height: '480px',
     border: '10px solid #e0fbfc',
   },
   messageBar: {
@@ -276,6 +275,9 @@ const useStyles = makeStyles((theme) => ({
   },
   clientChips: {
     margin: '15px 0 10px 0',
+  },
+  savedUserCardsContent: {
+    minHeight: 90,
   }
 }));
 

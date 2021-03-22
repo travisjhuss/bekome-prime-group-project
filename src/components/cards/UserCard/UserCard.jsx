@@ -29,6 +29,7 @@ function UserCard({ provider, edit, setDialogOpen }) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { user_type } = useSelector((store) => store.user);
   const providerQuestions = useSelector((store) => store.providerQuestions);
   const preferences = useSelector((store) => store.preferences);
   const {
@@ -109,9 +110,13 @@ function UserCard({ provider, edit, setDialogOpen }) {
             </Typography>
           }
         />
-        <CardActionArea onClick={sendToDetails}>
+        {user_type === 'client' ? (
+          <CardActionArea onClick={sendToDetails}>
+            <CardMedia className={classes.cardMedia} image={pic} />
+          </CardActionArea>
+        ) : (
           <CardMedia className={classes.cardMedia} image={pic} />
-        </CardActionArea>
+        )}
         <CardContent className={classes.cardContent}>
           <Box display="flex">
             <Box display="flex" flexGrow={1} alignItems="center">
