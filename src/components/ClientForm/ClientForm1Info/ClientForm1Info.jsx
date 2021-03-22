@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
   Typography,
@@ -17,6 +17,7 @@ import S3Uploader from '../../S3Uploader/S3Uploader';
 
 function ClientForm1Info({ handleInputs }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const {
     first_name,
     last_name,
@@ -28,6 +29,29 @@ function ClientForm1Info({ handleInputs }) {
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
+
+  const handleConnorData = () => {
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key: 'first_name', value: 'Connor' },
+    });
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key: 'last_name', value: 'Detviler' },
+    });
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key: 'date_of_birth', value: '1995-06-24' },
+    });
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key: 'city', value: 'Minneapolis' },
+    });
+    dispatch({
+      type: 'SET_CLIENT_PERSONAL_DETAILS',
+      payload: { key: 'state', value: 'Minnesota' },
+    });
+  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -50,7 +74,9 @@ function ClientForm1Info({ handleInputs }) {
             onChange={handleInputs('last_name')}
           />
           <Grid item xs={6}>
-            <Typography gutterBottom>What pronouns do you use?</Typography>
+            <Typography gutterBottom onClick={handleConnorData}>
+              What pronouns do you use?
+            </Typography>
             <Typography variant="body2" gutterBottom>
               <i>select all that apply</i>
             </Typography>
@@ -88,6 +114,7 @@ function ClientForm1Info({ handleInputs }) {
             <FormControl variant="outlined">
               <InputLabel id="state-picker">State</InputLabel>
               <Select
+                labelId="state-picker"
                 className={classes.stateSelect}
                 label="State"
                 value={state || ''}

@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
   TextField,
@@ -18,6 +18,7 @@ import S3Uploader from '../../S3Uploader/S3Uploader';
 
 function ProviderForm1Info({ handleInputs }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const {
     first_name,
     last_name,
@@ -29,6 +30,29 @@ function ProviderForm1Info({ handleInputs }) {
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
+
+  const handleTravisData = () => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'first_name', value: 'Travis' },
+    });
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'last_name', value: 'Huss' },
+    });
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'date_of_birth', value: '1985-08-12' },
+    });
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'city', value: 'St. Paul' },
+    });
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'state', value: 'Minnesota' },
+    });
+  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -48,7 +72,7 @@ function ProviderForm1Info({ handleInputs }) {
             value={last_name || ''}
             onChange={handleInputs('last_name')}
           />
-          <Typography>
+          <Typography onClick={handleTravisData}>
             What pronouns do you use? (select all that apply)
           </Typography>
           <FormCheckboxes category={'pronouns'} />

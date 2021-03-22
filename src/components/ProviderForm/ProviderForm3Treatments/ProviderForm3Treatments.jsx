@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Paper, TextField, Typography, Grid } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
@@ -7,12 +7,26 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
 function ProviderForm3Treatments({ handleInputs }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+
+  const handleTravisData = () => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: {
+        key: 'background',
+        value: `I went to school at the University of Wisconsin, Madison, and traveled the world for a few years before starting my own practice in St. Paul, MN, which I've had for over ten years.`,
+      },
+    });
+  };
+
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={6}>
-          <Typography>A little about my background:</Typography>
+          <Typography onClick={handleTravisData}>
+            A little about my background:
+          </Typography>
           <TextField
             className={classes.inputs}
             variant="outlined"

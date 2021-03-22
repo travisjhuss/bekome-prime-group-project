@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Paper, TextField, Typography, Grid } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
@@ -7,7 +7,25 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
 function ProviderForm2TherapyQualities({ handleInputs }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+
+  const handleTravisData = () => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: {
+        key: 'approach',
+        value: `Conversational and direct. My goal is to help clients, and sometimes that means hearing the honest truth.`,
+      },
+    });
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: {
+        key: 'strengths',
+        value: `Tough, honest, but also validating.`,
+      },
+    });
+  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -17,7 +35,9 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
           <FormCheckboxes category={'qualities'} limit={5} />
         </Grid>
         <Grid item xs={6}>
-          <Typography>I would describe my approach as:</Typography>
+          <Typography onClick={handleTravisData}>
+            I would describe my approach as:
+          </Typography>
           <TextField
             className={classes.inputs}
             variant="outlined"

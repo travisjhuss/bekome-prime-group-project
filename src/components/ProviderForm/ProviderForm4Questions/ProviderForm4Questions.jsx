@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
@@ -7,6 +7,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Box,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
@@ -16,7 +17,8 @@ function ProviderForm4Questions() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const providerQuestions = useSelector((store) => store.providerQuestions);
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
+  const { questions } = useSelector((store) => store.forms.providerAnswers);
+  const [openAccordion, setOpenAccordion] = useState(0);
   useEffect(() => dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' }), []);
 
   const handleAnswer = (id) => (event) => {
@@ -27,21 +29,43 @@ function ProviderForm4Questions() {
   };
 
   const findValue = (id) => {
-    const foundIndex = providerAnswers.questions.findIndex(
-      (item) => item.id === id
-    );
-    return providerAnswers.questions[foundIndex]?.answer;
+    const foundIndex = questions.findIndex((item) => item.questions_id === id);
+    return questions[foundIndex]?.answer;
+  };
+
+  const handleOpenAccordion = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : false);
+  };
+
+  const handleTravisData = (id) => {
+    const whatAnswer =
+      id === 1
+        ? `I want to have a positive effect on the world, and therapy was the best way to use my gifts to achieve this.`
+        : id === 2
+        ? `Hanging out with my two dogs and cooking.`
+        : id === 3
+        ? `A 'no BS' attitude.`
+        : '';
+
+    dispatch({
+      type: 'SET_PROVIDER_RESPONSES',
+      payload: { id, answer: whatAnswer },
+    });
   };
 
   return (
     <Paper className={classes.paper} elevation={4}>
       <Typography>Please answer the following questions:</Typography>
-      {providerQuestions.map((item) => (
-        <Accordion key={item.id}>
+      {providerQuestions.map((item, i) => (
+        <Accordion
+          key={item.id}
+          expanded={openAccordion === i}
+          onChange={handleOpenAccordion(i)}
+        >
           <AccordionSummary expandIcon={<ExpandMore />}>
             <Typography>{item.content}</Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails onClick={() => handleTravisData(item.id)}>
             <TextField
               variant="outlined"
               multiline

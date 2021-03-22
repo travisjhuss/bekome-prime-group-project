@@ -125,7 +125,7 @@ function UserCard({ provider, edit, setDialogOpen }) {
           {video && (
           <Tooltip title="View Video">
             <IconButton onClick={handleOpen} className={classes.videoBtn} color="secondary">
-              <PlayCircleFilled/>
+              <PlayCircleFilled />
             </IconButton>
             </Tooltip>
           )}

@@ -30,6 +30,13 @@ function ProviderForm5Offerings({ handleInputs }) {
     });
   };
 
+  const handleTravisData = () => {
+    dispatch({
+      type: 'SET_PROVIDER_PERSONAL_DETAILS',
+      payload: { key: 'license_number', value: '219905738MN' },
+    });
+  };
+
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
@@ -68,7 +75,9 @@ function ProviderForm5Offerings({ handleInputs }) {
             Please upload a short video to introduce yourself!
           </Typography>
           <S3Uploader picOrVideo="video" />
-          <Typography>What is your {state} license number?</Typography>
+          <Typography onClick={handleTravisData}>
+            What is your {state} license number?
+          </Typography>
           <TextField
             variant="outlined"
             label="License Number"

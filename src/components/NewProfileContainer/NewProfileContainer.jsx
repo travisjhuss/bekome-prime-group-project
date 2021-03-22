@@ -14,6 +14,7 @@ import {
 import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
 import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
 import useStyles from '../../hooks/useStyles';
+import { HistoryOutlined } from '@material-ui/icons';
 
 // Strings that display on stepper for Client
 const clientSteps = [
@@ -65,10 +66,13 @@ function NewProfileContainer() {
   };
 
   const handleSubmit = () => {
-    user_type === 'client'
-      ? dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers })
-      : dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
-    history.push('/explore');
+    if (user_type === 'client') {
+      dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers });
+      history.push('/explore');
+    } else {
+      dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
+      history.push('/interested_clients');
+    }
   };
 
   return (
