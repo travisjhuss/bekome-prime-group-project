@@ -91,7 +91,7 @@ function ProviderForm1Info({ handleInputs }) {
         <Grid item container xs={6}>
           <Grid item xs={6}>
             <Typography onClick={handleTravisData}>
-              What pronouns do you use?
+              <b>What pronouns do you use?</b>
             </Typography>
             <Typography variant="body2" gutterBottom>
               <i>select all that apply</i>
@@ -109,14 +109,18 @@ function ProviderForm1Info({ handleInputs }) {
             </Box>
           </Grid>
           <Grid item xs={6}>
-            <Typography gutterBottom>Upload a Photo:</Typography>
+            <Typography gutterBottom>
+              <b>Upload a Photo:</b>
+            </Typography>
             <S3Uploader picOrVideo="pic" />
           </Grid>
         </Grid>
       </Grid>
       <Grid container spacing={4}>
         <Grid item xs={4}>
-          <Typography gutterBottom>Where is your practice located?</Typography>
+          <Typography gutterBottom>
+            <b>Where is your practice located?</b>
+          </Typography>
           <TextField
             variant="outlined"
             label="City"
@@ -143,13 +147,15 @@ function ProviderForm1Info({ handleInputs }) {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <Box pt={2}>
-            <Typography gutterBottom>What languages do you speak?</Typography>
+          <Box pb={4}>
+            <Typography gutterBottom>
+              <b>What languages do you speak?</b>
+            </Typography>
             <FormMenuChips category={'languages'} string={'Languages'} />
           </Box>
-          <Box py={3}>
+          <Box pb={3}>
             <Typography gutterBottom>
-              What best describes your religion?
+              <b>What best describes your religion?</b>
             </Typography>
             <FormMenuChips category={'religions'} string={'Religions'} />
           </Box>
@@ -157,19 +163,25 @@ function ProviderForm1Info({ handleInputs }) {
       </Grid>
       <Grid container spacing={4}>
         <Grid item xs={4}>
-          <Typography>What best describes your gender?</Typography>
+          <Typography gutterBottom>
+            <b>What best describes your gender?</b>
+          </Typography>
           <Typography variant="body2">
             <i>Select all that apply</i>
           </Typography>
           <FormCheckboxes category={'genders'} />
         </Grid>
         <Grid item xs={4}>
-          <Typography>What best describes your race?</Typography>
-          <FormCheckboxes category={'ethnicities'} />
+          <Typography gutterBottom>
+            <b>What best describes your sexual orientation?</b>
+          </Typography>
+          <FormCheckboxes category={'sexual_orientations'} />
         </Grid>
         <Grid item xs={4}>
-          <Typography>What best describes your sexual orientation?</Typography>
-          <FormCheckboxes category={'sexual_orientations'} />
+          <Typography gutterBottom>
+            <b>What best describes your race?</b>
+          </Typography>
+          <FormCheckboxes category={'ethnicities'} />
         </Grid>
       </Grid>
     </Paper>

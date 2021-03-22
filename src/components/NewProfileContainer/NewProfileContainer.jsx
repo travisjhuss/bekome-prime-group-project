@@ -20,8 +20,7 @@ import { ArrowForwardIos, ArrowBackIos } from '@material-ui/icons';
 const clientSteps = [
   'Information',
   'Reasons',
-  'Therapy',
-  'Qualities',
+  'Experience and Qualities',
   'Preferences',
 ];
 

@@ -20,35 +20,42 @@ function ClientForm5ProviderPreferences() {
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
-        <Grid item xs={12}>
-          <Typography>My ideal therapist would be:</Typography>
-          <FormCheckboxes category={'genders'} />
-          <FormCheckboxes category={'sexual_orientations'} />
-          <FormCheckboxes category={'ethnicities'} />
+        <Grid item xs={6}>
+          <Typography><b>My ideal therapist would be:</b></Typography>
+          <Grid container spacing={0}>
+            <Grid item xs={4}>
+              <FormCheckboxes category={'genders'} />
+            </Grid>
+            <Grid item xs={4}>
+              <FormCheckboxes category={'sexual_orientations'} />
+            </Grid>
+            <Grid item xs={4}>
+              <FormCheckboxes category={'ethnicities'} />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid container item xs={12}>
-          <Grid item xs={6}>
-            <Typography>My therapist should speak:</Typography>
-            <FormMenuChips category={'languages'} string={'Languages'} />
-            <Typography>My therapist's ideal religion would be:</Typography>
-            <FormMenuChips category={'religions'} string={'Religions'} />
-          </Grid>
-          <Grid item xs={6}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={sliding_scale}
-                  onChange={() =>
-                    dispatch({
-                      type: 'SET_CLIENT_PERSONAL_DETAILS',
-                      payload: { key: 'sliding_scale', value: !sliding_scale },
-                    })
-                  }
-                />
-              }
-              label="I would like to see someone with sliding scale payments"
-            />
-          </Grid>
+
+        <Grid item xs={6}>
+          <Typography className={classes.clientChips}><b>My therapist should speak:</b></Typography>
+          <FormMenuChips category={'languages'} string={'Languages'} />
+          <Typography className={classes.clientChips}><b>My therapist's ideal religion would be:</b></Typography>
+          <FormMenuChips category={'religions'} string={'Religions'} />
+          <br/>
+          <FormControlLabel
+            className={classes.clientChips}
+            control={
+              <Switch
+                checked={sliding_scale}
+                onChange={() =>
+                  dispatch({
+                    type: 'SET_CLIENT_PERSONAL_DETAILS',
+                    payload: { key: 'sliding_scale', value: !sliding_scale },
+                  })
+                }
+              />
+            }
+            label="I would like to see someone with sliding scale payments"
+          />
         </Grid>
       </Grid>
     </Paper>

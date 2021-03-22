@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px 0px',
     paddingTop: '20px',
     width: 325,
+    height: 450
   },
   cardMedia: {
     height: 200,
@@ -273,6 +274,9 @@ const useStyles = makeStyles((theme) => ({
   userCardIcons: {
     marginRight: theme.spacing(1),
   },
+  clientChips: {
+    margin: '15px 0 10px 0',
+  }
 }));
 
 export default useStyles;

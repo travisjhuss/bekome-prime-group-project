@@ -24,8 +24,8 @@ function ProviderForm3Treatments({ handleInputs }) {
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={6}>
-          <Typography onClick={handleTravisData}>
-            A little about my background:
+          <Typography onClick={handleTravisData} gutterBottom>
+            <b>A little about my background:</b>
           </Typography>
           <TextField
             className={classes.inputs}
@@ -37,7 +37,9 @@ function ProviderForm3Treatments({ handleInputs }) {
             value={providerAnswers.background}
             onChange={handleInputs('background')}
           />
-          <Typography>I'm trained in these treatments:</Typography>
+          <Typography gutterBottom>
+            <b>I'm trained in these treatments:</b>
+          </Typography>
           <FormCheckboxes category={'treatments'} size="sm" />
         </Grid>
         <Grid item xs={6}>
