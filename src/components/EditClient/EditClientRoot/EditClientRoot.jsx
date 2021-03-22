@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Box, Grid } from '@material-ui/core';
-// Custom hooks
-import useStyles from '../../../hooks/useStyles';
 // Components
 import ClientCard from '../../cards/ClientCard/ClientCard';
 import EditClientProviderQualitiesAccordion from '../EditClientProviderQualitiesAccordion/EditClientProviderQualitiesAccordion';

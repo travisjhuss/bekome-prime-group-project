@@ -69,9 +69,11 @@ function NewProfileContainer() {
     if (user_type === 'client') {
       dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers });
       history.push('/explore');
+      dispatch({ type: 'CLEAR_CLIENT_ANSWERS' });
     } else {
       dispatch({ type: 'ADD_NEW_PROVIDER', payload: forms.providerAnswers });
       history.push('/interested_clients');
+      dispatch({ type: 'CLEAR_PROVIDER_ANSWERS' });
     }
   };
 

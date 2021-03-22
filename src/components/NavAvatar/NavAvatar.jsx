@@ -1,9 +1,6 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EditIcon from '@material-ui/icons/Edit';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -12,6 +9,7 @@ import {
   MenuItem,
   ListItemIcon,
 } from '@material-ui/core';
+import { AccountCircle, ExitToApp, Edit } from '@material-ui/icons';
 
 // creates and styles a custom Menu
 const StyledMenu = withStyles({
@@ -34,8 +32,9 @@ const StyledMenu = withStyles({
 function NavAvatar() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { user_type } = useSelector((store) => store.user);
 
-  //  anchorEl will determine what the menu attaches itself to
+  // anchorEl will determine what the menu attaches itself to
   const [anchorEl, setAnchorEl] = useState(null);
 
   // openMEnu will set anchorEl to the Nav bar when avatar is clicked
@@ -52,6 +51,11 @@ function NavAvatar() {
     setAnchorEl(null);
     dispatch({ type: 'LOGOUT' });
     dispatch({ type: 'CLOSE_MESSAGE_WINDOW' });
+    const whichType =
+      user_type === 'client'
+        ? 'CLEAR_CLIENT_ANSWERS'
+        : 'CLEAR_PROVIDER_ANSWERS';
+    dispatch({ type: whichType });
     history.push('/login');
   };
 
@@ -63,7 +67,7 @@ function NavAvatar() {
   return (
     <>
       <IconButton color="primary" onClick={openMenu}>
-        <AccountCircleIcon />
+        <AccountCircle />
       </IconButton>
       <StyledMenu
         id="profile-menu"
@@ -74,7 +78,7 @@ function NavAvatar() {
       >
         <MenuItem onClick={openEdit}>
           <ListItemIcon>
-            <EditIcon fontSize="small" color="secondary" />
+            <Edit fontSize="small" color="secondary" />
           </ListItemIcon>
           <Typography variant="subtitle1" color="primary">
             Edit Profile
@@ -82,7 +86,7 @@ function NavAvatar() {
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>
-            <ExitToAppIcon fontSize="small" color="secondary" />
+            <ExitToApp fontSize="small" color="secondary" />
           </ListItemIcon>
           <Typography variant="subtitle1" color="primary">
             Logout
