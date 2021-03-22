@@ -44,6 +44,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
   return (
     <Card className={classes.cardRoot}>
       <CardHeader
+        className={classes.clientHeader}
         title={
           <Typography variant="h6" color="primary">
             {first_name} {last_name}
@@ -85,6 +86,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         </Typography>
         </CardContent>
         <CardActions className={classes.cardButton}>
+        {!edit && (
         <Button
           variant="contained"
           color="secondary"
@@ -102,6 +104,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         >
           Send Message
         </Button>
+        )}
         </CardActions>
     </Card>
   );

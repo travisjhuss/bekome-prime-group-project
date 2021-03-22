@@ -13,7 +13,7 @@ import {
   Typography,
   IconButton,
   Dialog,
-  Tooltip
+  Tooltip,
 } from '@material-ui/core';
 import {
   LocationOn,
@@ -90,7 +90,11 @@ function UserCard({ provider, edit, setDialogOpen }) {
         <CardHeader
           className={classes.cardHeader}
           action={
-            user_type === 'client' && (
+            edit ? (
+              <IconButton onClick={() => setDialogOpen('card')}>
+                <Edit />
+              </IconButton>
+            ) : (
               <FavoriteProviderButton
                 id={providers_users_id}
                 saved={saved}
@@ -110,11 +114,6 @@ function UserCard({ provider, edit, setDialogOpen }) {
             </Typography>
           }
         />
-        {edit && (
-          <IconButton onClick={() => setDialogOpen('card')}>
-            <Edit />
-          </IconButton>
-        )}
         <CardActionArea onClick={sendToDetails}>
           <CardMedia className={classes.cardMedia} image={pic} />
         </CardActionArea>
@@ -123,10 +122,14 @@ function UserCard({ provider, edit, setDialogOpen }) {
             <LocationOn color="primary" /> {city}, {state}
           </Typography>
           {video && (
-          <Tooltip title="View Video">
-            <IconButton onClick={handleOpen} className={classes.videoBtn} color="secondary">
-              <PlayCircleFilled />
-            </IconButton>
+            <Tooltip title="View Video">
+              <IconButton
+                onClick={handleOpen}
+                className={classes.videoBtn}
+                color="secondary"
+              >
+                <PlayCircleFilled />
+              </IconButton>
             </Tooltip>
           )}
           <Typography variant="body2">
@@ -144,41 +147,38 @@ function UserCard({ provider, edit, setDialogOpen }) {
         </CardContent>
         <CardActions className={classes.cardButton}>
           {!edit && (
-          <>
-            <Button
-              variant="contained"
-              size="small"
-              color="primary"
-              onClick={sendToDetails}
-            >
-              Full Profile
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              color="secondary"
-              onClick={() =>
-                dispatch({
-                  type: 'OPEN_MESSAGE_WINDOW',
-                  payload: {
-                    sentName: first_name,
-                    sentPic: pic,
-                    sentId: providers_users_id,
-                  },
-                })
-              }
-            >
-              Send Message
-            </Button>
-          </>
-        )}
-      </CardActions>
-    </Card>
-    <Dialog
-        open={open}
-        onClose={handleClose}
-      >
-        <video src={video} controls className={classes.video}/>
+            <>
+              <Button
+                variant="contained"
+                size="small"
+                color="primary"
+                onClick={sendToDetails}
+              >
+                Full Profile
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                color="secondary"
+                onClick={() =>
+                  dispatch({
+                    type: 'OPEN_MESSAGE_WINDOW',
+                    payload: {
+                      sentName: first_name,
+                      sentPic: pic,
+                      sentId: providers_users_id,
+                    },
+                  })
+                }
+              >
+                Send Message
+              </Button>
+            </>
+          )}
+        </CardActions>
+      </Card>
+      <Dialog open={open} onClose={handleClose}>
+        <video src={video} controls className={classes.video} />
       </Dialog>
     </>
   );

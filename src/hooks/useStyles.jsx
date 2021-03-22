@@ -275,7 +275,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '10 25px 10 25px',
     height: 220,
     overflow: 'scroll'
-  }
+  },
+  clientHeader: {
+    padding: 5,
+    textAlign: 'center'
+  },
 }));
 
 export default useStyles;
