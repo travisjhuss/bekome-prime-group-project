@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { Box, Typography, Grid, Button } from '@material-ui/core';
+import { useParams, useHistory } from 'react-router-dom';
+import { Box, Typography, Grid, Button, IconButton } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 // Component imports
@@ -16,6 +17,7 @@ import VideoModal from '../VideoModal/VideoModal';
 function ProviderDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const {
     providers_users_id,
     first_name,
@@ -64,6 +66,9 @@ function ProviderDetails() {
       />
       <Box p={4}>
         <Box display="flex" alignItems="center" ml={4}>
+          <IconButton color="primary" onClick={() => history.goBack()} className={classes.backBtn}>
+            <ArrowBackIcon />
+          </IconButton>
           <Typography variant="h4">
             {first_name} {last_name}
           </Typography>
