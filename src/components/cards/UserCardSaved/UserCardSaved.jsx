@@ -1,15 +1,24 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Card,
-  CardActionArea,
+  Tooltip,
+  IconButton,
+  CardHeader,
   CardActions,
   CardContent,
   CardMedia,
   Button,
   Typography,
-  Box,
+  Dialog,
 } from '@material-ui/core';
+import {
+  LocationOn,
+  Language,
+  PersonAdd,
+  PlayCircleFilled,
+} from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
@@ -24,6 +33,7 @@ function UserCardSaved({ provider }) {
     pronouns,
     first_name,
     last_name,
+    video,
   } = provider;
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,24 +43,48 @@ function UserCardSaved({ provider }) {
     history.push(`/provider-details/${provider.providers_users_id}`);
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <center>
       <Card className={classes.savedProviderCard}>
         <CardMedia className={classes.cardMedia} image={pic} />
-        <CardContent className={classes.cardHeader}>
-          <Typography variant="h6" display="inline">
-            {first_name + ' ' + last_name}
-          </Typography>{' '}
-          <FavoriteProviderButton
-            id={providers_users_id}
-            saved={true}
-            type={'GET_SAVED_PROVIDERS'}
-          />
-          <br />
+        <CardHeader
+          className={classes.cardHeader}
+          action={
+            <FavoriteProviderButton
+              id={providers_users_id}
+              saved={true}
+              type={'GET_SAVED_PROVIDERS'}
+            />
+          }
+          title={
+            <Typography variant="h6" color="secondary">
+              {first_name} {last_name}
+            </Typography>
+          }
+          subheader={<Typography variant="body2">{pronouns}</Typography>}
+        />
+        <CardContent>
           <Typography variant="body2">
-            {city}, {state}
+            <LocationOn color="primary" /> {city}, {state}
           </Typography>
-          <Typography variant="body2">{pronouns}</Typography>
+          {video && (
+            <Button
+              onClick={handleOpen}
+              startIcon={<PlayCircleFilled  color="secondary"/>}
+            >
+              <Typography variant="body2">View Video</Typography>
+            </Button>
+          )}
         </CardContent>
         <CardActions className={classes.cardButton}>
           <Button
@@ -80,6 +114,9 @@ function UserCardSaved({ provider }) {
           </Button>
         </CardActions>
       </Card>
+      <Dialog open={open} onClose={handleClose}>
+        <video src={video} controls className={classes.video} />
+      </Dialog>
     </center>
   );
 }

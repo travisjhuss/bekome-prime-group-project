@@ -80,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
     height: 300,
     overflow: 'scroll'
   },
+  savedCard: {
+    textAlign: 'left',
+    padding: '10 25px 10 25px',
+    width: '350px'
+  },
   videoBtn: {
     padding: 0,
     position: 'inherit',
