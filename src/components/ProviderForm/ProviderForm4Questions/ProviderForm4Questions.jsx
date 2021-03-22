@@ -9,7 +9,7 @@ import {
   AccordionDetails,
   Box,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore, DoneOutline } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
@@ -63,14 +63,20 @@ function ProviderForm4Questions() {
           onChange={handleOpenAccordion(i)}
         >
           <AccordionSummary expandIcon={<ExpandMore />}>
-            <Typography>{item.content}</Typography>
+            <Box flexGrow={1}>
+              <Typography>{item.content}</Typography>
+            </Box>
+            {findValue(item.id) && (
+              <DoneOutline color="primary" />
+            )}
           </AccordionSummary>
           <AccordionDetails onClick={() => handleTravisData(item.id)}>
             <TextField
+              className={classes.inputs}
               variant="outlined"
               multiline
               fullWidth
-              rows={3}
+              rows={2}
               value={findValue(item.id)}
               onChange={handleAnswer(item.id)}
             />

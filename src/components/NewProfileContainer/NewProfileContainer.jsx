@@ -14,7 +14,7 @@ import {
 import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
 import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
 import useStyles from '../../hooks/useStyles';
-import { HistoryOutlined } from '@material-ui/icons';
+import { ArrowForwardIos, ArrowBackIos } from '@material-ui/icons';
 
 // Strings that display on stepper for Client
 const clientSteps = [
@@ -110,6 +110,7 @@ function NewProfileContainer() {
           onClick={() => history.push(`/new-profile/${currentPage - 1}`)}
           variant="contained"
           color="default"
+          startIcon={<ArrowBackIos />}
         >
           Back
         </Button>
@@ -118,6 +119,7 @@ function NewProfileContainer() {
           onClick={handleNextButton}
           variant="contained"
           color="primary"
+          endIcon={<ArrowForwardIos />}
         >
           {currentPage === stepArrayToDisplay.length ? 'Submit' : 'Next'}
         </Button>

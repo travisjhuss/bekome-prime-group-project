@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
   Grid,
+  Box,
 } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
@@ -56,9 +57,10 @@ function ProviderForm1Info({ handleInputs }) {
 
   return (
     <Paper className={classes.paper} elevation={4}>
-      <Grid container spacing={5}>
+      <Grid container spacing={4}>
         <Grid item xs={6}>
           <TextField
+            fullWidth
             variant="outlined"
             label="First Name"
             className={classes.inputs}
@@ -66,50 +68,68 @@ function ProviderForm1Info({ handleInputs }) {
             onChange={handleInputs('first_name')}
           />
           <TextField
+            fullWidth
             variant="outlined"
             label="Last Name"
             className={classes.inputs}
             value={last_name || ''}
             onChange={handleInputs('last_name')}
           />
-          <Typography onClick={handleTravisData}>
-            What pronouns do you use? (select all that apply)
-          </Typography>
-          <FormCheckboxes category={'pronouns'} />
-          <Typography>
-            What best describes your gender? (select all that apply)
-          </Typography>
-          <FormCheckboxes category={'genders'} />
-          <TextField
-            variant="outlined"
-            label="Other"
-            size="small"
-            className={classes.inputs}
-            value={write_in_pronouns || ''}
-            onChange={handleInputs('write_in_pronouns')}
-          />
-          <TextField
-            type="date"
-            variant="outlined"
-            label="Date of Birth"
-            className={classes.inputs}
-            value={date_of_birth}
-            onChange={handleInputs('date_of_birth') || ''}
-            InputLabelProps={{ shrink: true }}
-          />
-          <Typography>Where is your practice located?</Typography>
+          <Box width="75%">
+            <TextField
+              fullWidth
+              type="date"
+              variant="outlined"
+              label="Date of Birth"
+              className={classes.inputs}
+              value={date_of_birth}
+              onChange={handleInputs('date_of_birth') || ''}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Box>
+        </Grid>
+        <Grid item container xs={6}>
+          <Grid item xs={6}>
+            <Typography onClick={handleTravisData}>
+              What pronouns do you use?
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              <i>select all that apply</i>
+            </Typography>
+            <FormCheckboxes category={'pronouns'} />
+            <Box>
+              <TextField
+                variant="outlined"
+                label="Other"
+                size="small"
+                className={classes.inputs}
+                value={write_in_pronouns || ''}
+                onChange={handleInputs('write_in_pronouns')}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography gutterBottom>Upload a Photo:</Typography>
+            <S3Uploader picOrVideo="pic" />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container spacing={4}>
+        <Grid item xs={4}>
+          <Typography gutterBottom>Where is your practice located?</Typography>
           <TextField
             variant="outlined"
             label="City"
+            fullWidth
             className={classes.inputs}
             value={city || ''}
             onChange={handleInputs('city')}
           />
-          <FormControl variant="outlined">
+
+          <FormControl variant="outlined" className={classes.stateSelect}>
             <InputLabel id="state-picker">State</InputLabel>
             <Select
               labelId="state-picker"
-              className={classes.stateSelect}
               label="State"
               value={state || ''}
               onChange={handleInputs('state')}
@@ -121,16 +141,33 @@ function ProviderForm1Info({ handleInputs }) {
               ))}
             </Select>
           </FormControl>
-          <Typography>What languages do you speak?</Typography>
-          <FormMenuChips category={'languages'} string={'Languages'} />
-          <Typography>What best describes your religion?</Typography>
-          <FormMenuChips category={'religions'} string={'Religions'} />
         </Grid>
         <Grid item xs={6}>
-          <Typography>Upload a Photo:</Typography>
-          <S3Uploader picOrVideo="pic" />
+          <Box pt={2}>
+            <Typography gutterBottom>What languages do you speak?</Typography>
+            <FormMenuChips category={'languages'} string={'Languages'} />
+          </Box>
+          <Box py={3}>
+            <Typography gutterBottom>
+              What best describes your religion?
+            </Typography>
+            <FormMenuChips category={'religions'} string={'Religions'} />
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid container spacing={4}>
+        <Grid item xs={4}>
+          <Typography>What best describes your gender?</Typography>
+          <Typography variant="body2">
+            <i>Select all that apply</i>
+          </Typography>
+          <FormCheckboxes category={'genders'} />
+        </Grid>
+        <Grid item xs={4}>
           <Typography>What best describes your race?</Typography>
           <FormCheckboxes category={'ethnicities'} />
+        </Grid>
+        <Grid item xs={4}>
           <Typography>What best describes your sexual orientation?</Typography>
           <FormCheckboxes category={'sexual_orientations'} />
         </Grid>

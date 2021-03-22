@@ -29,10 +29,10 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
 
   return (
     <Paper className={classes.paper} elevation={4}>
-      <Grid container>
+      <Grid container spacing={4}>
         <Grid item xs={6}>
           <Typography>My biggest strengths as a therapist are:</Typography>
-          <FormCheckboxes category={'qualities'} limit={5} />
+          <FormCheckboxes category={'qualities'} limit={5} size="sm" />
         </Grid>
         <Grid item xs={6}>
           <Typography onClick={handleTravisData}>
@@ -43,7 +43,7 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
             variant="outlined"
             fullWidth
             multiline
-            rows={6}
+            rows={3}
             label="Answer here"
             onChange={handleInputs('approach')}
             value={providerAnswers.approach}
@@ -54,7 +54,7 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
             variant="outlined"
             multiline
             fullWidth
-            rows={6}
+            rows={3}
             label="Answer here"
             onChange={handleInputs('strengths')}
             value={providerAnswers.strengths}

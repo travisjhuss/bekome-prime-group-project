@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles";
-import Image from "./atop-hill.jpeg";
+import { makeStyles } from '@material-ui/core/styles';
+import Image from './atop-hill.jpeg';
 
 // This hook will allow styling with MUI to be more consistent through components.
 // import with "import useStyles from '../../hooks/useStyles'" in a given component
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   chipsSignup: {
-    width: "18ch",
+    width: '18ch',
     margin: theme.spacing(0.5),
   },
   chips: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chipButtons: {
     margin: theme.spacing(0.5),
-    width: "10ch",
+    width: '10ch',
   },
   formTitle: {
     paddingRight: theme.spacing(3),
@@ -33,23 +33,23 @@ const useStyles = makeStyles((theme) => ({
   formButton: {
     marginLeft: theme.spacing(4),
     marginRight: theme.spacing(4),
-    width: "20ch",
-    fontSize: "1.2em",
+    width: '20ch',
+    fontSize: '1.2em',
   },
   stepperText: {
-    fontSize: "0.9em",
+    fontSize: '0.9em',
   },
   checkboxBox: {
-    display: "flex",
-    flexDirection: "column",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
   },
   filterButton: {
-    padding: "5px 20px",
+    padding: '5px 20px',
   },
   filterMenu: {
-    backgroundColor: "#e0fbfc",
-    color: "#3D5A80",
+    backgroundColor: '#e0fbfc',
+    color: '#3D5A80',
   },
   cardRoot: {
     margin: '0px 0px',
@@ -57,39 +57,38 @@ const useStyles = makeStyles((theme) => ({
     width: 340,
   },
   savedProviderCard: {
-    margin: "10px 0px",
-    paddingTop: "20px",
+    margin: '10px 0px',
+    paddingTop: '20px',
     width: 325,
   },
   cardMedia: {
     height: 200,
     width: '85%',
-    borderRadius: "5px"
+    borderRadius: '5px',
   },
   cardButton: {
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   cardHeader: {
     padding: 5,
     paddingLeft: 50,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cardContent: {
     textAlign: 'left',
     padding: '10 25px 10 25px',
     height: 300,
-    overflow: 'scroll'
+    overflow: 'scroll',
   },
   savedCard: {
     textAlign: 'left',
     padding: '10 25px 10 25px',
-    width: '350px'
+    width: '350px',
   },
   videoBtn: {
     padding: 0,
-    position: 'inherit',
-    margin: '0 0 0 82px',
-    transform: 'scale(1.3)'
+    marginRight: theme.spacing(1),
+    transform: 'scale(1.3)',
   },
   saveButton: {
     // paddingRight: 5,
@@ -98,80 +97,71 @@ const useStyles = makeStyles((theme) => ({
   pic: {
     width: 350,
     height: 350,
-    objectFit: "cover",
-    borderRadius: "20%",
+    objectFit: 'cover',
+    borderRadius: '40px',
     padding: theme.spacing(3),
   },
   stateSelect: {
-    width: 240,
+    width: '100%',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   accordionTitle: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   picPreview: {
     width: 200,
     height: 200,
-    objectFit: "cover",
+    objectFit: 'cover',
     paddingLeft: theme.spacing(2),
   },
   adminPanelButton: {
-    position: "absolute",
-    marginLeft: "15px",
+    position: 'absolute',
+    marginLeft: '15px',
     padding: 0,
   },
   adminModal: {
-    position: "absolute",
+    position: 'absolute',
     width: 800,
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    top: "100px",
-    left: "100px",
-  },
-  videoModal: {
-    position: "absolute",
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    top: "25%",
-    left: "25%",
+    top: '100px',
+    left: '100px',
   },
   landingTypography: {
-    color: "#e0fbfc",
-    margin: "50px 30px 0px 30px",
+    color: '#e0fbfc',
+    margin: '50px 30px 0px 30px',
   },
   landingButton: {
-    width: "200px",
-    margin: "32px",
+    width: '200px',
+    margin: '32px',
   },
   howWorksText: {
-    padding: "10px",
+    padding: '10px',
   },
   howWorksButton: {
-    width: "200px",
-    margin: "10px",
+    width: '200px',
+    margin: '10px',
   },
   loginContainer: {
-    margin: "auto",
-    width: "400px",
-    height: "560px",
+    margin: 'auto',
+    width: '400px',
+    height: '560px',
   },
   centerContainer: {
-    paddingTop: "50px",
-    height: "100vh",
+    paddingTop: '50px',
+    height: '100vh',
     backgroundImage: `url(${Image})`,
   },
   editClientButton: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    width: "15ch",
+    width: '15ch',
   },
   editClientAccordion: {
-    display: "block",
+    display: 'block',
     padding: theme.spacing(3),
   },
   filterDrawer: {
@@ -181,14 +171,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   loginBtn: {
-    width: "95%",
+    width: '95%',
   },
   loginForm: {
-    margin: "30px",
+    margin: '30px',
   },
   loginTextField: {
-    "& .MuiOutlinedInput-input": {
-      padding: "8px 8px",
+    '& .MuiOutlinedInput-input': {
+      padding: '8px 8px',
     },
   },
   submitBtn: {
@@ -207,12 +197,12 @@ const useStyles = makeStyles((theme) => ({
     border: '10px solid #e0fbfc',
   },
   messageBar: {
-    position: "fixed",
+    position: 'fixed',
     padding: theme.spacing(1),
     width: 300,
     bottom: 0,
     right: 10,
-    cursor: "pointer",
+    cursor: 'pointer',
     zIndex: 1,
   },
   messagingWidgetAvatar: {
@@ -229,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1.5),
   },
   messagingWindow: {
-    position: "fixed",
+    position: 'fixed',
     padding: theme.spacing(1),
     width: 350,
     minHeight: 300,
@@ -239,7 +229,7 @@ const useStyles = makeStyles((theme) => ({
   },
   messagingBody: {
     height: 250,
-    overflow: "scroll",
+    overflow: 'scroll',
   },
   messagingWidgetListItem: {
     height: 100,
@@ -247,25 +237,25 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   userBubble: {
-    maxWidth: "75%",
+    maxWidth: '75%',
     borderRadius: 12,
-    backgroundColor: "#3D5A80",
-    color: "white",
+    backgroundColor: '#3D5A80',
+    color: 'white',
   },
   notUserBubble: {
-    maxWidth: "75%",
+    maxWidth: '75%',
     borderRadius: 12,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
   messageTextField: {
-    fontSize: "0.9em",
+    fontSize: '0.9em',
   },
   unreadMessageText: {
     fontWeight: 700,
   },
   messagePreviewBox: {
     height: 60,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   backBtn: {
     marginLeft: '-15px',
@@ -274,11 +264,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     padding: '10 25px 10 25px',
     height: 220,
-    overflow: 'scroll'
+    overflow: 'scroll',
   },
   clientHeader: {
     padding: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+  },
+  userCardIcons: {
+    marginRight: theme.spacing(1),
   },
 }));
 

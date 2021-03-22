@@ -38,7 +38,7 @@ function ProviderForm3Treatments({ handleInputs }) {
             onChange={handleInputs('background')}
           />
           <Typography>I'm trained in these treatments:</Typography>
-          <FormCheckboxes category={'treatments'} />
+          <FormCheckboxes category={'treatments'} size="sm" />
         </Grid>
         <Grid item xs={6}>
           <Typography>
