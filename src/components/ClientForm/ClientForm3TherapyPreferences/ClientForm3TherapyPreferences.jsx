@@ -6,7 +6,7 @@ import useStyles from '../../../hooks/useStyles';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
 function ClientForm3TherapyPreferences({ handleInputs }) {
-  const classes  = useStyles();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
 
@@ -20,8 +20,8 @@ function ClientForm3TherapyPreferences({ handleInputs }) {
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
-        <Grid item xs={6}>
-          <Typography>Have you seen a therapist before?</Typography>
+        <Grid item xs={4}>
+          <Typography><b>Have you seen a therapist before?</b></Typography>
           <Chip
             className={classes.chipButtons}
             label="Yes"
@@ -35,23 +35,30 @@ function ClientForm3TherapyPreferences({ handleInputs }) {
             color={clientAnswers.previous_therapy ? 'default' : 'primary'}
           />
           <Typography>
-            If so, how was your previous therapy experience?
+            <b>If so, how was your previous therapy experience?</b>
           </Typography>
           <TextField
             disabled={!clientAnswers.previous_therapy}
             label="Answer here"
             variant="outlined"
             multiline
-            rows={8}
+            fullWidth
+            rows={12}
             value={clientAnswers.previous_experience || ''}
             onChange={handleInputs('previous_experience')}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Typography>
-            What kind of treatments are you interested in?
+            <b>What kind of treatments are you interested in?</b>
           </Typography>
           <FormCheckboxes category={'treatments'} limit={3} />
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>
+            <b>What qualities do you look for in a therapist?</b>
+          </Typography>
+          <FormCheckboxes category={'qualities'} limit={5} />
         </Grid>
       </Grid>
     </Paper>

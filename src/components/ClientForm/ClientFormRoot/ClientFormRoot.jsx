@@ -14,8 +14,6 @@ const ClientFormRoot = ({ currentPage, handleInputs }) => {
     case 3:
       return <ClientForm3TherapyPreferences handleInputs={handleInputs} />;
     case 4:
-      return <ClientForm4ProviderQualities handleInputs={handleInputs} />;
-    case 5:
       return <ClientForm5ProviderPreferences handleInputs={handleInputs} />;
   }
 };

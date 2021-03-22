@@ -14,21 +14,21 @@ function ClientForm2Reasons({ handleInputs }) {
       <Grid container spacing={5}>
         <Grid item xs={6}>
           <Typography>
-            What is your primary reason for seeking therapy?
+            <b>What is your primary reason for seeking therapy?</b>
           </Typography>
           <TextField
             variant="outlined"
             label="Answer here"
             multiline
             fullWidth
-            rows={4}
+            rows={16}
             className={classes.inputs}
             value={clientAnswers.primary_reason || ''}
             onChange={handleInputs('primary_reason')}
           />
         </Grid>
         <Grid item xs={6}>
-          <Typography>What are you struggling with?</Typography>
+          <Typography><b>What are you struggling with?</b></Typography>
           <FormCheckboxes category={'challenges'} />
         </Grid>
       </Grid>

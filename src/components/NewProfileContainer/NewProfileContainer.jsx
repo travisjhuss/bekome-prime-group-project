@@ -19,8 +19,7 @@ import useStyles from '../../hooks/useStyles';
 const clientSteps = [
   'Information',
   'Reasons',
-  'Therapy',
-  'Qualities',
+  'Experience and Qualities',
   'Preferences',
 ];
 
