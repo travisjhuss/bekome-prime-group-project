@@ -267,6 +267,9 @@ const useStyles = makeStyles((theme) => ({
     height: 60,
     overflow: "hidden",
   },
+  backBtn: {
+    marginLeft: '-15px',
+  }
 }));
 
 export default useStyles;

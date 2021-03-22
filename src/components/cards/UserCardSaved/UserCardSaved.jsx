@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Card,
-  Tooltip,
-  IconButton,
+  CardActionArea,
   CardHeader,
   CardActions,
   CardContent,
@@ -15,8 +14,6 @@ import {
 } from '@material-ui/core';
 import {
   LocationOn,
-  Language,
-  PersonAdd,
   PlayCircleFilled,
 } from '@material-ui/icons';
 // Custom hooks
@@ -56,7 +53,9 @@ function UserCardSaved({ provider }) {
   return (
     <center>
       <Card className={classes.savedProviderCard}>
-        <CardMedia className={classes.cardMedia} image={pic} />
+        <CardActionArea onClick={sendToDetails}>
+          <CardMedia className={classes.cardMedia} image={pic} />
+        </CardActionArea>
         <CardHeader
           className={classes.cardHeader}
           action={
@@ -80,7 +79,7 @@ function UserCardSaved({ provider }) {
           {video && (
             <Button
               onClick={handleOpen}
-              startIcon={<PlayCircleFilled  color="secondary"/>}
+              startIcon={<PlayCircleFilled color="secondary" />}
             >
               <Typography variant="body2">View Video</Typography>
             </Button>
