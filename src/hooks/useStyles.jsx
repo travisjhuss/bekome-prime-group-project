@@ -281,6 +281,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 5,
     textAlign: 'center'
   },
+  clientChips: {
+    margin: '15px 0 10px 0',
+  }
 }));
 
 export default useStyles;
