@@ -269,6 +269,12 @@ const useStyles = makeStyles((theme) => ({
   },
   backBtn: {
     marginLeft: '-15px',
+  },
+  clientContent: {
+    textAlign: 'left',
+    padding: '10 25px 10 25px',
+    height: 220,
+    overflow: 'scroll'
   }
 }));
 

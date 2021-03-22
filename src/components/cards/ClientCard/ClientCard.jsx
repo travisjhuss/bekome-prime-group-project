@@ -42,10 +42,10 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
   };
 
   return (
-    <Card className={classes.clientCard}>
+    <Card className={classes.cardRoot}>
       <CardHeader
         title={
-          <Typography variant="h6">
+          <Typography variant="h6" color="primary">
             {first_name} {last_name}
           </Typography>
         }
@@ -65,13 +65,14 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
       />
 
       <CardMedia className={classes.cardMedia} image={pic} />
-      <CardContent className={classes.CardContent}>
+      <CardContent className={classes.clientContent}>
         <Typography variant="body2">
           <LocationOn color="primary" /> {city}, {state}
         </Typography>
         <Typography variant="body2">
           <Language color="primary" /> {parsePreferences('languages')}
         </Typography>
+        <br/>
         <Typography variant="body2">
           <b>Primary reason for seeking therapy:</b>
         </Typography>
@@ -82,9 +83,12 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         <Typography variant="body2">
           {parsePreferences('challenges')}
         </Typography>
+        </CardContent>
+        <CardActions className={classes.cardButton}>
         <Button
           variant="contained"
           color="secondary"
+          size="small"
           onClick={() =>
             dispatch({
               type: 'OPEN_MESSAGE_WINDOW',
@@ -96,9 +100,9 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
             })
           }
         >
-          Send a Message
+          Send Message
         </Button>
-      </CardContent>
+        </CardActions>
     </Card>
   );
 }

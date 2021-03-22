@@ -48,7 +48,7 @@ const classes = useStyles();
   };
 
   return (
-    <div>
+    <div style={{marginTop: '25px'}}>
       <Swiper
         spaceBetween={0}
         navigation

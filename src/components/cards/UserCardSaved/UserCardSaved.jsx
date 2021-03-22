@@ -52,7 +52,7 @@ function UserCardSaved({ provider }) {
 
   return (
     <center>
-      <Card className={classes.savedProviderCard}>
+      <Card className={classes.savedProviderCard} raised={true}>
         <CardActionArea onClick={sendToDetails}>
           <CardMedia className={classes.cardMedia} image={pic} />
         </CardActionArea>
