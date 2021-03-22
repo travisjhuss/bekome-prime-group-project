@@ -71,11 +71,13 @@ function EditProviderRoot() {
         <Typography>Edit Profile</Typography>
         <Grid container>
           <Grid item xs={4}>
-            <UserCard
-              provider={provider}
-              edit={true}
-              setDialogOpen={setDialogOpen}
-            />
+            <center>
+              <UserCard
+                provider={provider}
+                edit={true}
+                setDialogOpen={setDialogOpen}
+              />
+            </center>
           </Grid>
           <Grid item xs={8}>
             <QuestionAccordion

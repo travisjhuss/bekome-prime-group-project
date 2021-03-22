@@ -54,11 +54,13 @@ function EditClientRoot() {
         <Typography variant="h6">Edit Profile</Typography>
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <ClientCard
-              client={client}
-              edit={true}
-              setCardDialogOpen={setCardDialogOpen}
-            />
+            <center>
+              <ClientCard
+                client={client}
+                edit={true}
+                setCardDialogOpen={setCardDialogOpen}
+              />
+            </center>
           </Grid>
           <Grid item xs={8}>
             <EditClientProviderQualitiesAccordion
