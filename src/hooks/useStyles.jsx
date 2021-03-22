@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0px",
     paddingTop: "20px",
     width: 325,
+    height: 450
   },
   cardMedia: {
     height: 200,
