@@ -35,7 +35,8 @@ function FormCheckboxes({ category, limit, size }) {
     });
   };
 
-  const whatSize = size === 'sm' ? 200 : size === 'md' ? 300 : 400;
+  const whatSize =
+    size === 'sm' ? 200 : size === 'md' ? 300 : size === 'lg' ? 400 : 500;
 
   return (
     <FormControl error={showError}>
@@ -50,7 +51,11 @@ function FormCheckboxes({ category, limit, size }) {
                 onChange={() => handleCheck(item.id)}
               />
             }
-            label={item.name}
+            label={
+              user_type === 'client' && item.name === 'Prefer not to respond'
+                ? 'No preference'
+                : item.name
+            }
           />
         ))}
       </Box>

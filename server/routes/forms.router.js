@@ -40,18 +40,15 @@ router.post('/add_question', rejectUnauthenticated, (req, res) => {
     VALUES ($1);
     `;
 
-    console.log(req.body)
+  console.log(req.body);
 
-    pool
-      .query(sqlText, [req.body.content])
-      .then((result) => {
-        res.sendStatus(201)
-        console.log(result)
-      })
-      .catch((error) => {
-        console.log('Error in /forms/add_question', error)
-        res.sendStatus(500)
-      })
+  pool
+    .query(sqlText, [req.body.content])
+    .then(() => res.sendStatus(201))
+    .catch((error) => {
+      console.log('Error in /forms/add_question', error);
+      res.sendStatus(500);
+    });
 });
 
 // DELETE route for deleting provider question
@@ -67,12 +64,12 @@ router.delete('/delete_question/:id', rejectUnauthenticated, (req, res) => {
     .catch((err) => {
       console.log('error in forms.router DELETE question', err);
       res.sendStatus(500);
-    })
-})
+    });
+});
 
-// PUT route for editiing provider question
+// PUT route for editing provider question
 router.put('/edit_question', rejectUnauthenticated, (req, res) => {
-  console.log('in edit question router', req.body)
+  console.log('in edit question router', req.body);
   const editQuestion = `
     UPDATE "questions" SET
     "content" = $1
@@ -83,8 +80,8 @@ router.put('/edit_question', rejectUnauthenticated, (req, res) => {
     .query(editQuestion, [req.body.content, req.body.id])
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      console.log('error in forms.router question PUT', err)
-      res.sendStatus(500)
+      console.log('error in forms.router question PUT', err);
+      res.sendStatus(500);
     });
 });
 
@@ -97,14 +94,11 @@ router.post('/add_preference', rejectUnauthenticated, (req, res) => {
 
   pool
     .query(sqlText, [req.body.name, req.body.category])
-    .then((result) => {
-      res.sendStatus(201);
-      console.log(result)
-    })
+    .then(() => res.sendStatus(201))
     .catch((error) => {
-      console.log('Error in /forms/add_preference', error)
-      res.sendStatus(500)
-    })
+      console.log('Error in /forms/add_preference', error);
+      res.sendStatus(500);
+    });
 });
 
 // DELETE route for deleting a preference from the preferences table
@@ -119,13 +113,13 @@ router.delete('/delete_preference/:id', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(204))
     .catch((err) => {
       console.log('error in forms.router DELETE preference', err);
-      res.sendStatus(500)
+      res.sendStatus(500);
     });
 });
 
 // PUT route for editing a preference in the preferences table
 router.put('/edit_preference', rejectUnauthenticated, (req, res) => {
-  console.log('in edit router', req.body)
+  console.log('in edit router', req.body);
   const editPreference = `
     UPDATE "preferences" SET
     "category" = $1,
@@ -137,10 +131,10 @@ router.put('/edit_preference', rejectUnauthenticated, (req, res) => {
     .query(editPreference, [req.body.category, req.body.name, req.body.id])
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      console.log('error in forms.router PUT', err)
-      res.sendStatus(500)
-    })
-})
+      console.log('error in forms.router PUT', err);
+      res.sendStatus(500);
+    });
+});
 
 // POST route for adding new client data to DB
 router.post('/add_client', rejectUnauthenticated, async (req, res) => {
@@ -291,7 +285,7 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
     `;
 
     req.body.questions.forEach(async (question, i) => {
-      const displayed = i <= 2; // Automatically displays the first three q's 
+      const displayed = i <= 2; // Automatically displays the first three q's
       try {
         await connection.query(providerQuestionsQuery, [
           req.user.id,
@@ -327,15 +321,16 @@ router.post('/add_provider', rejectUnauthenticated, async (req, res) => {
 router.get('/fetch_users', rejectUnauthenticated, (req, res) => {
   sqlText = `
   SELECT "id", "email", "user_type", "filled_out_form" FROM "users";
-  `
+  `;
   pool
     .query(sqlText)
     .then((result) => {
-      res.send(result.rows)})
-    .catch((err) => {
-      console.log('error in /fetch_users', err)
-      res.sendStatus(500)
+      res.send(result.rows);
     })
-})
+    .catch((err) => {
+      console.log('error in /fetch_users', err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
