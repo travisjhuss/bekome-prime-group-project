@@ -50,7 +50,7 @@ function EditClientReasonsAccordion({
         />
         <Box paddingTop={2}>
           <Typography>What are you struggling with?</Typography>
-          <FormCheckboxes category={'challenges'} />
+          <FormCheckboxes category={'challenges'} size="lg" />
         </Box>
         <Box display="flex" flexDirection="row-reverse">
           <Button

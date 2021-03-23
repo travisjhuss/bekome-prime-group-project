@@ -100,7 +100,7 @@ export const providerAnswers = (
       }
     case 'SET_PROVIDER_RESPONSES':
       const { id, display, answer } = action.payload;
-      const i = state.questions.findIndex((item) => item.questions_id === id);
+      const i = state.questions?.findIndex((item) => item.questions_id === id);
       if (i > -1) {
         const newQuestionsArray = [...state.questions];
         display

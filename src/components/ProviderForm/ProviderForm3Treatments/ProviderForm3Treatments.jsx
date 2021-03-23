@@ -48,7 +48,7 @@ function ProviderForm3Treatments({ handleInputs }) {
           <Typography gutterBottom>
             <b>The challenges I most often help people with are:</b>
           </Typography>
-          <FormCheckboxes category={'challenges'} limit={5} />
+          <FormCheckboxes category={'challenges'} limit={5} size="lg" />
         </Grid>
       </Grid>
     </Paper>

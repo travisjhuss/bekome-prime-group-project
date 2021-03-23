@@ -103,7 +103,6 @@ function FilterMenu({ query }) {
           onDelete={() => handleFilterArray(item, 'booleans')}
         />
       ))}
-
       <Drawer
         BackdropProps={{ invisible: true }}
         anchor={'left'}

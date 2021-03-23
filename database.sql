@@ -103,7 +103,7 @@ CREATE TABLE "messages" (
 "timestamp" TIMESTAMP DEFAULT NOW(),
 "sender_users_id" INT REFERENCES "users" ON DELETE CASCADE,
 "recipient_users_id" INT REFERENCES "users" ON DELETE CASCADE,
-"read_by_recipient" BOOLEAN DEFAULT FALSE,
+"read_by_recipient" BOOLEAN DEFAULT false,
 "message" TEXT,
 "conversation" VARCHAR(100)
 );
