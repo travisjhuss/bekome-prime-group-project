@@ -21,10 +21,10 @@ bekome aims to make the act of matching therapists to clients a painless process
 1. Create a database named `bekome`,
 2. The queries in the `database.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries
 3. Create `.env` file. Add secret key as well as the following keys from your AWS bucket
-AWS_SECRET_ACCESS_KEY=
-AWS_ACCESS_KEY_ID=
-AWS_S3_BUCKET= /* name of bucket */
-AWS_S3_REGION= /* i.e. us-east-2 */
+  - AWS_SECRET_ACCESS_KEY=
+  - AWS_ACCESS_KEY_ID=
+  - AWS_S3_BUCKET= /* name of bucket */
+  - AWS_S3_REGION= /* i.e. us-east-2 */
 4. Open up your editor of choice and run an `npm install`
 5. Run `npm run server` in your terminal
 6. Run `npm run client` in your terminal
