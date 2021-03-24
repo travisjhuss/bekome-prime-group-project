@@ -16,7 +16,7 @@ bekome aims to make the act of matching therapists to clients a painless process
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- [PostgreSQL}(https://www.postgresql.org/)
 
 ## Installation
 
@@ -51,7 +51,12 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 
 ## Built With
 
-List technologies and frameworks here
+React
+Node.js
+Redux
+Sagas
+PostgreSQL
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
