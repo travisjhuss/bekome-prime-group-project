@@ -58,6 +58,3 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 
 ## Acknowledgement
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.
-
-## Support
-If you have suggestions or issues, please email me at [youremail@whatever.com](www.google.com)
