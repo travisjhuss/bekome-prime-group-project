@@ -7,7 +7,7 @@ const allUsers = (state = [], action) => {
     }
   };
 
-  // user will be on the redux state at:
-  // state.user
+  // users will be on the redux state at:
+  // state.allUsers
   export default allUsers;
   

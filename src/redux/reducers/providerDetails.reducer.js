@@ -1,4 +1,3 @@
-// Holds information for one provider, displayed on ProviderDetails
 const providerDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PROVIDER_DETAILS':
@@ -8,4 +7,6 @@ const providerDetailsReducer = (state = {}, action) => {
   }
 }
 
+// Holds information for one provider, displayed on ProviderDetails
+// can be found at store.providerDetails
 export default providerDetailsReducer;

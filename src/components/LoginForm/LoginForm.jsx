@@ -11,6 +11,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  // function that handles logging in or sending proper error
   const login = (event) => {
     event.preventDefault();
 

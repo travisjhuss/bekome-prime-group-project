@@ -22,6 +22,7 @@ function HowItWorks() {
             <br /> just without the romance.
           </Typography>
         </div>
+        {/* MUI Grid used to justify and align these elements more easily  */}
         <Grid container spacing={2} className="how-it-works-flow">
           <Grid item xs={4} align="center">
             <img src="./answer.png" className="how-it-works-icon" />
