@@ -14,7 +14,6 @@ To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.he
 
 ## Screen Shot
 
-Include one or two screen shots of your project here (optional). Remove if unused.
 
 ### Prerequisites
 
