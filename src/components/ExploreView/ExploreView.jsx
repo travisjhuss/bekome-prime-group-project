@@ -16,6 +16,7 @@ function ExploreView() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+  // gets from reducer all of the providers
   const providers = useSelector((store) => store.exploreReducer);
 
   // Runs only on page load
@@ -28,6 +29,7 @@ function ExploreView() {
   // install Swiper modules
   SwiperCore.use([Navigation, Pagination, A11y]);
 
+  // breakpoints controls how many userCards are visible based on the screen size ratio
   const breakpoints = {
     '@0.85': {
       slidesPerView: 1,
@@ -46,6 +48,7 @@ function ExploreView() {
     },
   };
 
+  // adds filters to url in form of a query
   const query = queryString.parse(location.search, {
     arrayFormat: 'bracket',
     parseNumbers: true,
@@ -53,8 +56,10 @@ function ExploreView() {
   });
   const { filterIds, states, booleans } = query;
 
+  // filters through the providers array based on the filters the user has selected
   const filteredProvidersList = providers
     .filter((item) => {
+      // filters based on the filterID of a given preference
       if (filterIds) {
         const matches = item.preferences_array.filter((element) =>
           filterIds.includes(element)
@@ -65,6 +70,7 @@ function ExploreView() {
       }
     })
     .filter((item) => {
+      // filters based on state selected
       if (states) {
         if (!states.includes(item.state)) {
           return false;
@@ -73,6 +79,7 @@ function ExploreView() {
       return true;
     })
     .filter((item) => {
+      // filters based on boolean value of accepting clients or sliding scale
       if (booleans) {
         if (booleans.includes('Accepting Clients') && !item.accepting_clients) {
           return false;

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // MUI
 import { Typography, Button } from '@material-ui/core';
 
-function Nav() {
+function NavAdmin() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -40,4 +40,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default NavAdmin;

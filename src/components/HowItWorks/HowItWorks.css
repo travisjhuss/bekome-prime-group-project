@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------------
-How It Works Page Grid
+-How It Works Page Grid-
+Organized as a grid to allow for overlapping images and proper placement of elements
 -------------------------------------------------------------------------------- */
 .how-it-works-grid {
     display: grid;
