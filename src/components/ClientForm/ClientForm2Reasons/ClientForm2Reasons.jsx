@@ -1,24 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Paper, Typography, TextField, Grid } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Part of new client form stepper, reasons for seeking therapy
 function ClientForm2Reasons({ handleInputs }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const clientAnswers = useSelector((store) => store.forms.clientAnswers);
-
-  const handleConnorData = () => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: {
-        key: 'primary_reason',
-        value: `I've been feeling isolated during the past year, and could use somebody to talk to.`,
-      },
-    });
-  };
+  const { primary_reason } = useSelector((store) => store.forms.clientAnswers);
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -34,7 +24,7 @@ function ClientForm2Reasons({ handleInputs }) {
             fullWidth
             rows={8}
             className={classes.inputs}
-            value={clientAnswers.primary_reason || ''}
+            value={primary_reason || ''}
             onChange={handleInputs('primary_reason')}
           />
         </Grid>

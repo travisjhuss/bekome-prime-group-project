@@ -12,10 +12,14 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Part of new client form stepper, details their therapy history and 
+// what treatments they're interested in
 function ClientForm3TherapyPreferences({ handleInputs }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const clientAnswers = useSelector((store) => store.forms.clientAnswers);
+  const { previous_therapy, previous_experience } = useSelector(
+    (store) => store.forms.clientAnswers
+  );
 
   const handleBoolean = (boolean) => {
     dispatch({
@@ -35,26 +39,26 @@ function ClientForm3TherapyPreferences({ handleInputs }) {
             className={classes.chipButtons}
             label="Yes"
             onClick={() => handleBoolean(true)}
-            color={clientAnswers.previous_therapy ? 'primary' : 'default'}
+            color={previous_therapy ? 'primary' : 'default'}
           />
           <Chip
             className={classes.chipButtons}
             label="No"
             onClick={() => handleBoolean(false)}
-            color={clientAnswers.previous_therapy ? 'default' : 'primary'}
+            color={previous_therapy ? 'default' : 'primary'}
           />
           <Box pt={2}>
             <Typography>
               <b>If so, how was your previous therapy experience?</b>
             </Typography>
             <TextField
-              disabled={!clientAnswers.previous_therapy}
+              disabled={!previous_therapy}
               label="Answer here"
               variant="outlined"
               multiline
               fullWidth
               rows={12}
-              value={clientAnswers.previous_experience || ''}
+              value={previous_experience || ''}
               onChange={handleInputs('previous_experience')}
             />
           </Box>

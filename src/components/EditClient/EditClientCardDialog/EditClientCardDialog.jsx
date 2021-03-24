@@ -21,6 +21,8 @@ import useStyles from '../../../hooks/useStyles';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 
+// When a client clicks on the edit icon on their ClientCard, this dialog
+// opens for them to edit mostly personal information
 function EditClientCardDialog({
   handleSubmit,
   cardDialogOpen,
@@ -38,10 +40,12 @@ function EditClientCardDialog({
     state,
     pic,
   } = useSelector((store) => store.forms.clientAnswers);
+  // Get the list of states from the preferences table
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
 
+  // Formats date correctly so it functions in the MUI date TextField
   const formattedDate = DateTime.fromISO(date_of_birth).toFormat('yyyy-MM-dd');
 
   return (

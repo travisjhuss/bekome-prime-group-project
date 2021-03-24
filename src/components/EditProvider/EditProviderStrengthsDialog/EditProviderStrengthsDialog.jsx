@@ -15,6 +15,7 @@ import useStyles from '../../../hooks/useStyles';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
 // Opened by clicking the edit button on StrengthsAccordion
+// Provider can edit their answer to their strengths, and their qualities
 function EditProviderStrengthsDialog({
   handleSubmit,
   dialogOpen,

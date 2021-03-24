@@ -15,6 +15,7 @@ import EditProviderSpecialtiesDialog from '../EditProviderSpecialtiesDialog/Edit
 import EditProviderFormatsDialog from '../EditProviderFormatsDialog/EditProviderFormatsDialog';
 import EditProviderCardDialog from '../EditProviderCardDialog/EditProviderCardDialog';
 
+// Base container of the provider edit functionality
 function EditProviderRoot() {
   const dispatch = useDispatch();
   const { id } = useSelector((store) => store.user);
@@ -22,6 +23,9 @@ function EditProviderRoot() {
   const providerAnswers = useSelector((store) => store.forms.providerAnswers);
   const preferences = useSelector((store) => store.preferences);
   const [dialogOpen, setDialogOpen] = useState(false);
+  // This handles all accordions being open on the page
+  // Whatever page is open corresponds to the string of the component name
+  // that is set here, set for the 'qualities' accordion open on page load
   const [openAccordion, setOpenAccordion] = useState('questions');
 
   useEffect(() => {
@@ -29,6 +33,9 @@ function EditProviderRoot() {
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
+  // Takes the id's from preferences_array and matches them to the corresponding
+  // entries from the preferences table, parses a string with the
+  // preference name separated by ', '
   const parsePreferences = (category) => {
     return preferences
       .filter((item) => {
@@ -41,6 +48,7 @@ function EditProviderRoot() {
       .slice(0, -2);
   };
 
+  // Sends the key and typing of text inputs to redux
   const handleInputs = (key) => (event) => {
     dispatch({
       type: 'SET_PROVIDER_PERSONAL_DETAILS',
@@ -48,15 +56,18 @@ function EditProviderRoot() {
     });
   };
 
+  // Toggles what accordion is open so only one is open at a time
   const handleOpenAccordion = (panel) => (event, isExpanded) => {
     setOpenAccordion(isExpanded ? panel : false);
   };
 
+  // Resets answers of the accordion if the edits are canceled
   const handleCancel = () => {
     dispatch({ type: 'FETCH_EDIT_PROVIDER_PROFILE', payload: id });
     setDialogOpen(false);
   };
 
+  // Submit the answers in redux to the db
   const handleSubmit = () => {
     dispatch({
       type: 'SUBMIT_PROVIDER_EDITS',

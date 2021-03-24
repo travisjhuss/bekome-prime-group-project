@@ -12,7 +12,9 @@ import useStyles from '../../../hooks/useStyles';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 
-function ClientForm5ProviderPreferences() {
+// Part of new client form stepper, lists the provider qualities a client
+// can choose from
+function ClientForm4ProviderPreferences() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { sliding_scale } = useSelector((store) => store.forms.clientAnswers);
@@ -64,4 +66,4 @@ function ClientForm5ProviderPreferences() {
   );
 }
 
-export default ClientForm5ProviderPreferences;
+export default ClientForm4ProviderPreferences;

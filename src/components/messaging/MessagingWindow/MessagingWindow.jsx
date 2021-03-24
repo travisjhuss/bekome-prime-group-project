@@ -90,20 +90,6 @@ function MessagingWindow() {
       : dispatch({ type: 'SET_MESSAGE_TEXT', payload: event.target.value });
   };
 
-  const handleConnorData = () => {
-    dispatch({
-      type: 'SET_MESSAGE_TEXT',
-      payload: `Hey, I saw that you specialize in CBT and meditation, which is exactly what I'm looking for. I'd like to hear more about your practice.`,
-    });
-  };
-
-  const handlePoData = () => {
-    dispatch({
-      type: 'SET_MESSAGE_TEXT',
-      payload: `Thanks for reaching out! I definitely believe in the benefits of meditation, what appeals to you most about it?`,
-    });
-  };
-
   return (
     <Paper className={classes.messagingWindow} elevation={4}>
       <Box
@@ -115,13 +101,12 @@ function MessagingWindow() {
       >
         <Box display="flex" alignItems="center">
           <Avatar
-            onClick={handleConnorData}
             className={classes.messagingWindowAvatar}
             src={notTheUser.pic}
           >
             {notTheUser.name.charAt(0)}
           </Avatar>
-          <Typography variant="body2" onClick={handlePoData}>
+          <Typography variant="body2">
             <b>Conversation with {notTheUser.name}</b>
           </Typography>
         </Box>

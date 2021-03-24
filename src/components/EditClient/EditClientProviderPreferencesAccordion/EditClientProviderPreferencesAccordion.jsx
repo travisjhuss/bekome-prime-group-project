@@ -18,6 +18,8 @@ import useStyles from '../../../hooks/useStyles';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 
+// Shows the client's preferences in a provider, in the forms of checkboxes
+// and menu chips
 function EditClientProviderPreferencesAccordion({
   handleSubmit,
   handleCancel,

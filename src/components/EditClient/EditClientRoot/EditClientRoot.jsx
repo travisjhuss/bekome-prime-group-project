@@ -9,11 +9,15 @@ import EditClientReasonsAccordion from '../EditClientReasonsAccordion/EditClient
 import EditClientTherapyPreferencesAccordion from '../EditClientTherapyPreferencesAccordion/EditClientTherapyPreferencesAccordion';
 import EditClientProviderPreferencesAccordion from '../EditClientProviderPreferencesAccordion/EditClientProviderPreferencesAccordion';
 
+// Root container of the edit client functionality
 function EditClientRoot() {
   const dispatch = useDispatch();
   const client = useSelector((store) => store.oneClient);
   const clientAnswers = useSelector((store) => store.forms.clientAnswers);
   const [cardDialogOpen, setCardDialogOpen] = useState(false);
+  // This handles all accordions being open on the page
+  // Whatever page is open corresponds to the string of the component name
+  // that is set here, set for the 'qualities' accordion open on page load
   const [openAccordion, setOpenAccordion] = useState('providerQualities');
 
   useEffect(() => {
@@ -21,6 +25,7 @@ function EditClientRoot() {
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
+  // Sends the key and typing of text inputs to redux
   const handleInputs = (key) => (event) => {
     dispatch({
       type: 'SET_CLIENT_PERSONAL_DETAILS',
@@ -28,13 +33,16 @@ function EditClientRoot() {
     });
   };
 
+  // Submit the answers in redux to the db
   const handleSubmit = () => {
     dispatch({ type: 'SUBMIT_CLIENT_EDITS', payload: clientAnswers });
+    // If the card dialog isn't open, this closes the accordion that was edited
     if (!cardDialogOpen) {
       setOpenAccordion(false);
     }
   };
 
+  // Resets answers of the accordion if the edits are canceled
   const handleCancel = () => {
     dispatch({ type: 'FETCH_EDIT_CLIENT_PROFILE' });
     if (!cardDialogOpen) {
@@ -42,6 +50,7 @@ function EditClientRoot() {
     }
   };
 
+  // Toggles what accordion is open so only one is open at a time
   const handleOpenAccordion = (panel) => (event, isExpanded) => {
     setOpenAccordion(isExpanded ? panel : false);
   };

@@ -17,6 +17,8 @@ import { ExpandMore } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
 // Opened by clicking the edit icon on QuestionAccordion
+// Providers can edit the answers to their questions, and pin different to
+// their ProviderCard
 function EditProviderQuestionsDialog({
   handleSubmit,
   dialogOpen,

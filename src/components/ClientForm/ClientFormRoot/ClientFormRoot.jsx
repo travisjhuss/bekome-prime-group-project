@@ -4,6 +4,8 @@ import ClientForm2Reasons from '../ClientForm2Reasons/ClientForm2Reasons';
 import ClientForm3TherapyPreferences from '../ClientForm3TherapyPreferences/ClientForm3TherapyPreferences';
 import ClientForm4ProviderPreferences from '../ClientForm4ProviderPreferences/ClientForm4ProviderPreferences';
 
+// Simple component, just routing what page is shown based on the currentPage,
+// which is the number in the URL sent from NewProfileContainer
 const ClientFormRoot = ({ currentPage, handleInputs }) => {
   switch (currentPage) {
     case 1:

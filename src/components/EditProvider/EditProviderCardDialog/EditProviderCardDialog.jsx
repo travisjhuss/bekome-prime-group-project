@@ -22,6 +22,8 @@ import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 
+// This opens when a provider clicks on the edit icon on their sample 
+// ProviderCard on their edit page
 function EditProviderCardDialog({
   handleSubmit,
   dialogOpen,
@@ -41,7 +43,8 @@ function EditProviderCardDialog({
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
-
+  
+  // Formats the date to correctly display in the MUI date TextField
   const formattedDate = DateTime.fromISO(date_of_birth).toFormat('yyyy-MM-dd');
 
   return (
