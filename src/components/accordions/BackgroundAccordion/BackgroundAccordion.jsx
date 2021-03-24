@@ -11,6 +11,8 @@ import { ExpandMore, Edit } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
+// Displayed on ProviderDetails and EditProvider, if 'edit' prop is true,
+// an edit icon is displayed which will open EditProviderBackgroundDialog
 function BackgroundAccordion({
   parsePreferences,
   edit,
@@ -35,6 +37,8 @@ function BackgroundAccordion({
         {edit && (
           <IconButton
             onClick={(event) => {
+              // event.stopPropagation() keeps the MUI accordion from
+              // opening/closing when clicking the edit icon
               event.stopPropagation();
               setDialogOpen('background');
             }}

@@ -10,6 +10,7 @@ import {
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Opened by clicking the edit button on SpecialtiesAccordion
 function EditProviderSpecialtiesDialog({
   handleSubmit,
   dialogOpen,

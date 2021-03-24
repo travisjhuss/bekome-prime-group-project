@@ -4,6 +4,8 @@ const router = express.Router();
 const socket = require('socket.io');
 
 // Making socket.io instance, adding CORS
+// Currently running on PORT 5001, likely will need some refactoring to
+// function when deployed
 const io = socket(5001, {
   cors: {
     origin: 'http://localhost:3000',
@@ -13,6 +15,7 @@ const io = socket(5001, {
 
 // Initializing socket.io connection
 io.on('connection', (socket) => {
+  // ID here is the socket client ID
   const { id } = socket.client;
   console.log(`User connected: ${id}`);
   // POST route for messages sent through socket.io to database
@@ -34,7 +37,10 @@ io.on('connection', (socket) => {
       ])
       .then(io.emit('RECEIVE_MESSAGE')) // This triggers a GET route on client
       .catch((err) => {
-        console.log(`Error in messaging with query ${sqlText}`, err);
+        console.log(
+          `Error in messaging on socket.io with query ${sqlText}`,
+          err
+        );
       });
   });
 });

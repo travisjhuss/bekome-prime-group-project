@@ -14,6 +14,7 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Opened by clicking the edit button on StrengthsAccordion
 function EditProviderStrengthsDialog({
   handleSubmit,
   dialogOpen,

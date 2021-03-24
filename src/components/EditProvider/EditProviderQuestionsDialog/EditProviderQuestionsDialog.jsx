@@ -16,6 +16,7 @@ import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
+// Opened by clicking the edit icon on QuestionAccordion
 function EditProviderQuestionsDialog({
   handleSubmit,
   dialogOpen,
@@ -26,6 +27,7 @@ function EditProviderQuestionsDialog({
   const { questions } = useSelector((store) => store.forms.providerAnswers);
   const providerQuestions = useSelector((store) => store.providerQuestions);
 
+  // Sends what is being typed alongside the question id to redux
   const handleAnswer = (id) => (event) => {
     dispatch({
       type: 'SET_PROVIDER_RESPONSES',
@@ -33,6 +35,8 @@ function EditProviderQuestionsDialog({
     });
   };
 
+  // Uses findIndex() to look through the 'questions' array of objects in redux
+  // to find the matching question_id to the question being displayed
   const findValue = (id, type) => {
     const i = questions?.findIndex((item) => item.questions_id === id);
     if (i > -1) {
@@ -44,29 +48,16 @@ function EditProviderQuestionsDialog({
     }
   };
 
+  // Handles the checkbox of whether this question is pinned to the
+  // provider's ProviderCard
   const handleDisplayOnCard = (id) => (event) => {
+    // event.stopPropagation() keeps the MUI accordion from toggling open when
+    // clicking the checkbox
     event.stopPropagation();
     dispatch({
       type: 'SET_PROVIDER_RESPONSES',
       payload: { id, display: true },
     });
-  };
-
-  const handlePoData = (id) => {
-    const whatAnswer =
-      questions.find((item) => item.questions_id === 4).answer ===
-      `People who have grown up with family members dealing with substance abuse.`
-        ? `People struggling with work/life balance.`
-        : `People who have grown up with family members dealing with substance abuse.`;
-    if (id === 4) {
-      dispatch({
-        type: 'SET_PROVIDER_RESPONSES',
-        payload: {
-          id: 4,
-          answer: whatAnswer,
-        },
-      });
-    }
   };
 
   return (
@@ -85,7 +76,7 @@ function EditProviderQuestionsDialog({
                 {item.content}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails onClick={() => handlePoData(item.id)}>
+            <AccordionDetails>
               <TextField
                 variant="outlined"
                 multiline

@@ -10,10 +10,9 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 import 'swiper/swiper-bundle.css';
 // Components
 import FilterMenu from '../FilterMenu/FilterMenu';
-import UserCard from '../cards/UserCard/UserCard';
+import ProviderCard from '../cards/ProviderCard/ProviderCard';
 
 function ExploreView() {
-  const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
   const providers = useSelector((store) => store.exploreReducer);
@@ -96,7 +95,7 @@ function ExploreView() {
           return (
             <SwiperSlide key={provider.providers_users_id}>
               <center>
-                <UserCard provider={provider} />
+                <ProviderCard provider={provider} />
               </center>
             </SwiperSlide>
           );

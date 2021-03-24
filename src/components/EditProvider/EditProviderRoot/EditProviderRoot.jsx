@@ -7,7 +7,7 @@ import StrengthsAccordion from '../../accordions/StrengthsAccordion/StrengthsAcc
 import BackgroundAccordion from '../../accordions/BackgroundAccordion/BackgroundAccordion';
 import SpecialtiesAccordion from '../../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../../accordions/FormatsAccordion/FormatsAccordion';
-import UserCard from '../../cards/UserCard/UserCard';
+import ProviderCard from '../../cards/ProviderCard/ProviderCard';
 import EditProviderQuestionsDialog from '../EditProviderQuestionsDialog/EditProviderQuestionsDialog';
 import EditProviderStrengthsDialog from '../EditProviderStrengthsDialog/EditProviderStrengthsDialog';
 import EditProviderBackgroundDialog from '../EditProviderBackgroundDialog/EditProviderBackgroundDialog';
@@ -71,7 +71,7 @@ function EditProviderRoot() {
         <Grid container>
           <Grid item xs={4}>
             <center>
-              <UserCard
+              <ProviderCard
                 provider={provider}
                 edit={true}
                 setDialogOpen={setDialogOpen}

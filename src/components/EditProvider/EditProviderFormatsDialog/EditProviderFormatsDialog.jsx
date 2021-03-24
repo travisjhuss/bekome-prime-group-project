@@ -17,6 +17,7 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Opened by clicking the edit icon on FormatsAccordion
 function EditProviderFormatsDialog({
   handleSubmit,
   dialogOpen,
