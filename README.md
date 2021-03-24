@@ -4,13 +4,9 @@
 
 _Duration: 2 Week Sprint with 1 Week Scoping_
 
-Directly above this is how long it took you to develop the project. Your project description goes here. What problem did you solve? How did you solve it? 
+Finding a therapist that you gel with isn't easy. It's a long process that usually involves a lot of trial and error and persistence. Many people seeking therapy give up before they even start.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam at massa in faucibus. Etiam volutpat, risus non mollis convallis, velit nisi pulvinar mi, eu faucibus orci nisi eget nibh. Integer a velit pretium, volutpat arcu eleifend, fringilla elit. Cras erat sapien, convallis venenatis tellus vitae, feugiat dictum felis.
-
-Suspendisse euismod volutpat aliquet. Maecenas vulputate mauris in pellentesque facilisis. Phasellus varius malesuada semper. Cras sollicitudin diam mollis maximus aliquam.
-
-To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.heroku.com)
+bekome aims to make the act of matching therapists to clients a painless process. The app is set up similarly to a dating app, such as Hinge. Clients and providers respectively set up their profiles with personal info, preferences, profile picture, and more. Then clients are able to browse and filter through providers and communicate with the ones who seem like a good fit.
 
 ## Screen Shot
 
@@ -38,12 +34,20 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 ## Usage
 How does someone use this application? Tell a user story here.
 
-1. xxx
-2. xxx
-3. xxx
-4. xxx
-5. xxx
-6. xxx
+### Client
+1. Create account
+2. Enter personal info and preferences
+3. Explore providers and filter by preference
+4. View providers, add them to 'saved providers'
+5. Message your saved providers in order to form a connection for further communication
+
+### Provider
+1. Create account
+2. Enter personal info and credentials
+3. Answer questions to reveal detail about personality, approach, etc.
+4. Edit profile and tailor-make it to attract clients
+5. Wait for clients to save your profile in order to interact
+6. Once a client saves your profile, you may wait for a message from them, or message them yourself to form a connection
 
 
 ## Built With
