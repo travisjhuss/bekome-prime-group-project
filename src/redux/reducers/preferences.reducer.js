@@ -1,4 +1,3 @@
-// Holds preference options for populating form
 const preferences = (state = [], action) => {
     switch (action.type) {
       case 'SET_PREFERENCES':
@@ -8,4 +7,6 @@ const preferences = (state = [], action) => {
     }
   };
 
+// Holds preference options for populating form
+// can be found at stpre.preferences  
 export default preferences;
