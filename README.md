@@ -1,16 +1,8 @@
-(View Raw will give you the markdown that you can copy to your repos!)
-
-
-![MIT LICENSE](https://img.shields.io/github/license/scottbromander/the_marketplace.svg?style=flat-square)
-![REPO SIZE](https://img.shields.io/github/repo-size/scottbromander/the_marketplace.svg?style=flat-square)
-![TOP_LANGUAGE](https://img.shields.io/github/languages/top/scottbromander/the_marketplace.svg?style=flat-square)
-![FORKS](https://img.shields.io/github/forks/scottbromander/the_marketplace.svg?style=social)
-
 # bekome.
 
 ## Description
 
-_Duration: 2 Week Sprint_
+_Duration: 2 Week Sprint with 1 Week Scoping_
 
 Directly above this is how long it took you to develop the project. Your project description goes here. What problem did you solve? How did you solve it? 
 
