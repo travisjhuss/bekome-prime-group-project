@@ -7,6 +7,6 @@ const interestedClientsReducer = (state = [], action) => {
     }
   };
 
-  // user will be on the redux state at:
-  // state.user
+  // used on interestedClients.jsx, stores clients that have saved logged in provider
+  // reducer can be found at store.interestedClientsReducer
   export default interestedClientsReducer;

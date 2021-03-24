@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import {
   Box,
   Chip,
-  makeStyles,
   Typography,
   Button,
   Grid,
@@ -23,6 +22,8 @@ function RegisterForm() {
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
+  // function that will register a user after checking to make sure that 
+  // both password inputs match
   const registerUser = (event) => {
     event.preventDefault();
     if (password === password2) {

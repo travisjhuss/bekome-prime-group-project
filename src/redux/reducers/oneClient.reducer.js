@@ -7,4 +7,6 @@ const oneClient = (state = {}, action) => {
   }
 };
 
+// stores client details for editing
+// found at store.oneClient
 export default oneClient;

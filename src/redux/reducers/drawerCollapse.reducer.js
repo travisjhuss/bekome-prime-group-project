@@ -16,4 +16,6 @@ const drawerCollapseReducer = (
   }
 };
 
+// this reducer is for the filter menu and prevents the menu from closing after each selection
+// reducer can be found at store.drawerCollapse
 export default drawerCollapseReducer;

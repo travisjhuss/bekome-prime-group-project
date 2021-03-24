@@ -8,6 +8,7 @@ function LoginPage() {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
 
+  // function that controls what tab is selected and what to display based on the value of the tab state
   function TabPanel({ children, tab, index }) {
     return (
       <div
@@ -30,9 +31,11 @@ function LoginPage() {
           textColor="primary"
           variant="fullWidth"
         >
+          {/* Labels for tabs */}
           <Tab label={<Typography>Sign Up</Typography>} />
           <Tab label={<Typography>Login</Typography>} />
         </Tabs>
+        {/* TabPanels are the content of the tab itself with the index being the value of Tabs */}
         <Grid container align="center" spacing={1}>
           <Grid item xs={12} className={classes.loginForm}>
             <TabPanel tab={tab} index={0}>

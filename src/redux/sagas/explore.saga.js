@@ -11,7 +11,6 @@ function* getProviders() {
   try {
     // GET providers
     const response = yield axios.get('/api/explore');
-    console.log('getProviders response.data', response.data);
     // save in explore reducer
     yield put({ type: 'SET_EXPLORE', payload: response.data });
   } catch (err) {

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// gets all messages from a conversation to populate message window
 const messagesReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_MESSAGES':
@@ -9,6 +10,10 @@ const messagesReducer = (state = [], action) => {
   }
 };
 
+// open tells browser whether to open or close browser so that it stays on 
+// various page views
+// messageData gives the messaging component a providersID to start a 
+// new conversation or holds the conversation ID of an ongoing conversation
 const windowOpen = (
   state = {
     open: false,
@@ -26,6 +31,7 @@ const windowOpen = (
   }
 };
 
+// holds text to be sent to db
 const textInput = (state = '', action) => {
   switch (action.type) {
     case 'SET_MESSAGE_TEXT':
@@ -37,6 +43,9 @@ const textInput = (state = '', action) => {
   }
 };
 
+// combines three reducers that handle messaging.
+// each can be found at store.messages.messagesReducer, 
+// store.messages.windowOpen, store.messages.textInput
 export default combineReducers({
   messagesReducer,
   windowOpen,

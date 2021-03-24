@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------------
-Landing Page Grid
+-Landing Page Grid-
+Organized as a grid to allow for overlapping images and proper placement of elements
 -------------------------------------------------------------------------------- */
 .landing-grid {
   display: grid;

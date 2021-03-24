@@ -1,3 +1,4 @@
+// This component is home to our theme settings for MUI components. It is imported into App.jsx and used through out the app itself
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const font = "'Libre Baskerville', serif;";

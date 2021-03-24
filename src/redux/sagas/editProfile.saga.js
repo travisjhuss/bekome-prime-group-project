@@ -10,7 +10,7 @@ function* editProfileSaga() {
 
 function* fetchEditClientProfile() {
   try {
-    // confirm path (po's branch?)
+    // gets clients data for editing
     const response = yield axios.get('/api/edit/client/');
     // dispatch to clientAnswers
     yield put({ type: 'SET_ONE_CLIENT', payload: response.data });
@@ -23,7 +23,7 @@ function* fetchEditClientProfile() {
 function* fetchEditProviderProfile(action) {
   try {
     const id = action.payload;
-    // confirm path
+    // gets providers details for editing
     const response = yield axios.get(`/api/provider-details/${id}`);
     // dispatch to providerAnswers
     yield put({ type: 'SET_EDIT_PROVIDER_PROFILE', payload: response.data });
@@ -34,8 +34,8 @@ function* fetchEditProviderProfile(action) {
 }
 
 function* submitClientEdits(action) {
-  console.log('submitting client edits');
   try {
+    // will send changes to server for updating db
     yield axios.put('/api/edit/client', action.payload);
     yield put({ type: 'FETCH_EDIT_CLIENT_PROFILE' });
   } catch (err) {
@@ -46,6 +46,7 @@ function* submitClientEdits(action) {
 function* submitProviderEdits(action) {
   const { answers, id } = action.payload;
   try {
+    // will send changes to server for updating db
     yield axios.put('/api/edit/provider', answers);
     yield put({ type: 'FETCH_PROVIDER_DETAILS', payload: id });
   } catch (err) {

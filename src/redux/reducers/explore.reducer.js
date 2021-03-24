@@ -7,6 +7,6 @@ const exploreReducer = (state = [], action) => {
     }
   };
 
-  // user will be on the redux state at:
-  // state.user
+  // used on exploreProviders.jsx, stores providers
+  // reducer can be found at store.exploreReducer
   export default exploreReducer;

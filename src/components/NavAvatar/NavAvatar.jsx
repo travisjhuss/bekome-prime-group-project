@@ -29,6 +29,7 @@ const StyledMenu = withStyles({
   />
 ));
 
+// this component is the avatar in the nav bar that opens a dropdown menu with edit profile and logout buttons
 function NavAvatar() {
   const history = useHistory();
   const dispatch = useDispatch();

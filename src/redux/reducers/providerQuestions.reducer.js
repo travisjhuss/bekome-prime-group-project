@@ -1,4 +1,3 @@
-//  Holds provider questions for populating form
 const providerQuestions = (state = [], action) => {
     switch (action.type) {
       case 'SET_PROVIDER_QUESTIONS':
@@ -8,4 +7,6 @@ const providerQuestions = (state = [], action) => {
     }
   };
 
+  //  Holds provider questions for populating form
+  // can be found at store.providerQuestions
   export default providerQuestions;
