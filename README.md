@@ -16,7 +16,7 @@ bekome aims to make the act of matching therapists to clients a painless process
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- [PostgreSQL}(https://www.postgresql.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## Installation
 
