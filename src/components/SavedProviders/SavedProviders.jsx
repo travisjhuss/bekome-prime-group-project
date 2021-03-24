@@ -9,9 +9,7 @@ function SavedProviders() {
   const dispatch = useDispatch();
   const savedProvidersReducer = useSelector((store) => store.savedProviders);
 
-  useEffect(() => {
-    dispatch({ type: 'GET_SAVED_PROVIDERS' });
-  }, []);
+  useEffect(() => dispatch({ type: 'GET_SAVED_PROVIDERS' }), []);
 
   return (
     <Box p={5}>

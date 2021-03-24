@@ -1,31 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography, Grid, Box } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Part of provider form stepper, info for strengths, qualities, approach
 function ProviderForm2TherapyQualities({ handleInputs }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-
-  const handleTravisData = () => {
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: {
-        key: 'approach',
-        value: `Conversational and direct. My goal is to help clients, and sometimes that means hearing the honest truth.`,
-      },
-    });
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: {
-        key: 'strengths',
-        value: `Tough, honest, but also validating.`,
-      },
-    });
-  };
+  const { approach, strengths } = useSelector(
+    (store) => store.forms.providerAnswers
+  );
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -38,7 +23,7 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
         </Grid>
         <Grid item xs={6}>
           <Box pb={2}>
-            <Typography onClick={handleTravisData} gutterBottom>
+            <Typography gutterBottom>
               <b>I would describe my approach as:</b>
             </Typography>
             <TextField
@@ -49,7 +34,7 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
               rows={4}
               label="Answer here..."
               onChange={handleInputs('approach')}
-              value={providerAnswers.approach}
+              value={approach}
             />
           </Box>
           <Typography gutterBottom>
@@ -63,7 +48,7 @@ function ProviderForm2TherapyQualities({ handleInputs }) {
             rows={4}
             label="Answer here..."
             onChange={handleInputs('strengths')}
-            value={providerAnswers.strengths}
+            value={strengths}
           />
         </Grid>
       </Grid>

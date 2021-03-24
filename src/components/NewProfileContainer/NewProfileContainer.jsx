@@ -9,7 +9,6 @@ import {
   StepLabel,
   Button,
 } from '@material-ui/core';
-
 // Component imports
 import ClientFormRoot from '../ClientForm/ClientFormRoot/ClientFormRoot';
 import ProviderFormRoot from '../ProviderForm/ProviderFormRoot/ProviderFormRoot';
@@ -38,15 +37,21 @@ function NewProfileContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  // Current page number in the URL
   const { page } = useParams();
+  // Next, giving it a number data type. What page is displayed for the client
+  // and provider forms are tied to this number, in switch statements on
+  // ClientFormRoot and ProviderFormRoot
+  const currentPage = Number(page);
   const { user_type } = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
-  const currentPage = Number(page);
   const stepArrayToDisplay =
     user_type === 'client' ? clientSteps : providerSteps;
 
   useEffect(() => dispatch({ type: 'FETCH_PREFERENCES' }), []);
 
+  // Handles all text inputs on both form tracks, depending on user_type
+  // sends to redux
   const handleInputs = (key) => (event) => {
     const whichType =
       user_type === 'client'
@@ -58,12 +63,15 @@ function NewProfileContainer() {
     });
   };
 
+  // Continues the user to the next page
   const handleNextButton = () => {
     currentPage === stepArrayToDisplay.length
       ? handleSubmit()
       : history.push(`/new-profile/${currentPage + 1}`);
   };
 
+  // Send information in redux to db, forward user to respective page based on
+  // their user_type
   const handleSubmit = () => {
     if (user_type === 'client') {
       dispatch({ type: 'ADD_NEW_CLIENT', payload: forms.clientAnswers });

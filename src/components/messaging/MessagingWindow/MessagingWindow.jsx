@@ -22,11 +22,15 @@ function MessagingWindow() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { id, user_type } = useSelector((store) => store.user);
+  // messageData sent through redux to open the MessagingWindow
+  // If sent from MessagingListItem, this will receive the conversationId,
+  // If coming from a button on ProviderCard, ProviderDetails, ClientCard, etc,
+  // it will contain the clicked provider/client's name, id, and pic
   const { sentName, sentPic, sentId, conversationId } = useSelector(
     (store) => store.messages.windowOpen
   ).messageData;
+  // Stores message information in redux so it stays between different URL's
   const messageText = useSelector((store) => store.messages.textInput);
-
   // Finds a previous message thread between these two users, if it exists,
   // based on the conversation id, which is a combo of the two id numbers
   // separated by '_', i.e. '2_6'
@@ -34,7 +38,9 @@ function MessagingWindow() {
     (store) => store.messages.messagesReducer
   ).find(
     (item) =>
+      // If it's from MessagingListItem
       item.conversation === conversationId ||
+      // Or from other parts of the app
       item.conversation === `${id}_${sentId}` ||
       item.conversation === `${sentId}_${id}`
   );
@@ -42,7 +48,7 @@ function MessagingWindow() {
   // Finds who the user is based on their user type.
   // Or, if this is a new message without a thread, it will assign the values
   // to what was sent via redux from hitting a 'Send Message' button
-  // NOTE: this is based only on provider/client messaging at the moment
+  // NOTE: this is based ONLY on provider/client messaging at the moment
   const notTheUser = messageThread
     ? user_type === 'client'
       ? {
@@ -55,6 +61,7 @@ function MessagingWindow() {
           pic: messageThread.clients_pic,
           id: messageThread.clients_users_id,
         }
+      // If no match from messageThread, assigns the values sent through redux
     : { name: sentName, pic: sentPic, id: sentId };
 
   // useRef makes sure the message window starts at the bottom/most recent text,

@@ -13,6 +13,8 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 import useStyles from '../../../hooks/useStyles';
 
+// Part of provider form stepper, user can set mostly logistic information
+// about their practice, insurance, sliding scale, license number, etc.
 function ProviderForm5Offerings({ handleInputs }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -30,13 +32,6 @@ function ProviderForm5Offerings({ handleInputs }) {
     });
   };
 
-  const handleTravisData = () => {
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'license_number', value: '219905738MN' },
-    });
-  };
-
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={4}>
@@ -46,7 +41,7 @@ function ProviderForm5Offerings({ handleInputs }) {
           </Typography>
           <FormCheckboxes category={'formats'} />
           <Box py={2}>
-            <Typography onClick={handleTravisData} gutterBottom>
+            <Typography gutterBottom>
               <b>What is your {state} license number?</b>
             </Typography>
             <TextField

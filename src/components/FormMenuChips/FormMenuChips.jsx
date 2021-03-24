@@ -4,19 +4,25 @@ import { Button, Menu, MenuItem, Chip } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../hooks/useStyles';
 
+// Component that is imported on several forms throughout the app, displays
+// a pop-up menu of items from the preferences table, and will display a 
+// row of chips denoting what is selected
 function FormMenuChips({ category, string }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user_type } = useSelector((store) => store.user);
+  const { preferences_array } =
+  user_type === 'client'
+  ? useSelector((store) => store.forms.clientAnswers)
+  : useSelector((store) => store.forms.providerAnswers);
+  // Filters to a list of the category of preferences set down from the
+  // parent component via props
   const filteredPreferences = useSelector((store) => store.preferences).filter(
     (item) => item.category === category
   );
-  const { preferences_array } =
-    user_type === 'client'
-      ? useSelector((store) => store.forms.clientAnswers)
-      : useSelector((store) => store.forms.providerAnswers);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // Toggles the items being added to the user's preferences_array
   const handleChange = (id) => {
     const whichType =
       user_type === 'client'

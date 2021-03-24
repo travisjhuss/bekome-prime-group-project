@@ -20,6 +20,7 @@ import BackgroundAccordion from '../accordions/BackgroundAccordion/BackgroundAcc
 import SpecialtiesAccordion from '../accordions/SpecialtiesAccordion/SpecialtiesAccordion';
 import FormatsAccordion from '../accordions/FormatsAccordion/FormatsAccordion';
 
+// Shows all the details of a specific provider chosen by the client to view
 function ProviderDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -38,7 +39,9 @@ function ProviderDetails() {
     preferences_array,
   } = useSelector((store) => store.providerDetails);
   const preferences = useSelector((store) => store.preferences);
+  // Get the provider ID from the URL
   const { id } = useParams();
+  // Sets what accordion is open, matching the string to name of accordion
   const [openAccordion, setOpenAccordion] = useState('questions');
   const [videoOpen, setVideoOpen] = useState(false);
 
@@ -48,6 +51,9 @@ function ProviderDetails() {
     dispatch({ type: 'FETCH_PREFERENCES' });
   }, []);
 
+  // Takes the id's from preferences_array and matches them to the corresponding
+  // entries from the preferences table, parses a string with the
+  // preference name separated by ', '
   const parsePreferences = (category) => {
     return preferences
       .filter((item) => {
@@ -59,10 +65,12 @@ function ProviderDetails() {
       .slice(0, -2);
   };
 
+  // Only opens one accordion at a time
   const handleOpenAccordion = (panel) => (event, isExpanded) => {
     setOpenAccordion(isExpanded ? panel : false);
   };
 
+  // Toggling opening and closing the video Dialog
   const handleVideoOpen = () => {
     setVideoOpen(!videoOpen);
   };
