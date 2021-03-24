@@ -8,10 +8,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore, Edit } from '@material-ui/icons';
-
 // Component imports
 import useStyles from '../../../hooks/useStyles';
 
+// Displayed on ProviderDetails and EditProvider, if 'edit' prop is true,
+// an edit icon is displayed which will open EditProviderStrengthsDialog
 function StrengthsAccordion({
   parsePreferences,
   edit,

@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Paper,
   Typography,
@@ -15,9 +15,9 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import useStyles from '../../../hooks/useStyles';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 
+// First of new client profile stepper, handles client personal information
 function ClientForm1Info({ handleInputs }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const {
     first_name,
     last_name,
@@ -26,32 +26,10 @@ function ClientForm1Info({ handleInputs }) {
     city,
     state,
   } = useSelector((store) => store.forms.clientAnswers);
+  // This gets the list of states from the preferences table on the db
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
-
-  const handleConnorData = () => {
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key: 'first_name', value: 'Connor' },
-    });
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key: 'last_name', value: 'Detviler' },
-    });
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key: 'date_of_birth', value: '1995-06-24' },
-    });
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key: 'city', value: 'Minneapolis' },
-    });
-    dispatch({
-      type: 'SET_CLIENT_PERSONAL_DETAILS',
-      payload: { key: 'state', value: 'Minnesota' },
-    });
-  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -110,7 +88,7 @@ function ClientForm1Info({ handleInputs }) {
         </Grid>
         <Grid item container xs={6}>
           <Grid item xs={6}>
-            <Typography gutterBottom onClick={handleConnorData}>
+            <Typography gutterBottom>
               <b>What pronouns do you use?</b>
             </Typography>
             <Typography variant="body2" gutterBottom>

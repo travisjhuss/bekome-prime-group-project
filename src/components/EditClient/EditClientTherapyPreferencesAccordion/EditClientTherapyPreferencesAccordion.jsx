@@ -15,6 +15,8 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Client can edit their therapy history, and their preferred treatment
+// methods
 function EditClientTherapyPreferencesAccordion({
   handleInputs,
   handleSubmit,

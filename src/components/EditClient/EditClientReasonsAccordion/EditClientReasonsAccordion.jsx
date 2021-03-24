@@ -8,12 +8,14 @@ import {
   Box,
   Button,
 } from '@material-ui/core';
-import { ExpandMore, Edit } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Client can edit reasons for seeking therapy, and
+// challenges they're struggling with
 function EditClientReasonsAccordion({
   handleInputs,
   handleSubmit,

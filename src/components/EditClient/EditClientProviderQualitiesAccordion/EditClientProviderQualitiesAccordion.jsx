@@ -12,6 +12,8 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Providers qualities the client can choose from, this is the first
+// accordion open when a client goes to their edit page
 function EditClientProviderQualitiesAccordion({
   handleSubmit,
   handleCancel,

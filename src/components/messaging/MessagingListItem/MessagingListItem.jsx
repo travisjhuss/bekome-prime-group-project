@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { DateTime, Interval } from 'luxon';
+import { DateTime } from 'luxon';
 import {
   Box,
   ListItem,

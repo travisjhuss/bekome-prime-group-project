@@ -25,7 +25,9 @@ import {
 } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
-function UserCard({ provider, edit, setDialogOpen }) {
+// Main, large card displayed a provider's information on ExploreView
+// Also displayed on EditProvider for a snapshot of what their card looks like
+function ProviderCard({ provider, edit, setDialogOpen }) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -48,10 +50,14 @@ function UserCard({ provider, edit, setDialogOpen }) {
   } = provider;
   const [videoOpen, setVideoOpen] = useState(false);
 
+  // Toggles the video Dialog opening
   const handleVideo = () => {
     setVideoOpen(!videoOpen);
   };
 
+  // Takes the id's from preferences_array and matches them to the corresponding
+  // entries from the preferences table, parses a string with the
+  // preference name separated by ', '
   const parsePreferences = (category) => {
     return preferences
       .filter((item) => {
@@ -63,6 +69,8 @@ function UserCard({ provider, edit, setDialogOpen }) {
       .slice(0, -2);
   };
 
+  // Clicking the 'full profile' or provider pic sends the user to 
+  // ProviderDetails for the selected provider
   const sendToDetails = () => {
     history.push(`/provider-details/${providers_users_id}`);
   };
@@ -196,4 +204,4 @@ function UserCard({ provider, edit, setDialogOpen }) {
   );
 }
 
-export default UserCard;
+export default ProviderCard;

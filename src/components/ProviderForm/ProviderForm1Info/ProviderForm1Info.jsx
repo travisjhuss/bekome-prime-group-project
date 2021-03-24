@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Paper,
   TextField,
@@ -17,9 +17,10 @@ import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 import S3Uploader from '../../S3Uploader/S3Uploader';
 
+// Part of provider form stepper, entering in personal details
+// and demographic information
 function ProviderForm1Info({ handleInputs }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const {
     first_name,
     last_name,
@@ -28,32 +29,10 @@ function ProviderForm1Info({ handleInputs }) {
     city,
     state,
   } = useSelector((store) => store.forms.providerAnswers);
+  // List of states, filtered from preferences table on db
   const states = useSelector((store) => store.preferences).filter(
     (item) => item.category === 'states'
   );
-
-  const handleTravisData = () => {
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'first_name', value: 'Travis' },
-    });
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'last_name', value: 'Huss' },
-    });
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'date_of_birth', value: '1985-08-12' },
-    });
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'city', value: 'St. Paul' },
-    });
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: { key: 'state', value: 'Minnesota' },
-    });
-  };
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -90,7 +69,7 @@ function ProviderForm1Info({ handleInputs }) {
         </Grid>
         <Grid item container xs={6}>
           <Grid item xs={6}>
-            <Typography onClick={handleTravisData}>
+            <Typography>
               <b>What pronouns do you use?</b>
             </Typography>
             <Typography variant="body2" gutterBottom>

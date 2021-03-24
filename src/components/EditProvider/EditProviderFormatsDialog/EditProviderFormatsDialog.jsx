@@ -17,6 +17,9 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Opened by clicking the edit icon on FormatsAccordion
+// Edits some logistical information for the provider, like the formats they
+// see clients, insurance, license number, etc
 function EditProviderFormatsDialog({
   handleSubmit,
   dialogOpen,

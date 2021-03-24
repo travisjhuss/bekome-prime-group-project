@@ -15,6 +15,7 @@ import { LocationOn, Language, Edit } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
+// Shows clients that have saved the logged in provider on InterestedClients
 function ClientCard({ client, edit, setCardDialogOpen }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
   } = client;
   const preferences = useSelector((store) => store.preferences);
 
+  // Takes the id's from preferences_array and matches them to the corresponding
+  // entries from the preferences table, parses a string with the
+  // preference name separated by ', '
   const parsePreferences = (category) => {
     return preferences
       .filter((item) => {
@@ -39,7 +43,7 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
         );
       })
       .reduce((string, item) => (string += `${item.name}, `), '')
-      .slice(0, -2);
+      .slice(0, -2); // Removes last ', '
   };
 
   return (
@@ -98,6 +102,8 @@ function ClientCard({ client, edit, setCardDialogOpen }) {
             color="secondary"
             size="small"
             onClick={() =>
+              // Opens the message window, sending along the name, pic, and
+              // user id of the selected client
               dispatch({
                 type: 'OPEN_MESSAGE_WINDOW',
                 payload: {

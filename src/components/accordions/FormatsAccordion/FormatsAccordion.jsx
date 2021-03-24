@@ -10,6 +10,8 @@ import {
 import { ExpandMore, Edit } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
+// Displayed on ProviderDetails and EditProvider, if 'edit' prop is true,
+// an edit icon is displayed which will open EditProviderFormatsDialog
 function FormatsAccordion({
   parsePreferences,
   edit,
@@ -22,11 +24,8 @@ function FormatsAccordion({
     license_number,
     sliding_scale,
     accepting_clients,
-    state_id,
+    state,
   } = useSelector((store) => store.providerDetails);
-  const providerState = useSelector((store) => store.preferences).find(
-    (item) => item.id === state_id
-  )?.name;
 
   return (
     <Accordion
@@ -59,7 +58,7 @@ function FormatsAccordion({
             I accept insurance from: {parsePreferences('insurance')}
           </Typography>
           <Typography>
-            {providerState} License Number: {license_number}
+            {state} License Number: {license_number}
           </Typography>
           <Typography>
             {sliding_scale

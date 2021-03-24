@@ -19,7 +19,7 @@ import { ExpandMore, ExpandLess, FilterList } from '@material-ui/icons';
 import useStyles from '../../hooks/useStyles';
 
 // Displays all the filter options, handles all URL queryString data, which is
-// then read on ExploreView
+// then read on ExploreView to filter results
 function FilterMenu({ query }) {
   const classes = useStyles();
   const history = useHistory();
@@ -136,12 +136,12 @@ function FilterMenu({ query }) {
                         className={classes.filterListItem}
                         key={item.id}
                         button
+                        dense
                         onClick={() => {
                           category === 'states'
                             ? handleFilterArray(item.name, 'states')
                             : handleFilterArray(item.id, 'filterIds');
                         }}
-                        dense
                       >
                         <ListItemIcon>
                           <Checkbox

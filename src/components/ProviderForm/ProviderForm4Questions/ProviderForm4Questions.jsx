@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Paper,
   Typography,
@@ -13,6 +13,8 @@ import { ExpandMore, DoneOutline } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 
+// Part of provider stepper form, client can answer questions and add them to
+// their 'questions' array
 function ProviderForm4Questions() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ function ProviderForm4Questions() {
   const [openAccordion, setOpenAccordion] = useState(0);
   useEffect(() => dispatch({ type: 'FETCH_PROVIDER_QUESTIONS' }), []);
 
+  // Handles text inputs for questions in redux, id is the question id, answer
+  // is what the user is typing
   const handleAnswer = (id) => (event) => {
     dispatch({
       type: 'SET_PROVIDER_RESPONSES',
@@ -28,29 +32,16 @@ function ProviderForm4Questions() {
     });
   };
 
+  // Finds the input answer for the displayed question from the user's redux,
+  // if present
   const findValue = (id) => {
     const foundIndex = questions.findIndex((item) => item.questions_id === id);
     return questions[foundIndex]?.answer;
   };
 
+  // Handles only one question accordion to be open at a time
   const handleOpenAccordion = (panel) => (event, isExpanded) => {
     setOpenAccordion(isExpanded ? panel : false);
-  };
-
-  const handleTravisData = (id) => {
-    const whatAnswer =
-      id === 1
-        ? `I want to have a positive effect on the world, and therapy was the best way to use my gifts to achieve this.`
-        : id === 2
-        ? `Hanging out with my two dogs and cooking.`
-        : id === 3
-        ? `A 'no BS' attitude.`
-        : '';
-
-    dispatch({
-      type: 'SET_PROVIDER_RESPONSES',
-      payload: { id, answer: whatAnswer },
-    });
   };
 
   return (
@@ -70,9 +61,10 @@ function ProviderForm4Questions() {
                 <b>{item.content}</b>
               </Typography>
             </Box>
+            {/* Displays a checkmark if user has filled out a question */}
             {findValue(item.id) && <DoneOutline color="primary" />}
           </AccordionSummary>
-          <AccordionDetails onClick={() => handleTravisData(item.id)}>
+          <AccordionDetails>
             <TextField
               className={classes.inputs}
               variant="outlined"

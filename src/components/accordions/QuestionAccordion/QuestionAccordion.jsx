@@ -11,6 +11,8 @@ import {
 import { ExpandMore, Edit } from '@material-ui/icons';
 import useStyles from '../../../hooks/useStyles';
 
+// Displayed on ProviderDetails and EditProvider, if 'edit' prop is true,
+// an edit icon is displayed which will open EditProviderQuestionsDialog
 function QuestionAccordion({
   edit,
   setDialogOpen,

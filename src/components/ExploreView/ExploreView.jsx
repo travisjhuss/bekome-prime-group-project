@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 // Import Swiper React components
@@ -10,10 +10,9 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 import 'swiper/swiper-bundle.css';
 // Components
 import FilterMenu from '../FilterMenu/FilterMenu';
-import UserCard from '../cards/UserCard/UserCard';
+import ProviderCard from '../cards/ProviderCard/ProviderCard';
 
 function ExploreView() {
-  const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
   // gets from reducer all of the providers
@@ -103,7 +102,7 @@ function ExploreView() {
           return (
             <SwiperSlide key={provider.providers_users_id}>
               <center>
-                <UserCard provider={provider} />
+                <ProviderCard provider={provider} />
               </center>
             </SwiperSlide>
           );

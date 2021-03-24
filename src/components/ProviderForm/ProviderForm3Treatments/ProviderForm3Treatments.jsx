@@ -1,30 +1,21 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Paper, TextField, Typography, Grid, Box } from '@material-ui/core';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Components
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Part of provider form stepper, lists treatments, background, challenges they
+// help clients with
 function ProviderForm3Treatments({ handleInputs }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const providerAnswers = useSelector((store) => store.forms.providerAnswers);
-
-  const handleTravisData = () => {
-    dispatch({
-      type: 'SET_PROVIDER_PERSONAL_DETAILS',
-      payload: {
-        key: 'background',
-        value: `I went to school at the University of Wisconsin, Madison, and traveled the world for a few years before starting my own practice in St. Paul, MN, which I've had for over ten years.`,
-      },
-    });
-  };
+  const { background } = useSelector((store) => store.forms.providerAnswers);
 
   return (
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={6}>
-          <Typography onClick={handleTravisData} gutterBottom>
+          <Typography gutterBottom>
             <b>A little about my background:</b>
           </Typography>
           <TextField
@@ -34,7 +25,7 @@ function ProviderForm3Treatments({ handleInputs }) {
             fullWidth
             rows={6}
             label="Answer here"
-            value={providerAnswers.background}
+            value={background}
             onChange={handleInputs('background')}
           />
           <Box pt={2}>

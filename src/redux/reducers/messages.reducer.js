@@ -10,9 +10,17 @@ const messagesReducer = (state = [], action) => {
   }
 };
 
-// open tells browser whether to open or close browser so that it stays on various page views
-// messageData gives the messaging component a providersID to start a new conversation or holds the conversation ID of an ongoing conversation
-const windowOpen = (state = { open: false, messageData: {} }, action) => {
+// open tells browser whether to open or close browser so that it stays on 
+// various page views
+// messageData gives the messaging component a providersID to start a 
+// new conversation or holds the conversation ID of an ongoing conversation
+const windowOpen = (
+  state = {
+    open: false,
+    messageData: { conversationId: '', sentName: '', sentPic: '', sentId: '' },
+  },
+  action
+) => {
   switch (action.type) {
     case 'OPEN_MESSAGE_WINDOW':
       return { open: true, messageData: action.payload };
@@ -35,8 +43,9 @@ const textInput = (state = '', action) => {
   }
 };
 
-// combines three reducers that handle messaging. 
-// each can be found at store.messages.messagesReducer, store.messages.windowOpen, store.messages.textInput
+// combines three reducers that handle messaging.
+// each can be found at store.messages.messagesReducer, 
+// store.messages.windowOpen, store.messages.textInput
 export default combineReducers({
   messagesReducer,
   windowOpen,

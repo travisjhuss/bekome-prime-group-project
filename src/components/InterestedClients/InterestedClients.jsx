@@ -1,20 +1,19 @@
-import ClientCard from '../cards/ClientCard/ClientCard';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import { Paper, Box, Typography, makeStyles, Grid } from '@material-ui/core';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 // Import Swiper styles
 import 'swiper/swiper-bundle.css';
-import useStyles from "../../hooks/useStyles";
+// Components
+import ClientCard from '../cards/ClientCard/ClientCard';
 
 function InterestedClients() {
-  // write a dispatch that calls saga to execute a GET route that gets clients that match provider in table named: clients_providers_favs
+  // write a dispatch that calls saga to
+  // execute a GET route that gets clients that match provider in
+  // table named clients_providers_favs
   const dispatch = useDispatch();
-const classes = useStyles();
   const user = useSelector((store) => store.user);
   const interestedClientsReducer = useSelector(
     (store) => store.interestedClientsReducer
@@ -48,7 +47,7 @@ const classes = useStyles();
   };
 
   return (
-    <div style={{marginTop: '25px'}}>
+    <div style={{ marginTop: '25px' }}>
       <Swiper
         spaceBetween={0}
         navigation

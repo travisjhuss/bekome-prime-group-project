@@ -16,6 +16,8 @@ import useStyles from '../../../hooks/useStyles';
 import FormMenuChips from '../../FormMenuChips/FormMenuChips';
 import FormCheckboxes from '../../FormCheckboxes/FormCheckboxes';
 
+// Opened by clicking the edit icon on BackgroundAccordion
+// Provider can edit their background, approach, and some demographic info
 function EditProviderBackgroundDialog({
   handleSubmit,
   dialogOpen,

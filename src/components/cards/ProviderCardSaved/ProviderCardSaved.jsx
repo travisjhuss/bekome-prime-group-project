@@ -19,7 +19,12 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import FavoriteProviderButton from '../../FavoriteProviderButton/FavoriteProviderButton';
 
+// Shows some pared down information of a saved provider on a smaller card
+// Shown on SavedProviders
 function UserCardSaved({ provider }) {
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const {
     providers_users_id,
     pic,
@@ -30,21 +35,16 @@ function UserCardSaved({ provider }) {
     last_name,
     video,
   } = provider;
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
+  // Sends the user to the selected provider's ProviderDetails page
   const sendToDetails = () => {
     history.push(`/provider-details/${provider.providers_users_id}`);
   };
-  const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  // Toggles opening and closing of the video Dialog
+  const handleDialog = () => {
+    setOpen(!open);
   };
 
   return (
@@ -83,7 +83,7 @@ function UserCardSaved({ provider }) {
           </Box>
           {video && (
             <Button
-              onClick={handleOpen}
+              onClick={handleDialog}
               startIcon={<PlayCircleFilled color="secondary" />}
             >
               <Typography variant="body2">View Video</Typography>
@@ -118,7 +118,7 @@ function UserCardSaved({ provider }) {
           </Button>
         </CardActions>
       </Card>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleDialog}>
         <video src={video} controls className={classes.video} />
       </Dialog>
     </center>

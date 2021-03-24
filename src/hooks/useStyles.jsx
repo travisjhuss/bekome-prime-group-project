@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px 0px',
     paddingTop: '20px',
     width: 325,
-    height: 450
+    height: 450,
   },
   cardMedia: {
     height: 200,
@@ -203,7 +203,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     right: 10,
     cursor: 'pointer',
-    zIndex: 1,
+    zIndex: 2,
   },
   messagingWidgetAvatar: {
     height: theme.spacing(4),
@@ -225,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 300,
     bottom: 0,
     right: 350,
-    zIndex: 1,
+    zIndex: 2,
   },
   messagingBody: {
     height: 250,
@@ -278,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
   },
   savedUserCardsContent: {
     minHeight: 90,
-  }
+  },
 }));
 
 export default useStyles;
