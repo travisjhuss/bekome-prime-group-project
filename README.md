@@ -49,11 +49,11 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 
 ## Built With
 
-React
-Node.js
-Redux
-Sagas
-PostgreSQL
+- React
+- Node.js
+- Redux
+- Sagas
+- PostgreSQL
 
 
 ## License
