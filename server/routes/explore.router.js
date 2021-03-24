@@ -5,6 +5,7 @@ const {
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// GET route to retrieve all providers from database
 router.get('/', rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
   try {

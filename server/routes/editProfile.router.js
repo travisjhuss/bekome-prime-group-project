@@ -5,6 +5,7 @@ const {
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// GET route for retrieving the client profile to edit using req.user.id
 router.get('/client', rejectUnauthenticated, (req, res) => {
   const sqlText = `
     SELECT "clients".*,
@@ -25,11 +26,14 @@ router.get('/client', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// PUT route to handle editing user's client profile
 router.put('/client', rejectUnauthenticated, async (req, res) => {
+  // start connection to database
   const connection = await pool.connect();
   try {
     // Start transaction
     await connection.query('BEGIN;');
+    // first query handles updating the clients table with the personal details
     const firstSqlText = `
       UPDATE "clients"
       SET
@@ -61,7 +65,7 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
       req.body.sliding_scale,
       req.user.id,
     ]);
-    // delete old preferences
+    // delete old preferences to make way for new ones
     const deleteSql = `
       DELETE FROM "clients_preferences"
       WHERE "clients_users_id" = $1;
@@ -94,11 +98,14 @@ router.put('/client', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+// PUT route to handle editing user's provider profile
 router.put('/provider', rejectUnauthenticated, async (req, res) => {
+  // start connection with database
   const connection = await pool.connect();
   try {
     // Start transaction
     await connection.query('BEGIN;');
+    // first query handles updating the providers table with the personal details
     const firstSqlText = `
       UPDATE "providers"
       SET 
