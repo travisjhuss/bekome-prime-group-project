@@ -32,16 +32,15 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 6. The `npm run client` command will open up a new browser tab for you!
 
 ## Usage
-How does someone use this application? Tell a user story here.
 
-### Client
+### If you are a client
 1. Create account
 2. Enter personal info and preferences
 3. Explore providers and filter by preference
 4. View providers, add them to 'saved providers'
 5. Message your saved providers in order to form a connection for further communication
 
-### Provider
+### If you are a provider
 1. Create account
 2. Enter personal info and credentials
 3. Answer questions to reveal detail about personality, approach, etc.
