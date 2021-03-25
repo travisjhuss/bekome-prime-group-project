@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     textAlign: 'left',
     padding: '10 25px 10 25px',
-    height: 300,
+    height: 280,
     overflow: 'scroll',
   },
   savedCard: {
