@@ -18,7 +18,7 @@ function S3Uploader({ picOrVideo }) {
     });
   };
 
-  const s3Url = 'https://burkbucket.s3.amazonaws.com';
+  const s3Url = process.env.REACT_APP_S3_URL;
   return (
     <DropzoneS3Uploader
       onFinish={handleFinishedUpload}
