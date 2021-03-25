@@ -14,7 +14,7 @@ function ClientForm2Reasons({ handleInputs }) {
     <Paper className={classes.paper} elevation={4}>
       <Grid container spacing={5}>
         <Grid item xs={6}>
-          <Typography onClick={handleConnorData} gutterBottom>
+          <Typography gutterBottom>
             <b>What is your primary reason for seeking therapy?</b>
           </Typography>
           <TextField

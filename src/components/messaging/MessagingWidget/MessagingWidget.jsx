@@ -18,7 +18,7 @@ import useStyles from '../../../hooks/useStyles';
 // Components
 import MessagingListItem from '../MessagingListItem/MessagingListItem';
 // Socket connection
-const socket = io.connect('http://localhost:5001');
+const socket = io();
 
 // Badge component which is added to user's Avatar if they have unread messages
 const StyledBadge = withStyles((theme) => ({

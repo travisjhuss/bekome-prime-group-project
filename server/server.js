@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+const socket = require('socket.io');
 
 const app = express();
 
@@ -18,6 +19,7 @@ const s3Router = require('./routes/s3.router');
 const editProfileRouter = require('./routes/editProfile.router');
 const interestedClientsRouter = require('./routes/interestedClients.router');
 const messagesRouter = require('./routes/messages.router');
+const socketIo = require('./routes/socket.io.messaging');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -49,6 +51,18 @@ app.use(express.static('build'));
 const PORT = process.env.PORT || 5000;
 
 /* Listen */
-app.listen(PORT, () => {
+const http = app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
+
+// Making socket.io instance, adding CORS
+// Currently running on PORT 5001, likely will need some refactoring to
+// function when deployed
+const io = socket(http, {
+  cors: {
+    origin: process.env.SOCKET_ORIGIN,
+    methods: ['GET', 'POST'],
+  },
+});
+
+io.on('connection', socketIo);

@@ -58,10 +58,8 @@ function AdminPanelForm({
         setEditState={setEditState}
         editPreference={editPreference}
       />
-
       <Paper className={classes.paper}>
         <Typography variant="h6">{category}</Typography>
-
         <List>
           {filteredPreferences.map((preference) => {
             return (
@@ -88,7 +86,6 @@ function AdminPanelForm({
             <br />
           </>
         )}
-
         <form
           onSubmit={() => handleSubmit({ category: category, name: newPref })}
         >
@@ -99,7 +96,6 @@ function AdminPanelForm({
             onChange={handleInputs}
             value={newPref}
           />
-
           <Button
             className={classes.adminPanelButton}
             type="submit"

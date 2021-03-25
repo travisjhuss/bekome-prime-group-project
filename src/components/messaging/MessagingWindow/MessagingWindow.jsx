@@ -14,7 +14,7 @@ import { Close, Send } from '@material-ui/icons';
 // Custom hooks
 import useStyles from '../../../hooks/useStyles';
 // Socket.io connection
-const socket = io.connect('http://localhost:5001');
+const socket = io();
 
 // Shows the array of messages each conversation contains, and the TextField
 // to send a new message
