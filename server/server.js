@@ -2,9 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const socket = require('socket.io');
-
 const app = express();
-
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
@@ -19,7 +17,7 @@ const s3Router = require('./routes/s3.router');
 const editProfileRouter = require('./routes/editProfile.router');
 const interestedClientsRouter = require('./routes/interestedClients.router');
 const messagesRouter = require('./routes/messages.router');
-const socketIo = require('./routes/socket.io.messaging');
+const socketIoMessaging = require('./routes/socket.io.messaging');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -56,8 +54,6 @@ const http = app.listen(PORT, () => {
 });
 
 // Making socket.io instance, adding CORS
-// Currently running on PORT 5001, likely will need some refactoring to
-// function when deployed
 const io = socket(http, {
   cors: {
     origin: process.env.SOCKET_ORIGIN,
@@ -65,4 +61,4 @@ const io = socket(http, {
   },
 });
 
-io.on('connection', socketIo);
+io.on('connection', socketIoMessaging);

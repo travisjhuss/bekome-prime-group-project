@@ -47,62 +47,64 @@ function EditClientProviderPreferencesAccordion({
           Provider Preferences
         </Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.editClientAccordion}>
-        <Typography>My ideal therapist would be:</Typography>
-        <Grid container spacing={5}>
-          <Grid item xs={6}>
-            <Box paddingBottom={1}>
-              <FormCheckboxes category={'genders'} />
-            </Box>
-            <Divider />
-            <Box paddingTop={1}>
-              <FormCheckboxes category={'sexual_orientations'} />
-            </Box>
+      <AccordionDetails>
+        <Box p={3}>
+          <Typography>My ideal therapist would be:</Typography>
+          <Grid container spacing={5}>
+            <Grid item xs={6}>
+              <Box paddingBottom={1}>
+                <FormCheckboxes category={'genders'} />
+              </Box>
+              <Divider />
+              <Box paddingTop={1}>
+                <FormCheckboxes category={'sexual_orientations'} />
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <FormCheckboxes category={'ethnicities'} />
+              <Box py={1}>
+                <Typography gutterBottom>My therapist should speak:</Typography>
+                <FormMenuChips category={'languages'} string={'Languages'} />
+              </Box>
+              <Box py={1}>
+                <Typography gutterBottom>
+                  My therapist's ideal religion would be:
+                </Typography>
+                <FormMenuChips category={'religions'} string={'Religions'} />
+              </Box>
+              <Box py={1}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={sliding_scale}
+                      onChange={() => handleBoolean(!sliding_scale)}
+                    />
+                  }
+                  label="I would like to see someone with sliding scale payments"
+                />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <FormCheckboxes category={'ethnicities'} />
-            <Box py={1}>
-              <Typography gutterBottom>My therapist should speak:</Typography>
-              <FormMenuChips category={'languages'} string={'Languages'} />
-            </Box>
-            <Box py={1}>
-              <Typography gutterBottom>
-                My therapist's ideal religion would be:
-              </Typography>
-              <FormMenuChips category={'religions'} string={'Religions'} />
-            </Box>
-            <Box py={1}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={sliding_scale}
-                    onChange={() => handleBoolean(!sliding_scale)}
-                  />
-                }
-                label="I would like to see someone with sliding scale payments"
-              />
-            </Box>
-          </Grid>
-        </Grid>
-        <Box display="flex" flexDirection="row-reverse" paddingTop={3}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.editClientButton}
-            onClick={handleSubmit}
-          >
-            Submit Changes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.editClientButton}
-            onClick={() => {
-              handleCancel();
-              handleOpenAccordion(false);
-            }}
-          >
-            Cancel
-          </Button>
+          <Box display="flex" flexDirection="row-reverse" paddingTop={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.editClientButton}
+              onClick={handleSubmit}
+            >
+              Submit Changes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.editClientButton}
+              onClick={() => {
+                handleCancel();
+                handleOpenAccordion(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </AccordionDetails>
     </Accordion>

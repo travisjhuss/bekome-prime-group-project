@@ -161,10 +161,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     width: '15ch',
   },
-  editClientAccordion: {
-    display: 'block',
-    padding: theme.spacing(3),
-  },
   filterDrawer: {
     width: 300,
   },

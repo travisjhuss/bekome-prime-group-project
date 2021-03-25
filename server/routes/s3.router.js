@@ -1,5 +1,5 @@
 const s3Router = require('react-dropzone-s3-uploader/s3router');
-// this router handles uploading photos and video to Amazon S3 bucket
+// this router handles uploading photos to Amazon S3 bucket
 module.exports = s3Router({
   bucket: process.env.AWS_S3_BUCKET, // required
   region: process.env.AWS_S3_REGION, // optional

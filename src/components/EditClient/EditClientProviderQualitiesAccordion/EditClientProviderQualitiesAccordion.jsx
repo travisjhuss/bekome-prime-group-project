@@ -32,28 +32,32 @@ function EditClientProviderQualitiesAccordion({
           Therapist Qualities
         </Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.editClientAccordion}>
-        <Typography>What qualities do you look for in a therapist?</Typography>
-        <FormCheckboxes category={'qualities'} limit={5} size="sm" />
-        <Box display="flex" flexDirection="row-reverse">
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.editClientButton}
-            onClick={handleSubmit}
-          >
-            Submit Changes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.editClientButton}
-            onClick={() => {
-              handleCancel();
-              handleOpenAccordion(false);
-            }}
-          >
-            Cancel
-          </Button>
+      <AccordionDetails>
+        <Box p={3} width="100%">
+          <Typography>
+            What qualities do you look for in a therapist?
+          </Typography>
+          <FormCheckboxes category={'qualities'} limit={5} size="sm" />
+          <Box display="flex" flexDirection="row-reverse">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.editClientButton}
+              onClick={handleSubmit}
+            >
+              Submit Changes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.editClientButton}
+              onClick={() => {
+                handleCancel();
+                handleOpenAccordion(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </AccordionDetails>
     </Accordion>

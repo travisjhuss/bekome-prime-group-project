@@ -36,40 +36,42 @@ function EditClientReasonsAccordion({
           Reasons/Challenges
         </Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.editClientAccordion}>
-        <Typography gutterBottom>
-          What is your primary reason for seeking therapy?
-        </Typography>
-        <TextField
-          variant="outlined"
-          label="Answer here"
-          multiline
-          fullWidth
-          rows={4}
-          className={classes.inputs}
-          value={primary_reason || ''}
-          onChange={handleInputs('primary_reason')}
-        />
-        <Box paddingTop={2}>
-          <Typography>What are you struggling with?</Typography>
-          <FormCheckboxes category={'challenges'} size="lg" />
-        </Box>
-        <Box display="flex" flexDirection="row-reverse">
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.editClientButton}
-            onClick={handleSubmit}
-          >
-            Submit Changes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.editClientButton}
-            onClick={handleCancel}
-          >
-            Cancel
-          </Button>
+      <AccordionDetails>
+        <Box p={3} width="100%">
+          <Typography gutterBottom>
+            What is your primary reason for seeking therapy?
+          </Typography>
+          <TextField
+            variant="outlined"
+            label="Answer here"
+            multiline
+            fullWidth
+            rows={4}
+            className={classes.inputs}
+            value={primary_reason || ''}
+            onChange={handleInputs('primary_reason')}
+          />
+          <Box paddingTop={2}>
+            <Typography>What are you struggling with?</Typography>
+            <FormCheckboxes category={'challenges'} size="lg" />
+          </Box>
+          <Box display="flex" flexDirection="row-reverse">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.editClientButton}
+              onClick={handleSubmit}
+            >
+              Submit Changes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.editClientButton}
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </AccordionDetails>
     </Accordion>

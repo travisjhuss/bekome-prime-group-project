@@ -47,60 +47,62 @@ function EditClientTherapyPreferencesAccordion({
           Therapy Preferences
         </Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.editClientAccordion}>
-        <Typography>Have you seen a therapist before?</Typography>
-        <Box paddingTop={1} paddingBottom={2}>
-          <Chip
-            className={classes.chipButtons}
-            label="Yes"
-            onClick={() => handleBoolean(true)}
-            color={previous_therapy ? 'primary' : 'default'}
-          />
-          <Chip
-            className={classes.chipButtons}
-            label="No"
-            onClick={() => handleBoolean(false)}
-            color={previous_therapy ? 'default' : 'primary'}
-          />
-        </Box>
-        <Typography gutterBottom>
-          If so, how was your previous therapy experience?
-        </Typography>
-        <TextField
-          disabled={!previous_therapy}
-          label="Answer here"
-          variant="outlined"
-          multiline
-          fullWidth
-          rows={4}
-          value={previous_experience || ''}
-          onChange={handleInputs('previous_experience')}
-        />
-        <Box py={2}>
-          <Typography>
-            What kind of treatments are you interested in?
+      <AccordionDetails>
+        <Box p={3} width="100%">
+          <Typography>Have you seen a therapist before?</Typography>
+          <Box paddingTop={1} paddingBottom={2}>
+            <Chip
+              className={classes.chipButtons}
+              label="Yes"
+              onClick={() => handleBoolean(true)}
+              color={previous_therapy ? 'primary' : 'default'}
+            />
+            <Chip
+              className={classes.chipButtons}
+              label="No"
+              onClick={() => handleBoolean(false)}
+              color={previous_therapy ? 'default' : 'primary'}
+            />
+          </Box>
+          <Typography gutterBottom>
+            If so, how was your previous therapy experience?
           </Typography>
-          <FormCheckboxes category={'treatments'} limit={3} size="sm" />
-        </Box>
-        <Box display="flex" flexDirection="row-reverse">
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.editClientButton}
-            onClick={handleSubmit}
-          >
-            Submit Changes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.editClientButton}
-            onClick={() => {
-              handleCancel();
-              handleOpenAccordion(false);
-            }}
-          >
-            Cancel
-          </Button>
+          <TextField
+            disabled={!previous_therapy}
+            label="Answer here"
+            variant="outlined"
+            multiline
+            fullWidth
+            rows={4}
+            value={previous_experience || ''}
+            onChange={handleInputs('previous_experience')}
+          />
+          <Box py={2}>
+            <Typography>
+              What kind of treatments are you interested in?
+            </Typography>
+            <FormCheckboxes category={'treatments'} limit={3} size="sm" />
+          </Box>
+          <Box display="flex" flexDirection="row-reverse">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.editClientButton}
+              onClick={handleSubmit}
+            >
+              Submit Changes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.editClientButton}
+              onClick={() => {
+                handleCancel();
+                handleOpenAccordion(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </AccordionDetails>
     </Accordion>
