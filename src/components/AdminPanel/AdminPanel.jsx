@@ -5,9 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
 function AdminPanel() {
-  const classes = useStyles();
   const dispatch = useDispatch();
-
   const preferences = useSelector((store) => store.preferences);
 
   const prefArray = [
@@ -67,7 +65,6 @@ function AdminPanel() {
     //     prefs: preferences.filter(pref => pref.category === 'states')
     // }
   ];
-  console.log(prefArray);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PREFERENCES' });
@@ -82,7 +79,6 @@ function AdminPanel() {
         category: preference.category,
       },
     });
-    console.log('adding', preference);
   };
 
   const deletePreference = (id) => {

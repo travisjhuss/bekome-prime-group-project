@@ -48,7 +48,7 @@ function AdminPanelEdit({
           }}
           variant="outlined"
         >
-          close
+          Close
         </Button>
       </div>
     </Modal>

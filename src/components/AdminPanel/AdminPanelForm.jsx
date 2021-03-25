@@ -24,7 +24,6 @@ function AdminPanelForm({
   editPreference,
 }) {
   const classes = useStyles();
-
   const [newPref, setNewPref] = useState('');
   const [modalState, setModalState] = useState(false);
   const [editState, setEditState] = useState({ category: '', name: '' });
