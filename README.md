@@ -8,7 +8,7 @@ Finding a therapist that you gel with isn't easy. It's a long process that usual
 
 bekome aims to make the act of matching therapists to clients a painless process. The app is set up similarly to a dating app, such as Hinge. Clients and providers respectively set up their profiles with personal info, preferences, profile picture, and more. Then clients are able to browse and filter through providers and communicate with the ones who seem like a good fit.
 
-## Screen Shot
+## Screen Shots
 
 ### Explore View:
 ![explore](documentation/images/explore-view.png)
